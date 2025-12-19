@@ -23,7 +23,7 @@ my-portfolio/
     └── images/         # Folder for project screenshots and logos
 
 ## 🔗 Live Demo
-[View the live portfolio here](https://[your-github-username].github.io/my-portfolio/)
+[View the live portfolio here](https://PERRINIO-dev.github.io/my-portfolio/)
 
 ## 📝 License
 This project is open source and available under the [MIT License](LICENSE).
