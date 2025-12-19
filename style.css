@@ -27,5 +27,14 @@ nav .container { display: flex; justify-content: space-between; align-items: cen
 section { padding: 5rem 0; }
 section:nth-child(even) { background-color: #fff; }
 
+/* About Section Styling */
+.about { background-color: #fff; }
+.about h2 { text-align: center; font-size: 2.5rem; margin-bottom: 2rem; color: #2d3436; }
+.about-content { max-width: 800px; margin: 0 auto; }
+.about-content p { font-size: 1.1rem; margin-bottom: 1.2rem; color: #555; line-height: 1.8; }
+.personal-points { margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid #f1f1f1; }
+.personal-points p { font-size: 1rem; color: #636e72; }
+.personal-points strong { color: #0984e3; }
+
 /* Footer */
 footer { background: #2d3436; color: #dfe6e9; text-align: center; padding: 2rem 0; font-family: 'Roboto Mono', monospace; font-size: 0.9rem; }
