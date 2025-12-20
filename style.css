@@ -403,6 +403,124 @@ section:nth-child(even) {
     color: #444;
 }
 
+/* ====== Project Detail View Styling ====== */
+.detail-header {
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid #eee;
+}
+
+.detail-title {
+    font-size: 2rem;
+    color: #2d3436;
+    line-height: 1.3;
+}
+
+.detail-section {
+    margin-bottom: 2.8rem;
+}
+
+.section-subtitle {
+    font-size: 1.4rem;
+    color: #0984e3;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #dfe6e9;
+}
+
+.detail-section p {
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 1.2rem;
+}
+
+/* Bulleted Lists */
+.detail-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.detail-list li {
+    margin-bottom: 0.8rem;
+    padding-left: 1.8rem;
+    position: relative;
+    line-height: 1.6;
+    color: #444;
+}
+
+.detail-list li:before {
+    content: '▸';
+    color: #00b894;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+/* Skills Tags */
+.skills-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 0.5rem;
+}
+
+.skill-tag {
+    background-color: #e3f2fd;
+    color: #0984e3;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid #bbdefb;
+}
+
+/* Project Images Grid */
+.images-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.image-item {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    background: #f8f9fa;
+    border: 1px solid #eee;
+}
+
+.image-wrapper {
+    padding: 1.2rem;
+    text-align: center;
+}
+
+.project-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background: #fff;
+    padding: 0.5rem;
+}
+
+.image-caption {
+    margin-top: 0.8rem;
+    font-size: 0.9rem;
+    color: #636e72;
+    font-style: italic;
+}
+
+.image-note {
+    font-size: 0.9rem;
+    color: #888;
+    margin-top: 1.5rem;
+    background: #f9f9f9;
+    padding: 0.8rem;
+    border-radius: 6px;
+    border-left: 3px solid #0984e3;
+}
+
 /* We will add more styles for the detail view content later */
 
 /* Footer */
