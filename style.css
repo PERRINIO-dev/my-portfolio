@@ -286,6 +286,125 @@ section:nth-child(even) {
     font-size: 1.2rem;
 }
 
+/* ====== Projects Section Styling ====== */
+.projects {
+    background-color: #f8f9fa;
+    padding: 5rem 0;
+}
+
+/* --- Projects Grid --- */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.project-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 2px solid transparent;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.project-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+    border-color: #0984e3;
+}
+
+.project-card-img {
+    height: 180px;
+    background: linear-gradient(135deg, #6c5ce7 0%, #0984e3 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+}
+
+.img-placeholder {
+    padding: 1rem;
+    text-align: center;
+}
+
+.project-card-content {
+    padding: 1.8rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-card-title {
+    font-size: 1.4rem;
+    color: #2d3436;
+    margin-bottom: 0.8rem;
+    line-height: 1.4;
+}
+
+.project-card-desc {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 1.2rem;
+    flex-grow: 1;
+    font-size: 0.98rem;
+}
+
+.project-card-hint {
+    font-size: 0.85rem;
+    color: #0984e3;
+    font-weight: 500;
+    margin-top: auto;
+}
+
+/* --- Project Detail View --- */
+.project-detail {
+    display: none;
+    /* Hidden by default */
+    margin-top: 2rem;
+    background: white;
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.btn-back {
+    background: none;
+    border: none;
+    color: #0984e3;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0.5rem 0;
+    margin-bottom: 2rem;
+    display: inline-flex;
+    align-items: center;
+    transition: color 0.3s;
+}
+
+.btn-back:hover {
+    color: #6c5ce7;
+}
+
+.btn-back span {
+    margin-right: 8px;
+    font-size: 1.2rem;
+}
+
+.detail-content {
+    line-height: 1.7;
+    color: #444;
+}
+
+/* We will add more styles for the detail view content later */
+
 /* Footer */
 footer {
     background: #2d3436;
