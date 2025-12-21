@@ -167,6 +167,127 @@ section:nth-child(even) {
     color: #0984e3;
 }
 
+/* ====== Technical Skills Section ====== */
+.skills {
+    background-color: #fff;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: #636e72;
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Skills Accordion Container */
+.skills-accordion {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Each Accordion Item */
+.accordion-item {
+    border: 1px solid #dfe6e9;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    background: #f8f9fa;
+    transition: all 0.3s ease;
+}
+
+.accordion-item:hover {
+    border-color: #0984e3;
+}
+
+/* Accordion Header (Clickable Button) */
+.accordion-header {
+    width: 100%;
+    padding: 1.3rem 1.8rem;
+    background: none;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    text-align: left;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #2d3436;
+    transition: background-color 0.3s;
+}
+
+.accordion-header:hover {
+    background-color: rgba(9, 132, 227, 0.05);
+}
+
+.accordion-title {
+    flex-grow: 1;
+}
+
+.accordion-icon {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: #0984e3;
+    transition: transform 0.3s ease;
+    margin-left: 1rem;
+}
+
+/* Accordion Content (Hidden by default) */
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
+    background-color: white;
+}
+
+.accordion-content ul {
+    list-style: none;
+    padding: 0 1.8rem 1.8rem;
+    margin: 0;
+}
+
+.accordion-content li {
+    padding: 0.5rem 0;
+    color: #555;
+    line-height: 1.6;
+    border-bottom: 1px dashed #eee;
+}
+
+.accordion-content li:last-child {
+    border-bottom: none;
+}
+
+.accordion-content li:before {
+    content: '▸';
+    color: #00b894;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+/* Active State (When an item is open) */
+.accordion-item.active {
+    border-color: #0984e3;
+    box-shadow: 0 5px 15px rgba(9, 132, 227, 0.1);
+}
+
+.accordion-item.active .accordion-header {
+    background-color: rgba(9, 132, 227, 0.08);
+}
+
+.accordion-item.active .accordion-icon {
+    transform: rotate(45deg);
+    /* Turns '+' into 'x' */
+}
+
+.accordion-item.active .accordion-content {
+    max-height: 500px;
+    /* Adjust based on your longest content */
+}
+
 /* ====== Experience Section Styling ====== */
 .section {
     padding: 5rem 0;
@@ -521,7 +642,6 @@ section:nth-child(even) {
     border-left: 3px solid #0984e3;
 }
 
-/* We will add more styles for the detail view content later */
 
 /* Footer */
 footer {
