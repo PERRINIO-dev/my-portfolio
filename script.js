@@ -17,6 +17,43 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
+// ====== Technical Skills Accordion ======
+function initSkillsAccordion() {
+    const accordionItems = document.querySelectorAll('.accordion-item');
+
+    accordionItems.forEach(item => {
+        const header = item.querySelector('.accordion-header');
+
+        header.addEventListener('click', () => {
+            // Check if the clicked item is already active
+            const isAlreadyActive = item.classList.contains('active');
+
+            // Close all accordion items
+            accordionItems.forEach(otherItem => {
+                otherItem.classList.remove('active');
+                const otherContent = otherItem.querySelector('.accordion-content');
+                otherContent.style.maxHeight = null;
+            });
+
+            // If it wasn't active, open the clicked one
+            if (!isAlreadyActive) {
+                item.classList.add('active');
+                const content = item.querySelector('.accordion-content');
+                // Set max-height to scrollHeight for smooth expansion
+                content.style.maxHeight = content.scrollHeight + 'px';
+            }
+        });
+    });
+
+    // Optionally, open the first item by default
+    // accordionItems[0].classList.add('active');
+    // const firstContent = accordionItems[0].querySelector('.accordion-content');
+    // firstContent.style.maxHeight = firstContent.scrollHeight + 'px';
+}
+
+// Initialize the accordion when the DOM is loaded
+document.addEventListener('DOMContentLoaded', initSkillsAccordion);
+
 // ====== Projects Section Interactivity ======
 
 // Wait for the DOM to be fully loaded
