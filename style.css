@@ -642,13 +642,314 @@ section:nth-child(even) {
     border-left: 3px solid #0984e3;
 }
 
+/* ====== Education Timeline Section ====== */
+.education {
+    background-color: #f8f9fa;
+}
 
-/* Footer */
-footer {
+/* Timeline Container */
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 3rem auto 0;
+}
+
+/* Vertical Line */
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 30px;
+    top: 0;
+    height: 100%;
+    width: 3px;
+    background: linear-gradient(to bottom, #0984e3, #00b894);
+    border-radius: 3px;
+}
+
+/* Each Timeline Item */
+.timeline-item {
+    position: relative;
+    padding-left: 80px;
+    margin-bottom: 3rem;
+}
+
+/* Timeline Marker (Dot) */
+.timeline-marker {
+    position: absolute;
+    left: 22px;
+    top: 5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 5px solid #0984e3;
+    background: white;
+    z-index: 1;
+    box-shadow: 0 0 0 4px rgba(9, 132, 227, 0.1);
+}
+
+/* Timeline Content Card */
+.timeline-content {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+    border-left: 4px solid #0984e3;
+}
+
+.timeline-degree {
+    font-size: 1.4rem;
+    color: #2d3436;
+    margin-bottom: 0.4rem;
+}
+
+.timeline-school {
+    font-size: 1.1rem;
+    color: #0984e3;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+}
+
+.timeline-date {
+    display: inline-block;
+    font-weight: 700;
+    color: #0984e3;
+    background: #e3f2fd;
+    padding: 0.3rem 1.2rem;
+    border-radius: 20px;
+    font-size: 0.95rem;
+}
+
+/* ====== Certifications Grid Section ====== */
+.certifications {
+    background-color: #fff;
+}
+
+/* Certifications Grid */
+.certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+/* Individual Certification Card */
+.cert-card {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 1.5rem;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+.cert-card:hover {
+    transform: translateY(-5px);
+    border-color: #dfe6e9;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* Card Header (Title + Status) */
+.cert-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.8rem;
+}
+.cert-title {
+    font-size: 1.2rem;
+    color: #2d3436;
+    margin: 0;
+    line-height: 1.4;
+    flex-grow: 1;
+    padding-right: 1rem;
+}
+.cert-status {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 0.3rem 0.8rem;
+    border-radius: 12px;
+    white-space: nowrap;
+}
+
+/* Status-Specific Colors */
+.cert-card[data-status="in-progress"] .cert-status {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeaa7;
+}
+.cert-card[data-status="planned"] .cert-status {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+.cert-card[data-status="later"] .cert-status {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Certification Description */
+.cert-desc {
+    color: #555;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* ====== Contact Section ====== */
+.contact {
+    background-color: #f8f9fa;
+    padding: 5rem 0;
+}
+
+.contact-card {
+    max-width: 1000px;
+    margin: 2.5rem auto 0;
+    background: white;
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+    border-top: 5px solid #0984e3;
+}
+
+.contact-columns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3rem;
+}
+.contact-form-col, .contact-details-col {
+    flex: 1;
+    min-width: 300px;
+}
+.contact-columns h3 {
+    font-size: 1.5rem;
+    color: #2d3436;
+    margin-bottom: 1.8rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 2px solid #eee;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #444;
+}
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.9rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    transition: border 0.3s;
+}
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #0984e3;
+    box-shadow: 0 0 0 3px rgba(9, 132, 227, 0.2);
+}
+.btn-submit {
+    background: linear-gradient(to right, #0984e3, #00b894);
+    color: white;
+    border: none;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.btn-submit:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 15px rgba(9, 132, 227, 0.3);
+}
+.form-status {
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    min-height: 1.5em;
+}
+
+/* Direct Contact Styles */
+.contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+.contact-method {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    transition: all 0.3s;
+}
+.contact-method:hover {
+    background-color: #f1f8ff;
+    border-color: #bbdefb;
+    transform: translateX(5px);
+}
+.contact-icon {
+    font-size: 1.8rem;
+    margin-right: 1.2rem;
+    width: 40px;
+    text-align: center;
+}
+.contact-text {
+    flex: 1;
+}
+.contact-text strong {
+    display: block;
+    color: #2d3436;
+    font-size: 1rem;
+}
+.contact-text span {
+    color: #555;
+    font-size: 0.95rem;
+}
+.contact-note {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: #e3f2fd;
+    border-radius: 8px;
+    color: #555;
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+/* ====== Footer ====== */
+.site-footer {
     background: #2d3436;
     color: #dfe6e9;
     text-align: center;
     padding: 2rem 0;
     font-family: 'Roboto Mono', monospace;
     font-size: 0.9rem;
+}
+.site-footer p {
+    margin: 0.5rem 0;
+}
+.footer-note {
+    color: #b2bec3;
+    font-size: 0.85rem;
+    margin-top: 0.8rem !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .contact-columns {
+        flex-direction: column;
+        gap: 2.5rem;
+    }
+    .contact-card {
+        padding: 1.8rem;
+    }
 }

@@ -1,7 +1,4 @@
-// Update the copyright year automatically
-document.getElementById('currentYear').textContent = new Date().getFullYear();
-
-// Simple smooth scroll for navigation links (optional)
+// Simple smooth scroll for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -297,4 +294,59 @@ document.addEventListener('DOMContentLoaded', function () {
         projectsGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 
+});
+
+// ====== Contact Form Handling ======
+function initContactForm() {
+    const form = document.getElementById('contact-form');
+    const status = document.getElementById('form-status');
+
+    if (!form) return;
+
+    async function handleSubmit(event) {
+        event.preventDefault();
+        status.textContent = 'Sending...';
+        status.style.color = '#0984e3';
+
+        // Collect form data
+        const formData = new FormData(event.target);
+
+        try {
+            const response = await fetch(event.target.action, {
+                method: form.method,
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            });
+
+            if (response.ok) {
+                status.textContent = 'Thanks for your message! I’ll get back to you soon.';
+                status.style.color = '#00b894';
+                form.reset(); // Clear the form
+            } else {
+                const errorData = await response.json();
+                if (errorData.error) {
+                    status.textContent = errorData.error;
+                } else {
+                    status.textContent = 'Oops! There was a problem sending your message.';
+                }
+                status.style.color = '#d63031';
+            }
+        } catch (error) {
+            status.textContent = 'Oops! There was a network error. Please try again.';
+            status.style.color = '#d63031';
+            console.error('Form submission error:', error);
+        }
+    }
+
+    form.addEventListener('submit', handleSubmit);
+}
+
+// Initialize when the page loads
+document.addEventListener('DOMContentLoaded', function () {
+    // ... your other initialization code ...
+
+    initContactForm();
+
+    // Update copyright year in footer (add this if not already present)
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
 });
