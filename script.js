@@ -1,69 +1,125 @@
-// Simple smooth scroll for navigation links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        if (targetId === '#') return;
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-            window.scrollTo({
-                top: targetElement.offsetTop - 80,
-                behavior: 'smooth'
-            });
-        }
-    });
+// ====== MAIN INITIALIZATION ======
+document.addEventListener('DOMContentLoaded', function () {
+    console.log('Portfolio initialized');
+
+    // 1. Initialize Smooth Scrolling
+    initSmoothScroll();
+
+    // 2. Initialize Mobile Navigation
+    initMobileNav();
+
+    // 3. Initialize Skills Accordion
+    initSkillsAccordion();
+
+    // 4. Initialize Projects Section
+    initProjects();
+
+    // 5. Initialize Contact Form
+    initContactForm();
+
+    // 6. Update Copyright Year
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
 });
 
-// ====== Technical Skills Accordion ======
+// ====== 1. SMOOTH SCROLLING ======
+function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+}
+
+// ====== 2. MOBILE NAVIGATION ======
+function initMobileNav() {
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+    
+    // Safety check: elements might not exist if nav HTML wasn't updated
+    if (!hamburger || !navLinks) {
+        console.warn('Mobile navigation elements not found. Did you update the HTML?');
+        return;
+    }
+
+    const navItems = document.querySelectorAll('.nav-link');
+
+    // Toggle menu on hamburger click
+    hamburger.addEventListener('click', () => {
+        console.log('Hamburger clicked');
+        navLinks.classList.toggle('active');
+        hamburger.classList.toggle('active');
+    });
+
+    // Close menu when a nav link is clicked
+    navItems.forEach(item => {
+        item.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+            hamburger.classList.remove('active');
+        });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (event) => {
+        const isClickInsideNav = navLinks.contains(event.target) || hamburger.contains(event.target);
+        if (!isClickInsideNav && navLinks.classList.contains('active')) {
+            navLinks.classList.remove('active');
+            hamburger.classList.remove('active');
+        }
+    });
+}
+
+// ====== 3. TECHNICAL SKILLS ACCORDION ======
 function initSkillsAccordion() {
     const accordionItems = document.querySelectorAll('.accordion-item');
+
+    if (accordionItems.length === 0) return;
 
     accordionItems.forEach(item => {
         const header = item.querySelector('.accordion-header');
 
         header.addEventListener('click', () => {
-            // Check if the clicked item is already active
             const isAlreadyActive = item.classList.contains('active');
 
             // Close all accordion items
             accordionItems.forEach(otherItem => {
                 otherItem.classList.remove('active');
                 const otherContent = otherItem.querySelector('.accordion-content');
-                otherContent.style.maxHeight = null;
+                if (otherContent) otherContent.style.maxHeight = null;
             });
 
             // If it wasn't active, open the clicked one
             if (!isAlreadyActive) {
                 item.classList.add('active');
                 const content = item.querySelector('.accordion-content');
-                // Set max-height to scrollHeight for smooth expansion
-                content.style.maxHeight = content.scrollHeight + 'px';
+                if (content) content.style.maxHeight = content.scrollHeight + 'px';
             }
         });
     });
-
-    // Optionally, open the first item by default
-    // accordionItems[0].classList.add('active');
-    // const firstContent = accordionItems[0].querySelector('.accordion-content');
-    // firstContent.style.maxHeight = firstContent.scrollHeight + 'px';
 }
 
-// Initialize the accordion when the DOM is loaded
-document.addEventListener('DOMContentLoaded', initSkillsAccordion);
-
-// ====== Projects Section Interactivity ======
-
-// Wait for the DOM to be fully loaded
-document.addEventListener('DOMContentLoaded', function () {
-
-    // Get the main elements
+// ====== 4. PROJECTS SECTION ======
+function initProjects() {
     const projectsGrid = document.getElementById('projects-grid');
     const projectDetail = document.getElementById('project-detail');
     const backButton = document.getElementById('back-to-projects');
     const detailContent = document.getElementById('detail-content');
 
-    // ===== PROJECTS DATA =====
-    // This object contains all the detailed content for your projects.
+    // Check if elements exist
+    if (!projectsGrid || !projectDetail || !backButton || !detailContent) {
+        console.warn('Projects section elements not found.');
+        return;
+    }
+
+    // Project data (same as your original)
     const projectsData = {
         1: {
             title: "Enterprise Virtualization Cluster with VMware vSphere, HA & Fault Tolerance",
@@ -94,7 +150,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 "Active Directory integration",
                 "Infrastructure testing & validation"
             ],
-            // Image filenames you will place in /assets/images/
             images: ["vmware-arch-diagram.jpg", "vcenter-dashboard.png", "ha-test-result.png"]
         },
         2: {
@@ -205,80 +260,64 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     };
 
-    // ===== FUNCTION TO RENDER THE DETAIL VIEW =====
+    // Function to render project detail
     function renderProjectDetail(projectId) {
         const project = projectsData[projectId];
         if (!project) return;
 
-        // Build the HTML for the detail view using your specification
         let html = `
             <header class="detail-header">
                 <h2 class="detail-title">${project.title}</h2>
             </header>
-
             <section class="detail-section">
                 <h3 class="section-subtitle">🔹 Project Overview</h3>
                 <p>${project.overview}</p>
             </section>
-
             <section class="detail-section">
                 <h3 class="section-subtitle">🔹 Architecture & Implementation</h3>
                 <ul class="detail-list">
                     ${project.architecture.map(item => `<li>${item}</li>`).join('')}
                 </ul>
             </section>
-
             <section class="detail-section">
                 <h3 class="section-subtitle">🔹 Results & Validation</h3>
                 <ul class="detail-list">
                     ${project.results.map(item => `<li>${item}</li>`).join('')}
                 </ul>
             </section>
-
             <section class="detail-section">
                 <h3 class="section-subtitle">🔹 Skills & Technologies Used</h3>
                 <div class="skills-container">
                     ${project.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
                 </div>
             </section>
-
             <section class="detail-section">
                 <h3 class="section-subtitle">🔹 Project Images</h3>
                 <p><em>Visual documentation of the project's implementation and outcomes.</em></p>
                 <div class="images-container">
         `;
 
-        // Add image placeholders (you will replace src with your actual image paths)
         project.images.forEach((imgName, index) => {
             html += `
-                    <div class="image-item">
-                        <div class="image-wrapper">
-                            <!-- Replace the src below with your actual image path -->
-                            <img src="assets/images/${imgName}" alt="Project Image ${index + 1}" class="project-image">
-                            <div class="image-caption">${imgName.replace(/\.[^/.]+$/, "").replace(/-/g, " ")}</div>
-                        </div>
+                <div class="image-item">
+                    <div class="image-wrapper">
+                        <img src="assets/images/${imgName}" alt="Project Image ${index + 1}" class="project-image">
+                        <div class="image-caption">${imgName.replace(/\.[^/.]+$/, "").replace(/-/g, " ")}</div>
                     </div>
-            `;
+                </div>`;
         });
 
-        html += `
-                </div>
+        html += `</div>
                 <p class="image-note"><small>To add your screenshots, save them in the <code>/assets/images/</code> folder with the filenames listed in the project data.</small></p>
-            </section>
-        `;
+            </section>`;
 
-        // Inject the built HTML into the detail view
         detailContent.innerHTML = html;
-
-        // Switch views
         projectsGrid.style.display = 'none';
         projectDetail.style.display = 'block';
         projectDetail.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
-    // ===== EVENT LISTENERS =====
-
-    // 1. Click event for project cards
+    // Click event for project cards
     const projectCards = document.querySelectorAll('.project-card');
     projectCards.forEach(card => {
         card.addEventListener('click', function () {
@@ -287,28 +326,31 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // 2. Click event for the "Back to Projects" button
+    // Click event for back button
     backButton.addEventListener('click', function () {
         projectDetail.style.display = 'none';
         projectsGrid.style.display = 'grid';
         projectsGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
+}
 
-});
-
-// ====== Contact Form Handling ======
+// ====== 5. CONTACT FORM ======
 function initContactForm() {
     const form = document.getElementById('contact-form');
     const status = document.getElementById('form-status');
 
-    if (!form) return;
+    if (!form) {
+        console.warn('Contact form not found.');
+        return;
+    }
 
     async function handleSubmit(event) {
         event.preventDefault();
+        if (!status) return;
+        
         status.textContent = 'Sending...';
         status.style.color = '#0984e3';
 
-        // Collect form data
         const formData = new FormData(event.target);
 
         try {
@@ -321,14 +363,10 @@ function initContactForm() {
             if (response.ok) {
                 status.textContent = 'Thanks for your message! I’ll get back to you soon.';
                 status.style.color = '#00b894';
-                form.reset(); // Clear the form
+                form.reset();
             } else {
                 const errorData = await response.json();
-                if (errorData.error) {
-                    status.textContent = errorData.error;
-                } else {
-                    status.textContent = 'Oops! There was a problem sending your message.';
-                }
+                status.textContent = errorData.error || 'Oops! There was a problem sending your message.';
                 status.style.color = '#d63031';
             }
         } catch (error) {
@@ -340,13 +378,3 @@ function initContactForm() {
 
     form.addEventListener('submit', handleSubmit);
 }
-
-// Initialize when the page loads
-document.addEventListener('DOMContentLoaded', function () {
-    // ... your other initialization code ...
-
-    initContactForm();
-
-    // Update copyright year in footer (add this if not already present)
-    document.getElementById('currentYear').textContent = new Date().getFullYear();
-});
