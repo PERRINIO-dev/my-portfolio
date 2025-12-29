@@ -30,9 +30,9 @@ function initSmoothScroll() {
             if (targetId === '#') return;
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
                 });
             }
         });
@@ -43,7 +43,7 @@ function initSmoothScroll() {
 function initMobileNav() {
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('nav-links');
-    
+
     // Safety check: elements might not exist if nav HTML wasn't updated
     if (!hamburger || !navLinks) {
         console.warn('Mobile navigation elements not found. Did you update the HTML?');
@@ -270,29 +270,29 @@ function initProjects() {
                 <h2 class="detail-title">${project.title}</h2>
             </header>
             <section class="detail-section">
-                <h3 class="section-subtitle">🔹 Project Overview</h3>
+                <h3 class="detail-subtitle">🔹 Project Overview</h3>
                 <p>${project.overview}</p>
             </section>
             <section class="detail-section">
-                <h3 class="section-subtitle">🔹 Architecture & Implementation</h3>
+                <h3 class="detail-subtitle">🔹 Architecture & Implementation</h3>
                 <ul class="detail-list">
                     ${project.architecture.map(item => `<li>${item}</li>`).join('')}
                 </ul>
             </section>
             <section class="detail-section">
-                <h3 class="section-subtitle">🔹 Results & Validation</h3>
+                <h3 class="detail-subtitle">🔹 Results & Validation</h3>
                 <ul class="detail-list">
                     ${project.results.map(item => `<li>${item}</li>`).join('')}
                 </ul>
             </section>
             <section class="detail-section">
-                <h3 class="section-subtitle">🔹 Skills & Technologies Used</h3>
+                <h3 class="detail-subtitle">🔹 Skills & Technologies Used</h3>
                 <div class="skills-container">
                     ${project.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
                 </div>
             </section>
             <section class="detail-section">
-                <h3 class="section-subtitle">🔹 Project Images</h3>
+                <h3 class="detail-subtitle">🔹 Project Images</h3>
                 <p><em>Visual documentation of the project's implementation and outcomes.</em></p>
                 <div class="images-container">
         `;
@@ -320,9 +320,19 @@ function initProjects() {
     // Click event for project cards
     const projectCards = document.querySelectorAll('.project-card');
     projectCards.forEach(card => {
+        // Click/tap support
         card.addEventListener('click', function () {
             const projectId = this.getAttribute('data-project-id');
             renderProjectDetail(projectId);
+        });
+
+        // Keyboard support (Enter/Space)
+        card.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault(); // Prevent space from scrolling
+                const projectId = this.getAttribute('data-project-id');
+                renderProjectDetail(projectId);
+            }
         });
     });
 
@@ -347,7 +357,7 @@ function initContactForm() {
     async function handleSubmit(event) {
         event.preventDefault();
         if (!status) return;
-        
+
         status.textContent = 'Sending...';
         status.style.color = '#0984e3';
 
