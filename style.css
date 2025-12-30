@@ -766,8 +766,19 @@ button:focus,
     height: auto;
     border-radius: 8px;
     border: 1px solid #ddd;
-    background: #fff;
+    background: #f8f9fa;
     padding: 0.5rem;
+    min-height: 150px;
+    object-fit: cover;
+}
+
+/* Fallback image styling */
+.project-image[src*="data:image/svg+xml"] {
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
 }
 
 .image-caption {
@@ -980,6 +991,57 @@ button:focus,
     margin-bottom: 1.8rem;
     padding-bottom: 0.8rem;
     border-bottom: 2px solid #eee;
+}
+
+/* ====== Contact Form Status Styles ====== */
+.form-status {
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    min-height: 1.5em;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+}
+
+/* Success message styles */
+.form-status[style*="color: #00b894"] {
+    animation: fadeIn 0.5s ease;
+}
+
+/* Error message styles */
+.form-status[style*="color: #d63031"] {
+    animation: shake 0.5s ease;
+}
+
+/* Loading state for submit button */
+.btn-submit:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* Real-time validation styles */
+.form-group input.error,
+.form-group textarea.error {
+    border-color: #d63031 !important;
+    box-shadow: 0 0 0 3px rgba(214, 48, 49, 0.2) !important;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
 }
 
 /* Form Styles */

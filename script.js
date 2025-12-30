@@ -323,14 +323,16 @@ function initProjects() {
 
         project.images.forEach((imgName, index) => {
             html += `
-                <div class="image-item">
-                    <div class="image-wrapper">
-                        <img src="assets/images/${imgName}" alt="Project Image ${index + 1}" class="project-image">
-                        <div class="image-caption">${imgName.replace(/\.[^/.]+$/, "").replace(/-/g, " ")}</div>
-                    </div>
-                </div>`;
+        <div class="image-item">
+            <div class="image-wrapper">
+                <img src="assets/images/${imgName}" 
+                     alt="Project Image ${index + 1}: ${imgName.replace(/\.[^/.]+$/, "").replace(/-/g, " ")}" 
+                     class="project-image"
+                     onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIyMDAiIHZpZXdCb3g9IjAgMCA0MDAgMjAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjZjhmOWZhIi8+PHRleHQgeD0iMjAwIiB5PSIxMDAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzYzNmU3MiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPlByb2plY3QgRGlhZ3JhbTwvdGV4dD48L3N2Zz4='; this.alt='Image not available';">
+                <div class="image-caption">${imgName.replace(/\.[^/.]+$/, "").replace(/-/g, " ")}</div>
+            </div>
+        </div>`;
         });
-
         html += `</div>
                 <p class="image-note"><small>To add your screenshots, save them in the <code>/assets/images/</code> folder with the filenames listed in the project data.</small></p>
             </section>`;
@@ -338,7 +340,7 @@ function initProjects() {
         detailContent.innerHTML = html;
         projectsGrid.style.display = 'none';
         projectDetail.style.display = 'block';
-        
+
         // Scroll to the detail view
         projectDetail.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
@@ -347,15 +349,15 @@ function initProjects() {
     function returnToProjects() {
         projectDetail.style.display = 'none';
         projectsGrid.style.display = 'grid';
-        
+
         // Return focus to the previously clicked card
         if (lastClickedCard) {
             setTimeout(() => {
                 lastClickedCard.focus();
                 // Scroll the card into view
-                lastClickedCard.scrollIntoView({ 
-                    behavior: 'smooth', 
-                    block: 'nearest' 
+                lastClickedCard.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'nearest'
                 });
             }, 100);
         } else {
@@ -385,7 +387,7 @@ function initProjects() {
 
     // Click event for back button
     backButton.addEventListener('click', returnToProjects);
-    
+
     // Keyboard support for back button
     backButton.addEventListener('keydown', function (e) {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -405,14 +407,86 @@ function initContactForm() {
         return;
     }
 
+    // Create a more prominent status container if it doesn't exist
+    if (!status) {
+        console.warn('Form status element not found.');
+        return;
+    }
+
+    // Add ARIA attributes for accessibility
+    status.setAttribute('role', 'status');
+    status.setAttribute('aria-live', 'polite');
+    status.setAttribute('aria-atomic', 'true');
+
+    // Basic form validation
+    function validateForm(formData) {
+        const name = formData.get('name')?.trim() || '';
+        const email = formData.get('email')?.trim() || '';
+        const message = formData.get('message')?.trim() || '';
+
+        if (!name) {
+            return 'Please enter your name.';
+        }
+        if (!email) {
+            return 'Please enter your email address.';
+        }
+        if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+            return 'Please enter a valid email address.';
+        }
+        if (!message) {
+            return 'Please enter your message.';
+        }
+        if (message.length < 10) {
+            return 'Please enter a message with at least 10 characters.';
+        }
+        return null; // No errors
+    }
+
     async function handleSubmit(event) {
         event.preventDefault();
-        if (!status) return;
 
-        status.textContent = 'Sending...';
+        // Get form data
+        const formData = new FormData(event.target);
+
+        // Validate form
+        const validationError = validateForm(formData);
+        if (validationError) {
+            status.textContent = validationError;
+            status.style.color = '#d63031';
+            status.style.backgroundColor = '#ffeaea';
+            status.style.padding = '1rem';
+            status.style.borderRadius = '8px';
+            status.style.border = '1px solid #ffcccc';
+
+            // Focus the first error field
+            if (!formData.get('name')?.trim()) {
+                document.getElementById('name').focus();
+            } else if (!formData.get('email')?.trim() || !formData.get('email')?.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                document.getElementById('email').focus();
+            } else {
+                document.getElementById('message').focus();
+            }
+
+            return;
+        }
+
+        // Clear previous status styles
+        status.style.backgroundColor = '';
+        status.style.padding = '';
+        status.style.borderRadius = '';
+        status.style.border = '';
+
+        // Show loading state
+        status.textContent = 'Sending your message...';
         status.style.color = '#0984e3';
 
-        const formData = new FormData(event.target);
+        // Disable submit button during submission
+        const submitButton = form.querySelector('button[type="submit"]');
+        const originalButtonText = submitButton.textContent;
+        submitButton.textContent = 'Sending...';
+        submitButton.disabled = true;
+        submitButton.style.opacity = '0.7';
+        submitButton.style.cursor = 'not-allowed';
 
         try {
             const response = await fetch(event.target.action, {
@@ -422,20 +496,88 @@ function initContactForm() {
             });
 
             if (response.ok) {
-                status.textContent = 'Thanks for your message! I’ll get back to you soon.';
+                // Success state
+                status.textContent = '✅ Thank you! Your message has been sent. I\'ll get back to you soon.';
                 status.style.color = '#00b894';
+                status.style.backgroundColor = '#e8f7f3';
+                status.style.padding = '1rem';
+                status.style.borderRadius = '8px';
+                status.style.border = '1px solid #b2ebd2';
+
                 form.reset();
+
+                // Focus the name field for next message
+                setTimeout(() => {
+                    document.getElementById('name').focus();
+                }, 100);
             } else {
+                // Server error
                 const errorData = await response.json();
-                status.textContent = errorData.error || 'Oops! There was a problem sending your message.';
+                status.textContent = errorData.error || '❌ Oops! There was a problem sending your message. Please try again.';
                 status.style.color = '#d63031';
+                status.style.backgroundColor = '#ffeaea';
+                status.style.padding = '1rem';
+                status.style.borderRadius = '8px';
+                status.style.border = '1px solid #ffcccc';
             }
         } catch (error) {
-            status.textContent = 'Oops! There was a network error. Please try again.';
+            // Network error
+            status.textContent = '❌ Network error. Please check your connection and try again.';
             status.style.color = '#d63031';
+            status.style.backgroundColor = '#ffeaea';
+            status.style.padding = '1rem';
+            status.style.borderRadius = '8px';
+            status.style.border = '1px solid #ffcccc';
             console.error('Form submission error:', error);
+        } finally {
+            // Re-enable submit button
+            submitButton.textContent = originalButtonText;
+            submitButton.disabled = false;
+            submitButton.style.opacity = '1';
+            submitButton.style.cursor = 'pointer';
+
+            // Auto-clear error messages after 10 seconds
+            if (status.style.color === '#d63031') {
+                setTimeout(() => {
+                    status.textContent = '';
+                    status.style.backgroundColor = '';
+                    status.style.padding = '';
+                    status.style.borderRadius = '';
+                    status.style.border = '';
+                }, 10000);
+            }
         }
     }
 
     form.addEventListener('submit', handleSubmit);
+
+    // Real-time validation (optional but nice UX)
+    const emailField = document.getElementById('email');
+    if (emailField) {
+        emailField.addEventListener('blur', function () {
+            const email = this.value.trim();
+            if (email && !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                this.style.borderColor = '#d63031';
+                this.style.boxShadow = '0 0 0 2px rgba(214, 48, 49, 0.2)';
+            } else {
+                this.style.borderColor = '';
+                this.style.boxShadow = '';
+            }
+        });
+    }
+
+    // Clear status when user starts typing
+    const formFields = form.querySelectorAll('input, textarea');
+    formFields.forEach(field => {
+        field.addEventListener('input', () => {
+            if (status.textContent && status.style.color === '#d63031') {
+                status.textContent = '';
+                status.style.backgroundColor = '';
+                status.style.padding = '';
+                status.style.borderRadius = '';
+                status.style.border = '';
+            }
+        });
+    });
 }
+
