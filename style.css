@@ -8,12 +8,14 @@
 /* ====== Smooth Scroll Offset ====== */
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 85px; /* Adjust based on your nav height */
+    scroll-padding-top: 85px;
+    /* Adjust based on your nav height */
 }
 
 /* Add scroll margin to all sections that have IDs */
 section[id] {
-    scroll-margin-top: 85px; /* Same as scroll-padding-top */
+    scroll-margin-top: 85px;
+    /* Same as scroll-padding-top */
 }
 
 body {
@@ -142,9 +144,11 @@ nav {
     .hamburger.active .hamburger-line:nth-child(1) {
         transform: rotate(45deg) translate(6px, 6px);
     }
+
     .hamburger.active .hamburger-line:nth-child(2) {
         opacity: 0;
     }
+
     .hamburger.active .hamburger-line:nth-child(3) {
         transform: rotate(-45deg) translate(6px, -6px);
     }
@@ -481,6 +485,121 @@ section:nth-child(even) {
 .btn-back span {
     margin-right: 8px;
     font-size: 1.2rem;
+}
+
+/* ====== Sticky Back Button ====== */
+.back-button-container {
+    position: sticky;
+    top: 20px;
+    z-index: 10;
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+}
+
+/* Desktop & Tablet: Button stays at top */
+@media (min-width: 769px) {
+    .back-button-container {
+        top: 20px;
+        align-self: flex-start;
+    }
+}
+
+/* Mobile: Button moves to bottom for better thumb reach */
+@media (max-width: 768px) {
+    .back-button-container {
+        top: auto;
+        bottom: 20px;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1rem;
+    }
+
+    .btn-back {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 0.8rem 1.5rem;
+        border-radius: 50px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        border: 1px solid rgba(9, 132, 227, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    .btn-back:hover {
+        background: white;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        transform: translateY(-2px);
+    }
+}
+
+/* Floating button style for all devices when sticky */
+.btn-back.sticky-active {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(9, 132, 227, 0.2);
+    animation: slideUp 0.3s ease;
+}
+
+/* Desktop floating button */
+@media (min-width: 769px) {
+    .btn-back.sticky-active {
+        position: fixed;
+        top: 100px;
+        /* Below navbar */
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 100;
+        min-width: 200px;
+        text-align: center;
+    }
+}
+
+/* Mobile floating button */
+@media (max-width: 768px) {
+    .btn-back.sticky-active {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 100;
+        min-width: 200px;
+        text-align: center;
+        margin: 0;
+    }
+}
+
+/* Animation for button appearance */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+/* Make sure project detail has proper positioning context */
+.project-detail {
+    position: relative;
+    min-height: 100vh;
+}
+
+/* Ensure button doesn't overlap content at the very bottom */
+.detail-content {
+    padding-bottom: 80px;
+    /* Space for sticky button on mobile */
+}
+
+@media (min-width: 769px) {
+    .detail-content {
+        padding-bottom: 40px;
+        /* Less space needed on desktop */
+    }
 }
 
 .detail-content {
@@ -1049,6 +1168,7 @@ button:focus,
         opacity: 0;
         transform: translateY(-10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -1056,9 +1176,26 @@ button:focus,
 }
 
 @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-    20%, 40%, 60%, 80% { transform: translateX(5px); }
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: translateX(-5px);
+    }
+
+    20%,
+    40%,
+    60%,
+    80% {
+        transform: translateX(5px);
+    }
 }
 
 /* Success/Error Message Styles */
@@ -1096,6 +1233,7 @@ button:focus,
         flex-direction: column;
         gap: 2.5rem;
     }
+
     .contact-card {
         padding: 1.8rem;
     }

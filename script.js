@@ -16,11 +16,11 @@ document.addEventListener('DOMContentLoaded', () => {
 // ====== 1. SMOOTH SCROLLING ======
 function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
+        anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
             if (targetId === '#') return;
-            
+
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
                 targetElement.scrollIntoView({
@@ -88,7 +88,7 @@ function initSkillsAccordion() {
                 otherItem.classList.remove('active');
                 const otherHeader = otherItem.querySelector('.accordion-header');
                 const otherContent = otherItem.querySelector('.accordion-content');
-                
+
                 if (otherHeader) otherHeader.setAttribute('aria-expanded', 'false');
                 if (otherContent) otherContent.style.maxHeight = null;
             });
@@ -125,6 +125,7 @@ function initProjects() {
 
     // Store the last clicked project card for focus management
     let lastClickedCard = null;
+    let isStickyActive = false;
 
     // Project data - externalized for cleaner structure
     const projectsData = getProjectsData();
@@ -139,19 +140,108 @@ function initProjects() {
 
         // Generate HTML for project detail
         detailContent.innerHTML = generateProjectDetailHTML(project);
-        
+
         // Show detail view and hide grid
         projectsGrid.style.display = 'none';
         projectDetail.style.display = 'block';
 
+        // Reset sticky state
+        isStickyActive = false;
+        backButton.classList.remove('sticky-active');
+
         // Scroll to the detail view
         projectDetail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        // Initialize sticky behavior after content loads
+        setTimeout(initStickyBackButton, 100);
+    }
+
+    // Function to initialize sticky back button behavior
+    function initStickyBackButton() {
+        const backButtonContainer = document.querySelector('.back-button-container');
+        if (!backButtonContainer) return;
+
+        // Get the position where button should become sticky
+        const stickyStart = 100; // pixels from top
+
+        function updateStickyState() {
+            if (!projectDetail.style.display || projectDetail.style.display === 'none') {
+                return; // Don't run if detail view isn't visible
+            }
+
+            const scrollPosition = window.scrollY;
+            const detailTop = projectDetail.offsetTop;
+            const detailHeight = projectDetail.offsetHeight;
+            const viewportHeight = window.innerHeight;
+            const contentBottom = detailTop + detailHeight;
+
+            // Calculate if we're at the bottom of content
+            const isAtBottom = (scrollPosition + viewportHeight) >= (contentBottom - 50);
+
+            // On desktop: sticky at top, on mobile: sticky at bottom when scrolling up
+            if (window.innerWidth >= 769) {
+                // Desktop behavior
+                if (scrollPosition > detailTop + stickyStart && !isAtBottom) {
+                    if (!isStickyActive) {
+                        isStickyActive = true;
+                        backButton.classList.add('sticky-active');
+                    }
+                } else {
+                    if (isStickyActive) {
+                        isStickyActive = false;
+                        backButton.classList.remove('sticky-active');
+                    }
+                }
+            } else {
+                // Mobile behavior - always show sticky at bottom unless at very top
+                if (scrollPosition > detailTop + 50) {
+                    if (!isStickyActive) {
+                        isStickyActive = true;
+                        backButton.classList.add('sticky-active');
+                    }
+                } else {
+                    if (isStickyActive) {
+                        isStickyActive = false;
+                        backButton.classList.remove('sticky-active');
+                    }
+                }
+            }
+
+            // Special handling for bottom of content
+            if (isAtBottom && isStickyActive) {
+                backButton.classList.remove('sticky-active');
+                isStickyActive = false;
+            }
+        }
+
+        // Initial check
+        updateStickyState();
+
+        // Update on scroll
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            if (scrollTimeout) {
+                window.cancelAnimationFrame(scrollTimeout);
+            }
+            scrollTimeout = window.requestAnimationFrame(updateStickyState);
+        });
+
+        // Update on resize
+        window.addEventListener('resize', updateStickyState);
     }
 
     // Function to return to projects grid
     function returnToProjects() {
         projectDetail.style.display = 'none';
         projectsGrid.style.display = 'grid';
+
+        // Remove sticky class
+        backButton.classList.remove('sticky-active');
+        isStickyActive = false;
+
+        // Remove scroll listeners
+        window.removeEventListener('scroll', initStickyBackButton);
+        window.removeEventListener('resize', initStickyBackButton);
 
         // Return focus to the previously clicked card
         if (lastClickedCard) {
@@ -170,12 +260,12 @@ function initProjects() {
     // Event listeners for project cards
     const projectCards = document.querySelectorAll('.project-card');
     projectCards.forEach(card => {
-        card.addEventListener('click', function() {
+        card.addEventListener('click', function () {
             const projectId = this.getAttribute('data-project-id');
             renderProjectDetail(projectId, this);
         });
 
-        card.addEventListener('keydown', function(e) {
+        card.addEventListener('keydown', function (e) {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
                 const projectId = this.getAttribute('data-project-id');
@@ -186,7 +276,7 @@ function initProjects() {
 
     // Event listeners for back button
     backButton.addEventListener('click', returnToProjects);
-    backButton.addEventListener('keydown', function(e) {
+    backButton.addEventListener('keydown', function (e) {
         if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
             returnToProjects();
@@ -196,7 +286,7 @@ function initProjects() {
     // Helper function to generate project detail HTML
     function generateProjectDetailHTML(project) {
         const imagePlaceholderSVG = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIyMDAiIHZpZXdCb3g9IjAgMCA0MDAgMjAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjZjhmOWZhIi8+PHRleHQgeD0iMjAwIiB5PSIxMDAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzYzNmU3MiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPlByb2plY3QgRGlhZ3JhbTwvdGV4dD48L3N2Zz4=';
-        
+
         const imagesHTML = project.images.map((imgName, index) => `
             <div class="image-item">
                 <div class="image-wrapper">
@@ -273,7 +363,7 @@ function initContactForm() {
         if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) return 'Please enter a valid email address.';
         if (!message) return 'Please enter your message.';
         if (message.length < 10) return 'Please enter a message with at least 10 characters.';
-        
+
         return null; // No errors
     }
 
@@ -325,7 +415,7 @@ function initContactForm() {
         status.style.padding = '1rem';
         status.style.borderRadius = '8px';
         status.style.border = '1px solid #ffcccc';
-        
+
         // Auto-clear after 10 seconds
         setTimeout(() => {
             if (status.style.color === '#d63031') {
@@ -347,7 +437,7 @@ function initContactForm() {
         status.textContent = 'Sending your message...';
         status.style.color = '#0984e3';
         clearStatusStyles();
-        
+
         submitButton.textContent = 'Sending...';
         submitButton.disabled = true;
         submitButton.style.opacity = '0.7';
@@ -389,7 +479,7 @@ function initContactForm() {
     // Real-time email validation
     const emailField = document.getElementById('email');
     if (emailField) {
-        emailField.addEventListener('blur', function() {
+        emailField.addEventListener('blur', function () {
             const email = this.value.trim();
             if (email && !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
                 this.style.borderColor = '#d63031';
