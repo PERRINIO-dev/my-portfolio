@@ -85,6 +85,9 @@ function initSkillsAccordion() {
 
     accordionItems.forEach(item => {
         const header = item.querySelector('.accordion-header');
+        const content = item.querySelector('.accordion-content');
+
+        if (!header || !content) return;
 
         header.addEventListener('click', () => {
             const isAlreadyActive = item.classList.contains('active');
@@ -92,15 +95,30 @@ function initSkillsAccordion() {
             // Close all accordion items
             accordionItems.forEach(otherItem => {
                 otherItem.classList.remove('active');
+                const otherHeader = otherItem.querySelector('.accordion-header');
                 const otherContent = otherItem.querySelector('.accordion-content');
+
+                if (otherHeader) otherHeader.setAttribute('aria-expanded', 'false');
                 if (otherContent) otherContent.style.maxHeight = null;
             });
 
             // If it wasn't active, open the clicked one
             if (!isAlreadyActive) {
                 item.classList.add('active');
-                const content = item.querySelector('.accordion-content');
-                if (content) content.style.maxHeight = content.scrollHeight + 'px';
+                header.setAttribute('aria-expanded', 'true');
+                content.style.maxHeight = content.scrollHeight + 'px';
+
+                // Optional: focus the content for screen readers
+                // content.setAttribute('tabindex', '-1');
+                // content.focus();
+            }
+        });
+
+        // Keyboard support for accordion headers
+        header.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                header.click();
             }
         });
     });
@@ -118,6 +136,9 @@ function initProjects() {
         console.warn('Projects section elements not found.');
         return;
     }
+
+    // Store the last clicked project card for focus management
+    let lastClickedCard = null;
 
     // Project data (same as your original)
     const projectsData = {
@@ -261,9 +282,12 @@ function initProjects() {
     };
 
     // Function to render project detail
-    function renderProjectDetail(projectId) {
+    function renderProjectDetail(projectId, clickedCard) {
         const project = projectsData[projectId];
         if (!project) return;
+
+        // Store reference to the clicked card
+        lastClickedCard = clickedCard;
 
         let html = `
             <header class="detail-header">
@@ -314,7 +338,30 @@ function initProjects() {
         detailContent.innerHTML = html;
         projectsGrid.style.display = 'none';
         projectDetail.style.display = 'block';
+        
+        // Scroll to the detail view
         projectDetail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Function to return to projects grid
+    function returnToProjects() {
+        projectDetail.style.display = 'none';
+        projectsGrid.style.display = 'grid';
+        
+        // Return focus to the previously clicked card
+        if (lastClickedCard) {
+            setTimeout(() => {
+                lastClickedCard.focus();
+                // Scroll the card into view
+                lastClickedCard.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'nearest' 
+                });
+            }, 100);
+        } else {
+            // Fallback: Scroll to projects section
+            projectsGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
     }
 
     // Click event for project cards
@@ -323,7 +370,7 @@ function initProjects() {
         // Click/tap support
         card.addEventListener('click', function () {
             const projectId = this.getAttribute('data-project-id');
-            renderProjectDetail(projectId);
+            renderProjectDetail(projectId, this);
         });
 
         // Keyboard support (Enter/Space)
@@ -331,16 +378,20 @@ function initProjects() {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault(); // Prevent space from scrolling
                 const projectId = this.getAttribute('data-project-id');
-                renderProjectDetail(projectId);
+                renderProjectDetail(projectId, this);
             }
         });
     });
 
     // Click event for back button
-    backButton.addEventListener('click', function () {
-        projectDetail.style.display = 'none';
-        projectsGrid.style.display = 'grid';
-        projectsGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    backButton.addEventListener('click', returnToProjects);
+    
+    // Keyboard support for back button
+    backButton.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            returnToProjects();
+        }
     });
 }
 

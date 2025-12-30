@@ -123,7 +123,8 @@
             <!-- PROJECTS GRID (Visible by default) -->
             <div id="projects-grid" class="projects-grid">
                 <!-- Project Card 1 -->
-                <button class="project-card" data-project-id="1" aria-label="View details for Enterprise Virtualization Cluster project">
+                <button class="project-card" data-project-id="1"
+                    aria-label="View details for Enterprise Virtualization Cluster project">
                     <div class="project-card-img">
                         <div class="img-placeholder">VMware Cluster Diagram</div>
                     </div>
@@ -138,7 +139,8 @@
                 </button>
 
                 <!-- Project Card 2 -->
-                <button class="project-card" data-project-id="2" aria-label="View details for MS Exchange Server 2019 Infra project">
+                <button class="project-card" data-project-id="2"
+                    aria-label="View details for MS Exchange Server 2019 Infra project">
                     <div class="project-card-img">
                         <div class="img-placeholder">Exchange DAG Architecture</div>
                     </div>
@@ -153,7 +155,8 @@
                 </button>
 
                 <!-- Project Card 3 -->
-                <button class="project-card" data-project-id="3" aria-label="View details for Multi-Region Enterprise Network project">
+                <button class="project-card" data-project-id="3"
+                    aria-label="View details for Multi-Region Enterprise Network project">
                     <div class="project-card-img">
                         <div class="img-placeholder">Network Architecture Diagram</div>
                     </div>
@@ -168,7 +171,8 @@
                 </button>
 
                 <!-- Project Card 4 -->
-                <button class="project-card" data-project-id="4" aria-label="View details for Multi-Site Secure Enterprise Network project">
+                <button class="project-card" data-project-id="4"
+                    aria-label="View details for Multi-Site Secure Enterprise Network project">
                     <div class="project-card-img">
                         <div class="img-placeholder">Secure Network Topology</div>
                     </div>
@@ -211,11 +215,11 @@
             <div class="skills-accordion">
                 <!-- Category 1: Networking -->
                 <div class="accordion-item">
-                    <button class="accordion-header">
+                    <button class="accordion-header" aria-controls="networking-content" aria-expanded="false">
                         <span class="accordion-title">Networking & Infrastructure</span>
                         <span class="accordion-icon">+</span>
                     </button>
-                    <div class="accordion-content">
+                    <div class="accordion-content" id="networking-content" role="region" aria-labelledby="networking-header">
                         <ul>
                             <li>TCP/IP, Subnetting & IP Addressing</li>
                             <li>Network Segmentation & Traffic Isolation</li>
@@ -230,11 +234,11 @@
 
                 <!-- Category 2: Systems -->
                 <div class="accordion-item">
-                    <button class="accordion-header">
+                    <button class="accordion-header" aria-controls="systems-content" aria-expanded="false">
                         <span class="accordion-title">Systems & Server Administration</span>
                         <span class="accordion-icon">+</span>
                     </button>
-                    <div class="accordion-content">
+                    <div class="accordion-content" id="systems-content" role="region" aria-labelledby="systems-header">
                         <ul>
                             <li>Windows Server Administration</li>
                             <li>Directory Services & Identity Management</li>
@@ -248,11 +252,11 @@
 
                 <!-- Category 3: Virtualization -->
                 <div class="accordion-item">
-                    <button class="accordion-header">
+                    <button class="accordion-header" aria-controls="virtualization-content" aria-expanded="false">
                         <span class="accordion-title">Virtualization & High Availability</span>
                         <span class="accordion-icon">+</span>
                     </button>
-                    <div class="accordion-content">
+                    <div class="accordion-content" id="virtualization-content" role="region" aria-labelledby="virtualization-header">
                         <ul>
                             <li>Server Virtualization</li>
                             <li>Clustered Infrastructure Design</li>
@@ -265,11 +269,11 @@
 
                 <!-- Category 4: Messaging -->
                 <div class="accordion-item">
-                    <button class="accordion-header">
+                    <button class="accordion-header" aria-controls="messaging-content" aria-expanded="false">
                         <span class="accordion-title">Messaging & Collaboration</span>
                         <span class="accordion-icon">+</span>
                     </button>
-                    <div class="accordion-content">
+                    <div class="accordion-content" id="messaging-content" role="region" aria-labelledby="messaging-header">
                         <ul>
                             <li>Enterprise Messaging Platforms</li>
                             <li>Mailbox & Database Management</li>
@@ -281,11 +285,11 @@
 
                 <!-- Category 5: Security -->
                 <div class="accordion-item">
-                    <button class="accordion-header">
+                    <button class="accordion-header" aria-controls="security-content" aria-expanded="false">
                         <span class="accordion-title">Security & Monitoring</span>
                         <span class="accordion-icon">+</span>
                     </button>
-                    <div class="accordion-content">
+                    <div class="accordion-content" id="security-content" role="region" aria-labelledby="security-header">
                         <ul>
                             <li>Network Hardening Principles</li>
                             <li>Least Privilege & Access Control</li>
@@ -298,11 +302,11 @@
 
                 <!-- Category 6: Tools -->
                 <div class="accordion-item">
-                    <button class="accordion-header">
+                    <button class="accordion-header" aria-controls="tools-content" aria-expanded="false">
                         <span class="accordion-title">Tools & Environments</span>
                         <span class="accordion-icon">+</span>
                     </button>
-                    <div class="accordion-content">
+                    <div class="accordion-content" id="tools-content" role="region" aria-labelledby="tools-header">
                         <ul>
                             <li>Network Simulation & Modeling Tools</li>
                             <li>Virtualization Platforms</li>

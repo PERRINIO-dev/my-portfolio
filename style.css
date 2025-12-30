@@ -8,12 +8,14 @@
 /* ====== Smooth Scroll Offset ====== */
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 85px; /* Adjust based on your nav height */
+    scroll-padding-top: 85px;
+    /* Adjust based on your nav height */
 }
 
 /* Add scroll margin to all sections that have IDs */
 section[id] {
-    scroll-margin-top: 85px; /* Same as scroll-padding-top */
+    scroll-margin-top: 85px;
+    /* Same as scroll-padding-top */
 }
 
 body {
@@ -50,7 +52,8 @@ nav {
 
 /* Hamburger Button */
 .hamburger {
-    display: none; /* Hidden on desktop */
+    display: none;
+    /* Hidden on desktop */
     flex-direction: column;
     justify-content: space-between;
     width: 30px;
@@ -61,6 +64,7 @@ nav {
     padding: 0;
     z-index: 1001;
 }
+
 .hamburger-line {
     width: 100%;
     height: 3px;
@@ -74,9 +78,11 @@ nav {
     display: flex;
     list-style: none;
 }
+
 .nav-links li {
     margin-left: 2rem;
 }
+
 .nav-link {
     text-decoration: none;
     color: #555;
@@ -84,6 +90,7 @@ nav {
     transition: color 0.3s;
     font-size: 1rem;
 }
+
 .nav-link:hover {
     color: #0984e3;
 }
@@ -97,7 +104,8 @@ nav {
     .nav-links {
         position: fixed;
         top: 0;
-        right: -100%; /* Hidden off-screen */
+        right: -100%;
+        /* Hidden off-screen */
         width: 70%;
         height: 100vh;
         background: white;
@@ -110,7 +118,8 @@ nav {
     }
 
     .nav-links.active {
-        right: 0; /* Slides in */
+        right: 0;
+        /* Slides in */
     }
 
     .nav-links li {
@@ -128,9 +137,11 @@ nav {
     .hamburger.active .hamburger-line:nth-child(1) {
         transform: rotate(45deg) translate(6px, 6px);
     }
+
     .hamburger.active .hamburger-line:nth-child(2) {
         opacity: 0;
     }
+
     .hamburger.active .hamburger-line:nth-child(3) {
         transform: rotate(-45deg) translate(6px, -6px);
     }
@@ -683,6 +694,34 @@ section:nth-child(even) {
     left: 0;
 }
 
+/* ====== Enhanced Focus Styles ====== */
+/* Better focus visibility for all interactive elements */
+button:focus,
+.project-card:focus,
+.accordion-header:focus,
+.form-group input:focus,
+.form-group textarea:focus,
+.contact-method:focus {
+    outline: 3px solid #0984e3;
+    outline-offset: 3px;
+    box-shadow: 0 0 0 3px rgba(9, 132, 227, 0.2);
+}
+
+/* Remove default outline and use custom for buttons */
+.btn:focus,
+.btn-submit:focus,
+.btn-back:focus {
+    outline: 3px solid #0984e3;
+    outline-offset: 3px;
+    box-shadow: 0 0 0 3px rgba(9, 132, 227, 0.3);
+}
+
+/* Special style for project cards when focused */
+.project-card:focus {
+    border-color: #0984e3;
+    transform: translateY(-3px);
+}
+
 /* Skills Tags */
 .skills-container {
     display: flex;
@@ -846,6 +885,7 @@ section:nth-child(even) {
     border: 2px solid transparent;
     transition: all 0.3s ease;
 }
+
 .cert-card:hover {
     transform: translateY(-5px);
     border-color: #dfe6e9;
@@ -859,6 +899,7 @@ section:nth-child(even) {
     align-items: flex-start;
     margin-bottom: 0.8rem;
 }
+
 .cert-title {
     font-size: 1.2rem;
     color: #2d3436;
@@ -867,6 +908,7 @@ section:nth-child(even) {
     flex-grow: 1;
     padding-right: 1rem;
 }
+
 .cert-status {
     font-size: 0.75rem;
     font-weight: 700;
@@ -883,11 +925,13 @@ section:nth-child(even) {
     color: #856404;
     border: 1px solid #ffeaa7;
 }
+
 .cert-card[data-status="planned"] .cert-status {
     background-color: #d1ecf1;
     color: #0c5460;
     border: 1px solid #bee5eb;
 }
+
 .cert-card[data-status="later"] .cert-status {
     background-color: #f8d7da;
     color: #721c24;
@@ -923,10 +967,13 @@ section:nth-child(even) {
     flex-wrap: wrap;
     gap: 3rem;
 }
-.contact-form-col, .contact-details-col {
+
+.contact-form-col,
+.contact-details-col {
     flex: 1;
     min-width: 300px;
 }
+
 .contact-columns h3 {
     font-size: 1.5rem;
     color: #2d3436;
@@ -939,12 +986,14 @@ section:nth-child(even) {
 .form-group {
     margin-bottom: 1.5rem;
 }
+
 .form-group label {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 600;
     color: #444;
 }
+
 .form-group input,
 .form-group textarea {
     width: 100%;
@@ -955,12 +1004,14 @@ section:nth-child(even) {
     font-size: 1rem;
     transition: border 0.3s;
 }
+
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
     border-color: #0984e3;
     box-shadow: 0 0 0 3px rgba(9, 132, 227, 0.2);
 }
+
 .btn-submit {
     background: linear-gradient(to right, #0984e3, #00b894);
     color: white;
@@ -972,10 +1023,12 @@ section:nth-child(even) {
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s;
 }
+
 .btn-submit:hover {
     transform: translateY(-3px);
     box-shadow: 0 7px 15px rgba(9, 132, 227, 0.3);
 }
+
 .form-status {
     margin-top: 1rem;
     font-size: 0.95rem;
@@ -988,6 +1041,7 @@ section:nth-child(even) {
     flex-direction: column;
     gap: 1.2rem;
 }
+
 .contact-method {
     display: flex;
     align-items: center;
@@ -998,29 +1052,35 @@ section:nth-child(even) {
     border: 1px solid transparent;
     transition: all 0.3s;
 }
+
 .contact-method:hover {
     background-color: #f1f8ff;
     border-color: #bbdefb;
     transform: translateX(5px);
 }
+
 .contact-icon {
     font-size: 1.8rem;
     margin-right: 1.2rem;
     width: 40px;
     text-align: center;
 }
+
 .contact-text {
     flex: 1;
 }
+
 .contact-text strong {
     display: block;
     color: #2d3436;
     font-size: 1rem;
 }
+
 .contact-text span {
     color: #555;
     font-size: 0.95rem;
 }
+
 .contact-note {
     margin-top: 2rem;
     padding: 1rem;
@@ -1040,9 +1100,11 @@ section:nth-child(even) {
     font-family: 'Roboto Mono', monospace;
     font-size: 0.9rem;
 }
+
 .site-footer p {
     margin: 0.5rem 0;
 }
+
 .footer-note {
     color: #b2bec3;
     font-size: 0.85rem;
@@ -1055,6 +1117,7 @@ section:nth-child(even) {
         flex-direction: column;
         gap: 2.5rem;
     }
+
     .contact-card {
         padding: 1.8rem;
     }
