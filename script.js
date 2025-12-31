@@ -125,7 +125,7 @@ function initProjects() {
 
     // Store the last clicked project card for focus management
     let lastClickedCard = null;
-    let isStickyActive = false;
+    let stickyCleanup = null;
 
     // Project data - externalized for cleaner structure
     const projectsData = getProjectsData();
@@ -140,33 +140,50 @@ function initProjects() {
 
         // Generate HTML for project detail
         detailContent.innerHTML = generateProjectDetailHTML(project);
-
+        
         // Show detail view and hide grid
         projectsGrid.style.display = 'none';
         projectDetail.style.display = 'block';
 
         // Reset sticky state
-        isStickyActive = false;
         backButton.classList.remove('sticky-active');
+        backButton.style.transform = '';
+        backButton.style.opacity = '';
+        backButton.style.transition = '';
 
         // Scroll to the detail view
         projectDetail.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
+        // Clean up any existing sticky listeners
+        if (stickyCleanup) {
+            stickyCleanup();
+            stickyCleanup = null;
+        }
+
         // Initialize sticky behavior after content loads
-        setTimeout(initStickyBackButton, 100);
+        setTimeout(() => {
+            stickyCleanup = initStickyBackButton();
+        }, 100);
     }
 
     // Function to initialize sticky back button behavior
     function initStickyBackButton() {
         const backButtonContainer = document.querySelector('.back-button-container');
-        if (!backButtonContainer) return;
+        if (!backButtonContainer) return null;
 
-        // Get the position where button should become sticky
-        const stickyStart = 100; // pixels from top
+        // Configuration
+        const STICKY_START = 100; // pixels from top
+        const HYSTERESIS_BUFFER = 50; // 50px buffer zone to prevent shaking
+        const DEBOUNCE_DELAY = 100; // ms to wait after scrolling stops
 
-        function updateStickyState() {
+        let lastStickyState = false;
+        let lastScrollPosition = 0;
+        let debounceTimeout = null;
+        let resizeTimeout = null;
+
+        function calculateStickyState() {
             if (!projectDetail.style.display || projectDetail.style.display === 'none') {
-                return; // Don't run if detail view isn't visible
+                return false;
             }
 
             const scrollPosition = window.scrollY;
@@ -175,73 +192,123 @@ function initProjects() {
             const viewportHeight = window.innerHeight;
             const contentBottom = detailTop + detailHeight;
 
-            // Calculate if we're at the bottom of content
-            const isAtBottom = (scrollPosition + viewportHeight) >= (contentBottom - 50);
+            // Calculate if we're at the bottom of content (with buffer)
+            const isAtBottom = (scrollPosition + viewportHeight) >= (contentBottom - HYSTERESIS_BUFFER);
+            
+            // Calculate if we're at the top of the detail view (with buffer)
+            const isAtTop = scrollPosition <= detailTop + HYSTERESIS_BUFFER;
 
             // On desktop: sticky at top, on mobile: sticky at bottom when scrolling up
             if (window.innerWidth >= 769) {
-                // Desktop behavior
-                if (scrollPosition > detailTop + stickyStart && !isAtBottom) {
-                    if (!isStickyActive) {
-                        isStickyActive = true;
-                        backButton.classList.add('sticky-active');
-                    }
-                } else {
-                    if (isStickyActive) {
-                        isStickyActive = false;
-                        backButton.classList.remove('sticky-active');
-                    }
-                }
+                // Desktop behavior - only sticky when not at bottom
+                return scrollPosition > detailTop + STICKY_START && !isAtBottom;
             } else {
-                // Mobile behavior - always show sticky at bottom unless at very top
-                if (scrollPosition > detailTop + 50) {
-                    if (!isStickyActive) {
-                        isStickyActive = true;
-                        backButton.classList.add('sticky-active');
-                    }
+                // Mobile behavior - always show except at very top OR at very bottom
+                return !isAtTop && !isAtBottom;
+            }
+        }
+
+        function updateStickyState() {
+            const newStickyState = calculateStickyState();
+            
+            // Only update if state actually changed
+            if (newStickyState !== lastStickyState) {
+                lastStickyState = newStickyState;
+                
+                if (newStickyState) {
+                    backButton.classList.add('sticky-active');
+                    // Smooth appearance
+                    backButton.style.opacity = '0';
+                    backButton.style.transform = window.innerWidth >= 769 
+                        ? 'translateX(-50%) translateY(-10px)' 
+                        : 'translateX(-50%) translateY(10px)';
+                    
+                    // Animate in
+                    requestAnimationFrame(() => {
+                        backButton.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                        backButton.style.opacity = '1';
+                        backButton.style.transform = window.innerWidth >= 769 
+                            ? 'translateX(-50%) translateY(0)' 
+                            : 'translateX(-50%) translateY(0)';
+                    });
                 } else {
-                    if (isStickyActive) {
-                        isStickyActive = false;
+                    // Smooth disappearance
+                    backButton.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                    backButton.style.opacity = '0';
+                    backButton.style.transform = window.innerWidth >= 769 
+                        ? 'translateX(-50%) translateY(-10px)' 
+                        : 'translateX(-50%) translateY(10px)';
+                    
+                    // Remove class after animation completes
+                    setTimeout(() => {
                         backButton.classList.remove('sticky-active');
-                    }
+                        // Reset transforms for non-sticky state
+                        backButton.style.transform = '';
+                        backButton.style.opacity = '';
+                        backButton.style.transition = '';
+                    }, 300);
                 }
             }
+        }
 
-            // Special handling for bottom of content
-            if (isAtBottom && isStickyActive) {
-                backButton.classList.remove('sticky-active');
-                isStickyActive = false;
+        function handleScroll() {
+            const currentScroll = window.scrollY;
+            
+            // Debounce: Clear any pending timeout
+            if (debounceTimeout) {
+                clearTimeout(debounceTimeout);
+            }
+            
+            // Only update if we've scrolled more than 1px (prevents micro-movements)
+            if (Math.abs(currentScroll - lastScrollPosition) > 1) {
+                lastScrollPosition = currentScroll;
+                
+                // Schedule update with debounce
+                debounceTimeout = setTimeout(() => {
+                    requestAnimationFrame(updateStickyState);
+                }, DEBOUNCE_DELAY);
             }
         }
 
         // Initial check
         updateStickyState();
 
-        // Update on scroll
-        let scrollTimeout;
-        window.addEventListener('scroll', () => {
-            if (scrollTimeout) {
-                window.cancelAnimationFrame(scrollTimeout);
-            }
-            scrollTimeout = window.requestAnimationFrame(updateStickyState);
-        });
+        // Update on scroll with improved handling
+        window.addEventListener('scroll', handleScroll, { passive: true });
 
         // Update on resize
-        window.addEventListener('resize', updateStickyState);
+        window.addEventListener('resize', () => {
+            if (resizeTimeout) {
+                clearTimeout(resizeTimeout);
+            }
+            resizeTimeout = setTimeout(updateStickyState, 150);
+        });
+
+        // Cleanup function for when returning to projects
+        return function cleanup() {
+            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('resize', updateStickyState);
+            if (debounceTimeout) clearTimeout(debounceTimeout);
+            if (resizeTimeout) clearTimeout(resizeTimeout);
+        };
     }
 
     // Function to return to projects grid
     function returnToProjects() {
+        // Cleanup sticky listeners
+        if (stickyCleanup) {
+            stickyCleanup();
+            stickyCleanup = null;
+        }
+
         projectDetail.style.display = 'none';
         projectsGrid.style.display = 'grid';
 
-        // Remove sticky class
+        // Remove sticky class and reset styles
         backButton.classList.remove('sticky-active');
-        isStickyActive = false;
-
-        // Remove scroll listeners
-        window.removeEventListener('scroll', initStickyBackButton);
-        window.removeEventListener('resize', initStickyBackButton);
+        backButton.style.transform = '';
+        backButton.style.opacity = '';
+        backButton.style.transition = '';
 
         // Return focus to the previously clicked card
         if (lastClickedCard) {
@@ -257,36 +324,10 @@ function initProjects() {
         }
     }
 
-    // Event listeners for project cards
-    const projectCards = document.querySelectorAll('.project-card');
-    projectCards.forEach(card => {
-        card.addEventListener('click', function () {
-            const projectId = this.getAttribute('data-project-id');
-            renderProjectDetail(projectId, this);
-        });
-
-        card.addEventListener('keydown', function (e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                const projectId = this.getAttribute('data-project-id');
-                renderProjectDetail(projectId, this);
-            }
-        });
-    });
-
-    // Event listeners for back button
-    backButton.addEventListener('click', returnToProjects);
-    backButton.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            returnToProjects();
-        }
-    });
-
     // Helper function to generate project detail HTML
     function generateProjectDetailHTML(project) {
-        const imagePlaceholderSVG = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIyMDAiIHZpZXdCb3g9IjAgMCA0MDAgMjAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjZjhmOWZhIi8+PHRleHQgeD0iMjAwIiB5PSIxMDAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzYzNmU3MiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPlByb2plY3QgRGlhZ3JhbTwvdGV4dD48L3N2Zz4=';
-
+        const imagePlaceholderSVG = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIyMDAiIHZpZXdCb3g9IjAgMCA0MDAgMjAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjZjhmOWZhIi8+PHRleHQgeD0iMjAwIiB5PSIxMDAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzYzNmU3MiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPlByb2plY3QgRGlhZ3JhbDwvdGV4dD48L3N2Zz4=';
+        
         const imagesHTML = project.images.map((imgName, index) => `
             <div class="image-item">
                 <div class="image-wrapper">
@@ -335,6 +376,32 @@ function initProjects() {
             </section>
         `;
     }
+
+    // Event listeners for project cards
+    const projectCards = document.querySelectorAll('.project-card');
+    projectCards.forEach(card => {
+        card.addEventListener('click', function() {
+            const projectId = this.getAttribute('data-project-id');
+            renderProjectDetail(projectId, this);
+        });
+
+        card.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                const projectId = this.getAttribute('data-project-id');
+                renderProjectDetail(projectId, this);
+            }
+        });
+    });
+
+    // Event listeners for back button
+    backButton.addEventListener('click', returnToProjects);
+    backButton.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            returnToProjects();
+        }
+    });
 }
 
 // ====== 5. CONTACT FORM ======
