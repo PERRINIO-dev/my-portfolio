@@ -16,11 +16,11 @@ document.addEventListener('DOMContentLoaded', () => {
 // ====== 1. SMOOTH SCROLLING ======
 function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
+        anchor.addEventListener('click', function(e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
             if (targetId === '#') return;
-
+            
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
                 targetElement.scrollIntoView({
@@ -88,7 +88,7 @@ function initSkillsAccordion() {
                 otherItem.classList.remove('active');
                 const otherHeader = otherItem.querySelector('.accordion-header');
                 const otherContent = otherItem.querySelector('.accordion-content');
-
+                
                 if (otherHeader) otherHeader.setAttribute('aria-expanded', 'false');
                 if (otherContent) otherContent.style.maxHeight = null;
             });
@@ -125,7 +125,8 @@ function initProjects() {
 
     // Store the last clicked project card for focus management
     let lastClickedCard = null;
-    let stickyCleanup = null;
+    let scrollHandler = null;
+    let resizeHandler = null;
 
     // Project data - externalized for cleaner structure
     const projectsData = getProjectsData();
@@ -147,90 +148,67 @@ function initProjects() {
 
         // Reset sticky state
         backButton.classList.remove('sticky-active');
-        backButton.style.transform = '';
-        backButton.style.opacity = '';
-        backButton.style.transition = '';
+        backButton.style.cssText = ''; // Clear all inline styles
 
         // Scroll to the detail view
         projectDetail.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-        // Clean up any existing sticky listeners
-        if (stickyCleanup) {
-            stickyCleanup();
-            stickyCleanup = null;
-        }
+        // Clean up any existing listeners
+        cleanupStickyListeners();
 
         // Initialize sticky behavior after content loads
         setTimeout(() => {
-            stickyCleanup = initStickyBackButton();
+            initStickyBackButton();
         }, 100);
     }
 
     // Function to initialize sticky back button behavior
     function initStickyBackButton() {
-        const backButtonContainer = document.querySelector('.back-button-container');
-        if (!backButtonContainer) return null;
+        if (!projectDetail.style.display || projectDetail.style.display === 'none') {
+            return;
+        }
 
-        // Configuration
-        const STICKY_START = 100; // pixels from top
-        const HYSTERESIS_BUFFER = 50; // 50px buffer zone to prevent shaking
-        const DEBOUNCE_DELAY = 100; // ms to wait after scrolling stops
-
+        const detailTop = projectDetail.offsetTop;
+        const detailHeight = projectDetail.offsetHeight;
         let lastStickyState = false;
-        let lastScrollPosition = 0;
-        let debounceTimeout = null;
-        let resizeTimeout = null;
+        let rafId = null;
 
-        function calculateStickyState() {
+        function updateStickyState() {
             if (!projectDetail.style.display || projectDetail.style.display === 'none') {
-                return false;
+                return;
             }
 
             const scrollPosition = window.scrollY;
-            const detailTop = projectDetail.offsetTop;
-            const detailHeight = projectDetail.offsetHeight;
             const viewportHeight = window.innerHeight;
             const contentBottom = detailTop + detailHeight;
-
-            // Calculate if we're at the bottom of content (with buffer)
-            const isAtBottom = (scrollPosition + viewportHeight) >= (contentBottom - HYSTERESIS_BUFFER);
             
-            // Calculate if we're at the top of the detail view (with buffer)
-            const isAtTop = scrollPosition <= detailTop + HYSTERESIS_BUFFER;
+            // Calculate if we're at the bottom of content (with 80px buffer)
+            const isAtBottom = (scrollPosition + viewportHeight) >= (contentBottom - 80);
+            // Calculate if we're at the top of the detail view
+            const isAtTop = scrollPosition <= detailTop + 100;
 
-            // On desktop: sticky at top, on mobile: sticky at bottom when scrolling up
+            let shouldBeSticky = false;
+
             if (window.innerWidth >= 769) {
-                // Desktop behavior - only sticky when not at bottom
-                return scrollPosition > detailTop + STICKY_START && !isAtBottom;
+                // DESKTOP: Show when scrolled past 150px and not at bottom
+                shouldBeSticky = (scrollPosition > detailTop + 150) && !isAtBottom;
             } else {
-                // Mobile behavior - always show except at very top OR at very bottom
-                return !isAtTop && !isAtBottom;
+                // MOBILE: Show when not at top and not at bottom
+                shouldBeSticky = !isAtTop && !isAtBottom;
             }
-        }
 
-        function updateStickyState() {
-            const newStickyState = calculateStickyState();
-            
-            // Only update if state actually changed
-            if (newStickyState !== lastStickyState) {
-                lastStickyState = newStickyState;
+            // Only update if state changed
+            if (shouldBeSticky !== lastStickyState) {
+                lastStickyState = shouldBeSticky;
                 
-                if (newStickyState) {
+                if (shouldBeSticky) {
                     backButton.classList.add('sticky-active');
-                    // Smooth appearance
-                    backButton.style.opacity = '0';
-                    backButton.style.transform = window.innerWidth >= 769 
-                        ? 'translateX(-50%) translateY(-10px)' 
-                        : 'translateX(-50%) translateY(10px)';
-                    
-                    // Animate in
-                    requestAnimationFrame(() => {
+                    // Add smooth appearance
+                    setTimeout(() => {
                         backButton.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
                         backButton.style.opacity = '1';
-                        backButton.style.transform = window.innerWidth >= 769 
-                            ? 'translateX(-50%) translateY(0)' 
-                            : 'translateX(-50%) translateY(0)';
-                    });
+                        backButton.style.transform = 'translateX(-50%) translateY(0)';
+                    }, 10);
                 } else {
                     // Smooth disappearance
                     backButton.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
@@ -239,76 +217,71 @@ function initProjects() {
                         ? 'translateX(-50%) translateY(-10px)' 
                         : 'translateX(-50%) translateY(10px)';
                     
-                    // Remove class after animation completes
+                    // Remove class after animation
                     setTimeout(() => {
                         backButton.classList.remove('sticky-active');
-                        // Reset transforms for non-sticky state
-                        backButton.style.transform = '';
                         backButton.style.opacity = '';
+                        backButton.style.transform = '';
                         backButton.style.transition = '';
                     }, 300);
                 }
             }
         }
 
+        // Throttled scroll handler
         function handleScroll() {
-            const currentScroll = window.scrollY;
-            
-            // Debounce: Clear any pending timeout
-            if (debounceTimeout) {
-                clearTimeout(debounceTimeout);
+            if (rafId) {
+                cancelAnimationFrame(rafId);
             }
-            
-            // Only update if we've scrolled more than 1px (prevents micro-movements)
-            if (Math.abs(currentScroll - lastScrollPosition) > 1) {
-                lastScrollPosition = currentScroll;
-                
-                // Schedule update with debounce
-                debounceTimeout = setTimeout(() => {
-                    requestAnimationFrame(updateStickyState);
-                }, DEBOUNCE_DELAY);
+            rafId = requestAnimationFrame(updateStickyState);
+        }
+
+        // Throttled resize handler
+        let resizeTimeout;
+        function handleResize() {
+            if (resizeTimeout) {
+                clearTimeout(resizeTimeout);
             }
+            resizeTimeout = setTimeout(() => {
+                updateStickyState();
+            }, 150);
         }
 
         // Initial check
         updateStickyState();
 
-        // Update on scroll with improved handling
+        // Add event listeners
         window.addEventListener('scroll', handleScroll, { passive: true });
+        window.addEventListener('resize', handleResize);
 
-        // Update on resize
-        window.addEventListener('resize', () => {
-            if (resizeTimeout) {
-                clearTimeout(resizeTimeout);
-            }
-            resizeTimeout = setTimeout(updateStickyState, 150);
-        });
+        // Store handlers for cleanup
+        scrollHandler = handleScroll;
+        resizeHandler = handleResize;
+    }
 
-        // Cleanup function for when returning to projects
-        return function cleanup() {
-            window.removeEventListener('scroll', handleScroll);
-            window.removeEventListener('resize', updateStickyState);
-            if (debounceTimeout) clearTimeout(debounceTimeout);
-            if (resizeTimeout) clearTimeout(resizeTimeout);
-        };
+    // Function to clean up sticky listeners
+    function cleanupStickyListeners() {
+        if (scrollHandler) {
+            window.removeEventListener('scroll', scrollHandler);
+            scrollHandler = null;
+        }
+        if (resizeHandler) {
+            window.removeEventListener('resize', resizeHandler);
+            resizeHandler = null;
+        }
     }
 
     // Function to return to projects grid
     function returnToProjects() {
-        // Cleanup sticky listeners
-        if (stickyCleanup) {
-            stickyCleanup();
-            stickyCleanup = null;
-        }
+        // Clean up sticky listeners
+        cleanupStickyListeners();
 
         projectDetail.style.display = 'none';
         projectsGrid.style.display = 'grid';
 
         // Remove sticky class and reset styles
         backButton.classList.remove('sticky-active');
-        backButton.style.transform = '';
-        backButton.style.opacity = '';
-        backButton.style.transition = '';
+        backButton.style.cssText = '';
 
         // Return focus to the previously clicked card
         if (lastClickedCard) {
@@ -326,7 +299,7 @@ function initProjects() {
 
     // Helper function to generate project detail HTML
     function generateProjectDetailHTML(project) {
-        const imagePlaceholderSVG = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIyMDAiIHZpZXdCb3g9IjAgMCA0MDAgMjAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjZjhmOWZhIi8+PHRleHQgeD0iMjAwIiB5PSIxMDAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzYzNmU3MiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPlByb2plY3QgRGlhZ3JhbDwvdGV4dD48L3N2Zz4=';
+        const imagePlaceholderSVG = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIyMDAiIHZpZXdCb3g9IjAgMCA0MDAgMjAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjZjhmOWZhIi8+PHRleHQgeD0iMjAwIiB5PSIxMDAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzYzNmU3MiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPlByb2plY3QgRGlhZ3JhbTwvdGV4dD48L3N2Zz4=';
         
         const imagesHTML = project.images.map((imgName, index) => `
             <div class="image-item">
@@ -430,7 +403,7 @@ function initContactForm() {
         if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) return 'Please enter a valid email address.';
         if (!message) return 'Please enter your message.';
         if (message.length < 10) return 'Please enter a message with at least 10 characters.';
-
+        
         return null; // No errors
     }
 
@@ -482,7 +455,7 @@ function initContactForm() {
         status.style.padding = '1rem';
         status.style.borderRadius = '8px';
         status.style.border = '1px solid #ffcccc';
-
+        
         // Auto-clear after 10 seconds
         setTimeout(() => {
             if (status.style.color === '#d63031') {
@@ -504,7 +477,7 @@ function initContactForm() {
         status.textContent = 'Sending your message...';
         status.style.color = '#0984e3';
         clearStatusStyles();
-
+        
         submitButton.textContent = 'Sending...';
         submitButton.disabled = true;
         submitButton.style.opacity = '0.7';
@@ -546,7 +519,7 @@ function initContactForm() {
     // Real-time email validation
     const emailField = document.getElementById('email');
     if (emailField) {
-        emailField.addEventListener('blur', function () {
+        emailField.addEventListener('blur', function() {
             const email = this.value.trim();
             if (email && !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
                 this.style.borderColor = '#d63031';

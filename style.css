@@ -462,6 +462,7 @@ section:nth-child(even) {
     padding: 2.5rem;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
     position: relative;
+    min-height: 100vh;
 }
 
 .btn-back {
@@ -487,124 +488,114 @@ section:nth-child(even) {
     font-size: 1.2rem;
 }
 
-/* ====== Sticky Back Button ====== */
+/* ====== Sticky Back Button - FIXED VERSION ====== */
 .back-button-container {
-    position: sticky;
-    top: 20px;
-    z-index: 10;
     margin-bottom: 2rem;
     transition: all 0.3s ease;
 }
 
-/* Desktop & Tablet: Button stays at top */
+/* Desktop floating button - PROPERLY FIXED */
 @media (min-width: 769px) {
-    .back-button-container {
-        top: 20px;
-        align-self: flex-start;
-    }
-}
-
-/* Mobile: Button moves to bottom for better thumb reach */
-@media (max-width: 768px) {
-    .back-button-container {
-        top: auto;
-        bottom: 20px;
-        display: flex;
-        justify-content: center;
-        margin-bottom: 1rem;
-    }
-
-    .btn-back {
+    .btn-back.sticky-active {
+        position: fixed;
+        top: 120px; /* Below navbar with some spacing */
+        left: 50%;
+        transform: translateX(-50%) translateY(0);
+        z-index: 100;
         background: rgba(255, 255, 255, 0.95);
         backdrop-filter: blur(10px);
-        padding: 0.8rem 1.5rem;
+        -webkit-backdrop-filter: blur(10px);
+        padding: 12px 24px;
         border-radius: 50px;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
         border: 1px solid rgba(9, 132, 227, 0.2);
-        transition: all 0.3s ease;
-    }
-
-    .btn-back:hover {
-        background: white;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-        transform: translateY(-2px);
-    }
-}
-
-/* Floating button style for all devices when sticky */
-.btn-back.sticky-active {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    padding: 0.8rem 1.5rem;
-    border-radius: 50px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-    border: 1px solid rgba(9, 132, 227, 0.2);
-    animation: slideUp 0.3s ease;
-}
-
-/* Desktop floating button */
-@media (min-width: 769px) {
-    .btn-back.sticky-active {
-        position: fixed;
-        top: 100px;
-        /* Below navbar */
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 100;
-        min-width: 200px;
+        font-size: 0.95rem;
+        white-space: nowrap;
+        opacity: 0;
+        animation: slideUpDesktop 0.3s ease forwards;
+        min-width: 180px;
         text-align: center;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    
+    .btn-back.sticky-active:hover {
+        background: rgba(255, 255, 255, 0.98);
+        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+        transform: translateX(-50%) translateY(-2px);
+    }
+    
+    @keyframes slideUpDesktop {
+        from {
+            opacity: 0;
+            transform: translateX(-50%) translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
     }
 }
 
-/* Mobile floating button */
+/* Mobile floating button - COMPACT & TRANSPARENT */
 @media (max-width: 768px) {
     .btn-back.sticky-active {
         position: fixed;
         bottom: 20px;
         left: 50%;
-        transform: translateX(-50%);
-        z-index: 100;
-        min-width: 200px;
-        text-align: center;
-        margin: 0;
-    }
-}
-
-/* Animation for button appearance */
-@keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateX(-50%) translateY(10px);
-    }
-
-    to {
-        opacity: 1;
         transform: translateX(-50%) translateY(0);
+        z-index: 100;
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        padding: 10px 20px !important;
+        border-radius: 50px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        border: 1px solid rgba(9, 132, 227, 0.2);
+        font-size: 0.85rem;
+        white-space: nowrap;
+        opacity: 0;
+        animation: slideUpMobile 0.3s ease forwards;
+        min-width: auto;
+        max-width: 85%;
+        text-align: center;
+        transition: opacity 0.3s ease, transform 0.3s ease;
     }
-}
-
-/* Make sure project detail has proper positioning context */
-.project-detail {
-    position: relative;
-    min-height: 100vh;
+    
+    /* Compact text that fits iPhone 15 Pro */
+    .btn-back.sticky-active span {
+        margin-right: 5px;
+        font-size: 1rem;
+    }
+    
+    .btn-back.sticky-active:hover {
+        background: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+        transform: translateX(-50%) translateY(-2px);
+    }
+    
+    @keyframes slideUpMobile {
+        from {
+            opacity: 0;
+            transform: translateX(-50%) translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+    }
 }
 
 /* Ensure button doesn't overlap content at the very bottom */
 .detail-content {
-    padding-bottom: 80px;
-    /* Space for sticky button on mobile */
+    line-height: 1.7;
+    color: #444;
+    padding-bottom: 100px; /* More space for mobile button */
 }
 
 @media (min-width: 769px) {
     .detail-content {
-        padding-bottom: 40px;
-        /* Less space needed on desktop */
+        padding-bottom: 60px; /* Less space needed on desktop */
     }
-}
-
-.detail-content {
-    line-height: 1.7;
-    color: #444;
 }
 
 .detail-header {
