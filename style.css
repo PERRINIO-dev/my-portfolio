@@ -487,11 +487,26 @@ section:nth-child(even) {
     margin-right: 8px;
     font-size: 1.2rem;
 }
+/* Reserve space for the button when sticky */
+.back-button-container {
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+    min-height: 50px; /* Reserve space to prevent jump */
+}
 
+/* When button is sticky, make container maintain height */
+.btn-back.sticky-active + * {
+    margin-top: 0; /* Prevent content shift */
+}
 /* ====== Sticky Back Button - FIXED VERSION ====== */
 .back-button-container {
     margin-bottom: 2rem;
     transition: all 0.3s ease;
+    min-height: 50px;
+}
+
+.btn-back.sticky-active + * {
+    margin-top: 0; /* Prevent content shift */
 }
 
 /* Desktop floating button - PROPERLY FIXED */

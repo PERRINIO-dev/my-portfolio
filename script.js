@@ -127,6 +127,7 @@ function initProjects() {
     let lastClickedCard = null;
     let scrollHandler = null;
     let resizeHandler = null;
+    let imageLoadHandler = null;
 
     // Project data - externalized for cleaner structure
     const projectsData = getProjectsData();
@@ -159,6 +160,8 @@ function initProjects() {
         // Initialize sticky behavior after content loads
         setTimeout(() => {
             initStickyBackButton();
+            // Re-check after images load
+            setupImageLoadListeners();
         }, 100);
     }
 
@@ -168,47 +171,62 @@ function initProjects() {
             return;
         }
 
-        const detailTop = projectDetail.offsetTop;
-        const detailHeight = projectDetail.offsetHeight;
         let lastStickyState = false;
         let rafId = null;
+        let lastScrollPosition = 0;
+
+        // Get fresh measurements each time
+        function getMeasurements() {
+            const detailTop = projectDetail.offsetTop;
+            const detailHeight = projectDetail.offsetHeight;
+            const scrollPosition = window.scrollY;
+            const viewportHeight = window.innerHeight;
+            const contentBottom = detailTop + detailHeight;
+            
+            return { detailTop, detailHeight, scrollPosition, viewportHeight, contentBottom };
+        }
 
         function updateStickyState() {
             if (!projectDetail.style.display || projectDetail.style.display === 'none') {
                 return;
             }
 
-            const scrollPosition = window.scrollY;
-            const viewportHeight = window.innerHeight;
-            const contentBottom = detailTop + detailHeight;
+            // Get fresh measurements every time
+            const { detailTop, detailHeight, scrollPosition, viewportHeight, contentBottom } = getMeasurements();
             
-            // Calculate if we're at the bottom of content (with 80px buffer)
-            const isAtBottom = (scrollPosition + viewportHeight) >= (contentBottom - 80);
+            // Calculate if we're at the bottom of content (with 100px buffer)
+            const distanceFromBottom = contentBottom - (scrollPosition + viewportHeight);
+            const isAtBottom = distanceFromBottom <= 100;
+            
             // Calculate if we're at the top of the detail view
-            const isAtTop = scrollPosition <= detailTop + 100;
+            const distanceFromTop = scrollPosition - detailTop;
+            const isAtTop = distanceFromTop <= 100;
 
             let shouldBeSticky = false;
 
             if (window.innerWidth >= 769) {
-                // DESKTOP: Show when scrolled past 150px and not at bottom
-                shouldBeSticky = (scrollPosition > detailTop + 150) && !isAtBottom;
+                // DESKTOP: Show when scrolled past 200px and not at bottom
+                shouldBeSticky = (scrollPosition > detailTop + 200) && !isAtBottom;
             } else {
                 // MOBILE: Show when not at top and not at bottom
                 shouldBeSticky = !isAtTop && !isAtBottom;
             }
 
-            // Only update if state changed
-            if (shouldBeSticky !== lastStickyState) {
+            // Only update if state changed AND we've scrolled at least 5px
+            const scrollDelta = Math.abs(scrollPosition - lastScrollPosition);
+            lastScrollPosition = scrollPosition;
+
+            if (shouldBeSticky !== lastStickyState && scrollDelta > 5) {
                 lastStickyState = shouldBeSticky;
                 
                 if (shouldBeSticky) {
                     backButton.classList.add('sticky-active');
                     // Add smooth appearance
-                    setTimeout(() => {
+                    requestAnimationFrame(() => {
                         backButton.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
                         backButton.style.opacity = '1';
                         backButton.style.transform = 'translateX(-50%) translateY(0)';
-                    }, 10);
+                    });
                 } else {
                     // Smooth disappearance
                     backButton.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
@@ -259,6 +277,49 @@ function initProjects() {
         resizeHandler = handleResize;
     }
 
+    // Function to setup image load listeners
+    function setupImageLoadListeners() {
+        const images = detailContent.querySelectorAll('img');
+        if (images.length === 0) return;
+
+        let imagesLoaded = 0;
+        const totalImages = images.length;
+
+        function onImageLoad() {
+            imagesLoaded++;
+            // When all images are loaded, update sticky state
+            if (imagesLoaded === totalImages) {
+                // Trigger a re-check of sticky state after images load
+                setTimeout(() => {
+                    if (scrollHandler) {
+                        scrollHandler();
+                    }
+                }, 100);
+            }
+        }
+
+        images.forEach(img => {
+            // Check if image is already loaded
+            if (img.complete) {
+                imagesLoaded++;
+                if (imagesLoaded === totalImages) {
+                    onImageLoad();
+                }
+            } else {
+                img.addEventListener('load', onImageLoad);
+                img.addEventListener('error', onImageLoad); // Also count errors as "loaded"
+            }
+        });
+
+        // If no images or all already loaded
+        if (totalImages === 0 || imagesLoaded === totalImages) {
+            onImageLoad();
+        }
+
+        // Store for cleanup
+        imageLoadHandler = onImageLoad;
+    }
+
     // Function to clean up sticky listeners
     function cleanupStickyListeners() {
         if (scrollHandler) {
@@ -269,6 +330,16 @@ function initProjects() {
             window.removeEventListener('resize', resizeHandler);
             resizeHandler = null;
         }
+        
+        // Clean up image load listeners
+        const images = detailContent.querySelectorAll('img');
+        images.forEach(img => {
+            if (imageLoadHandler) {
+                img.removeEventListener('load', imageLoadHandler);
+                img.removeEventListener('error', imageLoadHandler);
+            }
+        });
+        imageLoadHandler = null;
     }
 
     // Function to return to projects grid
