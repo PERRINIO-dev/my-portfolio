@@ -1,625 +1,650 @@
-// ====== CONFIGURATION & GLOBALS ======
+// ====== PORTFOLIO ENHANCEMENTS v3.0 - PREMIUM DARK THEME ======
+// Professional implementation with modern UX patterns
+
+// ====== CONFIGURATION ======
 const CONFIG = {
-    navHeightDesktop: 85,
-    navHeightMobile: 100,
-    formEndpoint: 'https://formspree.io/f/mbdrzrbq',
-    projectImagesPath: 'assets/images/'
+    navScrolledThreshold: 30,
+    revealThreshold: 0.1,
+    revealRootMargin: '0px 0px -100px 0px',
+    projectImagesPath: 'assets/images/',
+    profileImagePath: 'assets/profile.jpg',
+    formEndpoint: 'https://formspree.io/f/mbdrzrbq'
 };
 
-// Global state for cleanup
-let globalState = {
-    scrollListeners: new Set(),
-    resizeListeners: new Set(),
-    intersectionObservers: [],
-    abortControllers: []
+// ====== STATE MANAGEMENT ======
+const AppState = {
+    currentProject: null,
+    lastProjectCard: null,
+    isNavScrolled: false,
+    isMobileMenuOpen: false,
+    observers: new Set(),
+    timeouts: new Set(),
+    events: new Map()
 };
 
 // ====== MAIN INITIALIZATION ======
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Portfolio initialized - Enhanced version');
-
-    // Initialize all modules with error handling
+    console.log('🚀 Portfolio v3.0 - Premium Dark Theme');
+    
     try {
-        initPerformanceMonitoring();
-        initThemeSystem();
-        initSmoothScroll();
-        initMobileNav();
-        initSkillsAccordion();
-        initProjects();
-        initContactForm();
-        initPrintOptimizations();
-        initLazyLoading();
-
-        // Update copyright year
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        // Initialize core modules
+        initializePerformance();
+        initializeNavigation();
+        initializeTheme();
+        initializeSmoothScroll();
+        initializeRevealAnimations();
+        initializeProjects();
+        initializeContactForm();
+        initializePrintOptimizations();
+        
+        // Update dynamic content
+        updateCopyrightYear();
+        initializeHeroPortrait();
+        
+        console.log('✅ All modules initialized successfully');
     } catch (error) {
-        console.error('Initialization error:', error);
-        showErrorToast('Some features may not work correctly. Please refresh the page.');
+        console.error('❌ Initialization error:', error);
+        showToast('Some features may not work correctly. Please refresh.', 'error');
     }
 });
 
 // ====== PERFORMANCE MONITORING ======
-function initPerformanceMonitoring() {
-    // Log performance metrics in development
-    if (window.location.hostname === 'localhost' || window.location.hostname.includes('127.0.0.1')) {
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const [navigationEntry] = performance.getEntriesByType('navigation');
-                if (navigationEntry) {
-                    console.log(`🚀 Performance Metrics:
-                    - DOM Content Loaded: ${navigationEntry.domContentLoadedEventEnd.toFixed(2)}ms
-                    - Page Load Complete: ${navigationEntry.loadEventEnd.toFixed(2)}ms
-                    - First Contentful Paint: ${performance.getEntriesByName('first-contentful-paint')[0]?.startTime.toFixed(2) || 'N/A'}ms`);
-                }
-            }, 0);
-        });
+function initializePerformance() {
+    if (window.performance && window.performance.getEntriesByType) {
+        const navTiming = performance.getEntriesByType('navigation')[0];
+        if (navTiming) {
+            const loadTime = navTiming.loadEventEnd - navTiming.loadEventStart;
+            console.log(`📊 Performance: Load time ${loadTime.toFixed(2)}ms`);
+        }
     }
 }
 
-// ====== THEME SYSTEM (Future-ready) ======
-function initThemeSystem() {
+// ====== NAVIGATION ENHANCEMENTS ======
+function initializeNavigation() {
+    const nav = document.querySelector('.main-nav');
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+    
+    if (!nav || !hamburger || !navLinks) {
+        console.warn('Navigation elements not found');
+        return;
+    }
+    
+    // Handle scroll behavior
+    function handleScroll() {
+        const shouldBeScrolled = window.scrollY > CONFIG.navScrolledThreshold;
+        
+        if (shouldBeScrolled !== AppState.isNavScrolled) {
+            AppState.isNavScrolled = shouldBeScrolled;
+            nav.classList.toggle('nav-scrolled', shouldBeScrolled);
+        }
+    }
+    
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+        AppState.isMobileMenuOpen = !AppState.isMobileMenuOpen;
+        navLinks.classList.toggle('active', AppState.isMobileMenuOpen);
+        hamburger.classList.toggle('active', AppState.isMobileMenuOpen);
+        hamburger.setAttribute('aria-expanded', AppState.isMobileMenuOpen);
+        
+        // Prevent body scroll when menu is open
+        document.body.style.overflow = AppState.isMobileMenuOpen ? 'hidden' : '';
+        
+        // Update nav state for mobile
+        if (AppState.isMobileMenuOpen) {
+            nav.classList.add('nav-scrolled');
+        } else if (window.scrollY <= CONFIG.navScrolledThreshold) {
+            nav.classList.remove('nav-scrolled');
+        }
+    }
+    
+    // Close mobile menu when clicking outside
+    function handleOutsideClick(event) {
+        if (AppState.isMobileMenuOpen && 
+            !navLinks.contains(event.target) && 
+            !hamburger.contains(event.target)) {
+            toggleMobileMenu();
+        }
+    }
+    
+    // Close mobile menu on Escape key
+    function handleEscapeKey(event) {
+        if (AppState.isMobileMenuOpen && event.key === 'Escape') {
+            toggleMobileMenu();
+        }
+    }
+    
+    // Close mobile menu when clicking a link
+    function closeMenuOnLinkClick() {
+        if (AppState.isMobileMenuOpen) {
+            toggleMobileMenu();
+        }
+    }
+    
+    // Event listeners
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    hamburger.addEventListener('click', toggleMobileMenu);
+    document.addEventListener('click', handleOutsideClick);
+    document.addEventListener('keydown', handleEscapeKey);
+    
+    // Close menu when clicking nav links
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', closeMenuOnLinkClick);
+    });
+    
+    // Initialize scroll state
+    handleScroll();
+    
+    // Cleanup function
+    AppState.events.set('nav-cleanup', () => {
+        window.removeEventListener('scroll', handleScroll);
+        hamburger.removeEventListener('click', toggleMobileMenu);
+        document.removeEventListener('click', handleOutsideClick);
+        document.removeEventListener('keydown', handleEscapeKey);
+    });
+}
+
+// ====== THEME MANAGEMENT ======
+function initializeTheme() {
     // Check for saved theme preference
     const savedTheme = localStorage.getItem('portfolio-theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-    }
-
-    // Store theme toggle for future implementation
+    
+    // Set initial theme (always dark for now)
+    document.documentElement.setAttribute('data-theme', 'dark');
+    
+    // Expose theme API for future enhancements
     window.portfolioTheme = {
         toggle: () => {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            const current = document.documentElement.getAttribute('data-theme');
+            const newTheme = current === 'dark' ? 'light' : 'dark';
             document.documentElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('portfolio-theme', newTheme);
-            console.log(`Theme changed to: ${newTheme}`);
+            console.log(`Theme switched to: ${newTheme}`);
         },
-        current: () => document.documentElement.getAttribute('data-theme') || 'light'
+        current: () => document.documentElement.getAttribute('data-theme')
     };
 }
 
-// ====== 1. ENHANCED SMOOTH SCROLLING ======
-function initSmoothScroll() {
-    // Set dynamic scroll offset based on screen size
-    function updateScrollOffset() {
-        const isMobile = window.innerWidth <= 768;
-        const offset = isMobile ? CONFIG.navHeightMobile : CONFIG.navHeightDesktop;
-
-        document.documentElement.style.setProperty('--nav-height', `${offset}px`);
-        document.documentElement.style.scrollPaddingTop = `${offset}px`;
-    }
-
-    updateScrollOffset();
-    window.addEventListener('resize', updateScrollOffset);
-    globalState.resizeListeners.add(() => window.removeEventListener('resize', updateScrollOffset));
-
-    // Enhanced smooth scroll with offset
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        const controller = new AbortController();
-        globalState.abortControllers.push(controller);
-
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
+// ====== SMOOTH SCROLL ENHANCEMENTS ======
+function initializeSmoothScroll() {
+    const links = document.querySelectorAll('a[href^="#"]');
+    
+    links.forEach(link => {
+        link.addEventListener('click', function(e) {
             const targetId = this.getAttribute('href');
-
+            
             if (targetId === '#' || targetId === '#!') return;
-
+            
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
-                const isMobile = window.innerWidth <= 768;
-                const offset = isMobile ? CONFIG.navHeightMobile : CONFIG.navHeightDesktop;
-
-                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
-
+                e.preventDefault();
+                
+                const navHeight = document.querySelector('.main-nav').offsetHeight;
+                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navHeight;
+                
                 window.scrollTo({
                     top: targetPosition,
                     behavior: 'smooth'
                 });
-
-                // Update URL without adding to history (for single page)
-                history.replaceState(null, null, targetId);
-
-                // Close mobile menu if open
-                const navLinks = document.getElementById('nav-links');
-                const hamburger = document.getElementById('hamburger');
-                if (navLinks && navLinks.classList.contains('active')) {
-                    navLinks.classList.remove('active');
-                    hamburger.classList.remove('active');
-                }
+                
+                // Update URL
+                history.pushState(null, null, targetId);
             }
-        }, { signal: controller.signal });
+        });
     });
 }
 
-// ====== 2. ENHANCED MOBILE NAVIGATION ======
-function initMobileNav() {
-    const hamburger = document.getElementById('hamburger');
-    const navLinks = document.getElementById('nav-links');
-
-    if (!hamburger || !navLinks) {
-        console.warn('Mobile navigation elements not found.');
-        return;
-    }
-
-    const navItems = document.querySelectorAll('.nav-link');
-    const controller = new AbortController();
-    globalState.abortControllers.push(controller);
-
-    // Toggle menu with animation
-    hamburger.addEventListener('click', (e) => {
-        e.stopPropagation();
-        navLinks.classList.toggle('active');
-        hamburger.classList.toggle('active');
-
-        // Prevent body scroll when menu is open
-        document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
-
-        // Update aria attributes
-        const isExpanded = navLinks.classList.contains('active');
-        hamburger.setAttribute('aria-expanded', isExpanded);
-    }, { signal: controller.signal });
-
-    // Close menu when clicking links
-    navItems.forEach(item => {
-        item.addEventListener('click', () => {
-            navLinks.classList.remove('active');
-            hamburger.classList.remove('active');
-            hamburger.setAttribute('aria-expanded', 'false');
-            document.body.style.overflow = '';
-        }, { signal: controller.signal });
-    });
-
-    // Close menu when clicking outside or pressing Escape
-    document.addEventListener('click', (e) => {
-        if (!navLinks.contains(e.target) && !hamburger.contains(e.target) && navLinks.classList.contains('active')) {
-            navLinks.classList.remove('active');
-            hamburger.classList.remove('active');
-            hamburger.setAttribute('aria-expanded', 'false');
-            document.body.style.overflow = '';
-        }
-    }, { signal: controller.signal });
-
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && navLinks.classList.contains('active')) {
-            navLinks.classList.remove('active');
-            hamburger.classList.remove('active');
-            hamburger.setAttribute('aria-expanded', 'false');
-            document.body.style.overflow = '';
-        }
-    }, { signal: controller.signal });
-
-    // Handle keyboard navigation in menu
-    navLinks.addEventListener('keydown', (e) => {
-        if (e.key === 'Tab' && navLinks.classList.contains('active')) {
-            const focusableElements = navLinks.querySelectorAll('a[href]');
-            const firstElement = focusableElements[0];
-            const lastElement = focusableElements[focusableElements.length - 1];
-
-            if (e.shiftKey && document.activeElement === firstElement) {
-                e.preventDefault();
-                lastElement.focus();
-            } else if (!e.shiftKey && document.activeElement === lastElement) {
-                e.preventDefault();
-                hamburger.focus();
-            }
-        }
-    }, { signal: controller.signal });
-}
-
-// ====== 3. ENHANCED SKILLS ACCORDION ======
-function initSkillsAccordion() {
-    const accordionItems = document.querySelectorAll('.accordion-item');
-
-    if (accordionItems.length === 0) return;
-
-    accordionItems.forEach(item => {
-        const header = item.querySelector('.accordion-header');
-        const content = item.querySelector('.accordion-content');
-
-        if (!header || !content) return;
-
-        const controller = new AbortController();
-        globalState.abortControllers.push(controller);
-
-        // Click handler
-        header.addEventListener('click', () => {
-            const isAlreadyActive = item.classList.contains('active');
-
-            // Close all other accordion items
-            accordionItems.forEach(otherItem => {
-                if (otherItem !== item) {
-                    otherItem.classList.remove('active');
-                    const otherHeader = otherItem.querySelector('.accordion-header');
-                    const otherContent = otherItem.querySelector('.accordion-content');
-
-                    if (otherHeader) otherHeader.setAttribute('aria-expanded', 'false');
-                    if (otherContent) {
-                        otherContent.style.maxHeight = null;
-                        otherContent.setAttribute('aria-hidden', 'true');
-                    }
+// ====== REVEAL ANIMATIONS ======
+function initializeRevealAnimations() {
+    const revealElements = document.querySelectorAll('.reveal');
+    
+    if (!revealElements.length) return;
+    
+    const revealObserver = new IntersectionObserver(
+        (entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal--in');
+                    revealObserver.unobserve(entry.target);
                 }
             });
-
-            // Toggle current item
-            if (!isAlreadyActive) {
-                item.classList.add('active');
-                header.setAttribute('aria-expanded', 'true');
-                content.style.maxHeight = content.scrollHeight + 'px';
-                content.setAttribute('aria-hidden', 'false');
-            } else {
-                item.classList.remove('active');
-                header.setAttribute('aria-expanded', 'false');
-                content.style.maxHeight = null;
-                content.setAttribute('aria-hidden', 'true');
-            }
-        }, { signal: controller.signal });
-
-        // Keyboard support
-        header.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                header.click();
-            }
-
-            // Arrow key navigation between accordions
-            if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-                e.preventDefault();
-                const currentIndex = Array.from(accordionItems).indexOf(item);
-                const direction = e.key === 'ArrowDown' ? 1 : -1;
-                const nextIndex = (currentIndex + direction + accordionItems.length) % accordionItems.length;
-                const nextHeader = accordionItems[nextIndex].querySelector('.accordion-header');
-
-                if (nextHeader) {
-                    nextHeader.focus();
-                    nextHeader.click();
-                }
-            }
-        }, { signal: controller.signal });
-
-        // Initialize ARIA attributes
-        header.setAttribute('aria-expanded', 'false');
-        content.setAttribute('aria-hidden', 'true');
+        },
+        {
+            threshold: CONFIG.revealThreshold,
+            rootMargin: CONFIG.revealRootMargin
+        }
+    );
+    
+    // Observe each reveal element with staggered delay
+    revealElements.forEach((element, index) => {
+        // Add staggered delay for visual interest
+        element.style.transitionDelay = `${Math.min(index * 50, 300)}ms`;
+        revealObserver.observe(element);
     });
+    
+    // Store observer for cleanup
+    AppState.observers.add(revealObserver);
 }
 
-// ====== 4. ENHANCED PROJECTS SYSTEM ======
-function initProjects() {
+// ====== HERO PORTRAIT INITIALIZATION ======
+function initializeHeroPortrait() {
+    const portraitImg = document.querySelector('.portrait-img');
+    
+    if (!portraitImg) {
+        console.warn('Hero portrait element not found');
+        return;
+    }
+    
+    // Set profile image source
+    portraitImg.src = CONFIG.profileImagePath;
+    
+    // Add loading state
+    portraitImg.onload = () => {
+        portraitImg.style.opacity = '1';
+    };
+    
+    portraitImg.onerror = () => {
+        console.warn('Profile image failed to load');
+        // You could set a fallback image here
+    };
+}
+
+// ====== PROJECTS SYSTEM ======
+function initializeProjects() {
     const projectsGrid = document.getElementById('projects-grid');
     const projectDetail = document.getElementById('project-detail');
     const backButton = document.getElementById('back-to-projects');
     const detailContent = document.getElementById('detail-content');
-
+    
     if (!projectsGrid || !projectDetail || !backButton || !detailContent) {
-        console.warn('Projects section elements not found.');
+        console.warn('Projects section elements not found');
         return;
     }
-
-    // Project data manager
-    const projectsManager = {
-        data: getProjectsData(),
-        currentProjectId: null,
-        lastClickedCard: null,
-        observer: null,
-
-        renderDetail(projectId, clickedCard) {
-            const project = this.data[projectId];
-            if (!project) {
-                this.showError('Project not found');
-                return;
-            }
-
-            this.currentProjectId = projectId;
-            this.lastClickedCard = clickedCard;
-
-            // Show loading state
-            detailContent.innerHTML = `
-                <div class="project-loading">
-                    <div class="spinner"></div>
-                    <p>Loading project details...</p>
+    
+    // Project data
+    const projectsData = getProjectsData();
+    
+    // Current state
+    let currentProjectId = null;
+    let lastClickedCard = null;
+    let detailObserver = null;
+    let backButtonObserver = null;
+    
+    // ====== PROJECT CARD HANDLERS ======
+    document.querySelectorAll('.project-card').forEach(card => {
+        card.addEventListener('click', handleProjectCardClick);
+        card.addEventListener('keydown', handleProjectCardKeydown);
+    });
+    
+    function handleProjectCardClick(event) {
+        const projectId = this.getAttribute('data-project-id');
+        openProjectDetail(projectId, this);
+    }
+    
+    function handleProjectCardKeydown(event) {
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            const projectId = this.getAttribute('data-project-id');
+            openProjectDetail(projectId, this);
+        }
+    }
+    
+    // ====== OPEN PROJECT DETAIL ======
+    function openProjectDetail(projectId, clickedCard) {
+        const project = projectsData[projectId];
+        if (!project) return;
+        
+        currentProjectId = projectId;
+        lastClickedCard = clickedCard;
+        
+        // Show loading state
+        detailContent.innerHTML = createLoadingHTML();
+        
+        // Switch views
+        projectsGrid.style.display = 'none';
+        projectDetail.style.display = 'block';
+        projectsGrid.setAttribute('aria-hidden', 'true');
+        projectDetail.setAttribute('aria-hidden', 'false');
+        
+        // Render project detail after short delay (simulates async)
+        setTimeout(() => {
+            detailContent.innerHTML = createProjectDetailHTML(project);
+            
+            // Initialize detail interactions
+            initializeDetailInteractions();
+            initializeBackButtonBehavior();
+            
+            // Set focus for accessibility
+            detailContent.focus({ preventScroll: true });
+            
+            // Update URL
+            history.pushState(null, null, `#project-${projectId}`);
+        }, 300);
+    }
+    
+    // ====== CREATE PROJECT DETAIL HTML ======
+    function createProjectDetailHTML(project) {
+        const imagesHTML = project.images.map((imgName, index) => `
+            <div class="image-item">
+                <div class="image-wrapper">
+                    <img src="${CONFIG.projectImagesPath}${imgName}" 
+                         alt="Project Image ${index + 1}: ${imgName.replace(/\.[^/.]+$/, "").replace(/-/g, " ")}" 
+                         class="project-image"
+                         loading="lazy"
+                         decoding="async"
+                         onerror="this.onerror=null; this.classList.add('error');">
+                    <div class="image-caption">${imgName.replace(/\.[^/.]+$/, "").replace(/-/g, " ")}</div>
                 </div>
-            `;
-
-            // Switch views
-            projectsGrid.style.display = 'none';
-            projectDetail.style.display = 'block';
-            projectsGrid.setAttribute('aria-hidden', 'true');
-            projectDetail.setAttribute('aria-hidden', 'false');
-
-            // Render content after a small delay (simulate async)
-            setTimeout(() => {
-                detailContent.innerHTML = this.generateProjectDetailHTML(project);
-                this.initProjectDetailInteractions();
-                this.initStickyBackButton();
-
-                // Set focus for accessibility
-                detailContent.setAttribute('tabindex', '-1');
-                detailContent.focus();
-
-                // Track view (analytics placeholder)
-                console.log(`Project viewed: ${project.title}`);
-            }, 100);
-        },
-
-        generateProjectDetailHTML(project) {
-            const imagePlaceholderSVG = `data:image/svg+xml;base64,${btoa(`
-                <svg width="100%" height="200" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="400" height="200" fill="#f8f9fa"/>
-                    <text x="200" y="100" font-family="Arial" font-size="14" fill="#636e72" text-anchor="middle" dy=".3em">
-                        Project Diagram
-                    </text>
-                    <text x="200" y="120" font-family="Arial" font-size="12" fill="#adb5bd" text-anchor="middle" dy=".3em">
-                        Add your screenshots to /assets/images/
-                    </text>
-                </svg>
-            `)}`;
-
-            const imagesHTML = project.images.map((imgName, index) => `
-                <div class="image-item">
-                    <div class="image-wrapper">
-                        <img src="${CONFIG.projectImagesPath}${imgName}" 
-                             alt="Project Image ${index + 1}: ${imgName.replace(/\.[^/.]+$/, "").replace(/-/g, " ")}" 
-                             class="project-image"
-                             loading="lazy"
-                             decoding="async"
-                             onerror="this.onerror=null; this.src='${imagePlaceholderSVG}'; this.alt='Image not available'; this.classList.add('image-error');">
-                        <div class="image-loading"></div>
-                        <div class="image-caption">${imgName.replace(/\.[^/.]+$/, "").replace(/-/g, " ")}</div>
-                    </div>
+            </div>
+        `).join('');
+        
+        return `
+            <header class="detail-header" id="project-detail-header">
+                <h2 class="detail-title">${project.title}</h2>
+                <div class="project-meta">
+                    <span class="meta-item">${project.skills.length} technologies</span>
+                    <span class="meta-separator">•</span>
+                    <span class="meta-item">${project.images.length} images</span>
                 </div>
-            `).join('');
-
-            return `
-                <header class="detail-header" id="project-detail-header">
-                    <h2 class="detail-title">${project.title}</h2>
-                    <div class="project-meta">
-                        <span class="meta-item">${project.skills.length} technologies</span>
-                        <span class="meta-separator">•</span>
-                        <span class="meta-item">${project.images.length} images</span>
-                    </div>
-                </header>
+            </header>
+            
+            <nav class="detail-nav" aria-label="Project detail navigation">
+                <ul>
+                    <li><a href="#overview" class="detail-nav-link active">Overview</a></li>
+                    <li><a href="#architecture" class="detail-nav-link">Architecture</a></li>
+                    <li><a href="#results" class="detail-nav-link">Results</a></li>
+                    <li><a href="#skills" class="detail-nav-link">Technologies</a></li>
+                    <li><a href="#images" class="detail-nav-link">Images</a></li>
+                </ul>
+            </nav>
+            
+            <main class="detail-main">
+                <section id="overview" class="detail-section">
+                    <h3 class="detail-subtitle">🔹 Project Overview</h3>
+                    <p>${project.overview}</p>
+                </section>
                 
-                <nav class="detail-nav" aria-label="Project detail navigation">
-                    <ul>
-                        <li><a href="#overview" class="detail-nav-link">Overview</a></li>
-                        <li><a href="#architecture" class="detail-nav-link">Architecture</a></li>
-                        <li><a href="#results" class="detail-nav-link">Results</a></li>
-                        <li><a href="#skills" class="detail-nav-link">Technologies</a></li>
-                        <li><a href="#images" class="detail-nav-link">Images</a></li>
+                <section id="architecture" class="detail-section">
+                    <h3 class="detail-subtitle">🔹 Architecture & Implementation</h3>
+                    <ul class="detail-list">
+                        ${project.architecture.map(item => `<li>${item}</li>`).join('')}
                     </ul>
-                </nav>
+                </section>
                 
-                <main class="detail-main">
-                    <section id="overview" class="detail-section">
-                        <h3 class="detail-subtitle">🔹 Project Overview</h3>
-                        <p>${project.overview}</p>
-                    </section>
-                    
-                    <section id="architecture" class="detail-section">
-                        <h3 class="detail-subtitle">🔹 Architecture & Implementation</h3>
-                        <ul class="detail-list">
-                            ${project.architecture.map(item => `<li>${item}</li>`).join('')}
-                        </ul>
-                    </section>
-                    
-                    <section id="results" class="detail-section">
-                        <h3 class="detail-subtitle">🔹 Results & Validation</h3>
-                        <ul class="detail-list">
-                            ${project.results.map(item => `<li>${item}</li>`).join('')}
-                        </ul>
-                    </section>
-                    
-                    <section id="skills" class="detail-section">
-                        <h3 class="detail-subtitle">🔹 Skills & Technologies Used</h3>
-                        <div class="skills-container">
-                            ${project.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
-                        </div>
-                    </section>
-                    
-                    <section id="images" class="detail-section">
-                        <h3 class="detail-subtitle">🔹 Project Images</h3>
-                        <p><em>Visual documentation of the project's implementation and outcomes.</em></p>
-                        <div class="images-container" id="project-images-container">
-                            ${imagesHTML}
-                        </div>
-                        <p class="image-note">
-                            <small>To add your screenshots, save them in the <code>/assets/images/</code> folder with the filenames listed in the project data.</small>
-                        </p>
-                    </section>
-                </main>
+                <section id="results" class="detail-section">
+                    <h3 class="detail-subtitle">🔹 Results & Validation</h3>
+                    <ul class="detail-list">
+                        ${project.results.map(item => `<li>${item}</li>`).join('')}
+                    </ul>
+                </section>
                 
-                <footer class="detail-footer">
-                    <button class="btn btn-secondary" onclick="window.print()">
-                        <span class="print-icon">🖨️</span> Print Project Details
-                    </button>
-                </footer>
-            `;
-        },
-
-        initProjectDetailInteractions() {
-            // Image lazy loading enhancement
-            const images = detailContent.querySelectorAll('.project-image');
-            images.forEach(img => {
-                img.addEventListener('load', () => {
-                    img.classList.add('loaded');
-                    img.previousElementSibling?.remove(); // Remove loading spinner
-                });
-
-                img.addEventListener('error', () => {
-                    img.classList.add('error');
-                    img.previousElementSibling?.remove();
-                });
-            });
-
-            // Detail navigation smooth scroll
-            const navLinks = detailContent.querySelectorAll('.detail-nav-link');
-            navLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const targetId = link.getAttribute('href');
-                    const targetElement = detailContent.querySelector(targetId);
-
-                    if (targetElement) {
-                        targetElement.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-
-                        // Update active nav link
-                        navLinks.forEach(l => l.classList.remove('active'));
-                        link.classList.add('active');
+                <section id="skills" class="detail-section">
+                    <h3 class="detail-subtitle">🔹 Skills & Technologies Used</h3>
+                    <div class="skills-container">
+                        ${project.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+                    </div>
+                </section>
+                
+                <section id="images" class="detail-section">
+                    <h3 class="detail-subtitle">🔹 Project Images</h3>
+                    <p><em>Visual documentation of the project's implementation and outcomes.</em></p>
+                    <div class="images-container">
+                        ${imagesHTML}
+                    </div>
+                </section>
+            </main>
+            
+            <footer class="detail-footer">
+                <button class="btn btn-secondary print-btn" onclick="window.print()">
+                    <i class="fas fa-print"></i>
+                    <span>Print Project Details</span>
+                </button>
+            </footer>
+        `;
+    }
+    
+    function createLoadingHTML() {
+        return `
+            <div class="project-loading">
+                <div class="loading-spinner"></div>
+                <p>Loading project details...</p>
+            </div>
+        `;
+    }
+    
+    // ====== INITIALIZE DETAIL INTERACTIONS ======
+    function initializeDetailInteractions() {
+        // Initialize section highlighting
+        initializeSectionHighlighting();
+        
+        // Initialize image loading
+        initializeImageLoading();
+        
+        // Initialize smooth scroll for detail navigation
+        initializeDetailNavigation();
+    }
+    
+    function initializeSectionHighlighting() {
+        const sections = detailContent.querySelectorAll('.detail-section');
+        const navLinks = detailContent.querySelectorAll('.detail-nav-link');
+        
+        if (!sections.length || !navLinks.length) return;
+        
+        // Create intersection observer for section highlighting
+        const highlightObserver = new IntersectionObserver(
+            (entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.id;
+                        const correspondingLink = detailContent.querySelector(`.detail-nav-link[href="#${id}"]`);
+                        
+                        if (correspondingLink) {
+                            navLinks.forEach(link => link.classList.remove('active'));
+                            correspondingLink.classList.add('active');
+                        }
                     }
                 });
-            });
-
-            // Intersection observer for nav highlighting
-            const sections = detailContent.querySelectorAll('.detail-section');
-            const observer = new IntersectionObserver(
-                (entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const id = entry.target.id;
-                            const correspondingLink = detailContent.querySelector(`.detail-nav-link[href="#${id}"]`);
-                            if (correspondingLink) {
-                                navLinks.forEach(l => l.classList.remove('active'));
-                                correspondingLink.classList.add('active');
-                            }
-                        }
-                    });
-                },
-                { root: detailContent, threshold: 0.5 }
-            );
-
-            sections.forEach(section => observer.observe(section));
-            globalState.intersectionObservers.push(observer);
-        },
-
-        initStickyBackButton() {
-            // Clean up previous observer
-            if (this.observer) {
-                this.observer.disconnect();
+            },
+            {
+                root: detailContent,
+                threshold: 0.3,
+                rootMargin: '-20% 0px -60% 0px'
             }
-
-            // Create new observer for sticky behavior
-            this.observer = new IntersectionObserver(
+        );
+        
+        sections.forEach(section => highlightObserver.observe(section));
+        AppState.observers.add(highlightObserver);
+    }
+    
+    function initializeImageLoading() {
+        const images = detailContent.querySelectorAll('.project-image');
+        
+        images.forEach(img => {
+            img.addEventListener('load', () => {
+                img.style.opacity = '1';
+            });
+            
+            img.addEventListener('error', () => {
+                console.warn(`Failed to load image: ${img.src}`);
+                img.style.opacity = '0.5';
+            });
+        });
+    }
+    
+    function initializeDetailNavigation() {
+        const navLinks = detailContent.querySelectorAll('.detail-nav-link');
+        
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                const targetElement = detailContent.querySelector(targetId);
+                
+                if (targetElement) {
+                    // Update active link
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                    
+                    // Scroll to section
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    }
+    
+    // ====== BACK BUTTON BEHAVIOR ======
+    function initializeBackButtonBehavior() {
+        // Clean up previous observer
+        if (backButtonObserver) {
+            backButtonObserver.disconnect();
+        }
+        
+        const detailHeader = detailContent.querySelector('.detail-header');
+        const detailFooter = detailContent.querySelector('.detail-footer');
+        
+        if (!detailHeader) return;
+        
+        // Create observer for back button sticky behavior
+        backButtonObserver = new IntersectionObserver(
+            (entries) => {
+                const [entry] = entries;
+                const isHeaderVisible = entry.isIntersecting;
+                const detailRect = projectDetail.getBoundingClientRect();
+                const viewportHeight = window.innerHeight;
+                
+                // Calculate if we're near the bottom of the detail view
+                const distanceFromBottom = detailRect.bottom - viewportHeight;
+                const isNearBottom = distanceFromBottom < 100;
+                
+                // Show/hide back button based on scroll position
+                if (!isHeaderVisible && !isNearBottom) {
+                    backButton.classList.add('sticky-active');
+                    backButton.style.opacity = '1';
+                    backButton.style.visibility = 'visible';
+                } else {
+                    backButton.classList.remove('sticky-active');
+                    backButton.style.opacity = '0';
+                    backButton.style.visibility = 'hidden';
+                    
+                    // Reset after animation
+                    setTimeout(() => {
+                        if (!backButton.classList.contains('sticky-active')) {
+                            backButton.style.cssText = '';
+                        }
+                    }, 300);
+                }
+            },
+            {
+                threshold: 0,
+                rootMargin: '-100px 0px 0px 0px'
+            }
+        );
+        
+        backButtonObserver.observe(detailHeader);
+        AppState.observers.add(backButtonObserver);
+        
+        // Also observe footer for bottom detection
+        if (detailFooter) {
+            const footerObserver = new IntersectionObserver(
                 (entries) => {
                     const [entry] = entries;
-                    backButton.classList.toggle('sticky-active', !entry.isIntersecting);
-
-                    // Add smooth transition
-                    if (!entry.isIntersecting) {
-                        backButton.style.opacity = '1';
-                        backButton.style.transform = window.innerWidth >= 769
-                            ? 'translateX(-50%) translateY(0)'
-                            : 'translateY(0)';
-                    } else {
+                    if (entry.isIntersecting) {
+                        backButton.classList.remove('sticky-active');
                         backButton.style.opacity = '0';
-                        backButton.style.transform = window.innerWidth >= 769
-                            ? 'translateX(-50%) translateY(-10px)'
-                            : 'translateY(10px)';
+                        backButton.style.visibility = 'hidden';
                     }
                 },
-                {
-                    root: null,
-                    threshold: 0,
-                    rootMargin: '-100px 0px 0px 0px'
-                }
+                { threshold: 0.1 }
             );
-
-            const header = detailContent.querySelector('.detail-header');
-            if (header) {
-                this.observer.observe(header);
-            }
-        },
-
-        returnToProjects() {
-            // Clean up observers
-            if (this.observer) {
-                this.observer.disconnect();
-                this.observer = null;
-            }
-
-            // Switch views
-            projectDetail.style.display = 'none';
-            projectsGrid.style.display = 'grid';
-            projectsGrid.setAttribute('aria-hidden', 'false');
-            projectDetail.setAttribute('aria-hidden', 'true');
-
-            // Reset sticky button
-            backButton.classList.remove('sticky-active');
-            backButton.style.cssText = '';
-
-            // Return focus to clicked card
-            if (this.lastClickedCard) {
-                setTimeout(() => {
-                    this.lastClickedCard.focus();
-                    this.lastClickedCard.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'nearest'
-                    });
-                }, 100);
-            }
-
-            this.currentProjectId = null;
-            this.lastClickedCard = null;
-        },
-
-        showError(message) {
-            console.error('Project error:', message);
-
-            // Show error toast
-            const toast = document.createElement('div');
-            toast.className = 'error-toast';
-            toast.textContent = message;
-            document.body.appendChild(toast);
-
-            setTimeout(() => toast.remove(), 5000);
+            
+            footerObserver.observe(detailFooter);
+            AppState.observers.add(footerObserver);
         }
-    };
-
-    // Event listeners for project cards
-    document.querySelectorAll('.project-card').forEach(card => {
-        card.addEventListener('click', function () {
-            const projectId = this.getAttribute('data-project-id');
-            projectsManager.renderDetail(projectId, this);
-        });
-
-        card.addEventListener('keydown', function (e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                const projectId = this.getAttribute('data-project-id');
-                projectsManager.renderDetail(projectId, this);
-            }
-        });
-    });
-
-    // Back button
-    backButton.addEventListener('click', () => projectsManager.returnToProjects());
+    }
+    
+    // ====== RETURN TO PROJECTS GRID ======
+    function returnToProjects() {
+        // Clean up observers
+        if (backButtonObserver) {
+            backButtonObserver.disconnect();
+            backButtonObserver = null;
+        }
+        
+        // Switch views
+        projectDetail.style.display = 'none';
+        projectsGrid.style.display = 'grid';
+        projectsGrid.setAttribute('aria-hidden', 'false');
+        projectDetail.setAttribute('aria-hidden', 'true');
+        
+        // Reset back button
+        backButton.classList.remove('sticky-active');
+        backButton.style.cssText = '';
+        
+        // Return focus to clicked card
+        if (lastClickedCard) {
+            setTimeout(() => {
+                lastClickedCard.focus();
+                lastClickedCard.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'nearest'
+                });
+            }, 100);
+        }
+        
+        // Update URL
+        history.pushState(null, null, '#projects');
+        
+        // Reset state
+        currentProjectId = null;
+        lastClickedCard = null;
+    }
+    
+    // ====== EVENT LISTENERS ======
+    backButton.addEventListener('click', returnToProjects);
     backButton.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
-            projectsManager.returnToProjects();
+            returnToProjects();
         }
     });
-
+    
     // Handle browser back button
     window.addEventListener('popstate', () => {
-        if (projectsManager.currentProjectId) {
-            projectsManager.returnToProjects();
+        if (currentProjectId) {
+            returnToProjects();
         }
+    });
+    
+    // ====== CLEANUP FUNCTION ======
+    AppState.events.set('projects-cleanup', () => {
+        if (backButtonObserver) {
+            backButtonObserver.disconnect();
+        }
+        
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.removeEventListener('click', handleProjectCardClick);
+            card.removeEventListener('keydown', handleProjectCardKeydown);
+        });
+        
+        backButton.removeEventListener('click', returnToProjects);
+        window.removeEventListener('popstate', () => {});
     });
 }
 
-// ====== 5. ENHANCED CONTACT FORM ======
-function initContactForm() {
+// ====== CONTACT FORM ENHANCEMENTS ======
+function initializeContactForm() {
     const form = document.getElementById('contact-form');
     const status = document.getElementById('form-status');
-
+    
     if (!form || !status) {
-        console.warn('Contact form elements not found.');
+        console.warn('Contact form elements not found');
         return;
     }
-
+    
     // Honeypot field for spam protection
     const honeypot = document.createElement('input');
     honeypot.type = 'text';
@@ -627,74 +652,46 @@ function initContactForm() {
     honeypot.style.display = 'none';
     honeypot.setAttribute('aria-hidden', 'true');
     honeypot.setAttribute('tabindex', '-1');
-    honeypot.autocomplete = 'off';
     form.appendChild(honeypot);
-
+    
     // Timestamp for rate limiting
     const timestamp = document.createElement('input');
     timestamp.type = 'hidden';
     timestamp.name = '_timestamp';
     timestamp.value = Date.now();
     form.appendChild(timestamp);
-
-    // Accessibility setup
-    status.setAttribute('role', 'status');
-    status.setAttribute('aria-live', 'polite');
-    status.setAttribute('aria-atomic', 'true');
-    status.setAttribute('aria-relevant', 'additions text');
-
+    
     // Form validation functions
     const validators = {
         name: (value) => {
             const trimmed = value.trim();
-            if (!trimmed) return 'Please enter your name.';
-            if (trimmed.length < 2) return 'Name must be at least 2 characters.';
-            if (trimmed.length > 100) return 'Name is too long (max 100 characters).';
+            if (!trimmed) return 'Please enter your name';
+            if (trimmed.length < 2) return 'Name must be at least 2 characters';
             return null;
         },
-
+        
         email: (value) => {
             const trimmed = value.trim();
-            if (!trimmed) return 'Please enter your email address.';
-
+            if (!trimmed) return 'Please enter your email address';
+            
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(trimmed)) return 'Please enter a valid email address.';
-
-            // Additional email validation
-            if (trimmed.length > 254) return 'Email is too long.';
-            if (trimmed.includes('..')) return 'Email contains invalid characters.';
-
+            if (!emailRegex.test(trimmed)) return 'Please enter a valid email address';
+            
             return null;
         },
-
+        
         message: (value) => {
             const trimmed = value.trim();
-            if (!trimmed) return 'Please enter your message.';
-            if (trimmed.length < 10) return 'Message must be at least 10 characters.';
-            if (trimmed.length > 5000) return 'Message is too long (max 5000 characters).';
-
-            // Check for suspicious content
-            const suspiciousPatterns = [
-                /\[url\]/i,
-                /\[link\]/i,
-                /http[s]?:\/\//i,
-                /<script/i,
-                /onclick=/i,
-                /javascript:/i
-            ];
-
-            if (suspiciousPatterns.some(pattern => pattern.test(trimmed))) {
-                return 'Message contains suspicious content. Please remove any links or scripts.';
-            }
-
+            if (!trimmed) return 'Please enter your message';
+            if (trimmed.length < 10) return 'Message must be at least 10 characters';
             return null;
         }
     };
-
+    
     // Real-time validation
     form.querySelectorAll('input, textarea').forEach(field => {
-        const fieldName = field.id || field.name;
-
+        const fieldName = field.id;
+        
         field.addEventListener('blur', () => {
             const validator = validators[fieldName];
             if (validator) {
@@ -702,45 +699,46 @@ function initContactForm() {
                 updateFieldValidation(field, error);
             }
         });
-
+        
         field.addEventListener('input', () => {
-            // Clear any previous error styling
             field.classList.remove('error');
-            field.nextElementSibling?.remove();
-
-            // Clear status message if user starts typing
-            if (status.textContent && status.style.color === '#d63031') {
+            const errorElement = field.nextElementSibling;
+            if (errorElement && errorElement.classList.contains('field-error')) {
+                errorElement.remove();
+            }
+            
+            // Clear status if user starts typing
+            if (status.textContent) {
                 clearStatus();
             }
         });
     });
-
+    
     // Form submission handler
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-
+        
         // Check honeypot
         if (honeypot.value) {
-            console.log('Spam detected via honeypot');
-            showErrorStatus('❌ Submission blocked. Please try again.');
+            showErrorStatus('Submission blocked. Please try again.');
             return;
         }
-
-        // Rate limiting check (5 seconds between submissions)
+        
+        // Rate limiting (5 seconds between submissions)
         const lastSubmit = parseInt(timestamp.value);
         if (Date.now() - lastSubmit < 5000) {
-            showErrorStatus('❌ Please wait a few seconds before submitting again.');
+            showErrorStatus('Please wait a few seconds before submitting again.');
             return;
         }
-
+        
         // Validate all fields
         const formData = new FormData(form);
         let hasErrors = false;
-
+        
         for (const [fieldName, validator] of Object.entries(validators)) {
             const fieldValue = formData.get(fieldName) || '';
             const error = validator(fieldValue);
-
+            
             if (error) {
                 const field = form.querySelector(`[name="${fieldName}"]`);
                 if (field) {
@@ -750,23 +748,22 @@ function initContactForm() {
                 }
             }
         }
-
+        
         if (hasErrors) return;
-
+        
         // Show loading state
         const submitButton = form.querySelector('button[type="submit"]');
-        const originalButtonText = submitButton.textContent;
-        const originalButtonHTML = submitButton.innerHTML;
-
+        const originalText = submitButton.innerHTML;
+        
         submitButton.disabled = true;
         submitButton.innerHTML = `
             <span class="spinner-small"></span>
             Sending...
         `;
-
+        
         // Update timestamp
         timestamp.value = Date.now();
-
+        
         try {
             const response = await fetch(form.action, {
                 method: 'POST',
@@ -776,108 +773,107 @@ function initContactForm() {
                     'X-Requested-With': 'XMLHttpRequest'
                 }
             });
-
+            
             if (response.ok) {
                 showSuccessStatus();
                 form.reset();
-
+                
                 // Success animation
                 submitButton.innerHTML = '✓ Sent!';
-                submitButton.style.backgroundColor = '#00b894';
-
+                submitButton.style.background = 'var(--success-color)';
+                
                 setTimeout(() => {
-                    submitButton.innerHTML = originalButtonHTML;
-                    submitButton.style.backgroundColor = '';
+                    submitButton.innerHTML = originalText;
+                    submitButton.style.background = '';
                     submitButton.disabled = false;
                 }, 2000);
-
-                // Focus on name field for next message
+                
+                // Focus on name field
                 setTimeout(() => document.getElementById('name').focus(), 100);
-
-                // Log success (analytics placeholder)
-                console.log('Contact form submitted successfully');
-
+                
             } else {
                 const errorData = await response.json();
-                const errorMessage = errorData.error ||
-                    errorData.errors?.map(e => e.message).join(', ') ||
-                    '❌ Server error. Please try again.';
-
+                const errorMessage = errorData.error || 'Server error. Please try again.';
                 showErrorStatus(errorMessage);
-                resetSubmitButton(submitButton, originalButtonHTML);
+                resetSubmitButton(submitButton, originalText);
             }
-
+            
         } catch (error) {
             console.error('Form submission error:', error);
-            showErrorStatus('❌ Network error. Please check your connection.');
-            resetSubmitButton(submitButton, originalButtonHTML);
+            showErrorStatus('Network error. Please check your connection.');
+            resetSubmitButton(submitButton, originalText);
         }
     });
-
+    
     // Helper functions
     function updateFieldValidation(field, error) {
         field.classList.remove('error');
         field.nextElementSibling?.remove();
-
+        
         if (error) {
             field.classList.add('error');
-
+            
             const errorElement = document.createElement('div');
             errorElement.className = 'field-error';
             errorElement.textContent = error;
             errorElement.setAttribute('role', 'alert');
-            errorElement.setAttribute('aria-live', 'assertive');
-
+            
             field.parentNode.appendChild(errorElement);
         }
     }
-
+    
     function showSuccessStatus() {
         status.innerHTML = `
             <div class="status-success">
-                <span class="status-icon">✅</span>
+                <i class="fas fa-check-circle"></i>
                 <div>
-                    <strong>Thank you!</strong> Your message has been sent successfully.
-                    <br><small>I'll get back to you within 24-48 hours.</small>
+                    <strong>Thank you!</strong> Your message has been sent.
+                    <br><small>I'll respond within 24-48 hours.</small>
                 </div>
             </div>
         `;
         status.className = 'form-status success';
     }
-
+    
     function showErrorStatus(message) {
         status.innerHTML = `
             <div class="status-error">
-                <span class="status-icon">❌</span>
+                <i class="fas fa-exclamation-circle"></i>
                 <div>${message}</div>
             </div>
         `;
         status.className = 'form-status error';
-
+        
         // Auto-clear after 10 seconds
-        setTimeout(() => {
+        const timeout = setTimeout(() => {
             if (status.classList.contains('error')) {
                 clearStatus();
             }
         }, 10000);
+        
+        AppState.timeouts.add(timeout);
     }
-
+    
     function clearStatus() {
         status.textContent = '';
         status.className = 'form-status';
     }
-
+    
     function resetSubmitButton(button, originalHTML) {
         setTimeout(() => {
             button.innerHTML = originalHTML;
             button.disabled = false;
         }, 1500);
     }
+    
+    // Cleanup function
+    AppState.events.set('form-cleanup', () => {
+        form.removeEventListener('submit', () => {});
+    });
 }
 
-// ====== 6. PRINT OPTIMIZATIONS ======
-function initPrintOptimizations() {
-    // Add print styles dynamically
+// ====== PRINT OPTIMIZATIONS ======
+function initializePrintOptimizations() {
     const printStyles = `
         @media print {
             * {
@@ -889,18 +885,20 @@ function initPrintOptimizations() {
             
             nav, 
             .btn, 
-            .contact-form-col,
+            .hero-social,
             .hamburger,
             .btn-back,
             .detail-nav,
-            .detail-footer {
+            .detail-footer,
+            .site-footer,
+            .social-icon {
                 display: none !important;
             }
             
             body {
                 font-size: 12pt;
                 line-height: 1.5;
-                font-family: 'Georgia', 'Times New Roman', serif;
+                font-family: 'Georgia', serif;
             }
             
             .container {
@@ -929,12 +927,6 @@ function initPrintOptimizations() {
                 text-decoration: underline !important;
             }
             
-            a[href^="http"]::after {
-                content: " (" attr(href) ")";
-                font-size: 10pt;
-                font-weight: normal;
-            }
-            
             .project-detail {
                 box-shadow: none !important;
                 border: 1px solid #ddd !important;
@@ -949,87 +941,49 @@ function initPrintOptimizations() {
             @page {
                 margin: 0.5in;
             }
-            
-            h1, h2, h3 {
-                page-break-after: avoid;
-            }
-            
-            ul, ol, img {
-                page-break-inside: avoid;
-            }
         }
     `;
-
+    
     const styleSheet = document.createElement('style');
     styleSheet.textContent = printStyles;
     document.head.appendChild(styleSheet);
 }
 
-// ====== 7. LAZY LOADING ENHANCEMENT ======
-function initLazyLoading() {
-    // Use IntersectionObserver for images outside of project details
-    if ('IntersectionObserver' in window) {
-        const lazyImages = document.querySelectorAll('img[data-src]');
-
-        const imageObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    img.src = img.dataset.src;
-                    img.removeAttribute('data-src');
-                    img.classList.add('lazy-loaded');
-                    imageObserver.unobserve(img);
-                }
-            });
-        });
-
-        lazyImages.forEach(img => imageObserver.observe(img));
-        globalState.intersectionObservers.push(imageObserver);
+// ====== UTILITY FUNCTIONS ======
+function updateCopyrightYear() {
+    const yearElement = document.getElementById('currentYear');
+    if (yearElement) {
+        yearElement.textContent = new Date().getFullYear();
     }
 }
 
-// ====== 8. ERROR HANDLING & TOASTS ======
-function showErrorToast(message) {
+function showToast(message, type = 'info') {
     const toast = document.createElement('div');
-    toast.className = 'global-toast error';
-    toast.setAttribute('role', 'alert');
-    toast.setAttribute('aria-live', 'assertive');
+    toast.className = `global-toast ${type}`;
     toast.innerHTML = `
-        <span class="toast-icon">⚠️</span>
+        <span class="toast-icon">${type === 'error' ? '⚠️' : 'ℹ️'}</span>
         <span class="toast-message">${message}</span>
         <button class="toast-close" aria-label="Dismiss">×</button>
     `;
-
+    
     document.body.appendChild(toast);
-
+    
     // Auto-remove after 5 seconds
-    setTimeout(() => {
-        toast.classList.add('fade-out');
-        setTimeout(() => toast.remove(), 300);
+    const timeout = setTimeout(() => {
+        toast.remove();
     }, 5000);
-
+    
+    AppState.timeouts.add(timeout);
+    
     // Close button
     toast.querySelector('.toast-close').addEventListener('click', () => {
-        toast.classList.add('fade-out');
-        setTimeout(() => toast.remove(), 300);
+        toast.remove();
+        clearTimeout(timeout);
     });
 }
 
-// ====== 9. CLEANUP ON PAGE UNLOAD ======
-window.addEventListener('beforeunload', () => {
-    // Clean up all observers
-    globalState.intersectionObservers.forEach(observer => observer.disconnect());
-
-    // Clean up all event listeners
-    globalState.abortControllers.forEach(controller => controller.abort());
-
-    // Remove any global styles
-    document.querySelectorAll('[data-dynamic-style]').forEach(el => el.remove());
-});
-
-// ====== 10. PROJECT DATA (Externalized) ======
+// ====== PROJECT DATA ======
 function getProjectsData() {
-    // Same as your existing project data
     return {
         1: {
             title: "Enterprise Virtualization Cluster with VMware vSphere, HA & Fault Tolerance",
@@ -1171,19 +1125,32 @@ function getProjectsData() {
     };
 }
 
-// ====== POLYFILLS & FALLBACKS ======
-// Ensure smooth scrolling works in all browsers
-if (!('scrollBehavior' in document.documentElement.style)) {
-    import('https://cdn.jsdelivr.net/npm/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js')
-        .then(() => console.log('SmoothScroll polyfill loaded'))
-        .catch(err => console.warn('SmoothScroll polyfill failed:', err));
-}
+// ====== CLEANUP ON PAGE UNLOAD ======
+window.addEventListener('beforeunload', () => {
+    // Clean up all observers
+    AppState.observers.forEach(observer => {
+        if (observer && typeof observer.disconnect === 'function') {
+            observer.disconnect();
+        }
+    });
+    
+    // Clear all timeouts
+    AppState.timeouts.forEach(timeout => clearTimeout(timeout));
+    
+    // Remove all event listeners
+    AppState.events.forEach((cleanup, name) => {
+        if (typeof cleanup === 'function') {
+            cleanup();
+        }
+    });
+});
 
-// Console welcome message
+// ====== CONSOLE WELCOME MESSAGE ======
 console.log(`
-╔══════════════════════════════════════╗
-║   Majestor Kepseu Portfolio v2.0     ║
-║   Enhanced with modern features      ║
-║   © ${new Date().getFullYear()} - All rights reserved  ║
-╚══════════════════════════════════════╝
+╔══════════════════════════════════════════════╗
+║      MAJESTOR KEPSEU PORTFOLIO v3.0         ║
+║      Premium Dark Theme - Enhanced          ║
+║      © ${new Date().getFullYear()} - All Rights Reserved     ║
+╚══════════════════════════════════════════════╝
+
 `);
