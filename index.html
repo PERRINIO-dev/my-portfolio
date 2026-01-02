@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Added theme-color for mobile browsers -->
+    <meta name="theme-color" content="#0984e3">
+    <meta name="description" content="Majestor Kepseu - Security-Focused Network & Systems Professional Portfolio">
     <title>Majestor Kepseu | Cloud & Security Portfolio</title>
     <link rel="stylesheet" href="style.css">
     <!-- Link to Font Awesome for icons (optional) -->
@@ -13,31 +16,35 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400&display=swap"
         rel="stylesheet">
+    <!-- Preload critical resources -->
+    <link rel="preload" href="style.css" as="style">
+    <link rel="preload" href="script.js" as="script">
 </head>
 
 <body>
     <!-- ====== Navigation ====== -->
-    <nav class="main-nav">
+    <nav class="main-nav" aria-label="Main Navigation">
         <div class="container nav-container">
-            <a href="#" class="logo">Majestor<span>Kepseu</span></a>
+            <a href="#" class="logo" aria-label="Home">Majestor<span>Kepseu</span></a>
 
             <!-- Hamburger Menu Button (Mobile) -->
-            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false"
+                aria-controls="nav-links">
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
             </button>
 
             <!-- Navigation Links -->
-            <ul class="nav-links" id="nav-links">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#experience" class="nav-link">Experience</a></li>
-                <li><a href="#projects" class="nav-link">Projects</a></li>
-                <li><a href="#skills" class="nav-link">Skills</a></li>
-                <li><a href="#education" class="nav-link">Education</a></li>
-                <li><a href="#certifications" class="nav-link">Certifications</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
+            <ul class="nav-links" id="nav-links" role="menubar">
+                <li role="none"><a href="#home" class="nav-link" role="menuitem">Home</a></li>
+                <li role="none"><a href="#about" class="nav-link" role="menuitem">About</a></li>
+                <li role="none"><a href="#experience" class="nav-link" role="menuitem">Experience</a></li>
+                <li role="none"><a href="#projects" class="nav-link" role="menuitem">Projects</a></li>
+                <li role="none"><a href="#skills" class="nav-link" role="menuitem">Skills</a></li>
+                <li role="none"><a href="#education" class="nav-link" role="menuitem">Education</a></li>
+                <li role="none"><a href="#certifications" class="nav-link" role="menuitem">Certifications</a></li>
+                <li role="none"><a href="#contact" class="nav-link" role="menuitem">Contact</a></li>
             </ul>
         </div>
     </nav>

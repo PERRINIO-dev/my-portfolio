@@ -1,38 +1,138 @@
+// ====== CONFIGURATION & GLOBALS ======
+const CONFIG = {
+    navHeightDesktop: 85,
+    navHeightMobile: 100,
+    formEndpoint: 'https://formspree.io/f/mbdrzrbq',
+    projectImagesPath: 'assets/images/'
+};
+
+// Global state for cleanup
+let globalState = {
+    scrollListeners: new Set(),
+    resizeListeners: new Set(),
+    intersectionObservers: [],
+    abortControllers: []
+};
+
 // ====== MAIN INITIALIZATION ======
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Portfolio initialized');
+    console.log('Portfolio initialized - Enhanced version');
 
-    // Initialize all components
-    initSmoothScroll();
-    initMobileNav();
-    initSkillsAccordion();
-    initProjects();
-    initContactForm();
+    // Initialize all modules with error handling
+    try {
+        initPerformanceMonitoring();
+        initThemeSystem();
+        initSmoothScroll();
+        initMobileNav();
+        initSkillsAccordion();
+        initProjects();
+        initContactForm();
+        initPrintOptimizations();
+        initLazyLoading();
 
-    // Update copyright year
-    document.getElementById('currentYear').textContent = new Date().getFullYear();
+        // Update copyright year
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    } catch (error) {
+        console.error('Initialization error:', error);
+        showErrorToast('Some features may not work correctly. Please refresh the page.');
+    }
 });
 
-// ====== 1. SMOOTH SCROLLING ======
+// ====== PERFORMANCE MONITORING ======
+function initPerformanceMonitoring() {
+    // Log performance metrics in development
+    if (window.location.hostname === 'localhost' || window.location.hostname.includes('127.0.0.1')) {
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const [navigationEntry] = performance.getEntriesByType('navigation');
+                if (navigationEntry) {
+                    console.log(`🚀 Performance Metrics:
+                    - DOM Content Loaded: ${navigationEntry.domContentLoadedEventEnd.toFixed(2)}ms
+                    - Page Load Complete: ${navigationEntry.loadEventEnd.toFixed(2)}ms
+                    - First Contentful Paint: ${performance.getEntriesByName('first-contentful-paint')[0]?.startTime.toFixed(2) || 'N/A'}ms`);
+                }
+            }, 0);
+        });
+    }
+}
+
+// ====== THEME SYSTEM (Future-ready) ======
+function initThemeSystem() {
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('portfolio-theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+    }
+
+    // Store theme toggle for future implementation
+    window.portfolioTheme = {
+        toggle: () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('portfolio-theme', newTheme);
+            console.log(`Theme changed to: ${newTheme}`);
+        },
+        current: () => document.documentElement.getAttribute('data-theme') || 'light'
+    };
+}
+
+// ====== 1. ENHANCED SMOOTH SCROLLING ======
 function initSmoothScroll() {
+    // Set dynamic scroll offset based on screen size
+    function updateScrollOffset() {
+        const isMobile = window.innerWidth <= 768;
+        const offset = isMobile ? CONFIG.navHeightMobile : CONFIG.navHeightDesktop;
+
+        document.documentElement.style.setProperty('--nav-height', `${offset}px`);
+        document.documentElement.style.scrollPaddingTop = `${offset}px`;
+    }
+
+    updateScrollOffset();
+    window.addEventListener('resize', updateScrollOffset);
+    globalState.resizeListeners.add(() => window.removeEventListener('resize', updateScrollOffset));
+
+    // Enhanced smooth scroll with offset
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
+        const controller = new AbortController();
+        globalState.abortControllers.push(controller);
+
+        anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
+
+            if (targetId === '#' || targetId === '#!') return;
+
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
+                const isMobile = window.innerWidth <= 768;
+                const offset = isMobile ? CONFIG.navHeightMobile : CONFIG.navHeightDesktop;
+
+                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
+
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
                 });
+
+                // Update URL without adding to history (for single page)
+                history.replaceState(null, null, targetId);
+
+                // Close mobile menu if open
+                const navLinks = document.getElementById('nav-links');
+                const hamburger = document.getElementById('hamburger');
+                if (navLinks && navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    hamburger.classList.remove('active');
+                }
             }
-        });
+        }, { signal: controller.signal });
     });
 }
 
-// ====== 2. MOBILE NAVIGATION ======
+// ====== 2. ENHANCED MOBILE NAVIGATION ======
 function initMobileNav() {
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('nav-links');
@@ -43,32 +143,71 @@ function initMobileNav() {
     }
 
     const navItems = document.querySelectorAll('.nav-link');
+    const controller = new AbortController();
+    globalState.abortControllers.push(controller);
 
-    // Toggle menu on hamburger click
-    hamburger.addEventListener('click', () => {
+    // Toggle menu with animation
+    hamburger.addEventListener('click', (e) => {
+        e.stopPropagation();
         navLinks.classList.toggle('active');
         hamburger.classList.toggle('active');
-    });
 
-    // Close menu when a nav link is clicked
+        // Prevent body scroll when menu is open
+        document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+
+        // Update aria attributes
+        const isExpanded = navLinks.classList.contains('active');
+        hamburger.setAttribute('aria-expanded', isExpanded);
+    }, { signal: controller.signal });
+
+    // Close menu when clicking links
     navItems.forEach(item => {
         item.addEventListener('click', () => {
             navLinks.classList.remove('active');
             hamburger.classList.remove('active');
-        });
+            hamburger.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+        }, { signal: controller.signal });
     });
 
-    // Close menu when clicking outside
-    document.addEventListener('click', (event) => {
-        const isClickInsideNav = navLinks.contains(event.target) || hamburger.contains(event.target);
-        if (!isClickInsideNav && navLinks.classList.contains('active')) {
+    // Close menu when clicking outside or pressing Escape
+    document.addEventListener('click', (e) => {
+        if (!navLinks.contains(e.target) && !hamburger.contains(e.target) && navLinks.classList.contains('active')) {
             navLinks.classList.remove('active');
             hamburger.classList.remove('active');
+            hamburger.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
         }
-    });
+    }, { signal: controller.signal });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+            navLinks.classList.remove('active');
+            hamburger.classList.remove('active');
+            hamburger.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+        }
+    }, { signal: controller.signal });
+
+    // Handle keyboard navigation in menu
+    navLinks.addEventListener('keydown', (e) => {
+        if (e.key === 'Tab' && navLinks.classList.contains('active')) {
+            const focusableElements = navLinks.querySelectorAll('a[href]');
+            const firstElement = focusableElements[0];
+            const lastElement = focusableElements[focusableElements.length - 1];
+
+            if (e.shiftKey && document.activeElement === firstElement) {
+                e.preventDefault();
+                lastElement.focus();
+            } else if (!e.shiftKey && document.activeElement === lastElement) {
+                e.preventDefault();
+                hamburger.focus();
+            }
+        }
+    }, { signal: controller.signal });
 }
 
-// ====== 3. TECHNICAL SKILLS ACCORDION ======
+// ====== 3. ENHANCED SKILLS ACCORDION ======
 function initSkillsAccordion() {
     const accordionItems = document.querySelectorAll('.accordion-item');
 
@@ -80,38 +219,71 @@ function initSkillsAccordion() {
 
         if (!header || !content) return;
 
+        const controller = new AbortController();
+        globalState.abortControllers.push(controller);
+
+        // Click handler
         header.addEventListener('click', () => {
             const isAlreadyActive = item.classList.contains('active');
 
-            // Close all accordion items
+            // Close all other accordion items
             accordionItems.forEach(otherItem => {
-                otherItem.classList.remove('active');
-                const otherHeader = otherItem.querySelector('.accordion-header');
-                const otherContent = otherItem.querySelector('.accordion-content');
-                
-                if (otherHeader) otherHeader.setAttribute('aria-expanded', 'false');
-                if (otherContent) otherContent.style.maxHeight = null;
+                if (otherItem !== item) {
+                    otherItem.classList.remove('active');
+                    const otherHeader = otherItem.querySelector('.accordion-header');
+                    const otherContent = otherItem.querySelector('.accordion-content');
+
+                    if (otherHeader) otherHeader.setAttribute('aria-expanded', 'false');
+                    if (otherContent) {
+                        otherContent.style.maxHeight = null;
+                        otherContent.setAttribute('aria-hidden', 'true');
+                    }
+                }
             });
 
-            // If it wasn't active, open the clicked one
+            // Toggle current item
             if (!isAlreadyActive) {
                 item.classList.add('active');
                 header.setAttribute('aria-expanded', 'true');
                 content.style.maxHeight = content.scrollHeight + 'px';
+                content.setAttribute('aria-hidden', 'false');
+            } else {
+                item.classList.remove('active');
+                header.setAttribute('aria-expanded', 'false');
+                content.style.maxHeight = null;
+                content.setAttribute('aria-hidden', 'true');
             }
-        });
+        }, { signal: controller.signal });
 
-        // Keyboard support for accordion headers
+        // Keyboard support
         header.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
                 header.click();
             }
-        });
+
+            // Arrow key navigation between accordions
+            if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+                e.preventDefault();
+                const currentIndex = Array.from(accordionItems).indexOf(item);
+                const direction = e.key === 'ArrowDown' ? 1 : -1;
+                const nextIndex = (currentIndex + direction + accordionItems.length) % accordionItems.length;
+                const nextHeader = accordionItems[nextIndex].querySelector('.accordion-header');
+
+                if (nextHeader) {
+                    nextHeader.focus();
+                    nextHeader.click();
+                }
+            }
+        }, { signal: controller.signal });
+
+        // Initialize ARIA attributes
+        header.setAttribute('aria-expanded', 'false');
+        content.setAttribute('aria-hidden', 'true');
     });
 }
 
-// ====== 4. PROJECTS SECTION ======
+// ====== 4. ENHANCED PROJECTS SYSTEM ======
 function initProjects() {
     const projectsGrid = document.getElementById('projects-grid');
     const projectDetail = document.getElementById('project-detail');
@@ -123,332 +295,322 @@ function initProjects() {
         return;
     }
 
-    // Store the last clicked project card for focus management
-    let lastClickedCard = null;
-    let scrollHandler = null;
-    let resizeHandler = null;
-    let imageLoadHandler = null;
+    // Project data manager
+    const projectsManager = {
+        data: getProjectsData(),
+        currentProjectId: null,
+        lastClickedCard: null,
+        observer: null,
 
-    // Project data - externalized for cleaner structure
-    const projectsData = getProjectsData();
-
-    // Function to render project detail
-    function renderProjectDetail(projectId, clickedCard) {
-        const project = projectsData[projectId];
-        if (!project) return;
-
-        // Store reference to the clicked card
-        lastClickedCard = clickedCard;
-
-        // Generate HTML for project detail
-        detailContent.innerHTML = generateProjectDetailHTML(project);
-        
-        // Show detail view and hide grid
-        projectsGrid.style.display = 'none';
-        projectDetail.style.display = 'block';
-
-        // Reset sticky state
-        backButton.classList.remove('sticky-active');
-        backButton.style.cssText = ''; // Clear all inline styles
-
-        // Scroll to the detail view
-        projectDetail.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-        // Clean up any existing listeners
-        cleanupStickyListeners();
-
-        // Initialize sticky behavior after content loads
-        setTimeout(() => {
-            initStickyBackButton();
-            // Re-check after images load
-            setupImageLoadListeners();
-        }, 100);
-    }
-
-    // Function to initialize sticky back button behavior
-    function initStickyBackButton() {
-        if (!projectDetail.style.display || projectDetail.style.display === 'none') {
-            return;
-        }
-
-        let lastStickyState = false;
-        let rafId = null;
-        let lastScrollPosition = 0;
-
-        // Get fresh measurements each time
-        function getMeasurements() {
-            const detailTop = projectDetail.offsetTop;
-            const detailHeight = projectDetail.offsetHeight;
-            const scrollPosition = window.scrollY;
-            const viewportHeight = window.innerHeight;
-            const contentBottom = detailTop + detailHeight;
-            
-            return { detailTop, detailHeight, scrollPosition, viewportHeight, contentBottom };
-        }
-
-        function updateStickyState() {
-            if (!projectDetail.style.display || projectDetail.style.display === 'none') {
+        renderDetail(projectId, clickedCard) {
+            const project = this.data[projectId];
+            if (!project) {
+                this.showError('Project not found');
                 return;
             }
 
-            // Get fresh measurements every time
-            const { detailTop, detailHeight, scrollPosition, viewportHeight, contentBottom } = getMeasurements();
-            
-            // Calculate if we're at the bottom of content (with 100px buffer)
-            const distanceFromBottom = contentBottom - (scrollPosition + viewportHeight);
-            const isAtBottom = distanceFromBottom <= 100;
-            
-            // Calculate if we're at the top of the detail view
-            const distanceFromTop = scrollPosition - detailTop;
-            const isAtTop = distanceFromTop <= 100;
+            this.currentProjectId = projectId;
+            this.lastClickedCard = clickedCard;
 
-            let shouldBeSticky = false;
+            // Show loading state
+            detailContent.innerHTML = `
+                <div class="project-loading">
+                    <div class="spinner"></div>
+                    <p>Loading project details...</p>
+                </div>
+            `;
 
-            if (window.innerWidth >= 769) {
-                // DESKTOP: Show when scrolled past 200px and not at bottom
-                shouldBeSticky = (scrollPosition > detailTop + 200) && !isAtBottom;
-            } else {
-                // MOBILE: Show when not at top and not at bottom
-                shouldBeSticky = !isAtTop && !isAtBottom;
-            }
+            // Switch views
+            projectsGrid.style.display = 'none';
+            projectDetail.style.display = 'block';
+            projectsGrid.setAttribute('aria-hidden', 'true');
+            projectDetail.setAttribute('aria-hidden', 'false');
 
-            // Only update if state changed AND we've scrolled at least 5px
-            const scrollDelta = Math.abs(scrollPosition - lastScrollPosition);
-            lastScrollPosition = scrollPosition;
+            // Render content after a small delay (simulate async)
+            setTimeout(() => {
+                detailContent.innerHTML = this.generateProjectDetailHTML(project);
+                this.initProjectDetailInteractions();
+                this.initStickyBackButton();
 
-            if (shouldBeSticky !== lastStickyState && scrollDelta > 5) {
-                lastStickyState = shouldBeSticky;
+                // Set focus for accessibility
+                detailContent.setAttribute('tabindex', '-1');
+                detailContent.focus();
+
+                // Track view (analytics placeholder)
+                console.log(`Project viewed: ${project.title}`);
+            }, 100);
+        },
+
+        generateProjectDetailHTML(project) {
+            const imagePlaceholderSVG = `data:image/svg+xml;base64,${btoa(`
+                <svg width="100%" height="200" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="400" height="200" fill="#f8f9fa"/>
+                    <text x="200" y="100" font-family="Arial" font-size="14" fill="#636e72" text-anchor="middle" dy=".3em">
+                        Project Diagram
+                    </text>
+                    <text x="200" y="120" font-family="Arial" font-size="12" fill="#adb5bd" text-anchor="middle" dy=".3em">
+                        Add your screenshots to /assets/images/
+                    </text>
+                </svg>
+            `)}`;
+
+            const imagesHTML = project.images.map((imgName, index) => `
+                <div class="image-item">
+                    <div class="image-wrapper">
+                        <img src="${CONFIG.projectImagesPath}${imgName}" 
+                             alt="Project Image ${index + 1}: ${imgName.replace(/\.[^/.]+$/, "").replace(/-/g, " ")}" 
+                             class="project-image"
+                             loading="lazy"
+                             decoding="async"
+                             onerror="this.onerror=null; this.src='${imagePlaceholderSVG}'; this.alt='Image not available'; this.classList.add('image-error');">
+                        <div class="image-loading"></div>
+                        <div class="image-caption">${imgName.replace(/\.[^/.]+$/, "").replace(/-/g, " ")}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            return `
+                <header class="detail-header" id="project-detail-header">
+                    <h2 class="detail-title">${project.title}</h2>
+                    <div class="project-meta">
+                        <span class="meta-item">${project.skills.length} technologies</span>
+                        <span class="meta-separator">•</span>
+                        <span class="meta-item">${project.images.length} images</span>
+                    </div>
+                </header>
                 
-                if (shouldBeSticky) {
-                    backButton.classList.add('sticky-active');
-                    // Add smooth appearance
-                    requestAnimationFrame(() => {
-                        backButton.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-                        backButton.style.opacity = '1';
-                        backButton.style.transform = 'translateX(-50%) translateY(0)';
-                    });
-                } else {
-                    // Smooth disappearance
-                    backButton.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-                    backButton.style.opacity = '0';
-                    backButton.style.transform = window.innerWidth >= 769 
-                        ? 'translateX(-50%) translateY(-10px)' 
-                        : 'translateX(-50%) translateY(10px)';
+                <nav class="detail-nav" aria-label="Project detail navigation">
+                    <ul>
+                        <li><a href="#overview" class="detail-nav-link">Overview</a></li>
+                        <li><a href="#architecture" class="detail-nav-link">Architecture</a></li>
+                        <li><a href="#results" class="detail-nav-link">Results</a></li>
+                        <li><a href="#skills" class="detail-nav-link">Technologies</a></li>
+                        <li><a href="#images" class="detail-nav-link">Images</a></li>
+                    </ul>
+                </nav>
+                
+                <main class="detail-main">
+                    <section id="overview" class="detail-section">
+                        <h3 class="detail-subtitle">🔹 Project Overview</h3>
+                        <p>${project.overview}</p>
+                    </section>
                     
-                    // Remove class after animation
-                    setTimeout(() => {
-                        backButton.classList.remove('sticky-active');
-                        backButton.style.opacity = '';
-                        backButton.style.transform = '';
-                        backButton.style.transition = '';
-                    }, 300);
-                }
-            }
-        }
+                    <section id="architecture" class="detail-section">
+                        <h3 class="detail-subtitle">🔹 Architecture & Implementation</h3>
+                        <ul class="detail-list">
+                            ${project.architecture.map(item => `<li>${item}</li>`).join('')}
+                        </ul>
+                    </section>
+                    
+                    <section id="results" class="detail-section">
+                        <h3 class="detail-subtitle">🔹 Results & Validation</h3>
+                        <ul class="detail-list">
+                            ${project.results.map(item => `<li>${item}</li>`).join('')}
+                        </ul>
+                    </section>
+                    
+                    <section id="skills" class="detail-section">
+                        <h3 class="detail-subtitle">🔹 Skills & Technologies Used</h3>
+                        <div class="skills-container">
+                            ${project.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+                        </div>
+                    </section>
+                    
+                    <section id="images" class="detail-section">
+                        <h3 class="detail-subtitle">🔹 Project Images</h3>
+                        <p><em>Visual documentation of the project's implementation and outcomes.</em></p>
+                        <div class="images-container" id="project-images-container">
+                            ${imagesHTML}
+                        </div>
+                        <p class="image-note">
+                            <small>To add your screenshots, save them in the <code>/assets/images/</code> folder with the filenames listed in the project data.</small>
+                        </p>
+                    </section>
+                </main>
+                
+                <footer class="detail-footer">
+                    <button class="btn btn-secondary" onclick="window.print()">
+                        <span class="print-icon">🖨️</span> Print Project Details
+                    </button>
+                </footer>
+            `;
+        },
 
-        // Throttled scroll handler
-        function handleScroll() {
-            if (rafId) {
-                cancelAnimationFrame(rafId);
-            }
-            rafId = requestAnimationFrame(updateStickyState);
-        }
+        initProjectDetailInteractions() {
+            // Image lazy loading enhancement
+            const images = detailContent.querySelectorAll('.project-image');
+            images.forEach(img => {
+                img.addEventListener('load', () => {
+                    img.classList.add('loaded');
+                    img.previousElementSibling?.remove(); // Remove loading spinner
+                });
 
-        // Throttled resize handler
-        let resizeTimeout;
-        function handleResize() {
-            if (resizeTimeout) {
-                clearTimeout(resizeTimeout);
-            }
-            resizeTimeout = setTimeout(() => {
-                updateStickyState();
-            }, 150);
-        }
+                img.addEventListener('error', () => {
+                    img.classList.add('error');
+                    img.previousElementSibling?.remove();
+                });
+            });
 
-        // Initial check
-        updateStickyState();
+            // Detail navigation smooth scroll
+            const navLinks = detailContent.querySelectorAll('.detail-nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href');
+                    const targetElement = detailContent.querySelector(targetId);
 
-        // Add event listeners
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        window.addEventListener('resize', handleResize);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
 
-        // Store handlers for cleanup
-        scrollHandler = handleScroll;
-        resizeHandler = handleResize;
-    }
-
-    // Function to setup image load listeners
-    function setupImageLoadListeners() {
-        const images = detailContent.querySelectorAll('img');
-        if (images.length === 0) return;
-
-        let imagesLoaded = 0;
-        const totalImages = images.length;
-
-        function onImageLoad() {
-            imagesLoaded++;
-            // When all images are loaded, update sticky state
-            if (imagesLoaded === totalImages) {
-                // Trigger a re-check of sticky state after images load
-                setTimeout(() => {
-                    if (scrollHandler) {
-                        scrollHandler();
+                        // Update active nav link
+                        navLinks.forEach(l => l.classList.remove('active'));
+                        link.classList.add('active');
                     }
+                });
+            });
+
+            // Intersection observer for nav highlighting
+            const sections = detailContent.querySelectorAll('.detail-section');
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const id = entry.target.id;
+                            const correspondingLink = detailContent.querySelector(`.detail-nav-link[href="#${id}"]`);
+                            if (correspondingLink) {
+                                navLinks.forEach(l => l.classList.remove('active'));
+                                correspondingLink.classList.add('active');
+                            }
+                        }
+                    });
+                },
+                { root: detailContent, threshold: 0.5 }
+            );
+
+            sections.forEach(section => observer.observe(section));
+            globalState.intersectionObservers.push(observer);
+        },
+
+        initStickyBackButton() {
+            // Clean up previous observer
+            if (this.observer) {
+                this.observer.disconnect();
+            }
+
+            // Create new observer for sticky behavior
+            this.observer = new IntersectionObserver(
+                (entries) => {
+                    const [entry] = entries;
+                    backButton.classList.toggle('sticky-active', !entry.isIntersecting);
+
+                    // Add smooth transition
+                    if (!entry.isIntersecting) {
+                        backButton.style.opacity = '1';
+                        backButton.style.transform = window.innerWidth >= 769
+                            ? 'translateX(-50%) translateY(0)'
+                            : 'translateY(0)';
+                    } else {
+                        backButton.style.opacity = '0';
+                        backButton.style.transform = window.innerWidth >= 769
+                            ? 'translateX(-50%) translateY(-10px)'
+                            : 'translateY(10px)';
+                    }
+                },
+                {
+                    root: null,
+                    threshold: 0,
+                    rootMargin: '-100px 0px 0px 0px'
+                }
+            );
+
+            const header = detailContent.querySelector('.detail-header');
+            if (header) {
+                this.observer.observe(header);
+            }
+        },
+
+        returnToProjects() {
+            // Clean up observers
+            if (this.observer) {
+                this.observer.disconnect();
+                this.observer = null;
+            }
+
+            // Switch views
+            projectDetail.style.display = 'none';
+            projectsGrid.style.display = 'grid';
+            projectsGrid.setAttribute('aria-hidden', 'false');
+            projectDetail.setAttribute('aria-hidden', 'true');
+
+            // Reset sticky button
+            backButton.classList.remove('sticky-active');
+            backButton.style.cssText = '';
+
+            // Return focus to clicked card
+            if (this.lastClickedCard) {
+                setTimeout(() => {
+                    this.lastClickedCard.focus();
+                    this.lastClickedCard.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'nearest'
+                    });
                 }, 100);
             }
+
+            this.currentProjectId = null;
+            this.lastClickedCard = null;
+        },
+
+        showError(message) {
+            console.error('Project error:', message);
+
+            // Show error toast
+            const toast = document.createElement('div');
+            toast.className = 'error-toast';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+
+            setTimeout(() => toast.remove(), 5000);
         }
-
-        images.forEach(img => {
-            // Check if image is already loaded
-            if (img.complete) {
-                imagesLoaded++;
-                if (imagesLoaded === totalImages) {
-                    onImageLoad();
-                }
-            } else {
-                img.addEventListener('load', onImageLoad);
-                img.addEventListener('error', onImageLoad); // Also count errors as "loaded"
-            }
-        });
-
-        // If no images or all already loaded
-        if (totalImages === 0 || imagesLoaded === totalImages) {
-            onImageLoad();
-        }
-
-        // Store for cleanup
-        imageLoadHandler = onImageLoad;
-    }
-
-    // Function to clean up sticky listeners
-    function cleanupStickyListeners() {
-        if (scrollHandler) {
-            window.removeEventListener('scroll', scrollHandler);
-            scrollHandler = null;
-        }
-        if (resizeHandler) {
-            window.removeEventListener('resize', resizeHandler);
-            resizeHandler = null;
-        }
-        
-        // Clean up image load listeners
-        const images = detailContent.querySelectorAll('img');
-        images.forEach(img => {
-            if (imageLoadHandler) {
-                img.removeEventListener('load', imageLoadHandler);
-                img.removeEventListener('error', imageLoadHandler);
-            }
-        });
-        imageLoadHandler = null;
-    }
-
-    // Function to return to projects grid
-    function returnToProjects() {
-        // Clean up sticky listeners
-        cleanupStickyListeners();
-
-        projectDetail.style.display = 'none';
-        projectsGrid.style.display = 'grid';
-
-        // Remove sticky class and reset styles
-        backButton.classList.remove('sticky-active');
-        backButton.style.cssText = '';
-
-        // Return focus to the previously clicked card
-        if (lastClickedCard) {
-            setTimeout(() => {
-                lastClickedCard.focus();
-                lastClickedCard.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'nearest'
-                });
-            }, 100);
-        } else {
-            projectsGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-    }
-
-    // Helper function to generate project detail HTML
-    function generateProjectDetailHTML(project) {
-        const imagePlaceholderSVG = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIyMDAiIHZpZXdCb3g9IjAgMCA0MDAgMjAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjZjhmOWZhIi8+PHRleHQgeD0iMjAwIiB5PSIxMDAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzYzNmU3MiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPlByb2plY3QgRGlhZ3JhbTwvdGV4dD48L3N2Zz4=';
-        
-        const imagesHTML = project.images.map((imgName, index) => `
-            <div class="image-item">
-                <div class="image-wrapper">
-                    <img src="assets/images/${imgName}" 
-                         alt="Project Image ${index + 1}: ${imgName.replace(/\.[^/.]+$/, "").replace(/-/g, " ")}" 
-                         class="project-image"
-                         onerror="this.onerror=null; this.src='${imagePlaceholderSVG}'; this.alt='Image not available';">
-                    <div class="image-caption">${imgName.replace(/\.[^/.]+$/, "").replace(/-/g, " ")}</div>
-                </div>
-            </div>
-        `).join('');
-
-        return `
-            <header class="detail-header">
-                <h2 class="detail-title">${project.title}</h2>
-            </header>
-            <section class="detail-section">
-                <h3 class="detail-subtitle">🔹 Project Overview</h3>
-                <p>${project.overview}</p>
-            </section>
-            <section class="detail-section">
-                <h3 class="detail-subtitle">🔹 Architecture & Implementation</h3>
-                <ul class="detail-list">
-                    ${project.architecture.map(item => `<li>${item}</li>`).join('')}
-                </ul>
-            </section>
-            <section class="detail-section">
-                <h3 class="detail-subtitle">🔹 Results & Validation</h3>
-                <ul class="detail-list">
-                    ${project.results.map(item => `<li>${item}</li>`).join('')}
-                </ul>
-            </section>
-            <section class="detail-section">
-                <h3 class="detail-subtitle">🔹 Skills & Technologies Used</h3>
-                <div class="skills-container">
-                    ${project.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
-                </div>
-            </section>
-            <section class="detail-section">
-                <h3 class="detail-subtitle">🔹 Project Images</h3>
-                <p><em>Visual documentation of the project's implementation and outcomes.</em></p>
-                <div class="images-container">
-                    ${imagesHTML}
-                </div>
-                <p class="image-note"><small>To add your screenshots, save them in the <code>/assets/images/</code> folder with the filenames listed in the project data.</small></p>
-            </section>
-        `;
-    }
+    };
 
     // Event listeners for project cards
-    const projectCards = document.querySelectorAll('.project-card');
-    projectCards.forEach(card => {
-        card.addEventListener('click', function() {
+    document.querySelectorAll('.project-card').forEach(card => {
+        card.addEventListener('click', function () {
             const projectId = this.getAttribute('data-project-id');
-            renderProjectDetail(projectId, this);
+            projectsManager.renderDetail(projectId, this);
         });
 
-        card.addEventListener('keydown', function(e) {
+        card.addEventListener('keydown', function (e) {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
                 const projectId = this.getAttribute('data-project-id');
-                renderProjectDetail(projectId, this);
+                projectsManager.renderDetail(projectId, this);
             }
         });
     });
 
-    // Event listeners for back button
-    backButton.addEventListener('click', returnToProjects);
-    backButton.addEventListener('keydown', function(e) {
+    // Back button
+    backButton.addEventListener('click', () => projectsManager.returnToProjects());
+    backButton.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
-            returnToProjects();
+            projectsManager.returnToProjects();
+        }
+    });
+
+    // Handle browser back button
+    window.addEventListener('popstate', () => {
+        if (projectsManager.currentProjectId) {
+            projectsManager.returnToProjects();
         }
     });
 }
 
-// ====== 5. CONTACT FORM ======
+// ====== 5. ENHANCED CONTACT FORM ======
 function initContactForm() {
     const form = document.getElementById('contact-form');
     const status = document.getElementById('form-status');
@@ -458,163 +620,416 @@ function initContactForm() {
         return;
     }
 
-    // Add ARIA attributes for accessibility
+    // Honeypot field for spam protection
+    const honeypot = document.createElement('input');
+    honeypot.type = 'text';
+    honeypot.name = '_gotcha';
+    honeypot.style.display = 'none';
+    honeypot.setAttribute('aria-hidden', 'true');
+    honeypot.setAttribute('tabindex', '-1');
+    honeypot.autocomplete = 'off';
+    form.appendChild(honeypot);
+
+    // Timestamp for rate limiting
+    const timestamp = document.createElement('input');
+    timestamp.type = 'hidden';
+    timestamp.name = '_timestamp';
+    timestamp.value = Date.now();
+    form.appendChild(timestamp);
+
+    // Accessibility setup
     status.setAttribute('role', 'status');
     status.setAttribute('aria-live', 'polite');
     status.setAttribute('aria-atomic', 'true');
+    status.setAttribute('aria-relevant', 'additions text');
 
-    // Basic form validation
-    function validateForm(formData) {
-        const name = formData.get('name')?.trim() || '';
-        const email = formData.get('email')?.trim() || '';
-        const message = formData.get('message')?.trim() || '';
+    // Form validation functions
+    const validators = {
+        name: (value) => {
+            const trimmed = value.trim();
+            if (!trimmed) return 'Please enter your name.';
+            if (trimmed.length < 2) return 'Name must be at least 2 characters.';
+            if (trimmed.length > 100) return 'Name is too long (max 100 characters).';
+            return null;
+        },
 
-        if (!name) return 'Please enter your name.';
-        if (!email) return 'Please enter your email address.';
-        if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) return 'Please enter a valid email address.';
-        if (!message) return 'Please enter your message.';
-        if (message.length < 10) return 'Please enter a message with at least 10 characters.';
-        
-        return null; // No errors
-    }
+        email: (value) => {
+            const trimmed = value.trim();
+            if (!trimmed) return 'Please enter your email address.';
 
-    async function handleSubmit(event) {
-        event.preventDefault();
-        const formData = new FormData(event.target);
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(trimmed)) return 'Please enter a valid email address.';
 
-        // Validate form
-        const validationError = validateForm(formData);
-        if (validationError) {
-            showErrorStatus(validationError);
-            focusFirstErrorField(formData);
-            return;
-        }
+            // Additional email validation
+            if (trimmed.length > 254) return 'Email is too long.';
+            if (trimmed.includes('..')) return 'Email contains invalid characters.';
 
-        // Show loading state
-        const submitButton = form.querySelector('button[type="submit"]');
-        const originalButtonText = submitButton.textContent;
-        showLoadingStatus(submitButton);
+            return null;
+        },
 
-        try {
-            const response = await fetch(event.target.action, {
-                method: form.method,
-                body: formData,
-                headers: { 'Accept': 'application/json' }
-            });
+        message: (value) => {
+            const trimmed = value.trim();
+            if (!trimmed) return 'Please enter your message.';
+            if (trimmed.length < 10) return 'Message must be at least 10 characters.';
+            if (trimmed.length > 5000) return 'Message is too long (max 5000 characters).';
 
-            if (response.ok) {
-                showSuccessStatus();
-                form.reset();
-                setTimeout(() => document.getElementById('name').focus(), 100);
-            } else {
-                const errorData = await response.json();
-                showErrorStatus(errorData.error || '❌ Oops! There was a problem sending your message. Please try again.');
+            // Check for suspicious content
+            const suspiciousPatterns = [
+                /\[url\]/i,
+                /\[link\]/i,
+                /http[s]?:\/\//i,
+                /<script/i,
+                /onclick=/i,
+                /javascript:/i
+            ];
+
+            if (suspiciousPatterns.some(pattern => pattern.test(trimmed))) {
+                return 'Message contains suspicious content. Please remove any links or scripts.';
             }
-        } catch (error) {
-            showErrorStatus('❌ Network error. Please check your connection and try again.');
-            console.error('Form submission error:', error);
-        } finally {
-            resetSubmitButton(submitButton, originalButtonText);
+
+            return null;
         }
-    }
+    };
 
-    // Helper functions
-    function showErrorStatus(message) {
-        status.textContent = message;
-        status.style.color = '#d63031';
-        status.style.backgroundColor = '#ffeaea';
-        status.style.padding = '1rem';
-        status.style.borderRadius = '8px';
-        status.style.border = '1px solid #ffcccc';
-        
-        // Auto-clear after 10 seconds
-        setTimeout(() => {
-            if (status.style.color === '#d63031') {
-                clearStatus();
-            }
-        }, 10000);
-    }
+    // Real-time validation
+    form.querySelectorAll('input, textarea').forEach(field => {
+        const fieldName = field.id || field.name;
 
-    function showSuccessStatus() {
-        status.textContent = '✅ Thank you! Your message has been sent. I\'ll get back to you soon.';
-        status.style.color = '#00b894';
-        status.style.backgroundColor = '#e8f7f3';
-        status.style.padding = '1rem';
-        status.style.borderRadius = '8px';
-        status.style.border = '1px solid #b2ebd2';
-    }
-
-    function showLoadingStatus(submitButton) {
-        status.textContent = 'Sending your message...';
-        status.style.color = '#0984e3';
-        clearStatusStyles();
-        
-        submitButton.textContent = 'Sending...';
-        submitButton.disabled = true;
-        submitButton.style.opacity = '0.7';
-        submitButton.style.cursor = 'not-allowed';
-    }
-
-    function resetSubmitButton(submitButton, originalText) {
-        submitButton.textContent = originalText;
-        submitButton.disabled = false;
-        submitButton.style.opacity = '1';
-        submitButton.style.cursor = 'pointer';
-    }
-
-    function focusFirstErrorField(formData) {
-        if (!formData.get('name')?.trim()) {
-            document.getElementById('name').focus();
-        } else if (!formData.get('email')?.trim() || !formData.get('email')?.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-            document.getElementById('email').focus();
-        } else {
-            document.getElementById('message').focus();
-        }
-    }
-
-    function clearStatus() {
-        status.textContent = '';
-        clearStatusStyles();
-    }
-
-    function clearStatusStyles() {
-        status.style.backgroundColor = '';
-        status.style.padding = '';
-        status.style.borderRadius = '';
-        status.style.border = '';
-    }
-
-    // Event listeners
-    form.addEventListener('submit', handleSubmit);
-
-    // Real-time email validation
-    const emailField = document.getElementById('email');
-    if (emailField) {
-        emailField.addEventListener('blur', function() {
-            const email = this.value.trim();
-            if (email && !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-                this.style.borderColor = '#d63031';
-                this.style.boxShadow = '0 0 0 2px rgba(214, 48, 49, 0.2)';
-            } else {
-                this.style.borderColor = '';
-                this.style.boxShadow = '';
+        field.addEventListener('blur', () => {
+            const validator = validators[fieldName];
+            if (validator) {
+                const error = validator(field.value);
+                updateFieldValidation(field, error);
             }
         });
-    }
 
-    // Clear status when user starts typing
-    const formFields = form.querySelectorAll('input, textarea');
-    formFields.forEach(field => {
         field.addEventListener('input', () => {
+            // Clear any previous error styling
+            field.classList.remove('error');
+            field.nextElementSibling?.remove();
+
+            // Clear status message if user starts typing
             if (status.textContent && status.style.color === '#d63031') {
                 clearStatus();
             }
         });
     });
+
+    // Form submission handler
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Check honeypot
+        if (honeypot.value) {
+            console.log('Spam detected via honeypot');
+            showErrorStatus('❌ Submission blocked. Please try again.');
+            return;
+        }
+
+        // Rate limiting check (5 seconds between submissions)
+        const lastSubmit = parseInt(timestamp.value);
+        if (Date.now() - lastSubmit < 5000) {
+            showErrorStatus('❌ Please wait a few seconds before submitting again.');
+            return;
+        }
+
+        // Validate all fields
+        const formData = new FormData(form);
+        let hasErrors = false;
+
+        for (const [fieldName, validator] of Object.entries(validators)) {
+            const fieldValue = formData.get(fieldName) || '';
+            const error = validator(fieldValue);
+
+            if (error) {
+                const field = form.querySelector(`[name="${fieldName}"]`);
+                if (field) {
+                    updateFieldValidation(field, error);
+                    if (!hasErrors) field.focus();
+                    hasErrors = true;
+                }
+            }
+        }
+
+        if (hasErrors) return;
+
+        // Show loading state
+        const submitButton = form.querySelector('button[type="submit"]');
+        const originalButtonText = submitButton.textContent;
+        const originalButtonHTML = submitButton.innerHTML;
+
+        submitButton.disabled = true;
+        submitButton.innerHTML = `
+            <span class="spinner-small"></span>
+            Sending...
+        `;
+
+        // Update timestamp
+        timestamp.value = Date.now();
+
+        try {
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            });
+
+            if (response.ok) {
+                showSuccessStatus();
+                form.reset();
+
+                // Success animation
+                submitButton.innerHTML = '✓ Sent!';
+                submitButton.style.backgroundColor = '#00b894';
+
+                setTimeout(() => {
+                    submitButton.innerHTML = originalButtonHTML;
+                    submitButton.style.backgroundColor = '';
+                    submitButton.disabled = false;
+                }, 2000);
+
+                // Focus on name field for next message
+                setTimeout(() => document.getElementById('name').focus(), 100);
+
+                // Log success (analytics placeholder)
+                console.log('Contact form submitted successfully');
+
+            } else {
+                const errorData = await response.json();
+                const errorMessage = errorData.error ||
+                    errorData.errors?.map(e => e.message).join(', ') ||
+                    '❌ Server error. Please try again.';
+
+                showErrorStatus(errorMessage);
+                resetSubmitButton(submitButton, originalButtonHTML);
+            }
+
+        } catch (error) {
+            console.error('Form submission error:', error);
+            showErrorStatus('❌ Network error. Please check your connection.');
+            resetSubmitButton(submitButton, originalButtonHTML);
+        }
+    });
+
+    // Helper functions
+    function updateFieldValidation(field, error) {
+        field.classList.remove('error');
+        field.nextElementSibling?.remove();
+
+        if (error) {
+            field.classList.add('error');
+
+            const errorElement = document.createElement('div');
+            errorElement.className = 'field-error';
+            errorElement.textContent = error;
+            errorElement.setAttribute('role', 'alert');
+            errorElement.setAttribute('aria-live', 'assertive');
+
+            field.parentNode.appendChild(errorElement);
+        }
+    }
+
+    function showSuccessStatus() {
+        status.innerHTML = `
+            <div class="status-success">
+                <span class="status-icon">✅</span>
+                <div>
+                    <strong>Thank you!</strong> Your message has been sent successfully.
+                    <br><small>I'll get back to you within 24-48 hours.</small>
+                </div>
+            </div>
+        `;
+        status.className = 'form-status success';
+    }
+
+    function showErrorStatus(message) {
+        status.innerHTML = `
+            <div class="status-error">
+                <span class="status-icon">❌</span>
+                <div>${message}</div>
+            </div>
+        `;
+        status.className = 'form-status error';
+
+        // Auto-clear after 10 seconds
+        setTimeout(() => {
+            if (status.classList.contains('error')) {
+                clearStatus();
+            }
+        }, 10000);
+    }
+
+    function clearStatus() {
+        status.textContent = '';
+        status.className = 'form-status';
+    }
+
+    function resetSubmitButton(button, originalHTML) {
+        setTimeout(() => {
+            button.innerHTML = originalHTML;
+            button.disabled = false;
+        }, 1500);
+    }
 }
 
-// ====== PROJECT DATA (Externalized for cleaner main function) ======
+// ====== 6. PRINT OPTIMIZATIONS ======
+function initPrintOptimizations() {
+    // Add print styles dynamically
+    const printStyles = `
+        @media print {
+            * {
+                background: transparent !important;
+                color: #000 !important;
+                box-shadow: none !important;
+                text-shadow: none !important;
+            }
+            
+            nav, 
+            .btn, 
+            .contact-form-col,
+            .hamburger,
+            .btn-back,
+            .detail-nav,
+            .detail-footer {
+                display: none !important;
+            }
+            
+            body {
+                font-size: 12pt;
+                line-height: 1.5;
+                font-family: 'Georgia', 'Times New Roman', serif;
+            }
+            
+            .container {
+                width: 100% !important;
+                max-width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            
+            section {
+                padding: 1rem 0 !important;
+                page-break-inside: avoid;
+            }
+            
+            .section-title {
+                font-size: 16pt !important;
+                margin-bottom: 1rem !important;
+            }
+            
+            .section-title::after {
+                display: none !important;
+            }
+            
+            a {
+                color: #000 !important;
+                text-decoration: underline !important;
+            }
+            
+            a[href^="http"]::after {
+                content: " (" attr(href) ")";
+                font-size: 10pt;
+                font-weight: normal;
+            }
+            
+            .project-detail {
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+            }
+            
+            .skill-tag {
+                border: 1px solid #000 !important;
+                background: none !important;
+                color: #000 !important;
+            }
+            
+            @page {
+                margin: 0.5in;
+            }
+            
+            h1, h2, h3 {
+                page-break-after: avoid;
+            }
+            
+            ul, ol, img {
+                page-break-inside: avoid;
+            }
+        }
+    `;
+
+    const styleSheet = document.createElement('style');
+    styleSheet.textContent = printStyles;
+    document.head.appendChild(styleSheet);
+}
+
+// ====== 7. LAZY LOADING ENHANCEMENT ======
+function initLazyLoading() {
+    // Use IntersectionObserver for images outside of project details
+    if ('IntersectionObserver' in window) {
+        const lazyImages = document.querySelectorAll('img[data-src]');
+
+        const imageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.removeAttribute('data-src');
+                    img.classList.add('lazy-loaded');
+                    imageObserver.unobserve(img);
+                }
+            });
+        });
+
+        lazyImages.forEach(img => imageObserver.observe(img));
+        globalState.intersectionObservers.push(imageObserver);
+    }
+}
+
+// ====== 8. ERROR HANDLING & TOASTS ======
+function showErrorToast(message) {
+    const toast = document.createElement('div');
+    toast.className = 'global-toast error';
+    toast.setAttribute('role', 'alert');
+    toast.setAttribute('aria-live', 'assertive');
+    toast.innerHTML = `
+        <span class="toast-icon">⚠️</span>
+        <span class="toast-message">${message}</span>
+        <button class="toast-close" aria-label="Dismiss">×</button>
+    `;
+
+    document.body.appendChild(toast);
+
+    // Auto-remove after 5 seconds
+    setTimeout(() => {
+        toast.classList.add('fade-out');
+        setTimeout(() => toast.remove(), 300);
+    }, 5000);
+
+    // Close button
+    toast.querySelector('.toast-close').addEventListener('click', () => {
+        toast.classList.add('fade-out');
+        setTimeout(() => toast.remove(), 300);
+    });
+}
+
+// ====== 9. CLEANUP ON PAGE UNLOAD ======
+window.addEventListener('beforeunload', () => {
+    // Clean up all observers
+    globalState.intersectionObservers.forEach(observer => observer.disconnect());
+
+    // Clean up all event listeners
+    globalState.abortControllers.forEach(controller => controller.abort());
+
+    // Remove any global styles
+    document.querySelectorAll('[data-dynamic-style]').forEach(el => el.remove());
+});
+
+// ====== 10. PROJECT DATA (Externalized) ======
 function getProjectsData() {
+    // Same as your existing project data
     return {
         1: {
             title: "Enterprise Virtualization Cluster with VMware vSphere, HA & Fault Tolerance",
@@ -755,3 +1170,20 @@ function getProjectsData() {
         }
     };
 }
+
+// ====== POLYFILLS & FALLBACKS ======
+// Ensure smooth scrolling works in all browsers
+if (!('scrollBehavior' in document.documentElement.style)) {
+    import('https://cdn.jsdelivr.net/npm/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js')
+        .then(() => console.log('SmoothScroll polyfill loaded'))
+        .catch(err => console.warn('SmoothScroll polyfill failed:', err));
+}
+
+// Console welcome message
+console.log(`
+╔══════════════════════════════════════╗
+║   Majestor Kepseu Portfolio v2.0     ║
+║   Enhanced with modern features      ║
+║   © ${new Date().getFullYear()} - All rights reserved  ║
+╚══════════════════════════════════════╝
+`);
