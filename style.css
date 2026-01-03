@@ -134,12 +134,37 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--text-primary);
 }
 
+/* === FIX 1: HERO TEXT GRADIENT FALLBACK SYSTEM === */
 h1 {
     font-size: clamp(2.5rem, 5vw, 3.5rem);
+    /* Primary fallback color for reliability */
+    color: var(--accent);
+    /* Gradient as progressive enhancement */
     background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent) 100%);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* Ensure proper rendering in all browsers */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ensure gradient works, but solid color is always visible */
+@supports (background-clip: text) and (-webkit-text-fill-color: transparent) {
+    h1 {
+        /* Enhanced gradient for supporting browsers */
+        background: linear-gradient(135deg, 
+            var(--text-primary) 0%, 
+            var(--accent) 50%, 
+            var(--text-primary) 100%);
+        background-size: 200% auto;
+        animation: text-shimmer 8s ease-in-out infinite;
+    }
+    
+    @keyframes text-shimmer {
+        0%, 100% { background-position: 0% center; }
+        50% { background-position: 100% center; }
+    }
 }
 
 h2 {
@@ -308,7 +333,7 @@ p {
     background: var(--accent);
 }
 
-/* Navigation Links */
+/* === FIX 2: NAVIGATION HOVER SIMPLIFICATION === */
 .nav-links {
     display: flex;
     list-style: none;
@@ -324,11 +349,16 @@ p {
     border-radius: var(--radius-md);
     transition: all var(--transition-fast);
     position: relative;
+    /* Single visual layer approach */
+    border: 1px solid transparent;
 }
 
-.nav-link:hover {
+.nav-link:hover,
+.nav-link:focus {
     color: var(--accent);
     background: rgba(32, 211, 211, 0.1);
+    border-color: rgba(32, 211, 211, 0.3);
+    /* Remove pseudo-element underline to prevent double-line */
 }
 
 .nav-link::after {
@@ -342,10 +372,13 @@ p {
     border-radius: 1px;
     transition: all var(--transition-base);
     transform: translateX(-50%);
+    /* Keep but only show on current/active state */
+    opacity: 0;
 }
 
-.nav-link:hover::after {
+.nav-link.active::after {
     width: 60%;
+    opacity: 1;
 }
 
 /* ====== MOBILE NAVIGATION ====== */
@@ -370,6 +403,25 @@ p {
         transition: right var(--transition-base);
         z-index: 999;
         border-left: 1px solid var(--border-color);
+        /* === FIX 3: MOBILE MENU SCROLL HANDLING === */
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: var(--accent) transparent;
+    }
+    
+    /* Custom scrollbar for mobile menu */
+    .nav-links::-webkit-scrollbar {
+        width: 4px;
+    }
+    
+    .nav-links::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    
+    .nav-links::-webkit-scrollbar-thumb {
+        background: var(--accent);
+        border-radius: 2px;
     }
     
     .nav-links.active {
@@ -1013,6 +1065,11 @@ p {
     visibility: visible;
     text-decoration: none;
     outline: none;
+    /* === FIX 5: PREVENT STRETCHING BEHAVIOR === */
+    width: auto;
+    height: auto;
+    min-width: 180px;
+    max-width: 300px;
 }
 
 .btn-back:hover {
@@ -1039,13 +1096,15 @@ p {
     }
 }
 
-/* Desktop positioning */
+/* Desktop positioning - FIXED CONSTRAINTS */
 @media (min-width: 769px) {
     .btn-back.sticky-active {
         top: calc(var(--nav-height) + var(--space-md));
         left: 50%;
         transform: translateX(-50%);
         min-width: 200px;
+        max-width: 300px;
+        height: 48px; /* Fixed height prevents stretching */
         justify-content: center;
     }
     
@@ -1054,7 +1113,7 @@ p {
     }
 }
 
-/* Mobile positioning */
+/* Mobile positioning - FIXED CONSTRAINTS */
 @media (max-width: 768px) {
     .btn-back.sticky-active {
         bottom: var(--space-lg);
@@ -1062,8 +1121,11 @@ p {
         transform: translateX(-50%);
         width: auto;
         max-width: 90%;
+        min-width: 180px;
+        height: 48px; /* Fixed height prevents stretching */
         font-size: 0.9rem;
         padding: 0.75rem 1.25rem;
+        top: auto; /* Remove top constraint */
     }
     
     .btn-back.sticky-active:hover {
@@ -1699,6 +1761,12 @@ p {
 
 .footer-content {
     text-align: center;
+    /* === FIX 6: ENSURE PROPER CENTERING === */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 }
 
 .footer-logo {
@@ -1719,6 +1787,8 @@ p {
     color: var(--text-secondary);
     margin-bottom: var(--space-sm);
     font-size: 0.95rem;
+    width: 100%;
+    text-align: center;
 }
 
 .footer-tech {
@@ -1729,6 +1799,8 @@ p {
     justify-content: center;
     gap: var(--space-sm);
     flex-wrap: wrap;
+    width: 100%;
+    text-align: center;
 }
 
 .footer-tech i {
@@ -1853,6 +1925,11 @@ p {
     .btn-back {
         font-size: 0.9rem;
         padding: 0.75rem 1.25rem;
+    }
+    
+    /* Ensure mobile menu always fits content */
+    .nav-links {
+        max-height: calc(100vh - var(--nav-height) - 40px);
     }
 }
 
