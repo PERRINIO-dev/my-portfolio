@@ -13,20 +13,25 @@ A premium, dark-themed portfolio website for a security-focused network & system
 - ✅ **Better Sharing** - Direct links to specific projects
 
 ## 📁 **New Project Structure**
-portfolio/
-├── index.html # Main portfolio homepage
-├── style.css # Main stylesheet (updated)
-├── script.js # Simplified JavaScript
-├── README.md # This documentation
-├── assets/ # Images and media
-│ ├── profile.jpg # Professional portrait
-│ └── images/ # Project screenshots
-└── projects/ # Project pages directory
-├── project-styles.css # Shared project page styles
-├── virtualization-cluster.html
-├── exchange-server-dag.html
-├── multi-region-network.html
-└── secure-enterprise-network.html
+my-portfolio/
+├── index.html
+├── style.css
+├── script.js (updated)
+├── manifest.json (NEW - root folder)
+├── sw.js (NEW - root folder)
+├── README.md
+├── .htaccess (optional)
+├── assets/
+│   ├── profile.jpg
+│   ├── icon-192.png
+│   ├── icon-512.png
+│   └── images/
+└── projects/
+    ├── project-styles.css
+    ├── virtualization-cluster.html
+    ├── exchange-server-dag.html
+    ├── multi-region-network.html
+    └── secure-enterprise-network.html
 
 
 ## 🎨 **Design & UI Features**

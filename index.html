@@ -18,6 +18,24 @@
     <!-- Preload critical resources -->
     <link rel="preload" href="style.css" as="style">
     <link rel="preload" href="script.js" as="script">
+    <!-- Add these lines to index.html head section -->
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="MK Portfolio">
+    <link rel="apple-touch-icon" href="assets/icon-192.png">
+    <!-- Theme color for mobile browsers -->
+    <meta name="theme-color" content="#070A0D" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#20D3D3" media="(prefers-color-scheme: light)">
+    <!-- Register service worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js');
+            });
+        }
+    </script>
 </head>
 
 <body>

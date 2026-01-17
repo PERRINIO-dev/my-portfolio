@@ -1,18 +1,21 @@
-// ====== PORTFOLIO REFACTOR v5.0 - SIMPLIFIED STATIC PAGES ======
-// Removed modal system, added project page linking
+// ====== PORTFOLIO REFACTOR v5.1 - ENHANCED FEATURES ======
+// Added PWA capabilities, keyboard shortcuts, and performance monitoring
 
 // ====== CONFIGURATION ======
 const CONFIG = {
     navScrolledThreshold: 30,
     revealThreshold: 0.1,
     revealRootMargin: '0px 0px -100px 0px',
-    formEndpoint: 'https://formspree.io/f/mbdrzrbq'
+    formEndpoint: 'https://formspree.io/f/mbdrzrbq',
+    analyticsKey: 'portfolio_views'
 };
 
 // ====== GLOBAL STATE ======
 const AppState = {
     isNavScrolled: false,
-    isMobileMenuOpen: false
+    isMobileMenuOpen: false,
+    portfolioViews: 0,
+    pageLoadTime: 0
 };
 
 // ====== UTILITY FUNCTIONS ======
@@ -28,10 +31,28 @@ function debounce(func, wait) {
     };
 }
 
-function updateCopyrightYear() {
-    const yearElement = document.getElementById('currentYear');
-    if (yearElement) {
-        yearElement.textContent = new Date().getFullYear();
+// ====== ANALYTICS & PERFORMANCE ======
+function initializeAnalytics() {
+    // Track page views
+    if (localStorage) {
+        try {
+            const views = parseInt(localStorage.getItem(CONFIG.analyticsKey) || '0');
+            AppState.portfolioViews = views + 1;
+            localStorage.setItem(CONFIG.analyticsKey, AppState.portfolioViews.toString());
+            
+            // Performance tracking
+            if ('performance' in window && performance.timing) {
+                const perfData = performance.timing;
+                AppState.pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
+                
+                console.log(`📊 Portfolio Stats:
+                • Total Views: ${AppState.portfolioViews}
+                • Load Time: ${AppState.pageLoadTime}ms
+                • Current Page: ${document.title}`);
+            }
+        } catch (e) {
+            console.warn('Analytics disabled:', e.message);
+        }
     }
 }
 
@@ -53,6 +74,47 @@ function showToast(message, type = 'info') {
     toast.querySelector('.toast-close').addEventListener('click', () => {
         toast.remove();
         clearTimeout(timeout);
+    });
+}
+
+function updateCopyrightYear() {
+    const yearElement = document.getElementById('currentYear');
+    if (yearElement) {
+        yearElement.textContent = new Date().getFullYear();
+    }
+}
+
+// ====== KEYBOARD SHORTCUTS ======
+function initializeKeyboardShortcuts() {
+    document.addEventListener('keydown', (e) => {
+        // Escape key closes mobile menu
+        if (e.key === 'Escape' && AppState.isMobileMenuOpen) {
+            const hamburger = document.getElementById('hamburger');
+            if (hamburger) hamburger.click();
+        }
+        
+        // Back to projects with B key (when on project page)
+        if (e.key === 'b' || e.key === 'B') {
+            const backBtn = document.querySelector('.project-back-btn');
+            if (backBtn && document.referrer.includes('projects')) {
+                backBtn.click();
+            }
+        }
+        
+        // Navigation with arrow keys
+        if (e.key === 'ArrowLeft' && document.referrer.includes('projects')) {
+            window.history.back();
+        }
+        
+        // Focus search for accessibility (Ctrl+F or Cmd+F)
+        if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+            e.preventDefault();
+            const firstHeading = document.querySelector('h1, h2, h3');
+            if (firstHeading) {
+                firstHeading.focus();
+                showToast('Use browser search (Ctrl+F) to find content', 'info');
+            }
+        }
     });
 }
 
@@ -139,7 +201,7 @@ function initializeSmoothScroll() {
             if (targetElement) {
                 e.preventDefault();
                 
-                const navHeight = document.querySelector('.main-nav').offsetHeight;
+                const navHeight = document.querySelector('.main-nav')?.offsetHeight || 0;
                 const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navHeight;
                 
                 window.scrollTo({
@@ -216,12 +278,15 @@ function initializeProjectCards() {
     });
 }
 
-// ====== CONTACT FORM ======
+// ====== CONTACT FORM ENHANCEMENTS ======
 function initializeContactForm() {
     const form = document.getElementById('contact-form');
     const status = document.getElementById('form-status');
     
     if (!form || !status) return;
+    
+    // Email validation regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     
     // Honeypot field
     const honeypot = document.createElement('input');
@@ -231,12 +296,34 @@ function initializeContactForm() {
     honeypot.setAttribute('aria-hidden', 'true');
     form.appendChild(honeypot);
     
+    // Real-time email validation
+    const emailInput = form.querySelector('input[type="email"]');
+    if (emailInput) {
+        emailInput.addEventListener('blur', function() {
+            const value = this.value.trim();
+            if (value && !emailRegex.test(value)) {
+                this.classList.add('invalid');
+                showToast('Please enter a valid email address', 'error');
+            } else {
+                this.classList.remove('invalid');
+            }
+        });
+    }
+    
     // Form submission handler
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         
+        // Honeypot check
         if (honeypot.value) {
             showErrorStatus('Submission blocked. Please try again.');
+            return;
+        }
+        
+        // Email validation
+        const email = form.querySelector('input[type="email"]').value.trim();
+        if (!emailRegex.test(email)) {
+            showErrorStatus('Please enter a valid email address');
             return;
         }
         
@@ -266,6 +353,9 @@ function initializeContactForm() {
                 
                 submitButton.innerHTML = '✓ Sent!';
                 submitButton.style.background = '#00b894';
+                
+                // Track form submission
+                console.log('📨 Contact form submitted successfully');
                 
                 setTimeout(() => {
                     submitButton.innerHTML = originalText;
@@ -315,9 +405,96 @@ function initializeContactForm() {
     }
 }
 
+// ====== PWA FEATURES ======
+function initializePWA() {
+    // Check if PWA is already installed
+    if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
+        navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+                console.log('✅ Service Worker registered:', registration.scope);
+            })
+            .catch(error => {
+                console.log('❌ Service Worker registration failed:', error);
+            });
+    }
+    
+    // Add install prompt for mobile
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        
+        // Show install button (optional)
+        const installBtn = document.createElement('button');
+        installBtn.className = 'install-btn';
+        installBtn.innerHTML = '<i class="fas fa-download"></i> Install App';
+        installBtn.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--accent);
+            color: var(--bg-primary);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        `;
+        
+        installBtn.addEventListener('click', () => {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('User accepted install');
+                }
+                deferredPrompt = null;
+                installBtn.remove();
+            });
+        });
+        
+        document.body.appendChild(installBtn);
+    });
+}
+
+// ====== LAZY LOADING FOR IMAGES ======
+function initializeLazyLoading() {
+    if ('IntersectionObserver' in window) {
+        const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+        
+        const imageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src || img.src;
+                    img.classList.add('loaded');
+                    imageObserver.unobserve(img);
+                }
+            });
+        });
+        
+        lazyImages.forEach(img => {
+            if (!img.complete) {
+                img.style.opacity = '0';
+                img.style.transition = 'opacity 0.3s ease';
+                img.classList.add('lazy-load');
+                imageObserver.observe(img);
+            }
+        });
+    }
+}
+
 // ====== MAIN INITIALIZATION ======
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('🚀 Portfolio v5.0 - Static Pages Architecture');
+    console.log(`
+
+╔══════════════════════════════════════════════════╗
+║      MAJESTOR KEPSEU PORTFOLIO v5.1             ║
+║      Enhanced with Analytics & PWA Features     ║
+║      © ${new Date().getFullYear()} - All Rights Reserved         ║
+╚══════════════════════════════════════════════════╝
+    `);
     
     try {
         // Initialize core systems
@@ -327,9 +504,30 @@ document.addEventListener('DOMContentLoaded', () => {
         initializeContactForm();
         initializeProjectCards();
         
+        // Enhanced features
+        initializeAnalytics();
+        initializeKeyboardShortcuts();
+        initializeLazyLoading();
+        
+        // PWA features (only on HTTPS)
+        if (window.location.protocol === 'https:') {
+            initializePWA();
+        }
+        
         // Update dynamic content
         updateCopyrightYear();
         initializeHeroPortrait();
+        
+        // Performance monitoring
+        window.addEventListener('load', () => {
+            if ('performance' in window) {
+                const navigationStart = performance.getEntriesByType('navigation')[0];
+                if (navigationStart) {
+                    const loadTime = navigationStart.duration.toFixed(2);
+                    console.log(`⚡ Page loaded in ${loadTime}ms`);
+                }
+            }
+        });
         
         // Listen for viewport changes
         window.addEventListener('resize', debounce(() => {
@@ -344,27 +542,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// ====== CONSOLE WELCOME MESSAGE ======
-console.log(`
-╔══════════════════════════════════════════════╗
-║      MAJESTOR KEPSEU PORTFOLIO v5.0         ║
-║      Static Pages Architecture              ║
-║      © ${new Date().getFullYear()} - All Rights Reserved     ║
-╚══════════════════════════════════════════════╝
+// ====== SERVICE WORKER SCRIPT (sw.js - create new file) ======
+// Create this as a separate file: sw.js
+/*
+self.addEventListener('install', event => {
+    console.log('Service Worker installing...');
+    self.skipWaiting();
+});
 
-✅ REMOVED: Complex modal system
-✅ ADDED: Static project pages
-✅ SIMPLIFIED: JavaScript (500+ lines removed)
-✅ IMPROVED: Mobile navigation
-✅ MAINTAINED: All animations and theme
-✅ FIXED: Mobile project viewing issues
-✅ ADDED: Native browser navigation
-✅ IMPROVED: SEO with individual pages
-✅ RETAINED: Contact form functionality
-✅ PRESERVED: Premium design and UX
+self.addEventListener('activate', event => {
+    console.log('Service Worker activating...');
+});
 
-📱 Mobile-first project pages
-⚡ Fast loading without JavaScript
-🔧 Easy to maintain and update
-🎯 Professional user experience
-`);
+self.addEventListener('fetch', event => {
+    // Cache-first strategy for static assets
+    if (event.request.url.includes('/assets/')) {
+        event.respondWith(
+            caches.match(event.request).then(response => {
+                return response || fetch(event.request);
+            })
+        );
+    }
+});
+*/

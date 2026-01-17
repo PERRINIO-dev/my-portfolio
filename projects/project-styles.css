@@ -435,6 +435,19 @@ body::before {
     color: var(--text-tertiary);
 }
 
+/* ====== FIXED MOBILE BUTTON SIZE ====== */
+@media (max-width: 768px) {
+    .project-back-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+        min-height: auto;
+    }
+    
+    .project-back-btn i {
+        font-size: 0.8rem;
+    }
+}
+
 /* ====== PRINT STYLES ====== */
 @media print {
     .project-page-header,
@@ -506,11 +519,6 @@ body::before {
         padding: 0 var(--space-sm);
     }
 
-    .project-back-btn {
-        padding: 0.5rem 1rem;
-        font-size: 0.9rem;
-    }
-
     .project-navigation {
         flex-direction: column;
         gap: var(--space-md);
@@ -542,6 +550,11 @@ body::before {
 
     .project-gallery-img {
         height: 180px;
+    }
+    
+    .project-back-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
     }
 }
 
