@@ -9,6 +9,12 @@
     <title>Majestor Kepseu | Cloud & Security Portfolio</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="animations.css">
+    <!-- Light Theme Styles -->
+    <link rel="stylesheet" href="light-theme.css" media="(prefers-color-scheme: light)">
+    <link rel="stylesheet" href="light-theme.css" media="print">
+
+    <!-- Theme Manager Script -->
+    <script src="theme-manager.js" defer></script>
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -58,14 +64,17 @@
 
             <!-- Navigation Links -->
             <ul class="nav-links" id="nav-links" role="menubar">
-                <li role="none"><a href="#home" class="nav-link" role="menuitem">Home</a></li>
-                <li role="none"><a href="#about" class="nav-link" role="menuitem">About</a></li>
-                <li role="none"><a href="#experience" class="nav-link" role="menuitem">Experience</a></li>
-                <li role="none"><a href="#projects" class="nav-link" role="menuitem">Projects</a></li>
-                <li role="none"><a href="#skills" class="nav-link" role="menuitem">Skills</a></li>
-                <li role="none"><a href="#education" class="nav-link" role="menuitem">Education</a></li>
-                <li role="none"><a href="#certifications" class="nav-link" role="menuitem">Certifications</a></li>
-                <li role="none"><a href="#contact" class="nav-link" role="menuitem">Contact</a></li>
+                <li role="none"><a href="#home" class="nav-link mobile-menu-item" role="menuitem">Home</a></li>
+                <li role="none"><a href="#about" class="nav-link mobile-menu-item" role="menuitem">About</a></li>
+                <li role="none"><a href="#experience" class="nav-link mobile-menu-item" role="menuitem">Experience</a>
+                </li>
+                <li role="none"><a href="#projects" class="nav-link mobile-menu-item" role="menuitem">Projects</a></li>
+                <li role="none"><a href="#skills" class="nav-link mobile-menu-item" role="menuitem">Skills</a></li>
+                <li role="none"><a href="#education" class="nav-link mobile-menu-item" role="menuitem">Education</a>
+                </li>
+                <li role="none"><a href="#certifications" class="nav-link mobile-menu-item"
+                        role="menuitem">Certifications</a></li>
+                <li role="none"><a href="#contact" class="nav-link mobile-menu-item" role="menuitem">Contact</a></li>
             </ul>
         </div>
     </nav>
@@ -113,11 +122,11 @@
                         modern IT environments.
                     </p>
                     <div class="hero-actions">
-                        <a href="#projects" class="btn btn-primary">
+                        <a href="#projects" class="btn btn-primary press-down ripple">
                             <span>View My Projects</span>
                             <i class="fas fa-arrow-right"></i>
                         </a>
-                        <a href="#contact" class="btn btn-secondary">
+                        <a href="#contact" class="btn btn-secondary press-down ripple">
                             <span>Get In Touch</span>
                             <i class="fas fa-paper-plane"></i>
                         </a>
@@ -132,7 +141,7 @@
         <div class="container">
             <h2 class="section-title reveal">About Me</h2>
             <div class="about-content reveal">
-                <div class="about-card">
+                <div class="about-card card-lift">
                     <p class="about-summary">
                         I am a security-focused IT professional with a strong foundation in network security and system
                         administration, currently building toward cloud security focused roles. My experience combines
@@ -175,7 +184,7 @@
         <div class="container">
             <h2 class="section-title reveal">Professional Experience</h2>
 
-            <div class="experience-card reveal">
+            <div class="experience-card card-lift reveal">
                 <div class="experience-header">
                     <div class="experience-badge">Internship</div>
                     <div class="experience-meta">
@@ -241,14 +250,14 @@
             <!-- PROJECTS GRID WITH LINKS TO INDIVIDUAL PAGES -->
             <div class="projects-grid">
                 <!-- Project 1: Virtualization Cluster -->
-                <a href="projects/virtualization-cluster.html" class="project-card reveal">
+                <a href="projects/virtualization-cluster.html" class="project-card card-lift press-down ripple reveal">
                     <div class="project-card-header">
                         <div class="project-card-icon">
                             <i class="fas fa-server"></i>
                         </div>
                         <div class="project-card-badge">Virtualization</div>
                     </div>
-                    <div class="project-card-img">
+                    <div class="project-card-img project-image-zoom">
                         <div class="img-placeholder">VMware vSphere HA/FT Diagram</div>
                     </div>
                     <div class="project-card-content">
@@ -269,14 +278,14 @@
                 </a>
 
                 <!-- Project 2: Exchange Server -->
-                <a href="projects/exchange-server-dag.html" class="project-card reveal">
+                <a href="projects/exchange-server-dag.html" class="project-card card-lift press-down ripple reveal">
                     <div class="project-card-header">
                         <div class="project-card-icon">
                             <i class="fas fa-envelope"></i>
                         </div>
                         <div class="project-card-badge">Messaging</div>
                     </div>
-                    <div class="project-card-img">
+                    <div class="project-card-img project-image-zoom">
                         <div class="img-placeholder">Exchange DAG Architecture</div>
                     </div>
                     <div class="project-card-content">
@@ -297,14 +306,14 @@
                 </a>
 
                 <!-- Project 3: Network Architecture -->
-                <a href="projects/multi-region-network.html" class="project-card reveal">
+                <a href="projects/multi-region-network.html" class="project-card card-lift press-down ripple reveal">
                     <div class="project-card-header">
                         <div class="project-card-icon">
                             <i class="fas fa-network-wired"></i>
                         </div>
                         <div class="project-card-badge">Network Design</div>
                     </div>
-                    <div class="project-card-img">
+                    <div class="project-card-img project-image-zoom">
                         <div class="img-placeholder">Multi-Region Network Diagram</div>
                     </div>
                     <div class="project-card-content">
@@ -325,14 +334,15 @@
                 </a>
 
                 <!-- Project 4: Secure Network -->
-                <a href="projects/secure-enterprise-network.html" class="project-card reveal">
+                <a href="projects/secure-enterprise-network.html"
+                    class="project-card card-lift press-down ripple reveal">
                     <div class="project-card-header">
                         <div class="project-card-icon">
                             <i class="fas fa-shield-alt"></i>
                         </div>
                         <div class="project-card-badge">Security</div>
                     </div>
-                    <div class="project-card-img">
+                    <div class="project-card-img project-image-zoom">
                         <div class="img-placeholder">Secure Network Topology</div>
                     </div>
                     <div class="project-card-content">
@@ -365,7 +375,7 @@
 
             <div class="skills-grid">
                 <!-- Skill Category 1 -->
-                <div class="skill-category reveal">
+                <div class="skill-category card-lift reveal">
                     <div class="skill-category-header">
                         <div class="skill-category-icon">
                             <i class="fas fa-network-wired"></i>
@@ -384,7 +394,7 @@
                 </div>
 
                 <!-- Skill Category 2 -->
-                <div class="skill-category reveal">
+                <div class="skill-category card-lift reveal">
                     <div class="skill-category-header">
                         <div class="skill-category-icon">
                             <i class="fas fa-server"></i>
@@ -402,7 +412,7 @@
                 </div>
 
                 <!-- Skill Category 3 -->
-                <div class="skill-category reveal">
+                <div class="skill-category card-lift reveal">
                     <div class="skill-category-header">
                         <div class="skill-category-icon">
                             <i class="fas fa-cloud"></i>
@@ -419,7 +429,7 @@
                 </div>
 
                 <!-- Skill Category 4 -->
-                <div class="skill-category reveal">
+                <div class="skill-category card-lift reveal">
                     <div class="skill-category-header">
                         <div class="skill-category-icon">
                             <i class="fas fa-exchange-alt"></i>
@@ -435,7 +445,7 @@
                 </div>
 
                 <!-- Skill Category 5 -->
-                <div class="skill-category reveal">
+                <div class="skill-category card-lift reveal">
                     <div class="skill-category-header">
                         <div class="skill-category-icon">
                             <i class="fas fa-shield-alt"></i>
@@ -452,7 +462,7 @@
                 </div>
 
                 <!-- Skill Category 6 -->
-                <div class="skill-category reveal">
+                <div class="skill-category card-lift reveal">
                     <div class="skill-category-header">
                         <div class="skill-category-icon">
                             <i class="fas fa-tools"></i>
@@ -479,7 +489,7 @@
             <div class="education-timeline">
                 <!-- Education Item 1 -->
                 <div class="education-item reveal">
-                    <div class="education-card">
+                    <div class="education-card card-lift">
                         <div class="education-header">
                             <div class="education-badge">Graduate Certificate</div>
                             <div class="education-date">2025</div>
@@ -498,7 +508,7 @@
 
                 <!-- Education Item 2 -->
                 <div class="education-item reveal">
-                    <div class="education-card">
+                    <div class="education-card card-lift">
                         <div class="education-header">
                             <div class="education-badge">Master of Engineering</div>
                             <div class="education-date">2024</div>
@@ -527,7 +537,7 @@
 
             <div class="certifications-grid">
                 <!-- Certification Card 1 -->
-                <div class="certification-card reveal" data-status="in-progress">
+                <div class="certification-card card-lift reveal" data-status="in-progress">
                     <div class="certification-header">
                         <div class="certification-icon">
                             <i class="fab fa-cisco"></i>
@@ -540,7 +550,7 @@
                 </div>
 
                 <!-- Certification Card 2 -->
-                <div class="certification-card reveal" data-status="planned">
+                <div class="certification-card card-lift reveal" data-status="planned">
                     <div class="certification-header">
                         <div class="certification-icon">
                             <i class="fas fa-shield-alt"></i>
@@ -553,7 +563,7 @@
                 </div>
 
                 <!-- Certification Card 3 -->
-                <div class="certification-card reveal" data-status="planned">
+                <div class="certification-card card-lift reveal" data-status="planned">
                     <div class="certification-header">
                         <div class="certification-icon">
                             <i class="fab fa-microsoft"></i>
@@ -566,7 +576,7 @@
                 </div>
 
                 <!-- Certification Card 4 -->
-                <div class="certification-card reveal" data-status="planned">
+                <div class="certification-card card-lift reveal" data-status="planned">
                     <div class="certification-header">
                         <div class="certification-icon">
                             <i class="fab fa-microsoft"></i>
@@ -579,7 +589,7 @@
                 </div>
 
                 <!-- Certification Card 5 -->
-                <div class="certification-card reveal" data-status="planned">
+                <div class="certification-card card-lift reveal" data-status="planned">
                     <div class="certification-header">
                         <div class="certification-icon">
                             <i class="fab fa-microsoft"></i>
@@ -592,7 +602,7 @@
                 </div>
 
                 <!-- Certification Card 6 -->
-                <div class="certification-card reveal" data-status="planned">
+                <div class="certification-card card-lift reveal" data-status="planned">
                     <div class="certification-header">
                         <div class="certification-icon">
                             <i class="fab fa-cisco"></i>
@@ -605,7 +615,7 @@
                 </div>
 
                 <!-- Certification Card 7 -->
-                <div class="certification-card reveal" data-status="later">
+                <div class="certification-card card-lift reveal" data-status="later">
                     <div class="certification-header">
                         <div class="certification-icon">
                             <i class="fas fa-graduation-cap"></i>
@@ -627,7 +637,7 @@
             <p class="section-subtitle reveal">Send a message directly or connect with me through any platform below.
             </p>
 
-            <div class="contact-card reveal">
+            <div class="contact-card card-lift reveal">
                 <div class="contact-grid">
                     <!-- LEFT COLUMN: CONTACT FORM -->
                     <div class="contact-form-section">
@@ -636,30 +646,30 @@
                             <h3>Send a Message</h3>
                         </div>
                         <form id="contact-form" action="https://formspree.io/f/mbdrzrbq" method="POST">
-                            <div class="form-group">
-                                <label for="name">
+                            <div class="form-group form-field">
+                                <label for="name" class="input-label">
                                     <i class="fas fa-user"></i>
                                     Your Name
                                 </label>
                                 <input type="text" id="name" name="name" required placeholder="Enter your name">
                             </div>
-                            <div class="form-group">
-                                <label for="email">
+                            <div class="form-group form-field">
+                                <label for="email" class="input-label">
                                     <i class="fas fa-envelope"></i>
                                     Your Email
                                 </label>
                                 <input type="email" id="email" name="email" required
                                     placeholder="Enter your email address">
                             </div>
-                            <div class="form-group">
-                                <label for="message">
+                            <div class="form-group form-field">
+                                <label for="message" class="input-label">
                                     <i class="fas fa-comment-alt"></i>
                                     Your Message
                                 </label>
                                 <textarea id="message" name="message" rows="5" required
                                     placeholder="Hi Majestor, I'd like to discuss..."></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-submit">
+                            <button type="submit" class="btn btn-primary btn-submit press-down ripple">
                                 <span>Send Message</span>
                                 <i class="fas fa-paper-plane"></i>
                             </button>
@@ -676,7 +686,7 @@
 
                         <div class="contact-methods">
                             <!-- Email -->
-                            <a href="mailto:majestork@gmail.com" class="contact-method">
+                            <a href="mailto:majestork@gmail.com" class="contact-method ripple">
                                 <div class="contact-icon">
                                     <i class="fas fa-envelope"></i>
                                 </div>
@@ -688,7 +698,7 @@
 
                             <!-- LinkedIn -->
                             <a href="https://www.linkedin.com/in/majestor-kepseu-20bb1b314" target="_blank"
-                                rel="noopener noreferrer" class="contact-method">
+                                rel="noopener noreferrer" class="contact-method ripple">
                                 <div class="contact-icon">
                                     <i class="fab fa-linkedin-in"></i>
                                 </div>
@@ -700,7 +710,7 @@
 
                             <!-- GitHub -->
                             <a href="https://github.com/PERRINIO-dev" target="_blank" rel="noopener noreferrer"
-                                class="contact-method">
+                                class="contact-method ripple">
                                 <div class="contact-icon">
                                     <i class="fab fa-github"></i>
                                 </div>
@@ -711,7 +721,7 @@
                             </a>
 
                             <!-- Phone -->
-                            <a href="tel:+15194972756" class="contact-method">
+                            <a href="tel:+15194972756" class="contact-method ripple">
                                 <div class="contact-icon">
                                     <i class="fas fa-phone"></i>
                                 </div>
@@ -723,7 +733,7 @@
 
                             <!-- WhatsApp -->
                             <a href="https://wa.me/13828892553" target="_blank" rel="noopener noreferrer"
-                                class="contact-method">
+                                class="contact-method ripple">
                                 <div class="contact-icon">
                                     <i class="fab fa-whatsapp"></i>
                                 </div>

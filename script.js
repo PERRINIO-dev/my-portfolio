@@ -1,5 +1,5 @@
-// ====== PORTFOLIO v5.2 - ENHANCED ANIMATIONS ======
-// Added mobile animations, touch feedback, and scroll animations
+// ====== PORTFOLIO v5.3 - OPTIMIZED ANIMATIONS ======
+// Fixed animation class integration and performance issues
 
 // ====== CONFIGURATION ======
 const CONFIG = {
@@ -21,7 +21,8 @@ const AppState = {
     prefersReducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
     touchDevice: 'ontouchstart' in window || navigator.maxTouchPoints > 0,
     currentTheme: 'dark',
-    animationsEnabled: true
+    animationsEnabled: true,
+    isInitialized: false
 };
 
 // ====== UTILITY FUNCTIONS ======
@@ -64,19 +65,34 @@ function initializeAnimationSystem() {
             document.documentElement.classList.add('animations-ready');
         }, 100);
     });
+    
+    // Add hover detection class for CSS
+    if (!AppState.touchDevice) {
+        document.documentElement.classList.add('has-hover');
+    }
 }
 
 // ====== TOUCH & CLICK FEEDBACK ======
 function initializeTouchFeedback() {
     if (!AppState.animationsEnabled) return;
     
-    // Ripple effect for interactive elements
+    // Add ripple class to interactive elements
+    document.querySelectorAll('.btn, .project-card, .skill-category, .contact-method, .card-lift').forEach(el => {
+        if (!el.classList.contains('ripple')) {
+            el.classList.add('ripple');
+        }
+    });
+    
+    // Add press-down class to elements that need it
+    document.querySelectorAll('.btn, .project-card, .skill-category').forEach(el => {
+        if (!el.classList.contains('press-down')) {
+            el.classList.add('press-down');
+        }
+    });
+    
+    // Event listeners
     document.addEventListener('touchstart', handleTouchStart, { passive: true });
     document.addEventListener('mousedown', handleMouseDown);
-    
-    // Press-down effect
-    document.addEventListener('touchstart', handlePressStart, { passive: true });
-    document.addEventListener('mousedown', handlePressStart);
     document.addEventListener('touchend', handlePressEnd, { passive: true });
     document.addEventListener('mouseup', handlePressEnd);
     document.addEventListener('touchcancel', handlePressEnd, { passive: true });
@@ -90,6 +106,7 @@ function handleTouchStart(e) {
     
     if (interactiveElement && AppState.touchDevice) {
         createRippleEffect(interactiveElement, e);
+        interactiveElement.classList.add('pressing');
     }
 }
 
@@ -101,35 +118,19 @@ function handleMouseDown(e) {
     
     if (interactiveElement) {
         createRippleEffect(interactiveElement, e);
+        interactiveElement.classList.add('pressing');
     }
 }
 
 function createRippleEffect(element, event) {
-    if (!element.classList.contains('ripple')) {
-        element.classList.add('ripple');
-    }
+    if (!element.classList.contains('ripple')) return;
     
     element.classList.add('active');
     
+    // Remove active class after animation
     setTimeout(() => {
         element.classList.remove('active');
     }, CONFIG.touchRippleDuration);
-    
-    // Add press-down class for mobile
-    if (AppState.touchDevice) {
-        element.classList.add('touch-active');
-    }
-}
-
-function handlePressStart(e) {
-    if (!AppState.animationsEnabled) return;
-    
-    const target = e.target;
-    const pressElement = target.closest('.press-down, .btn, .project-card, .skill-category');
-    
-    if (pressElement) {
-        pressElement.classList.add('pressing');
-    }
 }
 
 function handlePressEnd(e) {
@@ -138,13 +139,6 @@ function handlePressEnd(e) {
     
     if (pressElement) {
         pressElement.classList.remove('pressing');
-        
-        // Remove touch-active class after delay
-        if (pressElement.classList.contains('touch-active')) {
-            setTimeout(() => {
-                pressElement.classList.remove('touch-active');
-            }, 300);
-        }
     }
 }
 
@@ -176,16 +170,6 @@ function initializeScrollAnimations() {
         });
     }
     
-    // Parallax effect for hero section
-    const hero = document.querySelector('.hero');
-    if (hero) {
-        window.addEventListener('scroll', throttle(() => {
-            const scrolled = window.pageYOffset;
-            const rate = scrolled * -0.5;
-            hero.style.transform = `translate3d(0, ${rate}px, 0)`;
-        }, 16));
-    }
-    
     // Progress indicator for reading
     const progressBar = createProgressIndicator();
     if (progressBar) {
@@ -196,21 +180,24 @@ function initializeScrollAnimations() {
 }
 
 function createProgressIndicator() {
-    const indicator = document.createElement('div');
-    indicator.className = 'reading-progress';
-    indicator.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 3px;
-        background: var(--accent);
-        width: 0%;
-        z-index: 1001;
-        transition: width 0.3s ease;
-    `;
-    
-    document.body.appendChild(indicator);
-    return indicator;
+    if (!document.querySelector('.reading-progress')) {
+        const indicator = document.createElement('div');
+        indicator.className = 'reading-progress';
+        indicator.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--accent);
+            width: 0%;
+            z-index: 1001;
+            transition: width 0.3s ease;
+        `;
+        
+        document.body.appendChild(indicator);
+        return indicator;
+    }
+    return document.querySelector('.reading-progress');
 }
 
 function updateProgressIndicator(indicator) {
@@ -229,39 +216,19 @@ function initializeCardInteractions() {
     const cards = document.querySelectorAll('.card-lift, .project-card, .skill-category, .certification-card');
     
     cards.forEach(card => {
-        // Add hover effect listeners
-        card.addEventListener('mouseenter', () => {
-            if (!AppState.touchDevice) {
-                card.classList.add('hovering');
-            }
-        });
-        
-        card.addEventListener('mouseleave', () => {
-            card.classList.remove('hovering');
-        });
-        
-        // Touch device specific interactions
-        if (AppState.touchDevice) {
-            card.addEventListener('touchstart', () => {
-                card.classList.add('touch-hover');
-            }, { passive: true });
-            
-            card.addEventListener('touchend', () => {
-                setTimeout(() => {
-                    card.classList.remove('touch-hover');
-                }, 300);
-            }, { passive: true });
+        // Add card-lift class if not present
+        if (!card.classList.contains('card-lift')) {
+            card.classList.add('card-lift');
         }
         
-        // Content reveal on hover
-        const content = card.querySelector('.card-content-reveal');
-        if (content) {
+        // Desktop hover effects
+        if (!AppState.touchDevice) {
             card.addEventListener('mouseenter', () => {
-                content.style.transitionDelay = '0.2s';
+                card.classList.add('hovering');
             });
             
             card.addEventListener('mouseleave', () => {
-                content.style.transitionDelay = '0s';
+                card.classList.remove('hovering');
             });
         }
     });
@@ -275,7 +242,17 @@ function initializeFormAnimations() {
     const inputs = form.querySelectorAll('input, textarea');
     
     inputs.forEach(input => {
+        // Add form-field class to parent
+        const parent = input.closest('.form-group');
+        if (parent && !parent.classList.contains('form-field')) {
+            parent.classList.add('form-field');
+        }
+        
+        // Add input-label class to labels
         const label = input.previousElementSibling;
+        if (label && label.tagName === 'LABEL') {
+            label.classList.add('input-label');
+        }
         
         // Floating label effect
         input.addEventListener('focus', () => {
@@ -294,24 +271,14 @@ function initializeFormAnimations() {
         if (input.value && label && label.classList.contains('input-label')) {
             label.classList.add('floating');
         }
-        
-        // Input validation animations
-        input.addEventListener('input', debounce(() => {
-            if (input.validity.valid) {
-                input.classList.remove('invalid');
-                input.classList.add('valid');
-            } else {
-                input.classList.remove('valid');
-                input.classList.add('invalid');
-            }
-        }, 300));
     });
     
-    // Form submission animation
+    // Form submission loading state
     form.addEventListener('submit', () => {
         const submitBtn = form.querySelector('button[type="submit"]');
         if (submitBtn) {
             submitBtn.classList.add('btn-loading');
+            submitBtn.classList.add('btn-spring');
         }
     });
 }
@@ -321,34 +288,31 @@ function initializeNavigationAnimations() {
     const navLinks = document.querySelectorAll('.nav-link');
     const hamburger = document.getElementById('hamburger');
     
-    // Active link animation
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            navLinks.forEach(l => l.classList.remove('active'));
-            link.classList.add('active');
+    // Add mobile-menu-item class for animation
+    if (window.innerWidth <= 768) {
+        navLinks.forEach(link => {
+            link.classList.add('mobile-menu-item');
         });
-    });
+    }
     
     // Mobile menu animation
     if (hamburger) {
         hamburger.addEventListener('click', () => {
             const navLinksContainer = document.getElementById('nav-links');
             if (navLinksContainer) {
-                const menuItems = navLinksContainer.querySelectorAll('.mobile-menu-item');
+                const menuItems = navLinksContainer.querySelectorAll('.nav-link');
                 
                 if (AppState.isMobileMenuOpen) {
                     // Closing menu - reverse animation
                     menuItems.forEach((item, index) => {
                         item.style.transitionDelay = `${(menuItems.length - index - 1) * 50}ms`;
-                        item.style.opacity = '0';
-                        item.style.transform = 'translateX(20px)';
+                        item.classList.remove('active');
                     });
                 } else {
                     // Opening menu - staggered animation
                     menuItems.forEach((item, index) => {
                         item.style.transitionDelay = `${index * 50}ms`;
-                        item.style.opacity = '1';
-                        item.style.transform = 'translateX(0)';
+                        item.classList.add('active');
                     });
                 }
             }
@@ -361,19 +325,23 @@ function initializeLoadingAnimations() {
     // Page transition
     document.documentElement.classList.add('page-transition');
     
-    // Remove skeleton loaders after content loads
-    window.addEventListener('load', () => {
-        const skeletons = document.querySelectorAll('.skeleton');
-        skeletons.forEach(skeleton => {
-            skeleton.classList.remove('skeleton');
-            skeleton.classList.add('content-fade-in');
-        });
-        
-        // Hero portrait load animation
-        const portrait = document.querySelector('.portrait-img');
-        if (portrait && portrait.complete) {
+    // Hero portrait load animation
+    const portrait = document.querySelector('.portrait-img');
+    if (portrait) {
+        if (portrait.complete) {
             portrait.classList.add('loaded');
+        } else {
+            portrait.addEventListener('load', () => {
+                portrait.classList.add('loaded');
+            });
         }
+    }
+    
+    // Remove page transition after load
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            document.documentElement.classList.remove('page-transition');
+        }, 300);
     });
 }
 
@@ -382,20 +350,14 @@ function initializeSkillAnimations() {
     if (!AppState.animationsEnabled) return;
     
     const skillBars = document.querySelectorAll('.skill-bar');
+    if (skillBars.length === 0) return;
+    
     const observer = new IntersectionObserver(
         (entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    const progress = entry.target.querySelector('.skill-progress');
-                    if (progress) {
-                        const width = progress.dataset.width || '100%';
-                        progress.style.width = width;
-                        entry.target.classList.add('animating');
-                        
-                        setTimeout(() => {
-                            entry.target.classList.remove('animating');
-                        }, 1000);
-                    }
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
                 }
             });
         },
@@ -416,12 +378,6 @@ function initializeAnalytics() {
             if ('performance' in window && performance.timing) {
                 const perfData = performance.timing;
                 AppState.pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
-                
-                console.log(`📊 Portfolio Stats:
-                • Total Views: ${AppState.portfolioViews}
-                • Load Time: ${AppState.pageLoadTime}ms
-                • Animations: ${AppState.animationsEnabled ? 'Enabled' : 'Disabled'}
-                • Touch Device: ${AppState.touchDevice ? 'Yes' : 'No'}`);
             }
         } catch (e) {
             console.warn('Analytics disabled:', e.message);
@@ -438,26 +394,12 @@ function initializeKeyboardShortcuts() {
             if (hamburger) hamburger.click();
         }
         
-        // Space/Enter triggers click on focused interactive elements
-        if ((e.key === ' ' || e.key === 'Enter') && document.activeElement.classList.contains('interactive')) {
+        // Theme toggle with Ctrl+T
+        if (e.ctrlKey && e.key === 't') {
             e.preventDefault();
-            document.activeElement.click();
-        }
-        
-        // Arrow navigation
-        if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
-            e.preventDefault();
-            const focusable = document.querySelectorAll('a, button, input, [tabindex]:not([tabindex="-1"])');
-            const currentIndex = Array.from(focusable).indexOf(document.activeElement);
-            let nextIndex;
-            
-            if (e.key === 'ArrowDown') {
-                nextIndex = currentIndex < focusable.length - 1 ? currentIndex + 1 : 0;
-            } else {
-                nextIndex = currentIndex > 0 ? currentIndex - 1 : focusable.length - 1;
+            if (window.ThemeUtils) {
+                ThemeUtils.toggle();
             }
-            
-            focusable[nextIndex].focus();
         }
     });
 }
@@ -528,7 +470,7 @@ function initializeNavigation() {
             
             // Smooth scroll
             const targetId = link.getAttribute('href');
-            if (targetId.startsWith('#')) {
+            if (targetId && targetId.startsWith('#')) {
                 e.preventDefault();
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
@@ -540,6 +482,7 @@ function initializeNavigation() {
                         behavior: 'smooth'
                     });
                     
+                    // Update URL without page reload
                     history.pushState(null, null, targetId);
                 }
             }
@@ -632,6 +575,7 @@ function initializeContactForm() {
                     submitButton.innerHTML = originalText;
                     submitButton.classList.remove('bounce');
                     submitButton.disabled = false;
+                    submitButton.classList.remove('btn-loading');
                 }, 2000);
                 
             } else {
@@ -678,22 +622,78 @@ function initializeContactForm() {
         setTimeout(() => {
             button.innerHTML = originalHTML;
             button.disabled = false;
+            button.classList.remove('btn-loading');
         }, 1500);
     }
 }
 
+// ====== THEME INTEGRATION ======
+function initializeThemeIntegration() {
+    // Listen for theme changes to update animations
+    document.documentElement.addEventListener('themechange', (e) => {
+        console.log('🎨 Theme changed, updating animations:', e.detail.theme);
+        
+        // Update ripple color based on theme
+        const rippleColor = e.detail.theme === 'light' 
+            ? 'rgba(0, 0, 0, 0.1)' 
+            : 'rgba(255, 255, 255, 0.3)';
+        
+        document.documentElement.style.setProperty('--ripple-color', rippleColor);
+    });
+}
+
+// ====== HELPER FUNCTIONS ======
+function updateCopyrightYear() {
+    const yearElement = document.getElementById('currentYear');
+    if (yearElement) {
+        yearElement.textContent = new Date().getFullYear();
+    }
+}
+
+function showToast(message, type = 'info') {
+    // Remove existing toasts
+    document.querySelectorAll('.global-toast').forEach(toast => toast.remove());
+    
+    const toast = document.createElement('div');
+    toast.className = `global-toast ${type}`;
+    toast.innerHTML = `
+        <span class="toast-icon">${type === 'error' ? '⚠️' : 'ℹ️'}</span>
+        <span class="toast-message">${message}</span>
+        <button class="toast-close" aria-label="Dismiss">×</button>
+    `;
+    
+    document.body.appendChild(toast);
+    
+    const timeout = setTimeout(() => {
+        toast.remove();
+    }, 5000);
+    
+    toast.querySelector('.toast-close').addEventListener('click', () => {
+        toast.remove();
+        clearTimeout(timeout);
+    });
+}
+
 // ====== MAIN INITIALIZATION ======
 document.addEventListener('DOMContentLoaded', () => {
+    // Prevent duplicate initialization
+    if (AppState.isInitialized) return;
+    AppState.isInitialized = true;
+    
     console.log(`
-
 ╔══════════════════════════════════════════════════╗
-║      MAJESTOR KEPSEU PORTFOLIO v5.2             ║
-║      Enhanced Mobile Animations & Polish        ║
+║      MAJESTOR KEPSEU PORTFOLIO v5.3             ║
+║      Optimized Animations & Fixed Integration    ║
 ║      © ${new Date().getFullYear()} - All Rights Reserved         ║
 ╚══════════════════════════════════════════════════╝
     `);
     
     try {
+        // Initialize theme manager first (if available)
+        if (typeof ThemeManager !== 'undefined') {
+            ThemeManager.getInstance();
+        }
+        
         // Initialize animation system first
         initializeAnimationSystem();
         
@@ -714,6 +714,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Analytics and utilities
         initializeAnalytics();
         initializeKeyboardShortcuts();
+        initializeThemeIntegration();
         
         // Update dynamic content
         updateCopyrightYear();
@@ -737,44 +738,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// ====== HELPER FUNCTIONS ======
-function updateCopyrightYear() {
-    const yearElement = document.getElementById('currentYear');
-    if (yearElement) {
-        yearElement.textContent = new Date().getFullYear();
+// ====== ERROR HANDLING ======
+window.addEventListener('error', function(e) {
+    console.error('Global error:', e.error);
+    if (!AppState.isInitialized) {
+        showToast('Page failed to load completely. Please refresh.', 'error');
     }
-}
-
-function showToast(message, type = 'info') {
-    const toast = document.createElement('div');
-    toast.className = `global-toast ${type}`;
-    toast.innerHTML = `
-        <span class="toast-icon">${type === 'error' ? '⚠️' : 'ℹ️'}</span>
-        <span class="toast-message">${message}</span>
-        <button class="toast-close" aria-label="Dismiss">×</button>
-    `;
-    
-    document.body.appendChild(toast);
-    
-    const timeout = setTimeout(() => {
-        toast.remove();
-    }, 5000);
-    
-    toast.querySelector('.toast-close').addEventListener('click', () => {
-        toast.remove();
-        clearTimeout(timeout);
-    });
-}
+});
 
 // ====== PWA FEATURES ======
 function initializePWA() {
     if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
-        navigator.serviceWorker.register('/sw.js')
-            .then(registration => {
-                console.log('✅ Service Worker registered:', registration.scope);
-            })
-            .catch(error => {
-                console.log('❌ Service Worker registration failed:', error);
-            });
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js')
+                .then(registration => {
+                    console.log('✅ Service Worker registered:', registration.scope);
+                })
+                .catch(error => {
+                    console.log('❌ Service Worker registration failed:', error);
+                });
+        });
     }
 }
+
+// Initialize PWA on load
+window.addEventListener('load', initializePWA);

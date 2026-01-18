@@ -606,3 +606,106 @@ body::before {
         transform: none;
     }
 }
+
+/* ====== PROJECT PAGES THEME SUPPORT ====== */
+
+[data-theme="light"] .project-page-header {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .project-hero {
+    background: linear-gradient(180deg, #F8F9FA 0%, #FFFFFF 100%);
+}
+
+[data-theme="light"] .project-hero-title {
+    color: #212529;
+}
+
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+    [data-theme="light"] .project-hero-title {
+        background: linear-gradient(135deg, #212529 0%, #1A9C9C 50%, #212529 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+}
+
+[data-theme="light"] .project-hero-subtitle {
+    color: #495057;
+}
+
+[data-theme="light"] .project-section-title {
+    color: #1A9C9C;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .project-section-content {
+    color: #495057;
+}
+
+[data-theme="light"] .project-list li {
+    color: #495057;
+}
+
+[data-theme="light"] .project-skill-tag {
+    background: rgba(26, 156, 156, 0.1);
+    color: #1A9C9C;
+    border: 1px solid rgba(26, 156, 156, 0.2);
+}
+
+[data-theme="light"] .project-gallery-item {
+    background: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .project-gallery-item:hover {
+    border-color: #1A9C9C;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .project-gallery-caption {
+    color: #495057;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    background: #F1F3F5;
+}
+
+[data-theme="light"] .project-note {
+    background: #F1F3F5;
+    color: #495057;
+}
+
+[data-theme="light"] .project-note strong {
+    color: #1A9C9C;
+}
+
+[data-theme="light"] .project-back-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    color: #212529;
+}
+
+[data-theme="light"] .project-back-btn:hover {
+    border-color: #1A9C9C;
+    color: #1A9C9C;
+    background: rgba(26, 156, 156, 0.05);
+}
+
+[data-theme="light"] .site-footer {
+    background: #F1F3F5;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* Theme transition for project pages */
+.project-page-header,
+.project-hero,
+.project-section,
+.project-gallery-item,
+.project-back-btn {
+    transition: background-color 0.3s ease,
+                border-color 0.3s ease,
+                color 0.3s ease,
+                box-shadow 0.3s ease;
+}

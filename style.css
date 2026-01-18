@@ -97,6 +97,7 @@ html.reduced-motion *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
 }
 
 body {
@@ -805,7 +806,6 @@ p {
     color: var(--accent);
     border-radius: var(--radius-md);
     font-size: 1.2rem;
-    flex-shrink: 0;
 }
 
 .motivation-content {
@@ -1610,8 +1610,7 @@ p {
     color: var(--text-tertiary);
 }
 
-/* ====== ANIMATION CLASSES ====== */
-/* These integrate with animations.css */
+/* ====== ANIMATION CLASSES - Fixed Integration ====== */
 .ripple { position: relative; overflow: hidden; }
 .press-down { transition: transform var(--transition-fast), box-shadow var(--transition-fast); }
 .card-lift { transition: transform var(--transition-base), box-shadow var(--transition-base); }
@@ -1620,16 +1619,50 @@ p {
 .stagger-children > * { opacity: 0; transform: translateY(20px); }
 .timeline-item { opacity: 0; transform: translateX(-20px); }
 .skill-bar { height: 4px; background: var(--border-color); border-radius: 2px; overflow: hidden; }
-.skill-progress { height: 100%; background: var(--accent); border-radius: 2px; }
+.skill-progress { height: 100%; background: var(--accent); border-radius: 2px; transform: translateX(-100%); }
 .skeleton { background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--bg-tertiary) 50%, var(--bg-secondary) 75%); background-size: 200% 100%; animation: skeleton-loading 1.5s infinite; }
 
-/* Touch device optimizations */
+/* Animation state classes (used by JavaScript) */
+.pressing, .hovering, .touch-hover, .touch-active {
+    /* These are handled by animations.css */
+}
+
+/* ====== TOAST STYLES ====== */
+.global-toast {
+    display: none; /* animations.css handles this */
+}
+
+/* ====== HOVER DETECTION ====== */
+@media (hover: hover) and (pointer: fine) {
+    .has-hover .card-lift:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-lg);
+    }
+    
+    .has-hover .card-lift:hover::before {
+        transform: scaleX(1);
+    }
+}
+
+/* ====== TOUCH DEVICE OPTIMIZATIONS ====== */
 @media (hover: none) and (pointer: coarse) {
     .mobile-tap-target { min-height: 44px; min-width: 44px; }
     .touch-active:active { background-color: rgba(32, 211, 211, 0.1); transform: scale(0.98); }
 }
 
-/* Animation utilities */
+/* ====== READING PROGRESS ====== */
+.reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: var(--accent);
+    width: 0%;
+    z-index: 1001;
+    transition: width 0.3s ease;
+}
+
+/* ====== ANIMATION UTILITIES ====== */
 .delay-100 { transition-delay: 100ms !important; }
 .delay-200 { transition-delay: 200ms !important; }
 .delay-300 { transition-delay: 300ms !important; }
@@ -1862,6 +1895,10 @@ p {
     .skeleton {
         animation: none;
     }
+    
+    .reading-progress {
+        display: none;
+    }
 }
 
 /* ====== HIGH CONTRAST MODE SUPPORT ====== */
@@ -1884,4 +1921,20 @@ p {
         color: #ffffff;
         border: 2px solid #ffffff;
     }
+}
+
+/* ====== SPINNER FOR LOADING STATES ====== */
+.spinner-small {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--accent);
+    animation: spin 1s ease-in-out infinite;
+    margin-right: 8px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
 }

@@ -1,5 +1,5 @@
 /* ====== MOBILE ANIMATIONS & MICRO-INTERACTIONS ====== */
-/* Designed for smooth, material-design inspired interactions */
+/* Enhanced with proper touch feedback integration */
 
 :root {
     /* Animation timing functions */
@@ -55,7 +55,7 @@
                 box-shadow var(--duration-fast) var(--ease-out-quad);
 }
 
-.press-down:active {
+.press-down.pressing {
     transform: translateY(2px);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
@@ -69,13 +69,13 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-    .card-lift:hover {
+    .card-lift.hovering {
         transform: translateY(-8px);
         box-shadow: var(--shadow-lg);
     }
 }
 
-.card-lift:active {
+.card-lift.pressing {
     transform: translateY(-4px);
     box-shadow: var(--shadow-md);
 }
@@ -88,7 +88,7 @@
                 transform var(--duration-base) var(--ease-out-quad);
 }
 
-.card-lift:hover .card-content-reveal {
+.card-lift.hovering .card-content-reveal {
     opacity: 1;
     transform: translateY(0);
 }
@@ -100,7 +100,7 @@
     transition: all var(--duration-base) var(--ease-spring);
 }
 
-.btn-spring:active {
+.btn-spring.pressing {
     transform: scale(0.98);
 }
 
@@ -189,7 +189,7 @@
     width: 80%;
 }
 
-/* Mobile Menu Animation */
+/* Mobile Menu Animation - FIXED CLASS NAME */
 .mobile-menu-item {
     opacity: 0;
     transform: translateX(20px);
@@ -197,7 +197,8 @@
                 transform var(--duration-base) var(--ease-out-quad);
 }
 
-.nav-links.active .mobile-menu-item {
+/* Navigation items should have this class for mobile animation */
+.nav-links .nav-link.mobile-menu-item.active {
     opacity: 1;
     transform: translateX(0);
 }
@@ -250,7 +251,7 @@
     transition: transform var(--duration-slow) var(--ease-out-quad);
 }
 
-.project-card:hover .project-image-zoom img {
+.project-card.hovering .project-image-zoom img {
     transform: scale(1.05);
 }
 
@@ -412,15 +413,16 @@
     }
     
     /* Remove hover effects on touch devices */
-    .card-lift:hover {
+    .card-lift.hovering {
         transform: none;
         box-shadow: var(--shadow-md);
     }
     
     /* Enhanced active states for touch */
-    .touch-active:active {
+    .touch-active {
         background-color: rgba(32, 211, 211, 0.1);
         transform: scale(0.98);
+        transition: background-color var(--duration-fast), transform var(--duration-fast);
     }
     
     /* Swipe gestures support */
@@ -504,4 +506,75 @@
 
 .pulse {
     animation: pulse 2s var(--ease-in-out-quad) infinite;
+}
+
+/* ====== THEME-SPECIFIC ADJUSTMENTS ====== */
+[data-theme="light"] {
+    --ripple-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] {
+    --ripple-color: rgba(255, 255, 255, 0.3);
+}
+
+/* ====== FIXED CLASSES FOR JS INTEGRATION ====== */
+.pressing { 
+    /* Used by press-down animations */
+}
+
+.hovering {
+    /* Used by hover animations on desktop */
+}
+
+.touch-hover {
+    /* Used by touch device hover states */
+}
+
+/* ====== GLOBAL TOAST STYLES ====== */
+.global-toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: var(--space-md);
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    max-width: 350px;
+    z-index: 9999;
+    animation: slideInUp 0.3s ease;
+    box-shadow: var(--shadow-lg);
+}
+
+.global-toast.error {
+    border-color: rgba(231, 76, 60, 0.3);
+    background: rgba(231, 76, 60, 0.1);
+}
+
+.global-toast.info {
+    border-color: rgba(32, 211, 211, 0.3);
+    background: rgba(32, 211, 211, 0.1);
+}
+
+.toast-close {
+    background: none;
+    border: none;
+    color: var(--text-tertiary);
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 0;
+    margin-left: auto;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
