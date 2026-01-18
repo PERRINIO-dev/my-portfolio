@@ -1,0 +1,507 @@
+/* ====== MOBILE ANIMATIONS & MICRO-INTERACTIONS ====== */
+/* Designed for smooth, material-design inspired interactions */
+
+:root {
+    /* Animation timing functions */
+    --ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --ease-in-out-quad: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+    --ease-spring: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    
+    /* Animation durations */
+    --duration-fast: 150ms;
+    --duration-base: 300ms;
+    --duration-slow: 500ms;
+    
+    /* Ripple effect variables */
+    --ripple-color: rgba(255, 255, 255, 0.3);
+    --ripple-size: 100px;
+}
+
+/* ====== TOUCH FEEDBACK ANIMATIONS ====== */
+
+/* Ripple Effect for Interactive Elements */
+.ripple {
+    position: relative;
+    overflow: hidden;
+    transform: translate3d(0, 0, 0);
+}
+
+.ripple::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--ripple-size);
+    height: var(--ripple-size);
+    background: var(--ripple-color);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform var(--duration-base) var(--ease-out-quad),
+                opacity var(--duration-base) var(--ease-out-quad);
+}
+
+.ripple.active::after {
+    transform: translate(-50%, -50%) scale(4);
+    opacity: 1;
+    transition: transform var(--duration-slow) var(--ease-out-quad),
+                opacity var(--duration-base) var(--ease-out-quad);
+}
+
+/* Press-down Animation */
+.press-down {
+    transition: transform var(--duration-fast) var(--ease-out-quad),
+                box-shadow var(--duration-fast) var(--ease-out-quad);
+}
+
+.press-down:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* ====== CARD INTERACTIONS ====== */
+
+/* Card Lift Animation */
+.card-lift {
+    transition: transform var(--duration-base) var(--ease-out-quad),
+                box-shadow var(--duration-base) var(--ease-out-quad);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .card-lift:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-lg);
+    }
+}
+
+.card-lift:active {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Card Content Reveal */
+.card-content-reveal {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity var(--duration-base) var(--ease-out-quad),
+                transform var(--duration-base) var(--ease-out-quad);
+}
+
+.card-lift:hover .card-content-reveal {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ====== BUTTON ENHANCEMENTS ====== */
+
+/* Button Spring Animation */
+.btn-spring {
+    transition: all var(--duration-base) var(--ease-spring);
+}
+
+.btn-spring:active {
+    transform: scale(0.98);
+}
+
+/* Button Loading State */
+.btn-loading {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-loading::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.2), 
+        transparent);
+    animation: loading-shimmer 1.5s infinite;
+}
+
+@keyframes loading-shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* ====== SCROLL ANIMATIONS ====== */
+
+/* Fade In Up Animation */
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity var(--duration-slow) var(--ease-out-quad),
+                transform var(--duration-slow) var(--ease-out-quad);
+}
+
+.fade-in-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Staggered Children Animation */
+.stagger-children > * {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity var(--duration-base) var(--ease-out-quad),
+                transform var(--duration-base) var(--ease-out-quad);
+}
+
+.stagger-children.visible > * {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.stagger-children.visible > *:nth-child(1) { transition-delay: 100ms; }
+.stagger-children.visible > *:nth-child(2) { transition-delay: 200ms; }
+.stagger-children.visible > *:nth-child(3) { transition-delay: 300ms; }
+.stagger-children.visible > *:nth-child(4) { transition-delay: 400ms; }
+.stagger-children.visible > *:nth-child(5) { transition-delay: 500ms; }
+.stagger-children.visible > *:nth-child(6) { transition-delay: 600ms; }
+
+/* ====== NAVIGATION ANIMATIONS ====== */
+
+/* Smooth Active Link Transition */
+.nav-link {
+    position: relative;
+    transition: all var(--duration-base) var(--ease-out-quad);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transform: translateX(-50%);
+    transition: width var(--duration-base) var(--ease-out-quad);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 80%;
+}
+
+/* Mobile Menu Animation */
+.mobile-menu-item {
+    opacity: 0;
+    transform: translateX(20px);
+    transition: opacity var(--duration-base) var(--ease-out-quad),
+                transform var(--duration-base) var(--ease-out-quad);
+}
+
+.nav-links.active .mobile-menu-item {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* ====== SKILLS & EXPERIENCE ENHANCEMENTS ====== */
+
+/* Skill Bar Animation */
+.skill-bar {
+    height: 4px;
+    background: var(--border-color);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+}
+
+.skill-progress {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transform: translateX(-100%);
+    transition: transform var(--duration-slow) var(--ease-out-quad);
+}
+
+.skill-bar.visible .skill-progress {
+    transform: translateX(0);
+}
+
+/* Experience Timeline Animation */
+.timeline-item {
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity var(--duration-base) var(--ease-out-quad),
+                transform var(--duration-base) var(--ease-out-quad);
+}
+
+.timeline-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* ====== PROJECT CARD ENHANCEMENTS ====== */
+
+/* Project Image Zoom */
+.project-image-zoom {
+    overflow: hidden;
+    border-radius: var(--radius-md);
+}
+
+.project-image-zoom img {
+    transition: transform var(--duration-slow) var(--ease-out-quad);
+}
+
+.project-card:hover .project-image-zoom img {
+    transform: scale(1.05);
+}
+
+/* Tag Hover Animation */
+.project-tag {
+    transition: all var(--duration-fast) var(--ease-out-quad);
+}
+
+.project-tag:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ====== FORM ANIMATIONS ====== */
+
+/* Form Field Focus Animation */
+.form-field {
+    position: relative;
+}
+
+.form-field::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: width var(--duration-base) var(--ease-out-quad);
+}
+
+.form-field:focus-within::after {
+    width: 100%;
+}
+
+/* Input Label Animation */
+.input-label {
+    transition: all var(--duration-fast) var(--ease-out-quad);
+}
+
+.input-label.floating {
+    transform: translateY(-20px) scale(0.8);
+    color: var(--accent);
+}
+
+/* ====== MOBILE-SPECIFIC ENHANCEMENTS ====== */
+
+/* Swipe Hint Animation */
+.swipe-hint {
+    position: relative;
+    overflow: hidden;
+}
+
+.swipe-hint::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.1), 
+        transparent);
+    animation: swipe-hint 2s infinite;
+}
+
+@keyframes swipe-hint {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* Pull to Refresh Animation */
+.pull-indicator {
+    transform: rotate(0deg);
+    transition: transform var(--duration-base) var(--ease-out-quad);
+}
+
+.pull-indicator.pulling {
+    transform: rotate(180deg);
+}
+
+/* ====== LOADING STATES ====== */
+
+/* Skeleton Loading */
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        var(--bg-secondary) 25%,
+        var(--bg-tertiary) 50%,
+        var(--bg-secondary) 75%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+    border-radius: var(--radius-md);
+}
+
+@keyframes skeleton-loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Content Fade In */
+.content-fade-in {
+    animation: content-fade-in var(--duration-slow) var(--ease-out-quad) forwards;
+}
+
+@keyframes content-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ====== PERFORMANCE OPTIMIZATIONS ====== */
+
+/* Will-change hints for smooth animations */
+.will-animate {
+    will-change: transform, opacity;
+}
+
+/* Reduce motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .ripple::after,
+    .btn-loading::before,
+    .swipe-hint::before,
+    .skeleton {
+        animation: none !important;
+        display: none !important;
+    }
+    
+    .fade-in-up,
+    .stagger-children > *,
+    .timeline-item {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+}
+
+/* ====== TOUCH DEVICE OPTIMIZATIONS ====== */
+@media (hover: none) and (pointer: coarse) {
+    /* Larger tap targets for mobile */
+    .mobile-tap-target {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    /* Remove hover effects on touch devices */
+    .card-lift:hover {
+        transform: none;
+        box-shadow: var(--shadow-md);
+    }
+    
+    /* Enhanced active states for touch */
+    .touch-active:active {
+        background-color: rgba(32, 211, 211, 0.1);
+        transform: scale(0.98);
+    }
+    
+    /* Swipe gestures support */
+    .swipe-container {
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .swipe-item {
+        scroll-snap-align: start;
+    }
+}
+
+/* ====== ANIMATION UTILITY CLASSES ====== */
+
+/* Delay utilities */
+.delay-100 { transition-delay: 100ms !important; }
+.delay-200 { transition-delay: 200ms !important; }
+.delay-300 { transition-delay: 300ms !important; }
+.delay-400 { transition-delay: 400ms !important; }
+.delay-500 { transition-delay: 500ms !important; }
+
+/* Duration utilities */
+.duration-100 { transition-duration: 100ms !important; }
+.duration-200 { transition-duration: 200ms !important; }
+.duration-300 { transition-duration: 300ms !important; }
+.duration-500 { transition-duration: 500ms !important; }
+.duration-700 { transition-duration: 700ms !important; }
+
+/* Easing utilities */
+.ease-out { transition-timing-function: var(--ease-out-quad) !important; }
+.ease-in-out { transition-timing-function: var(--ease-in-out-quad) !important; }
+.ease-spring { transition-timing-function: var(--ease-spring) !important; }
+
+/* ====== PAGE TRANSITIONS ====== */
+
+.page-transition {
+    animation: page-transition-in var(--duration-base) var(--ease-out-quad);
+}
+
+@keyframes page-transition-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ====== ERROR/SUCCESS STATES ====== */
+
+/* Shake animation for errors */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.shake {
+    animation: shake 0.5s var(--ease-out-quad);
+}
+
+/* Bounce animation for success */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+.bounce {
+    animation: bounce 1s var(--ease-spring);
+}
+
+/* Pulse animation for attention */
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.pulse {
+    animation: pulse 2s var(--ease-in-out-quad) infinite;
+}
