@@ -1,43 +1,6 @@
-/* ====== PROJECT PAGE STYLES ====== */
-:root {
-    /* Reuse all variables from main style.css */
-    --bg-primary: #070A0D;
-    --bg-secondary: #0A0F14;
-    --bg-tertiary: #0F172A;
-    --bg-card: rgba(255, 255, 255, 0.04);
-    --bg-glass: rgba(10, 14, 18, 0.86);
-    --text-primary: rgba(255, 255, 255, 0.92);
-    --text-secondary: rgba(255, 255, 255, 0.70);
-    --text-tertiary: rgba(255, 255, 255, 0.50);
-    --accent: #20D3D3;
-    --accent-dark: #1AB9B9;
-    --accent-light: #3AE9E9;
-    --accent-glow: rgba(32, 211, 211, 0.35);
-    --accent-glow-strong: rgba(32, 211, 211, 0.15);
-    --border-color: rgba(255, 255, 255, 0.10);
-    --border-light: rgba(255, 255, 255, 0.06);
-    --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.25);
-    --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.32);
-    --shadow-lg: 0 18px 60px rgba(0, 0, 0, 0.45);
-    --radius-sm: 6px;
-    --radius-md: 12px;
-    --radius-lg: 16px;
-    --radius-xl: 24px;
-    --radius-full: 9999px;
-    --space-xs: 0.5rem;
-    --space-sm: 1rem;
-    --space-md: 1.5rem;
-    --space-lg: 2rem;
-    --space-xl: 3rem;
-    --space-xxl: 4rem;
-    --font-heading: 'Poppins', sans-serif;
-    --font-body: 'Poppins', sans-serif;
-    --transition-fast: 200ms cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
-    --nav-height: 80px;
-    --container-width: 1200px;
-}
+/* ====== PROJECT PAGE STYLES - THEME COMPATIBLE VERSION ====== */
+/* v5.3 - FIXED: Removed conflicting :root variables */
+/* Variables now properly inherit from theme system in style.css and light-theme.css */
 
 /* ====== PROJECT PAGE BASE STYLES ====== */
 body {
@@ -65,6 +28,14 @@ body::before {
     pointer-events: none;
 }
 
+/* Light theme background override */
+[data-theme="light"] body::before {
+    background:
+        radial-gradient(circle at 20% 30%, rgba(26, 156, 156, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(26, 156, 156, 0.02) 0%, transparent 50%),
+        linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-tertiary) 100%);
+}
+
 .container {
     width: 100%;
     max-width: var(--container-width);
@@ -86,6 +57,7 @@ body::before {
     z-index: 1000;
     display: flex;
     align-items: center;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .project-nav-container {
@@ -141,6 +113,7 @@ body::before {
     background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
     position: relative;
     overflow: hidden;
+    transition: background 0.3s ease;
 }
 
 .project-hero::before {
@@ -172,6 +145,7 @@ body::before {
     font-weight: 600;
     margin-bottom: var(--space-md);
     border: 1px solid var(--accent);
+    transition: all 0.3s ease;
 }
 
 .project-hero-title {
@@ -224,6 +198,9 @@ body::before {
 .project-section {
     margin-bottom: var(--space-xxl);
     scroll-margin-top: calc(var(--nav-height) + 20px);
+    /* CRITICAL FIX: Use theme variables directly, no override */
+    background: transparent;
+    transition: background-color 0.3s ease;
 }
 
 .project-section-title {
@@ -235,11 +212,13 @@ body::before {
     display: flex;
     align-items: center;
     gap: var(--space-sm);
+    transition: color 0.3s ease, border-color 0.3s ease;
 }
 
 .project-section-content {
     color: var(--text-secondary);
     line-height: 1.7;
+    transition: color 0.3s ease;
 }
 
 .project-section-content p {
@@ -258,6 +237,7 @@ body::before {
     position: relative;
     line-height: 1.6;
     color: var(--text-secondary);
+    transition: color 0.3s ease;
 }
 
 .project-list li::before {
@@ -333,6 +313,7 @@ body::before {
     font-size: 0.9rem;
     border-top: 1px solid var(--border-color);
     background: rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
 }
 
 /* ====== PROJECT NAVIGATION ====== */
@@ -343,28 +324,24 @@ body::before {
     margin-top: var(--space-xxl);
     padding-top: var(--space-xl);
     border-top: 1px solid var(--border-color);
+    transition: border-color 0.3s ease;
 }
 
 .project-navigation .btn {
-    min-width: 200px;
-    text-decoration: none;
-}
-
-.project-navigation .btn-secondary {
-    color: var(--text-primary);
-}
-
-.project-navigation .btn-secondary:hover {
-    color: var(--accent);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
 }
 
 /* ====== PROJECT NOTE ====== */
 .project-note {
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
     border-left: 4px solid var(--accent);
     padding: var(--space-md);
     border-radius: var(--radius-md);
     margin: var(--space-xl) 0;
+    transition: all 0.3s ease;
 }
 
 .project-note p {
@@ -382,6 +359,7 @@ body::before {
     background: var(--bg-secondary);
     padding: var(--space-xl) 0;
     border-top: 1px solid var(--border-color);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .footer-content {
@@ -608,6 +586,7 @@ body::before {
 }
 
 /* ====== PROJECT PAGES THEME SUPPORT ====== */
+/* These rules ensure complete theme application on project pages */
 
 [data-theme="light"] .project-page-header {
     background: rgba(255, 255, 255, 0.92);
@@ -675,6 +654,7 @@ body::before {
 [data-theme="light"] .project-note {
     background: #F1F3F5;
     color: #495057;
+    border-color: rgba(0, 0, 0, 0.08);
 }
 
 [data-theme="light"] .project-note strong {
@@ -682,7 +662,7 @@ body::before {
 }
 
 [data-theme="light"] .project-back-btn {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(0, 0, 0, 0.04);
     border: 1px solid rgba(0, 0, 0, 0.08);
     color: #212529;
 }
@@ -698,12 +678,29 @@ body::before {
     border-top: 1px solid rgba(0, 0, 0, 0.08);
 }
 
-/* Theme transition for project pages */
+[data-theme="light"] .footer-logo .logo-text {
+    color: #212529;
+}
+
+[data-theme="light"] .footer-copyright {
+    color: #495057;
+}
+
+[data-theme="light"] .footer-tech {
+    color: #6C757D;
+}
+
+/* Theme transition for smooth switching */
 .project-page-header,
 .project-hero,
 .project-section,
 .project-gallery-item,
-.project-back-btn {
+.project-back-btn,
+.project-section-content,
+.project-list li,
+.project-gallery-caption,
+.project-note,
+.site-footer {
     transition: background-color 0.3s ease,
                 border-color 0.3s ease,
                 color 0.3s ease,
