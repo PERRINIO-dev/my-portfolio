@@ -836,3 +836,132 @@ html[data-theme] {
     scrollbar-color: var(--border-dark) var(--bg-tertiary);
     scrollbar-width: thin;
 }
+
+/* ====== THREE-WAY THEME TOGGLE STYLES ====== */
+/* Override previous two-way toggle styles */
+.theme-toggle .sun-icon,
+.theme-toggle .moon-icon,
+.theme-toggle .auto-icon {
+    position: absolute;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Default state - hide all icons initially */
+.theme-toggle .sun-icon,
+.theme-toggle .moon-icon,
+.theme-toggle .auto-icon {
+    opacity: 0;
+    transform: scale(0.5) rotate(-90deg);
+}
+
+/* Mode: Auto (System) - Show auto icon */
+.theme-toggle.mode-auto .auto-icon {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+}
+
+/* Mode: Light - Show sun icon */
+.theme-toggle.mode-light .sun-icon {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+}
+
+/* Mode: Dark - Show moon icon */
+.theme-toggle.mode-dark .moon-icon {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+}
+
+/* Animation when toggling */
+.theme-toggle.theme-toggling .sun-icon,
+.theme-toggle.theme-toggling .moon-icon,
+.theme-toggle.theme-toggling .auto-icon {
+    transition: opacity 0.2s ease, transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Tooltip - Updated to show mode info */
+.theme-tooltip {
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    pointer-events: none;
+    z-index: 10;
+}
+
+.theme-toggle:hover .theme-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Remove old ::after tooltip if it exists */
+.theme-toggle::after {
+    display: none !important;
+}
+
+/* Color scheme for icons in different themes */
+[data-theme="light"] .theme-toggle .auto-icon,
+[data-theme="light"] .theme-toggle .sun-icon {
+    color: #F59E0B; /* Amber for sun in light theme */
+}
+
+[data-theme="light"] .theme-toggle .moon-icon {
+    color: #3B82F6; /* Blue for moon */
+}
+
+[data-theme="dark"] .theme-toggle .auto-icon {
+    color: var(--accent); /* Teal for auto icon */
+}
+
+[data-theme="dark"] .theme-toggle .sun-icon {
+    color: #FCD34D; /* Yellow for sun */
+}
+
+[data-theme="dark"] .theme-toggle .moon-icon {
+    color: #93C5FD; /* Light blue for moon */
+}
+
+/* Mobile: Hide tooltip on small screens */
+@media (max-width: 768px) {
+    .theme-tooltip {
+        display: none;
+    }
+}
+
+/* Enhanced hover effect for better feedback */
+.theme-toggle:hover {
+    transform: translateY(-2px) scale(1.05);
+}
+
+/* Active press effect */
+.theme-toggle:active {
+    transform: scale(0.95);
+}
+
+/* Glow effect on hover for better visibility */
+.theme-toggle:hover {
+    box-shadow: 0 0 0 3px var(--accent-glow), var(--shadow-lg);
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .theme-toggle,
+    .theme-toggle .sun-icon,
+    .theme-toggle .moon-icon,
+    .theme-toggle .auto-icon,
+    .theme-tooltip {
+        transition: none !important;
+        animation: none !important;
+    }
+}

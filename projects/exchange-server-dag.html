@@ -9,12 +9,19 @@
         content="Microsoft Exchange Server 2019 Infrastructure with Database Availability Group (DAG) - Majestor Kepseu">
     <title>Exchange Server DAG Project | Majestor Kepseu</title>
 
+    <!-- UPDATED: Corrected stylesheet order - NO media query on light-theme.css -->
+    <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../light-theme.css">
     <link rel="stylesheet" href="../animations.css">
-    <script src="../theme-manager.js" defer></script>
-
-    <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="project-styles.css">
+    
+    <!-- Theme Manager -->
+    <script src="../theme-manager.js"></script>
+    
+    <!-- NEW: Lightbox JavaScript -->
+    <script src="../lightbox.js" defer></script>
+    
+    <!-- Font Awesome & Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,14 +33,15 @@
 <body>
     <!-- Project Navigation Header -->
     <header class="project-page-header">
-        <div class="container project-nav-container">
+        <div class="project-nav-container">
             <a href="../index.html#projects" class="project-back-btn">
                 <i class="fas fa-arrow-left"></i>
                 <span>Back to Projects</span>
             </a>
+            <!-- UPDATED: Fixed navigation branding (removed inline style, using spans) -->
             <a href="../index.html" class="project-home-btn">
                 <span>Majestor</span>
-                <span style="color: var(--accent);">Kepseu</span>
+                <span>Kepseu</span>
             </a>
         </div>
     </header>
@@ -42,7 +50,11 @@
     <section class="project-hero">
         <div class="container">
             <div class="project-hero-content">
-                <div class="project-hero-badge">Messaging & Collaboration</div>
+                <!-- ENHANCED: Badge with icon -->
+                <div class="project-hero-badge">
+                    <i class="fas fa-envelope"></i>
+                    Messaging & Collaboration
+                </div>
                 <h1 class="project-hero-title">Microsoft Exchange Server 2019 Infrastructure with Database Availability
                     Group (DAG)</h1>
                 <p class="project-hero-subtitle">Designed and deployed a highly available enterprise email
@@ -53,139 +65,143 @@
 
     <!-- Project Content -->
     <main class="project-content">
-        <!-- Overview Section -->
-        <section id="overview" class="project-section">
-            <h2 class="project-section-title">
-                <i class="fas fa-eye"></i>
-                Project Overview
-            </h2>
-            <div class="project-section-content">
-                <p>The objective of this project was to design, deploy, and validate a highly available enterprise email
-                    infrastructure using Microsoft Exchange Server 2019. The environment was built to support secure
-                    messaging, centralized administration, and high availability through the implementation of a
-                    Database Availability Group (DAG).</p>
+        <div class="container">
+            <!-- Overview Section -->
+            <section id="overview" class="project-section">
+                <h2 class="project-section-title">
+                    <i class="fas fa-eye"></i>
+                    Project Overview
+                </h2>
+                <div class="project-section-content">
+                    <p>The objective of this project was to design, deploy, and validate a highly available enterprise
+                        email infrastructure using Microsoft Exchange Server 2019. The environment was built to support
+                        secure messaging, centralized administration, and high availability through the implementation of
+                        a Database Availability Group (DAG).</p>
 
-                <p>This project demonstrates comprehensive enterprise messaging capabilities, focusing on resilience,
-                    scalability, and secure collaboration for modern business environments.</p>
-            </div>
-        </section>
-
-        <!-- Architecture Section -->
-        <section id="architecture" class="project-section">
-            <h2 class="project-section-title">
-                <i class="fas fa-sitemap"></i>
-                Architecture & Implementation
-            </h2>
-            <div class="project-section-content">
-                <ul class="project-list">
-                    <li>Deployed a Windows Server–based Active Directory domain with integrated DNS services.</li>
-                    <li>Designed and implemented a structured Organizational Unit (OU) hierarchy following best
-                        practices.</li>
-                    <li>Created and managed users, security groups, and service accounts for Exchange administration.
-                    </li>
-                    <li>Installed and configured Microsoft Exchange Server 2019 on multiple member servers.</li>
-                    <li>Configured DHCP services to support dynamic client addressing within the environment.</li>
-                    <li>Implemented department-based file shares with access control enforced through Group Policy
-                        Objects (GPOs).</li>
-                    <li>Created and mounted custom mailbox databases across Exchange servers.</li>
-                    <li>Configured mailboxes, shared mailboxes, resource mailboxes, and distribution groups using the
-                        Exchange Admin Center (EAC).</li>
-                    <li>Performed Exchange administration using PowerShell, including mailbox and group creation.</li>
-                    <li>Implemented a Database Availability Group (DAG) with mailbox database replication and failover
-                        capabilities.</li>
-                    <li>Configured a witness server to support DAG quorum and resiliency.</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Results Section -->
-        <section id="results" class="project-section">
-            <h2 class="project-section-title">
-                <i class="fas fa-chart-line"></i>
-                Results & Validation
-            </h2>
-            <div class="project-section-content">
-                <ul class="project-list">
-                    <li>Successfully validated mail flow between users across different departments.</li>
-                    <li>Confirmed correct functionality of shared mailboxes, resource booking, and distribution groups.
-                    </li>
-                    <li>Verified mailbox database replication between Exchange servers.</li>
-                    <li>Tested DAG failover to ensure mailbox availability during simulated server outages.</li>
-                    <li>Achieved a resilient and fault-tolerant enterprise email platform aligned with Microsoft best
-                        practices.</li>
-                    <li>Demonstrated reliable identity-based access control through AD and Exchange role separation.
-                    </li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Skills Section -->
-        <section id="skills" class="project-section">
-            <h2 class="project-section-title">
-                <i class="fas fa-tools"></i>
-                Skills & Technologies Used
-            </h2>
-            <div class="project-section-content">
-                <div class="project-skills-container">
-                    <span class="project-skill-tag">Microsoft Exchange Server 2019</span>
-                    <span class="project-skill-tag">Database Availability Group (DAG)</span>
-                    <span class="project-skill-tag">Windows Server</span>
-                    <span class="project-skill-tag">Active Directory Domain Services (AD DS)</span>
-                    <span class="project-skill-tag">DNS & DHCP</span>
-                    <span class="project-skill-tag">Group Policy Objects (GPO)</span>
-                    <span class="project-skill-tag">Exchange Admin Center (EAC)</span>
-                    <span class="project-skill-tag">Exchange Management Shell (PowerShell)</span>
-                    <span class="project-skill-tag">Mailbox databases & replication</span>
-                    <span class="project-skill-tag">Enterprise messaging infrastructure</span>
+                    <p>This project demonstrates comprehensive enterprise messaging capabilities, focusing on resilience,
+                        scalability, and secure collaboration for modern business environments.</p>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Images Section -->
-        <section id="images" class="project-section">
-            <h2 class="project-section-title">
-                <i class="fas fa-images"></i>
-                Project Documentation
-            </h2>
-            <div class="project-section-content">
-                <p><em>Visual documentation of the Exchange Server 2019 implementation and DAG configuration.</em></p>
+            <!-- Architecture Section -->
+            <section id="architecture" class="project-section">
+                <h2 class="project-section-title">
+                    <i class="fas fa-sitemap"></i>
+                    Architecture & Implementation
+                </h2>
+                <div class="project-section-content">
+                    <ul class="project-list">
+                        <li>Deployed a Windows Server–based Active Directory domain with integrated DNS services.</li>
+                        <li>Designed and implemented a structured Organizational Unit (OU) hierarchy following best
+                            practices.</li>
+                        <li>Created and managed users, security groups, and service accounts for Exchange administration.
+                        </li>
+                        <li>Installed and configured Microsoft Exchange Server 2019 on multiple member servers.</li>
+                        <li>Configured DHCP services to support dynamic client addressing within the environment.</li>
+                        <li>Implemented department-based file shares with access control enforced through Group Policy
+                            Objects (GPOs).</li>
+                        <li>Created and mounted custom mailbox databases across Exchange servers.</li>
+                        <li>Configured mailboxes, shared mailboxes, resource mailboxes, and distribution groups using the
+                            Exchange Admin Center (EAC).</li>
+                        <li>Performed Exchange administration using PowerShell, including mailbox and group creation.</li>
+                        <li>Implemented a Database Availability Group (DAG) with mailbox database replication and failover
+                            capabilities.</li>
+                        <li>Configured a witness server to support DAG quorum and resiliency.</li>
+                    </ul>
+                </div>
+            </section>
 
-                <div class="project-gallery">
-                    <div class="project-gallery-item">
-                        <img src="../assets/images/exchange-dag-diagram.jpg" alt="Exchange DAG Architecture Diagram"
-                            class="project-gallery-img">
-                        <div class="project-gallery-caption">DAG Architecture Design</div>
-                    </div>
-                    <div class="project-gallery-item">
-                        <img src="../assets/images/eac-mailflow.png" alt="Exchange Admin Center Mail Flow"
-                            class="project-gallery-img">
-                        <div class="project-gallery-caption">Exchange Admin Center Interface</div>
-                    </div>
-                    <div class="project-gallery-item">
-                        <img src="../assets/images/powershell-output.png" alt="PowerShell Administration Output"
-                            class="project-gallery-img">
-                        <div class="project-gallery-caption">PowerShell Administration</div>
+            <!-- Results Section -->
+            <section id="results" class="project-section">
+                <h2 class="project-section-title">
+                    <i class="fas fa-chart-line"></i>
+                    Results & Validation
+                </h2>
+                <div class="project-section-content">
+                    <ul class="project-list">
+                        <li>Successfully validated mail flow between users across different departments.</li>
+                        <li>Confirmed correct functionality of shared mailboxes, resource booking, and distribution
+                            groups.</li>
+                        <li>Verified mailbox database replication between Exchange servers.</li>
+                        <li>Tested DAG failover to ensure mailbox availability during simulated server outages.</li>
+                        <li>Achieved a resilient and fault-tolerant enterprise email platform aligned with Microsoft best
+                            practices.</li>
+                        <li>Demonstrated reliable identity-based access control through AD and Exchange role separation.
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Skills Section -->
+            <section id="skills" class="project-section">
+                <h2 class="project-section-title">
+                    <i class="fas fa-tools"></i>
+                    Skills & Technologies Used
+                </h2>
+                <div class="project-section-content">
+                    <div class="project-skills-container">
+                        <span class="project-skill-tag">Microsoft Exchange Server 2019</span>
+                        <span class="project-skill-tag">Database Availability Group (DAG)</span>
+                        <span class="project-skill-tag">Windows Server</span>
+                        <span class="project-skill-tag">Active Directory Domain Services (AD DS)</span>
+                        <span class="project-skill-tag">DNS & DHCP</span>
+                        <span class="project-skill-tag">Group Policy Objects (GPO)</span>
+                        <span class="project-skill-tag">Exchange Admin Center (EAC)</span>
+                        <span class="project-skill-tag">Exchange Management Shell (PowerShell)</span>
+                        <span class="project-skill-tag">Mailbox databases & replication</span>
+                        <span class="project-skill-tag">Enterprise messaging infrastructure</span>
                     </div>
                 </div>
+            </section>
 
-                <div class="project-note">
-                    <p><strong>Note:</strong> This project implemented enterprise-grade Exchange Server 2019 with full
-                        High Availability capabilities. All configurations followed Microsoft best practices for
-                        security, performance, and resilience.</p>
+            <!-- Images Section -->
+            <section id="images" class="project-section">
+                <h2 class="project-section-title">
+                    <i class="fas fa-images"></i>
+                    Project Documentation
+                </h2>
+                <div class="project-section-content">
+                    <p><em>Visual documentation of the Exchange Server 2019 implementation and DAG configuration. Click
+                            any image to enlarge.</em></p>
+
+                    <!-- ENHANCED: Gallery items now have lightbox functionality automatically -->
+                    <div class="project-gallery">
+                        <div class="project-gallery-item">
+                            <img src="../assets/images/exchange-dag-diagram.jpg" alt="Exchange DAG Architecture Diagram"
+                                class="project-gallery-img">
+                            <div class="project-gallery-caption">DAG Architecture Design</div>
+                        </div>
+                        <div class="project-gallery-item">
+                            <img src="../assets/images/eac-mailflow.png" alt="Exchange Admin Center Mail Flow"
+                                class="project-gallery-img">
+                            <div class="project-gallery-caption">Exchange Admin Center Interface</div>
+                        </div>
+                        <div class="project-gallery-item">
+                            <img src="../assets/images/powershell-output.png" alt="PowerShell Administration Output"
+                                class="project-gallery-img">
+                            <div class="project-gallery-caption">PowerShell Administration</div>
+                        </div>
+                    </div>
+
+                    <div class="project-note">
+                        <p><strong>Note:</strong> This project implemented enterprise-grade Exchange Server 2019 with
+                            full High Availability capabilities. All configurations followed Microsoft best practices for
+                            security, performance, and resilience.</p>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Navigation Footer -->
-        <div class="project-navigation">
-            <a href="virtualization-cluster.html" class="btn btn-secondary press-down ripple">
-                <i class="fas fa-arrow-left"></i>
-                <span>Previous Project</span>
-            </a>
-            <a href="multi-region-network.html" class="btn btn-primary press-down ripple">
-                <span>Next Project</span>
-                <i class="fas fa-arrow-right"></i>
-            </a>
+            <!-- Navigation Footer -->
+            <div class="project-navigation">
+                <a href="virtualization-cluster.html" class="btn btn-secondary press-down ripple">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Previous Project</span>
+                </a>
+                <a href="multi-region-network.html" class="btn btn-primary press-down ripple">
+                    <span>Next Project</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
         </div>
     </main>
 
@@ -210,10 +226,13 @@
         </div>
     </footer>
 
+    <!-- Inline Script -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // Set current year
             document.getElementById('currentYear').textContent = new Date().getFullYear();
 
+            // Smooth scroll for anchor links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();

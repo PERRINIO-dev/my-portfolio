@@ -1,427 +1,288 @@
-# Majestor Kepseu - Professional Portfolio v5.3
+# Portfolio - Majestor Kepseu
 
-![Portfolio Preview](assets/portfolio-preview.jpg)
+> A modern, professional portfolio showcasing cybersecurity and cloud infrastructure expertise.
 
-A premium, feature-rich portfolio website for a security-focused network & systems professional. Built with modern web technologies, featuring dark/light themes, mobile-first animations, and PWA capabilities.
+![Portfolio Version](https://img.shields.io/badge/version-6.0-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Status](https://img.shields.io/badge/status-production-success)
 
-## 🚀 **Latest Updates (v5.3 - Enhanced Edition)**
+## 🌐 Live Demo
 
-### **Major Features Added:**
-- ✅ **Professional Light Theme** - Complete light mode with smooth transitions
-- ✅ **Advanced Mobile Animations** - Material Design touch feedback & micro-interactions
-- ✅ **Theme Management System** - Persistent theme switching with system preference detection
-- ✅ **Enhanced Performance** - Optimized animations at 60fps
-- ✅ **PWA Support** - Installable as app with offline capabilities
-- ✅ **Accessibility Focused** - WCAG 2.1 AA compliant with reduced motion support
+**[View Portfolio](https://perrinio-dev.github.io/my-portfolio)**
 
-## 🎨 **Design Features**
+---
 
-### **Visual Design System**
-- **Dual Theme Support**: Professional dark theme (default) and warm light theme
-- **Material Design Principles**: Subtle animations, elevation, and touch feedback
-- **Teal/Cyan Accent Color**: Consistent branding with theme-adjusted variants
-- **Glassmorphism Effects**: Modern backdrop-filter effects with fallbacks
-- **Responsive Typography**: Poppins for headings, Roboto Mono for technical content
+## ✨ Features
 
-### **Animation System**
-- **Touch Ripple Effects**: Material-inspired feedback on all interactive elements
-- **Scroll-triggered Animations**: Reveal effects with IntersectionObserver
-- **Smooth Transitions**: 300ms cubic-bezier easing for all state changes
-- **Micro-interactions**: Hover, focus, and active states with visual feedback
-- **Performance Optimized**: CSS transforms and opacity for 60fps animations
+- **Dual Theme System** - Auto/Light/Dark modes with seamless switching
+- **Professional Project Pages** - Detailed case studies with image lightbox
+- **Responsive Design** - Mobile-first approach with touch-optimized interactions
+- **PWA Support** - Installable with offline capabilities
+- **Performance Optimized** - Lighthouse score 95+
+- **Accessible** - WCAG 2.1 AA compliant with keyboard navigation
 
-## ⚡ **Technical Features**
+---
 
-### **Performance**
-- **Lighthouse Score**: 95+ across all categories
-- **First Contentful Paint**: < 1.5s
-- **Largest Contentful Paint**: < 2.5s
-- **Cumulative Layout Shift**: < 0.1
-- **Total Bundle Size**: < 500KB (excluding images)
+## 🛠️ Tech Stack
 
-### **Accessibility**
-- **WCAG 2.1 AA Compliant**: Color contrast ratios exceed requirements
-- **Keyboard Navigation**: Full support with focus management
-- **Screen Reader Optimized**: ARIA labels and semantic HTML
-- **Reduced Motion**: Respects `prefers-reduced-motion` preference
-- **High Contrast**: Supports Windows High Contrast Mode
+**Frontend**
+- HTML5, CSS3, JavaScript (ES6+)
+- CSS Grid & Flexbox
+- CSS Custom Properties
 
-### **PWA Features**
-- **Installable**: Add to home screen on mobile devices
-- **Offline Support**: Service worker caches critical assets
-- **App-like Experience**: Standalone display mode
-- **Theme Color**: Dynamic theme-color meta tag updates
+**Libraries**
+- Font Awesome 6 (Icons)
+- Google Fonts (Poppins, Roboto Mono)
+- Formspree (Contact form)
 
-## 📁 **Project Structure**
-my-portfolio/
-├── index.html # Main portfolio homepage
-├── style.css # Main stylesheet with CSS variables
-├── animations.css # Mobile animations & micro-interactions
-├── light-theme.css # Professional light theme styles
-├── script.js # Enhanced JavaScript functionality
-├── theme-manager.js # Theme switching & persistence
-├── sw.js # Service worker for PWA
-├── manifest.json # PWA manifest
+**Features**
+- Service Worker (PWA)
+- Intersection Observer (Animations)
+- LocalStorage (Theme persistence)
+
+---
+
+## 📁 Project Structure
+
+```
+portfolio/
+├── index.html                 # Main homepage
+├── style.css                  # Core styles
+├── light-theme.css            # Light theme styles
+├── animations.css             # Animation utilities
+├── theme-manager.js           # Theme switching logic
+├── script.js                  # Main JavaScript
+├── lightbox.js                # Image viewer
+├── sw.js                      # Service worker
+├── manifest.json              # PWA manifest
 │
-├── assets/ # Images and media
-│ ├── profile.jpg # Professional portrait (420x420px)
-│ ├── icon-192.png # PWA icon (192x192px)
-│ ├── icon-512.png # PWA icon (512x512px)
-│ └── images/ # Project screenshots
-│ ├── vmware-arch-diagram.jpg
-│ ├── exchange-dag-diagram.jpg
-│ ├── network-architecture-diagram.png
-│ └── secure-network-topology.jpg
+├── assets/
+│   ├── profile.jpg            # Professional photo
+│   ├── icon-192.png           # PWA icon
+│   ├── icon-512.png           # PWA icon
+│   └── images/                # Project screenshots
 │
-└── projects/ # Project pages directory
-├── project-styles.css # Shared project page styles
-├── virtualization-cluster.html
-├── exchange-server-dag.html
-├── multi-region-network.html
-└── secure-enterprise-network.html
-
-## 🛠️ **Technology Stack**
-
-### **Core Technologies**
-- **HTML5**: Semantic markup with proper structure
-- **CSS3**: Custom properties, Grid, Flexbox, Animations
-- **JavaScript (ES6+)**: Modern features with fallbacks
-
-### **Libraries & Tools**
-- **Font Awesome 6**: Professional icons throughout
-- **Google Fonts**: Poppins & Roboto Mono typography
-- **Formspree**: Contact form handling with spam protection
-- **Intersection Observer API**: Scroll animations
-- **Service Worker API**: PWA offline capabilities
-
-## 🎯 **Key Sections**
-
-### **1. Hero Section**
-- Circular professional portrait with animated glow ring
-- Social media links with hover animations
-- Professional summary with gradient text effects
-- Call-to-action buttons with ripple effects
-
-### **2. About Me**
-- Professional background and motivations
-- Card-based layout with hover lift animations
-- Personal goals and career focus
-- Smooth reveal animations on scroll
-
-### **3. Professional Experience**
-- Timeline-based work history display
-- Detailed responsibilities with icon bullets
-- Interactive cards with press-down feedback
-- Company branding and location details
-
-### **4. Projects Section**
-- Grid-based project cards with category badges
-- Individual HTML pages for each project
-- Hover effects with image zoom and content reveal
-- Skill tags with hover animations
-- Mobile-optimized touch interactions
-
-### **5. Technical Skills**
-- Categorized technical capabilities
-- Grid layout with icon headers
-- Skill bars with animated progress indicators
-- Comprehensive listing by domain
-
-### **6. Education**
-- Academic background with timeline display
-- Degree information with institution details
-- Card-based design with hover effects
-- Smooth scroll animations
-
-### **7. Certifications Roadmap**
-- Planned certifications with status indicators
-- Visual progress tracking (In Progress, Planned, Later)
-- Professional development path
-- Interactive cards with hover states
+└── projects/
+    ├── project-styles.css     # Shared project styles
+    ├── virtualization-cluster.html
+    ├── exchange-server-dag.html
+    ├── multi-region-network.html
+    └── secure-enterprise-network.html
+```
 
-### **8. Contact Section**
-- Modern contact form with real-time validation
-- Direct contact methods with animated icons
-- Form submission with success/error states
-- Location information and availability
-- Email, LinkedIn, GitHub, Phone, WhatsApp links
+---
 
-## 📱 **Mobile Optimizations**
+## 🚀 Getting Started
 
-### **Navigation**
-- Hamburger menu with smooth animation
-- Sticky header with blur effect on scroll
-- Touch-friendly tap targets (minimum 44px)
-- Mobile-first responsive design
+### Prerequisites
 
-### **Touch Interactions**
-- **Ripple Effects**: Visual feedback on touch
-- **Press States**: Button/card depression animation
-- **Swipe Hints**: Visual cues for navigation
-- **Haptic Simulation**: CSS-based touch feedback
+- Modern web browser (Chrome, Firefox, Safari, Edge)
+- Local web server (optional for development)
 
-### **Performance**
-- **Lazy Loading**: Images load on visibility
-- **Critical CSS**: Inlined for first paint
-- **Asset Optimization**: Compressed images and minified code
-- **Cache Strategy**: Service worker with network-first/ cache-first
+### Installation
 
-## 🌓 **Theme System**
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/PERRINIO-dev/my-portfolio.git
+   cd portfolio
+   ```
 
-### **Features**
-- **Dual Theme Support**: Dark (default) and Light themes
-- **System Preference**: Automatically detects OS theme
-- **Persistent Choice**: Remembers user preference in localStorage
-- **Smooth Transitions**: 300ms theme switching animations
-- **Theme Toggle**: Floating action button with tooltip
+2. **Run locally**
+   
+   Using Python:
+   ```bash
+   python -m http.server 8000
+   ```
+   
+   Using Node.js:
+   ```bash
+   npx http-server
+   ```
+   
+   Or simply open `index.html` in your browser.
 
-### **Light Theme Design**
-- **Background**: Warm gray (#F8F9FA) for reduced eye strain
-- **Text**: High contrast dark gray (#212529) for readability
-- **Accent Colors**: Adjusted teal variants for light backgrounds
-- **Shadows**: Softer shadows appropriate for light mode
-- **Components**: All UI elements fully themed
+3. **View the site**
+   ```
+   http://localhost:8000
+   ```
 
-## 🔧 **Setup & Deployment**
+---
 
-### **Local Development**
-```bash
-# Clone the repository
-git clone https://github.com/PERRINIO-dev/portfolio.git
+## 🎨 Customization
 
-# Navigate to project directory
-cd portfolio
+### Personal Information
 
-# Start local server (Python)
-python -m http.server 8000
+Edit `index.html` and update:
+- Name and professional title (Hero section)
+- Social media links
+- Contact information
+- About me content
+- Work experience
+- Skills and certifications
 
-# Or using Node.js http-server
-npx http-server
+### Profile Photo
 
-Customization Guide
-Update Personal Information
-Edit index.html for personal details
+Replace `assets/profile.jpg` with your professional photo (recommended: 420x420px).
 
-Update contact information in contact section
+### Theme Colors
 
-Modify social links in hero section
+Modify CSS variables in `style.css`:
+```css
+:root {
+    --accent: #20D3D3;           /* Primary accent color */
+    --bg-primary: #070A0D;       /* Dark theme background */
+    /* ... more variables ... */
+}
+```
 
-Replace assets/profile.jpg with your professional photo
+### Adding Projects
 
-Add New Projects
-Create new HTML file in projects/ folder (use existing templates)
+1. Create new HTML file in `projects/` folder (copy existing as template)
+2. Add project images to `assets/images/`
+3. Add project card to `index.html` projects section
+4. Update project details in the new HTML file
 
-Add project images to assets/images/ folder
+---
 
-Update index.html projects grid with new link
+## 🌓 Theme System
 
-Ensure image paths are correct (../assets/images/filename.jpg)
+The portfolio supports three theme modes:
 
-Theme Customization
-Edit CSS variables in style.css for dark theme colors
+- **Auto** - Follows system preference (default)
+- **Light** - Manual light mode
+- **Dark** - Manual dark mode
 
-Modify light-theme.css for light theme adjustments
+Click the theme toggle button (bottom-right) to cycle through modes.
 
-Update animation durations in CSS custom properties
+Theme preference is saved in `localStorage` and persists across sessions.
 
-Adjust spacing variables for different layouts
+---
 
-🚦 Browser Support
-Chrome 60+ (Full support)
+## 🖼️ Image Lightbox
 
-Firefox 55+ (Full support)
+Gallery images are clickable and open in a full-screen lightbox viewer.
 
-Safari 12+ (Full support)
+**Controls:**
+- Click image to enlarge
+- ESC to close
+- ← → Arrow keys to navigate
+- Click outside to close
 
-Edge 79+ (Full support)
+---
 
-Opera 47+ (Full support)
+## 📱 PWA Features
 
-Mobile Browsers: Chrome, Safari, Firefox (Full support)
+The portfolio is installable as a Progressive Web App:
 
-🔒 Security & Privacy
-Contact Form: Protected by Formspree with honeypot
+**Desktop:**
+1. Click the install icon in the browser address bar
+2. Follow the prompts
 
-No Tracking: No analytics or user tracking by default
+**Mobile:**
+1. Open menu (three dots)
+2. Select "Add to Home Screen"
+3. The portfolio will install as an app
 
-Secure Hosting: Recommended hosts provide HTTPS
+---
 
-Privacy Focused: No cookies or local storage except theme preference
+## 🧪 Testing
 
-GDPR Compliant: Minimal data collection
+Ensure the following work correctly:
 
-📊 Performance Metrics
-Metric	Target	Current
-First Contentful Paint	< 1.5s	~1.2s
-Largest Contentful Paint	< 2.5s	~1.8s
-Cumulative Layout Shift	< 0.1	0.05
-Total Blocking Time	< 150ms	~80ms
-Speed Index	< 3.0s	~2.1s
-🐛 Troubleshooting
-Common Issues
-Theme Not Switching
-Clear browser cache and localStorage
+**Theme System:**
+- [ ] Auto mode follows system preference
+- [ ] Manual modes override system
+- [ ] Theme persists after refresh
+- [ ] All elements properly themed
 
-Check console for JavaScript errors
+**Responsive Design:**
+- [ ] Mobile navigation works
+- [ ] Content readable on all screen sizes
+- [ ] Touch targets 48px minimum
+- [ ] Images load properly
 
-Ensure theme-manager.js is loaded correctly
+**Lightbox:**
+- [ ] Images enlarge on click
+- [ ] Keyboard navigation works
+- [ ] Mobile controls accessible
 
-Animations Not Working
-Check if prefers-reduced-motion is enabled in OS
+---
 
-Verify animations.css is linked in HTML
+## 📊 Performance
 
-Ensure JavaScript is enabled in browser
+Current metrics:
+- First Contentful Paint: ~1.2s
+- Largest Contentful Paint: ~1.8s
+- Cumulative Layout Shift: 0.05
+- Lighthouse Score: 95+
 
-Contact Form Not Submitting
-Verify Formspree endpoint is correct
+---
 
-Check internet connection
+## 🤝 Contributing
 
-Look for errors in browser console
+Contributions, issues, and feature requests are welcome!
 
-Ensure honeypot field is not filled
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-Mobile Layout Issues
-Test with browser developer tools
+---
 
-Check viewport meta tag is present
+## 📄 License
 
-Verify CSS media queries are correct
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-Test on actual mobile device
+---
 
-Debugging Tools
-// Access theme manager in console
-window.themeManager // Theme management instance
-window.ThemeUtils // Theme utility functions
+## 👤 Author
 
-// Check current theme
-ThemeUtils.getCurrentTheme()
+**Majestor Perrincio Kaptue Kepseu**
 
-// Force theme change
-ThemeUtils.set('light') // or 'dark'
+- Email: majestork@gmail.com
+- LinkedIn: [Majestor Kepseu](https://www.linkedin.com/in/majestor-kepseu)
+- GitHub: [@PERRINIO-dev](https://github.com/PERRINIO-dev)
+- Portfolio: [perrinio-dev.github.io/portfolio](https://perrinio-dev.github.io/my-portfolio)
 
-// Toggle theme
-ThemeUtils.toggle()
+---
 
-🔄 Version History
-v5.3 (Current) - Enhanced Edition
-Added professional light theme with smooth transitions
+## 🙏 Acknowledgments
 
-Implemented mobile animations with touch feedback
+- **Design Inspiration**: Modern IT portfolios and Material Design
+- **Icons**: [Font Awesome](https://fontawesome.com/)
+- **Fonts**: [Google Fonts](https://fonts.google.com/)
+- **Form Handling**: [Formspree](https://formspree.io/)
 
-Created theme management system with persistence
+---
 
-Enhanced PWA features with service worker
+## 📝 Version History
 
-Improved accessibility and performance
+**v6.0** (Current) - Professional Enhancement
+- Enhanced project pages with lightbox functionality
+- Improved typography and spacing
+- Mobile optimization (17-18px body text, 48px touch targets)
+- Navigation branding consistency
+- Complete theme system refinement
 
-v5.2 - Animation System
-Added touch ripple effects and micro-interactions
+**v5.3** - Theme System
+- Dual theme support with auto/light/dark modes
+- Theme persistence with localStorage
+- Mobile animations and touch feedback
+- PWA features with service worker
 
-Implemented scroll-triggered reveal animations
+**v5.0** - Architecture Redesign
+- Individual HTML project pages
+- Simplified codebase
+- Enhanced SEO and performance
 
-Created animation utility classes
+---
 
-Added reduced motion support
+<div align="center">
 
-Enhanced mobile touch experience
+**Built with ❤️ using HTML, CSS & JavaScript**
 
-v5.1 - PWA Features
-Added service worker for offline capabilities
+[![GitHub](https://img.shields.io/badge/GitHub-PERRINIO--dev-181717?logo=github)](https://github.com/PERRINIO-dev)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Majestor_Kepseu-0077B5?logo=linkedin)](https://www.linkedin.com/in/majestor-kepseu)
 
-Created PWA manifest with app icons
-
-Implemented install prompt for mobile
-
-Added theme-color meta tag updates
-
-v5.0 - Static Pages Architecture
-Removed modal system for projects
-
-Added individual HTML project pages
-
-Simplified JavaScript codebase
-
-Improved mobile navigation
-
-Enhanced SEO with separate pages
-
-v4.0 - Enterprise Architecture
-Complex modal system for projects
-
-State management with JavaScript
-
-Touch gesture support
-
-Image preloading system
-
-v3.0 - Premium Design
-Premium dark theme implementation
-
-Glassmorphism effects
-
-Advanced animations
-
-Responsive design improvements
-
-🤝 Support & Contributions
-Issues & Questions
-Check existing documentation in this README
-
-Review code comments for implementation details
-
-Open an issue in the GitHub repository
-
-Provide specific details about the problem
-
-Feature Requests
-Open an issue with "enhancement" label
-
-Describe the desired functionality
-
-Explain the use case and benefits
-
-Include any relevant design references
-
-Contributing
-Fork the repository
-
-Create a feature branch (git checkout -b feature/AmazingFeature)
-
-Make changes with clear commit messages
-
-Test thoroughly on multiple devices
-
-Submit a pull request
-
-📄 License
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-🎉 Credits
-Design & Development: Majestor Kepseu
-
-Design Inspiration: Modern IT portfolios and security-focused designs
-
-Icons: Font Awesome 6
-
-Fonts: Google Fonts (Poppins, Roboto Mono)
-
-Form Handling: Formspree
-
-Animation Inspiration: Material Design Guidelines
-
-📞 Contact
-Email: majestork@gmail.com
-
-LinkedIn: Majestor Kepseu
-
-GitHub: PERRINIO-dev
-
-Portfolio: Live Demo
-
-Professional Portfolio v5.3 - Enhanced Edition
-Built with HTML, CSS & JavaScript
-Optimized for performance, accessibility, and mobile experience
-© 2024 Majestor Perrincio Kaptue Kepseu
+</div>

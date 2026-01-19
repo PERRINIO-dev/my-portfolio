@@ -1,9 +1,11 @@
-// ====== THEME MANAGER ======
-// Handles light/dark theme switching with persistence
+// ====== ENHANCED THEME MANAGER v5.3.1 ======
+// Three-way theme support: Auto (System) / Light / Dark
+// Fixes theme persistence and system preference interaction
 
 class ThemeManager {
     constructor() {
-        this.theme = null;
+        this.theme = null; // Current active theme: 'light' or 'dark'
+        this.userPreference = null; // User choice: 'auto', 'light', or 'dark'
         this.prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
         this.prefersLight = window.matchMedia('(prefers-color-scheme: light)');
         
@@ -12,7 +14,7 @@ class ThemeManager {
     }
     
     init() {
-        // Check for saved theme preference
+        // Load user preference and determine theme
         this.loadTheme();
         
         // Create theme toggle button
@@ -24,57 +26,89 @@ class ThemeManager {
         // Apply theme to HTML
         this.applyTheme();
         
-        console.log('🎨 Theme Manager initialized');
+        console.log('🎨 Enhanced Theme Manager initialized');
+        console.log(`   User Preference: ${this.userPreference}`);
+        console.log(`   Active Theme: ${this.theme}`);
     }
     
     loadTheme() {
-        // Try to get saved theme from localStorage
-        const savedTheme = localStorage.getItem('portfolio-theme');
+        // Try to get saved user preference from localStorage
+        const savedPreference = localStorage.getItem('portfolio-theme-preference');
         
-        if (savedTheme) {
-            this.theme = savedTheme;
+        if (savedPreference && ['auto', 'light', 'dark'].includes(savedPreference)) {
+            this.userPreference = savedPreference;
         } else {
-            // No saved theme, use system preference
-            this.theme = this.prefersDark.matches ? 'dark' : 'light';
+            // No saved preference - default to 'auto' (system)
+            this.userPreference = 'auto';
+        }
+        
+        // Determine actual theme based on preference
+        this.theme = this.determineTheme();
+    }
+    
+    determineTheme() {
+        if (this.userPreference === 'auto') {
+            // Use system preference
+            return this.prefersDark.matches ? 'dark' : 'light';
+        } else {
+            // Use explicit user choice
+            return this.userPreference;
         }
     }
     
-    saveTheme() {
-        localStorage.setItem('portfolio-theme', this.theme);
+    savePreference() {
+        localStorage.setItem('portfolio-theme-preference', this.userPreference);
     }
     
     getTheme() {
         return this.theme;
     }
     
-    setTheme(newTheme) {
-        if (!['light', 'dark'].includes(newTheme)) {
-            console.error('Invalid theme:', newTheme);
+    getUserPreference() {
+        return this.userPreference;
+    }
+    
+    setTheme(newPreference) {
+        // Validate input
+        if (!['auto', 'light', 'dark'].includes(newPreference)) {
+            console.error('Invalid theme preference:', newPreference);
             return;
         }
         
-        // Don't do anything if theme is already set
-        if (this.theme === newTheme) return;
-        
-        // Update theme
+        // Update preference
+        const oldPreference = this.userPreference;
         const oldTheme = this.theme;
-        this.theme = newTheme;
+        this.userPreference = newPreference;
+        this.theme = this.determineTheme();
         
         // Save to localStorage
-        this.saveTheme();
+        this.savePreference();
         
-        // Apply theme with transition
-        this.applyThemeWithTransition(oldTheme, newTheme);
+        // Apply theme with transition if theme actually changed
+        if (oldTheme !== this.theme) {
+            this.applyThemeWithTransition(oldTheme, this.theme);
+        } else {
+            // Just update the toggle button state
+            this.updateToggleButton();
+        }
         
         // Dispatch theme change event
         this.dispatchThemeChangeEvent();
         
-        console.log(`🎨 Theme changed: ${oldTheme} → ${newTheme}`);
+        console.log(`🎨 Preference changed: ${oldPreference} → ${this.userPreference}`);
+        console.log(`   Theme applied: ${this.theme}`);
     }
     
-    toggleTheme() {
-        const newTheme = this.theme === 'light' ? 'dark' : 'light';
-        this.setTheme(newTheme);
+    cycleTheme() {
+        // Three-way cycle: auto → light → dark → auto
+        const cycle = {
+            'auto': 'light',
+            'light': 'dark',
+            'dark': 'auto'
+        };
+        
+        const newPreference = cycle[this.userPreference];
+        this.setTheme(newPreference);
     }
     
     applyTheme() {
@@ -90,6 +124,9 @@ class ThemeManager {
         // Add theme class for transitions
         document.documentElement.classList.add(`theme-${this.theme}`);
         document.documentElement.classList.remove(`theme-${this.theme === 'light' ? 'dark' : 'light'}`);
+        
+        // Update toggle button
+        this.updateToggleButton();
     }
     
     applyThemeWithTransition(oldTheme, newTheme) {
@@ -108,26 +145,15 @@ class ThemeManager {
     updateMetaThemeColor() {
         // Update theme-color meta tag for mobile browsers
         let metaThemeColor = document.querySelector('meta[name="theme-color"]');
-        let metaThemeColorLight = document.querySelector('meta[name="theme-color"][media="(prefers-color-scheme: light)"]');
         
         if (this.theme === 'light') {
-            // Update main theme-color
             if (metaThemeColor) {
                 metaThemeColor.setAttribute('content', '#F8F9FA');
-            }
-            
-            // Update light-specific theme-color
-            if (metaThemeColorLight) {
-                metaThemeColorLight.setAttribute('content', '#20D3D3');
             }
         } else {
             // Dark theme
             if (metaThemeColor) {
                 metaThemeColor.setAttribute('content', '#070A0D');
-            }
-            
-            if (metaThemeColorLight) {
-                metaThemeColorLight.setAttribute('content', '#20D3D3');
             }
         }
     }
@@ -144,24 +170,35 @@ class ThemeManager {
         // Create toggle button
         const toggleButton = document.createElement('button');
         toggleButton.className = 'theme-toggle';
-        toggleButton.setAttribute('aria-label', 'Toggle theme');
-        toggleButton.setAttribute('title', 'Switch between light and dark theme');
+        toggleButton.setAttribute('aria-label', 'Cycle theme: Auto, Light, Dark');
         
-        // Add icons
+        // Add icons for all three modes
+        const autoIcon = document.createElement('i');
+        autoIcon.className = 'fas fa-circle-half-stroke auto-icon';
+        autoIcon.setAttribute('title', 'Auto (System)');
+        
         const sunIcon = document.createElement('i');
         sunIcon.className = 'fas fa-sun sun-icon';
+        sunIcon.setAttribute('title', 'Light');
         
         const moonIcon = document.createElement('i');
         moonIcon.className = 'fas fa-moon moon-icon';
+        moonIcon.setAttribute('title', 'Dark');
         
+        toggleButton.appendChild(autoIcon);
         toggleButton.appendChild(sunIcon);
         toggleButton.appendChild(moonIcon);
+        
+        // Add tooltip
+        const tooltip = document.createElement('div');
+        tooltip.className = 'theme-tooltip';
+        toggleButton.appendChild(tooltip);
         
         // Add click event
         toggleButton.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
-            this.toggleTheme();
+            this.cycleTheme();
             this.animateToggleButton(toggleButton);
         });
         
@@ -169,7 +206,7 @@ class ThemeManager {
         toggleButton.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
-                this.toggleTheme();
+                this.cycleTheme();
                 this.animateToggleButton(toggleButton);
             }
         });
@@ -177,7 +214,42 @@ class ThemeManager {
         themeSwitcher.appendChild(toggleButton);
         document.body.appendChild(themeSwitcher);
         
-        console.log('🎨 Theme toggle created');
+        // Set initial button state
+        this.updateToggleButton();
+        
+        console.log('🎨 Three-way theme toggle created');
+    }
+    
+    updateToggleButton() {
+        const toggleButton = document.querySelector('.theme-toggle');
+        if (!toggleButton) return;
+        
+        const tooltip = toggleButton.querySelector('.theme-tooltip');
+        
+        // Remove all mode classes
+        toggleButton.classList.remove('mode-auto', 'mode-light', 'mode-dark');
+        
+        // Add current mode class
+        toggleButton.classList.add(`mode-${this.userPreference}`);
+        
+        // Update tooltip text
+        const tooltipText = {
+            'auto': `Auto (System: ${this.theme === 'dark' ? 'Dark' : 'Light'})`,
+            'light': 'Light',
+            'dark': 'Dark'
+        };
+        
+        if (tooltip) {
+            tooltip.textContent = tooltipText[this.userPreference];
+        }
+        
+        // Update aria-label
+        const nextMode = {
+            'auto': 'Light',
+            'light': 'Dark',
+            'dark': 'Auto'
+        };
+        toggleButton.setAttribute('aria-label', `Current: ${tooltipText[this.userPreference]}. Click for ${nextMode[this.userPreference]}`);
     }
     
     animateToggleButton(button) {
@@ -191,12 +263,16 @@ class ThemeManager {
     }
     
     setupMediaQueryListeners() {
-        // Listen for system theme changes (only if user hasn't set a preference)
+        // Listen for system theme changes (only matters when in 'auto' mode)
         this.prefersDark.addEventListener('change', (e) => {
-            if (!localStorage.getItem('portfolio-theme')) {
-                this.theme = e.matches ? 'dark' : 'light';
-                this.applyTheme();
-                console.log('🎨 System theme changed to:', this.theme);
+            if (this.userPreference === 'auto') {
+                // User is in auto mode - update theme to match system
+                const newTheme = e.matches ? 'dark' : 'light';
+                if (this.theme !== newTheme) {
+                    this.theme = newTheme;
+                    this.applyThemeWithTransition(this.theme === 'dark' ? 'light' : 'dark', this.theme);
+                    console.log('🎨 System theme changed to:', this.theme);
+                }
             }
         });
     }
@@ -204,7 +280,10 @@ class ThemeManager {
     dispatchThemeChangeEvent() {
         // Dispatch custom event for other parts of the app to listen to
         const event = new CustomEvent('themechange', {
-            detail: { theme: this.theme }
+            detail: { 
+                theme: this.theme,
+                preference: this.userPreference
+            }
         });
         document.documentElement.dispatchEvent(event);
     }
@@ -226,16 +305,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // Make theme manager available globally for debugging
     window.themeManager = themeManager;
     
-    // Log current theme
-    console.log(`🎨 Current theme: ${themeManager.getTheme()}`);
+    // Log current state
+    console.log(`🎨 Theme System Ready`);
+    console.log(`   Preference: ${themeManager.getUserPreference()}`);
+    console.log(`   Active Theme: ${themeManager.getTheme()}`);
     
     // Add theme change listener for analytics
     document.documentElement.addEventListener('themechange', (e) => {
-        console.log('🎨 Theme change detected:', e.detail.theme);
+        console.log('🎨 Theme changed:', e.detail);
         
         // Track theme changes if analytics are enabled
         if (window.gtag) {
             gtag('event', 'theme_change', {
+                'preference': e.detail.preference,
                 'theme': e.detail.theme
             });
         }
@@ -254,28 +336,57 @@ const ThemeUtils = {
         return document.documentElement.getAttribute('data-theme') === 'light';
     },
     
+    // Check if in auto mode
+    isAuto() {
+        const manager = ThemeManager.getInstance();
+        return manager.getUserPreference() === 'auto';
+    },
+    
     // Get current theme
     getCurrentTheme() {
         return document.documentElement.getAttribute('data-theme') || 'dark';
     },
     
-    // Toggle theme (public API)
-    toggle() {
-        ThemeManager.getInstance().toggleTheme();
+    // Get user preference
+    getUserPreference() {
+        const manager = ThemeManager.getInstance();
+        return manager.getUserPreference();
     },
     
-    // Set specific theme (public API)
-    set(theme) {
-        ThemeManager.getInstance().setTheme(theme);
+    // Cycle through themes (public API)
+    cycle() {
+        ThemeManager.getInstance().cycleTheme();
     },
     
-    // Reset to system preference
-    resetToSystem() {
-        localStorage.removeItem('portfolio-theme');
-        ThemeManager.getInstance().loadTheme();
-        ThemeManager.getInstance().applyTheme();
+    // Set specific preference (public API)
+    set(preference) {
+        ThemeManager.getInstance().setTheme(preference);
+    },
+    
+    // Set to auto (system) mode
+    setAuto() {
+        ThemeManager.getInstance().setTheme('auto');
+    },
+    
+    // Set to light mode
+    setLight() {
+        ThemeManager.getInstance().setTheme('light');
+    },
+    
+    // Set to dark mode
+    setDark() {
+        ThemeManager.getInstance().setTheme('dark');
     }
 };
 
 // Make ThemeUtils available globally
 window.ThemeUtils = ThemeUtils;
+
+// ====== CONSOLE HELPER ======
+// Useful commands you can run in browser console:
+// ThemeUtils.setAuto()   - Switch to auto (system) mode
+// ThemeUtils.setLight()  - Force light mode
+// ThemeUtils.setDark()   - Force dark mode
+// ThemeUtils.cycle()     - Cycle through modes
+// ThemeUtils.getUserPreference()  - Check current preference
+// ThemeUtils.getCurrentTheme()    - Check active theme
