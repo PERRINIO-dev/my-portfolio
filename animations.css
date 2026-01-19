@@ -1,5 +1,6 @@
 /* ====== MOBILE ANIMATIONS & MICRO-INTERACTIONS ====== */
 /* Enhanced with proper touch feedback integration */
+/* v5.3 - FIXED: Navigation always visible, subtle mobile effects */
 
 :root {
     /* Animation timing functions */
@@ -49,7 +50,7 @@
                 opacity var(--duration-base) var(--ease-out-quad);
 }
 
-/* Press-down Animation */
+/* Press-down Animation - Subtle for Mobile */
 .press-down {
     transition: transform var(--duration-fast) var(--ease-out-quad),
                 box-shadow var(--duration-fast) var(--ease-out-quad);
@@ -189,18 +190,40 @@
     width: 80%;
 }
 
-/* Mobile Menu Animation - FIXED CLASS NAME */
-.mobile-menu-item {
-    opacity: 0;
-    transform: translateX(20px);
-    transition: opacity var(--duration-base) var(--ease-out-quad),
-                transform var(--duration-base) var(--ease-out-quad);
-}
+/* ====== MOBILE MENU ANIMATION - FIXED ====== */
+/* CRITICAL FIX: Navigation items are ALWAYS visible */
+/* The mobile-menu-item class only controls the staggered animation when menu opens */
 
-/* Navigation items should have this class for mobile animation */
-.nav-links .nav-link.mobile-menu-item.active {
+/* Mobile menu items are visible by default - NO opacity: 0! */
+.mobile-menu-item {
+    /* Items are visible by default - animation happens on menu open */
     opacity: 1;
     transform: translateX(0);
+    transition: all var(--duration-base) var(--ease-out-quad);
+}
+
+/* When mobile menu is opening, items slide in with stagger */
+@media (max-width: 768px) {
+    /* Prepare items for animation when menu first opens */
+    .nav-links:not(.active) .mobile-menu-item {
+        /* When menu is closed, items are offset (but still in closed menu off-screen) */
+        transform: translateX(20px);
+        opacity: 0;
+    }
+    
+    /* When menu is open, items slide in */
+    .nav-links.active .mobile-menu-item {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Desktop - items always visible, no animation */
+@media (min-width: 769px) {
+    .mobile-menu-item {
+        opacity: 1 !important;
+        transform: none !important;
+    }
 }
 
 /* ====== SKILLS & EXPERIENCE ENHANCEMENTS ====== */
@@ -397,14 +420,15 @@
     
     .fade-in-up,
     .stagger-children > *,
-    .timeline-item {
+    .timeline-item,
+    .mobile-menu-item {
         opacity: 1 !important;
         transform: none !important;
         transition: none !important;
     }
 }
 
-/* ====== TOUCH DEVICE OPTIMIZATIONS ====== */
+/* ====== TOUCH DEVICE OPTIMIZATIONS - SUBTLE EFFECTS ====== */
 @media (hover: none) and (pointer: coarse) {
     /* Larger tap targets for mobile */
     .mobile-tap-target {
@@ -412,16 +436,33 @@
         min-width: 44px;
     }
     
-    /* Remove hover effects on touch devices */
+    /* SUBTLE mobile effects - no hover lift on cards */
     .card-lift.hovering {
         transform: none;
         box-shadow: var(--shadow-md);
     }
     
-    /* Enhanced active states for touch */
+    /* VERY SUBTLE press effect on mobile */
+    .press-down.pressing {
+        transform: translateY(1px); /* Reduced from 2px */
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1); /* Much subtler */
+    }
+    
+    /* SUBTLE ripple effect on mobile */
+    .ripple::after {
+        opacity: 0.3; /* Reduced opacity */
+        transform: translate(-50%, -50%) scale(0);
+    }
+    
+    .ripple.active::after {
+        transform: translate(-50%, -50%) scale(3); /* Reduced from scale(4) */
+        opacity: 0.4; /* Reduced from 1 */
+    }
+    
+    /* Enhanced active states for touch - very subtle */
     .touch-active {
-        background-color: rgba(32, 211, 211, 0.1);
-        transform: scale(0.98);
+        background-color: rgba(32, 211, 211, 0.05); /* Reduced from 0.1 */
+        transform: scale(0.99); /* Very subtle scale */
         transition: background-color var(--duration-fast), transform var(--duration-fast);
     }
     
@@ -510,24 +551,11 @@
 
 /* ====== THEME-SPECIFIC ADJUSTMENTS ====== */
 [data-theme="light"] {
-    --ripple-color: rgba(0, 0, 0, 0.1);
+    --ripple-color: rgba(0, 0, 0, 0.05); /* Very subtle for light theme */
 }
 
 [data-theme="dark"] {
-    --ripple-color: rgba(255, 255, 255, 0.3);
-}
-
-/* ====== FIXED CLASSES FOR JS INTEGRATION ====== */
-.pressing { 
-    /* Used by press-down animations */
-}
-
-.hovering {
-    /* Used by hover animations on desktop */
-}
-
-.touch-hover {
-    /* Used by touch device hover states */
+    --ripple-color: rgba(255, 255, 255, 0.15); /* Subtle for dark theme */
 }
 
 /* ====== GLOBAL TOAST STYLES ====== */
@@ -576,5 +604,89 @@
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* ====== THEME SWITCHER ANIMATIONS ====== */
+
+.theme-switcher {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9998;
+}
+
+.theme-toggle {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--duration-base);
+    position: relative;
+    overflow: hidden;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--accent);
+}
+
+.theme-toggle i {
+    font-size: 1.2rem;
+    color: var(--accent);
+    transition: all var(--duration-base);
+    position: absolute;
+}
+
+.sun-icon,
+.moon-icon {
+    transition: all var(--duration-base);
+}
+
+[data-theme="dark"] .sun-icon {
+    opacity: 0;
+    transform: rotate(180deg) scale(0);
+}
+
+[data-theme="dark"] .moon-icon {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+}
+
+[data-theme="light"] .sun-icon {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+}
+
+[data-theme="light"] .moon-icon {
+    opacity: 0;
+    transform: rotate(-180deg) scale(0);
+}
+
+.theme-toggle.theme-toggling {
+    transform: rotate(360deg) scale(0.9);
+}
+
+/* Mobile theme switcher */
+@media (max-width: 768px) {
+    .theme-switcher {
+        bottom: 16px;
+        right: 16px;
+    }
+    
+    .theme-toggle {
+        width: 48px;
+        height: 48px;
+    }
+    
+    .theme-toggle i {
+        font-size: 1rem;
     }
 }

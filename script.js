@@ -1,5 +1,6 @@
-// ====== PORTFOLIO v5.3 - OPTIMIZED ANIMATIONS ======
-// Fixed animation class integration and performance issues
+// ====== PORTFOLIO v5.3 - PROFESSIONAL OPTIMIZATION ======
+// FIXED: Navigation always visible, subtle mobile effects, theme integration
+// © 2025 Majestor Kepseu - All Rights Reserved
 
 // ====== CONFIGURATION ======
 const CONFIG = {
@@ -9,7 +10,8 @@ const CONFIG = {
     formEndpoint: 'https://formspree.io/f/mbdrzrbq',
     analyticsKey: 'portfolio_views',
     animationDebounceDelay: 100,
-    touchRippleDuration: 600
+    touchRippleDuration: 400,
+    mobileBreakpoint: 768
 };
 
 // ====== GLOBAL STATE ======
@@ -22,7 +24,8 @@ const AppState = {
     touchDevice: 'ontouchstart' in window || navigator.maxTouchPoints > 0,
     currentTheme: 'dark',
     animationsEnabled: true,
-    isInitialized: false
+    isInitialized: false,
+    isMobile: window.innerWidth <= 768
 };
 
 // ====== UTILITY FUNCTIONS ======
@@ -70,9 +73,14 @@ function initializeAnimationSystem() {
     if (!AppState.touchDevice) {
         document.documentElement.classList.add('has-hover');
     }
+    
+    // Update mobile state on resize
+    window.addEventListener('resize', debounce(() => {
+        AppState.isMobile = window.innerWidth <= CONFIG.mobileBreakpoint;
+    }, 250));
 }
 
-// ====== TOUCH & CLICK FEEDBACK ======
+// ====== TOUCH & CLICK FEEDBACK - SUBTLE ON MOBILE ======
 function initializeTouchFeedback() {
     if (!AppState.animationsEnabled) return;
     
@@ -83,14 +91,16 @@ function initializeTouchFeedback() {
         }
     });
     
-    // Add press-down class to elements that need it
-    document.querySelectorAll('.btn, .project-card, .skill-category').forEach(el => {
-        if (!el.classList.contains('press-down')) {
-            el.classList.add('press-down');
-        }
-    });
+    // Add press-down class to elements that need it (only on desktop)
+    if (!AppState.touchDevice) {
+        document.querySelectorAll('.btn, .project-card, .skill-category').forEach(el => {
+            if (!el.classList.contains('press-down')) {
+                el.classList.add('press-down');
+            }
+        });
+    }
     
-    // Event listeners
+    // Event listeners - passive for better performance
     document.addEventListener('touchstart', handleTouchStart, { passive: true });
     document.addEventListener('mousedown', handleMouseDown);
     document.addEventListener('touchend', handlePressEnd, { passive: true });
@@ -105,8 +115,9 @@ function handleTouchStart(e) {
     const interactiveElement = target.closest('.ripple, .btn, .card-lift, .project-card, .skill-category, .contact-method');
     
     if (interactiveElement && AppState.touchDevice) {
+        // SUBTLE ripple effect on mobile only - no press-down for subtlety
         createRippleEffect(interactiveElement, e);
-        interactiveElement.classList.add('pressing');
+        // Removed: pressing class for more subtle mobile experience
     }
 }
 
@@ -175,7 +186,7 @@ function initializeScrollAnimations() {
     if (progressBar) {
         window.addEventListener('scroll', throttle(() => {
             updateProgressIndicator(progressBar);
-        }, 100));
+        }, 100), { passive: true });
     }
 }
 
@@ -221,7 +232,7 @@ function initializeCardInteractions() {
             card.classList.add('card-lift');
         }
         
-        // Desktop hover effects
+        // Desktop hover effects only (not on touch devices)
         if (!AppState.touchDevice) {
             card.addEventListener('mouseenter', () => {
                 card.classList.add('hovering');
@@ -230,6 +241,11 @@ function initializeCardInteractions() {
             card.addEventListener('mouseleave', () => {
                 card.classList.remove('hovering');
             });
+        }
+        
+        // Remove pressing effect on mobile for subtler experience
+        if (AppState.touchDevice) {
+            card.classList.remove('press-down');
         }
     });
 }
@@ -283,41 +299,126 @@ function initializeFormAnimations() {
     });
 }
 
-// ====== NAVIGATION ANIMATIONS ======
-function initializeNavigationAnimations() {
-    const navLinks = document.querySelectorAll('.nav-link');
+// ====== NAVIGATION FUNCTIONS - COMPLETELY FIXED ======
+function initializeNavigation() {
+    const nav = document.querySelector('.main-nav');
     const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
     
-    // Add mobile-menu-item class for animation
-    if (window.innerWidth <= 768) {
-        navLinks.forEach(link => {
-            link.classList.add('mobile-menu-item');
+    if (!nav || !hamburger || !navLinks) return;
+    
+    // CRITICAL: Remove any inline styles that might hide nav items
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.style.opacity = '';
+        link.style.transform = '';
+        link.style.transitionDelay = '';
+    });
+    
+    function updateActiveNavLink() {
+        const sections = document.querySelectorAll('section[id]');
+        const navHeight = nav.offsetHeight;
+        const scrollPosition = window.scrollY + navHeight + 100;
+        
+        // FIXED: Only remove/add active class, NOT hide items
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.remove('active');
         });
-    }
-    
-    // Mobile menu animation
-    if (hamburger) {
-        hamburger.addEventListener('click', () => {
-            const navLinksContainer = document.getElementById('nav-links');
-            if (navLinksContainer) {
-                const menuItems = navLinksContainer.querySelectorAll('.nav-link');
-                
-                if (AppState.isMobileMenuOpen) {
-                    // Closing menu - reverse animation
-                    menuItems.forEach((item, index) => {
-                        item.style.transitionDelay = `${(menuItems.length - index - 1) * 50}ms`;
-                        item.classList.remove('active');
-                    });
-                } else {
-                    // Opening menu - staggered animation
-                    menuItems.forEach((item, index) => {
-                        item.style.transitionDelay = `${index * 50}ms`;
-                        item.classList.add('active');
-                    });
-                }
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            const sectionId = section.getAttribute('id');
+            const navLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
+            
+            if (!navLink) return;
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                navLink.classList.add('active');
             }
         });
     }
+    
+    function handleScroll() {
+        const shouldBeScrolled = window.scrollY > CONFIG.navScrolledThreshold;
+        
+        if (shouldBeScrolled !== AppState.isNavScrolled) {
+            AppState.isNavScrolled = shouldBeScrolled;
+            nav.classList.toggle('nav-scrolled', shouldBeScrolled);
+        }
+        
+        updateActiveNavLink();
+    }
+    
+    function toggleMobileMenu() {
+        AppState.isMobileMenuOpen = !AppState.isMobileMenuOpen;
+        navLinks.classList.toggle('active', AppState.isMobileMenuOpen);
+        hamburger.classList.toggle('active', AppState.isMobileMenuOpen);
+        hamburger.setAttribute('aria-expanded', AppState.isMobileMenuOpen);
+        
+        // Prevent body scroll when menu is open
+        document.body.style.overflow = AppState.isMobileMenuOpen ? 'hidden' : '';
+        
+        // Keep nav scrolled appearance when menu is open
+        if (AppState.isMobileMenuOpen) {
+            nav.classList.add('nav-scrolled');
+        } else if (window.scrollY <= CONFIG.navScrolledThreshold) {
+            nav.classList.remove('nav-scrolled');
+        }
+        
+        // Staggered animation for mobile menu items
+        if (AppState.isMobileMenuOpen) {
+            const menuItems = navLinks.querySelectorAll('.nav-link');
+            menuItems.forEach((item, index) => {
+                // Stagger the transition delays for smooth animation
+                setTimeout(() => {
+                    item.style.transitionDelay = `${index * 50}ms`;
+                }, 10);
+            });
+        }
+    }
+    
+    // Event listeners
+    window.addEventListener('scroll', throttle(handleScroll, 100), { passive: true });
+    hamburger.addEventListener('click', toggleMobileMenu);
+    
+    // Smooth scroll for nav links
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            // Close mobile menu if open
+            if (AppState.isMobileMenuOpen) {
+                toggleMobileMenu();
+            }
+            
+            // Smooth scroll
+            const targetId = link.getAttribute('href');
+            if (targetId && targetId.startsWith('#')) {
+                e.preventDefault();
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const navHeight = nav.offsetHeight;
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update URL without page reload
+                    history.pushState(null, null, targetId);
+                }
+            }
+        });
+    });
+    
+    // Close menu on ESC key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && AppState.isMobileMenuOpen) {
+            toggleMobileMenu();
+        }
+    });
+    
+    // Initialize
+    handleScroll();
 }
 
 // ====== LOADING ANIMATIONS ======
@@ -394,102 +495,14 @@ function initializeKeyboardShortcuts() {
             if (hamburger) hamburger.click();
         }
         
-        // Theme toggle with Ctrl+T
-        if (e.ctrlKey && e.key === 't') {
+        // Theme toggle with Ctrl+T (or Cmd+T on Mac)
+        if ((e.ctrlKey || e.metaKey) && e.key === 't') {
             e.preventDefault();
             if (window.ThemeUtils) {
                 ThemeUtils.toggle();
             }
         }
     });
-}
-
-// ====== NAVIGATION FUNCTIONS ======
-function initializeNavigation() {
-    const nav = document.querySelector('.main-nav');
-    const hamburger = document.getElementById('hamburger');
-    const navLinks = document.getElementById('nav-links');
-    
-    if (!nav || !hamburger || !navLinks) return;
-    
-    function updateActiveNavLink() {
-        const sections = document.querySelectorAll('section[id]');
-        const navHeight = nav.offsetHeight;
-        const scrollPosition = window.scrollY + navHeight + 100;
-        
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-            const sectionId = section.getAttribute('id');
-            const navLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
-            
-            if (!navLink) return;
-            
-            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                navLink.classList.add('active');
-            } else {
-                navLink.classList.remove('active');
-            }
-        });
-    }
-    
-    function handleScroll() {
-        const shouldBeScrolled = window.scrollY > CONFIG.navScrolledThreshold;
-        
-        if (shouldBeScrolled !== AppState.isNavScrolled) {
-            AppState.isNavScrolled = shouldBeScrolled;
-            nav.classList.toggle('nav-scrolled', shouldBeScrolled);
-        }
-        
-        updateActiveNavLink();
-    }
-    
-    function toggleMobileMenu() {
-        AppState.isMobileMenuOpen = !AppState.isMobileMenuOpen;
-        navLinks.classList.toggle('active', AppState.isMobileMenuOpen);
-        hamburger.classList.toggle('active', AppState.isMobileMenuOpen);
-        hamburger.setAttribute('aria-expanded', AppState.isMobileMenuOpen);
-        
-        document.body.style.overflow = AppState.isMobileMenuOpen ? 'hidden' : '';
-        
-        if (AppState.isMobileMenuOpen) {
-            nav.classList.add('nav-scrolled');
-        } else if (window.scrollY <= CONFIG.navScrolledThreshold) {
-            nav.classList.remove('nav-scrolled');
-        }
-    }
-    
-    window.addEventListener('scroll', throttle(handleScroll, 100), { passive: true });
-    hamburger.addEventListener('click', toggleMobileMenu);
-    
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', (e) => {
-            if (AppState.isMobileMenuOpen) {
-                toggleMobileMenu();
-            }
-            
-            // Smooth scroll
-            const targetId = link.getAttribute('href');
-            if (targetId && targetId.startsWith('#')) {
-                e.preventDefault();
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    const navHeight = nav.offsetHeight;
-                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navHeight;
-                    
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Update URL without page reload
-                    history.pushState(null, null, targetId);
-                }
-            }
-        });
-    });
-    
-    handleScroll();
 }
 
 // ====== REVEAL ANIMATIONS ======
@@ -526,18 +539,20 @@ function initializeContactForm() {
     
     if (!form || !status) return;
     
-    // Honeypot field
+    // Honeypot field for spam prevention
     const honeypot = document.createElement('input');
     honeypot.type = 'text';
     honeypot.name = '_gotcha';
     honeypot.style.display = 'none';
     honeypot.setAttribute('aria-hidden', 'true');
+    honeypot.setAttribute('tabindex', '-1');
     form.appendChild(honeypot);
     
     // Form submission handler
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         
+        // Check honeypot
         if (honeypot.value) {
             showErrorStatus('Submission blocked. Please try again.');
             return;
@@ -551,6 +566,7 @@ function initializeContactForm() {
             <span class="spinner-small"></span>
             Sending...
         `;
+        submitButton.classList.add('btn-loading');
         
         const formData = new FormData(form);
         
@@ -632,11 +648,12 @@ function initializeThemeIntegration() {
     // Listen for theme changes to update animations
     document.documentElement.addEventListener('themechange', (e) => {
         console.log('🎨 Theme changed, updating animations:', e.detail.theme);
+        AppState.currentTheme = e.detail.theme;
         
         // Update ripple color based on theme
         const rippleColor = e.detail.theme === 'light' 
-            ? 'rgba(0, 0, 0, 0.1)' 
-            : 'rgba(255, 255, 255, 0.3)';
+            ? 'rgba(0, 0, 0, 0.05)' 
+            : 'rgba(255, 255, 255, 0.15)';
         
         document.documentElement.style.setProperty('--ripple-color', rippleColor);
     });
@@ -677,47 +694,57 @@ function showToast(message, type = 'info') {
 // ====== MAIN INITIALIZATION ======
 document.addEventListener('DOMContentLoaded', () => {
     // Prevent duplicate initialization
-    if (AppState.isInitialized) return;
+    if (AppState.isInitialized) {
+        console.warn('⚠️  Portfolio already initialized');
+        return;
+    }
     AppState.isInitialized = true;
     
     console.log(`
-╔══════════════════════════════════════════════════╗
-║      MAJESTOR KEPSEU PORTFOLIO v5.3             ║
-║      Optimized Animations & Fixed Integration    ║
-║      © ${new Date().getFullYear()} - All Rights Reserved         ║
-╚══════════════════════════════════════════════════╝
+╔═══════════════════════════════════════════════════════╗
+║      MAJESTOR KEPSEU PORTFOLIO v5.3                  ║
+║      ✓ Navigation Always Visible                     ║
+║      ✓ Subtle Mobile Touch Effects                   ║
+║      ✓ Theme Persistence Across Pages                ║
+║      © ${new Date().getFullYear()} - All Rights Reserved              ║
+╚═══════════════════════════════════════════════════════╝
     `);
     
     try {
         // Initialize theme manager first (if available)
         if (typeof ThemeManager !== 'undefined') {
             ThemeManager.getInstance();
+            console.log('✅ Theme Manager initialized');
         }
         
         // Initialize animation system first
         initializeAnimationSystem();
+        console.log('✅ Animation System initialized');
         
-        // Initialize core systems
+        // Initialize navigation FIRST (critical for visibility)
         initializeNavigation();
+        console.log('✅ Navigation initialized - all items visible');
+        
+        // Initialize core features
         initializeRevealAnimations();
         initializeContactForm();
+        console.log('✅ Core features initialized');
         
         // Enhanced animation features
         initializeTouchFeedback();
         initializeScrollAnimations();
         initializeCardInteractions();
         initializeFormAnimations();
-        initializeNavigationAnimations();
         initializeLoadingAnimations();
         initializeSkillAnimations();
+        console.log('✅ Enhanced animations initialized');
         
-        // Analytics and utilities
+        // Utilities
         initializeAnalytics();
         initializeKeyboardShortcuts();
         initializeThemeIntegration();
-        
-        // Update dynamic content
         updateCopyrightYear();
+        console.log('✅ Utilities initialized');
         
         // Performance monitoring
         window.addEventListener('load', () => {
@@ -725,12 +752,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 const navigationStart = performance.getEntriesByType('navigation')[0];
                 if (navigationStart) {
                     const loadTime = navigationStart.duration.toFixed(2);
-                    console.log(`⚡ Page loaded in ${loadTime}ms with animations`);
+                    console.log(`⚡ Page loaded in ${loadTime}ms`);
+                    console.log(`📊 Portfolio views: ${AppState.portfolioViews}`);
+                    console.log(`📱 Device type: ${AppState.touchDevice ? 'Touch' : 'Desktop'}`);
+                    console.log(`🎨 Theme: ${AppState.currentTheme}`);
                 }
             }
         });
         
-        console.log('✅ All animation systems initialized successfully');
+        console.log('✅ All systems initialized successfully');
         
     } catch (error) {
         console.error('❌ Initialization error:', error);
@@ -746,9 +776,14 @@ window.addEventListener('error', function(e) {
     }
 });
 
+// Handle unhandled promise rejections
+window.addEventListener('unhandledrejection', function(e) {
+    console.error('Unhandled promise rejection:', e.reason);
+});
+
 // ====== PWA FEATURES ======
 function initializePWA() {
-    if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
+    if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('/sw.js')
                 .then(registration => {
@@ -762,4 +797,18 @@ function initializePWA() {
 }
 
 // Initialize PWA on load
-window.addEventListener('load', initializePWA);
+initializePWA();
+
+// ====== DEBUG MODE (DEVELOPMENT ONLY) ======
+// Uncomment for debugging
+// window.PortfolioDebug = {
+//     state: AppState,
+//     config: CONFIG,
+//     reinitialize: () => {
+//         AppState.isInitialized = false;
+//         location.reload();
+//     },
+//     toggleTheme: () => window.ThemeUtils?.toggle(),
+//     getTheme: () => window.ThemeUtils?.getCurrentTheme()
+// };
+// console.log('🔧 Debug mode enabled. Access via window.PortfolioDebug');

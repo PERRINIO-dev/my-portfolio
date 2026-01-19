@@ -1,10 +1,13 @@
 // Service Worker for Majestor Kepseu Portfolio
-const CACHE_NAME = 'portfolio-v5.1';
+const CACHE_NAME = 'portfolio-v5.3'; // UPDATED FROM v5.1
 const urlsToCache = [
     '/',
     '/index.html',
     '/style.css',
+    '/animations.css', // ADDED
+    '/light-theme.css', // ADDED
     '/script.js',
+    '/theme-manager.js', // ADDED
     '/manifest.json',
     '/projects/project-styles.css',
     '/projects/virtualization-cluster.html',
@@ -17,7 +20,7 @@ const urlsToCache = [
 
 // Install event
 self.addEventListener('install', event => {
-    console.log('[Service Worker] Installing...');
+    console.log('[Service Worker] Installing v5.3...'); // UPDATED
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then(cache => {
@@ -30,7 +33,7 @@ self.addEventListener('install', event => {
 
 // Activate event
 self.addEventListener('activate', event => {
-    console.log('[Service Worker] Activating...');
+    console.log('[Service Worker] Activating v5.3...'); // UPDATED
     event.waitUntil(
         caches.keys().then(cacheNames => {
             return Promise.all(
