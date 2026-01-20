@@ -1,5 +1,5 @@
 // Service Worker for Majestor Kepseu Portfolio
-const CACHE_NAME = 'portfolio-v5.3'; // UPDATED FROM v5.1
+const CACHE_NAME = 'portfolio-v5.4'; // UPDATED FROM v5.3
 const urlsToCache = [
     '/',
     '/index.html',
@@ -8,6 +8,7 @@ const urlsToCache = [
     '/light-theme.css', // ADDED
     '/script.js',
     '/theme-manager.js', // ADDED
+    '/lightbox.js', // ADDED
     '/manifest.json',
     '/projects/project-styles.css',
     '/projects/virtualization-cluster.html',
@@ -53,12 +54,12 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
     // Skip non-GET requests
     if (event.request.method !== 'GET') return;
-    
+
     // Skip Chrome extensions
     if (event.request.url.startsWith('chrome-extension://')) return;
-    
+
     // Network-first for dynamic content, cache-first for static assets
-    if (event.request.url.includes('/assets/') || 
+    if (event.request.url.includes('/assets/') ||
         event.request.url.includes('cdnjs.cloudflare.com') ||
         event.request.url.includes('fonts.googleapis.com')) {
         // Cache-first for static assets

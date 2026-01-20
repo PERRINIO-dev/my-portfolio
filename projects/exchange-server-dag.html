@@ -14,13 +14,13 @@
     <link rel="stylesheet" href="../light-theme.css">
     <link rel="stylesheet" href="../animations.css">
     <link rel="stylesheet" href="project-styles.css">
-    
+
     <!-- Theme Manager -->
-    <script src="../theme-manager.js"></script>
-    
-    <!-- NEW: Lightbox JavaScript -->
+    <script src="../theme-manager.js" defer></script>
     <script src="../lightbox.js" defer></script>
-    
+
+    <!-- NEW: Lightbox JavaScript -->
+
     <!-- Font Awesome & Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -75,10 +75,12 @@
                 <div class="project-section-content">
                     <p>The objective of this project was to design, deploy, and validate a highly available enterprise
                         email infrastructure using Microsoft Exchange Server 2019. The environment was built to support
-                        secure messaging, centralized administration, and high availability through the implementation of
+                        secure messaging, centralized administration, and high availability through the implementation
+                        of
                         a Database Availability Group (DAG).</p>
 
-                    <p>This project demonstrates comprehensive enterprise messaging capabilities, focusing on resilience,
+                    <p>This project demonstrates comprehensive enterprise messaging capabilities, focusing on
+                        resilience,
                         scalability, and secure collaboration for modern business environments.</p>
                 </div>
             </section>
@@ -94,17 +96,21 @@
                         <li>Deployed a Windows Server–based Active Directory domain with integrated DNS services.</li>
                         <li>Designed and implemented a structured Organizational Unit (OU) hierarchy following best
                             practices.</li>
-                        <li>Created and managed users, security groups, and service accounts for Exchange administration.
+                        <li>Created and managed users, security groups, and service accounts for Exchange
+                            administration.
                         </li>
                         <li>Installed and configured Microsoft Exchange Server 2019 on multiple member servers.</li>
                         <li>Configured DHCP services to support dynamic client addressing within the environment.</li>
                         <li>Implemented department-based file shares with access control enforced through Group Policy
                             Objects (GPOs).</li>
                         <li>Created and mounted custom mailbox databases across Exchange servers.</li>
-                        <li>Configured mailboxes, shared mailboxes, resource mailboxes, and distribution groups using the
+                        <li>Configured mailboxes, shared mailboxes, resource mailboxes, and distribution groups using
+                            the
                             Exchange Admin Center (EAC).</li>
-                        <li>Performed Exchange administration using PowerShell, including mailbox and group creation.</li>
-                        <li>Implemented a Database Availability Group (DAG) with mailbox database replication and failover
+                        <li>Performed Exchange administration using PowerShell, including mailbox and group creation.
+                        </li>
+                        <li>Implemented a Database Availability Group (DAG) with mailbox database replication and
+                            failover
                             capabilities.</li>
                         <li>Configured a witness server to support DAG quorum and resiliency.</li>
                     </ul>
@@ -124,7 +130,8 @@
                             groups.</li>
                         <li>Verified mailbox database replication between Exchange servers.</li>
                         <li>Tested DAG failover to ensure mailbox availability during simulated server outages.</li>
-                        <li>Achieved a resilient and fault-tolerant enterprise email platform aligned with Microsoft best
+                        <li>Achieved a resilient and fault-tolerant enterprise email platform aligned with Microsoft
+                            best
                             practices.</li>
                         <li>Demonstrated reliable identity-based access control through AD and Exchange role separation.
                         </li>
@@ -168,24 +175,25 @@
                     <div class="project-gallery">
                         <div class="project-gallery-item">
                             <img src="../assets/images/exchange-dag-diagram.jpg" alt="Exchange DAG Architecture Diagram"
-                                class="project-gallery-img">
+                                class="project-gallery-img" loading="lazy">
                             <div class="project-gallery-caption">DAG Architecture Design</div>
                         </div>
                         <div class="project-gallery-item">
                             <img src="../assets/images/eac-mailflow.png" alt="Exchange Admin Center Mail Flow"
-                                class="project-gallery-img">
+                                class="project-gallery-img" loading="lazy">
                             <div class="project-gallery-caption">Exchange Admin Center Interface</div>
                         </div>
                         <div class="project-gallery-item">
                             <img src="../assets/images/powershell-output.png" alt="PowerShell Administration Output"
-                                class="project-gallery-img">
+                                class="project-gallery-img" loading="lazy">
                             <div class="project-gallery-caption">PowerShell Administration</div>
                         </div>
                     </div>
 
                     <div class="project-note">
                         <p><strong>Note:</strong> This project implemented enterprise-grade Exchange Server 2019 with
-                            full High Availability capabilities. All configurations followed Microsoft best practices for
+                            full High Availability capabilities. All configurations followed Microsoft best practices
+                            for
                             security, performance, and resilience.</p>
                     </div>
                 </div>
