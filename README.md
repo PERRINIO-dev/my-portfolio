@@ -45,7 +45,7 @@
 ## 📁 Project Structure
 
 ```
-portfolio/
+my-portfolio/
 ├── index.html                 # Main homepage
 ├── style.css                  # Core styles
 ├── light-theme.css            # Light theme styles
