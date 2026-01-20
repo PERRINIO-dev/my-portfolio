@@ -9,7 +9,7 @@
         content="Microsoft Exchange Server 2019 Infrastructure with Database Availability Group (DAG) - Majestor Kepseu">
     <title>Exchange Server DAG Project | Majestor Kepseu</title>
 
-    <!-- UPDATED: Corrected stylesheet order - NO media query on light-theme.css -->
+    <!-- Core Styles & Theme -->
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../light-theme.css">
     <link rel="stylesheet" href="../animations.css">
@@ -27,7 +27,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400&display=swap"
-        rel="stylesheet">
+        rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400&display=swap"
+            rel="stylesheet">
+    </noscript>
 </head>
 
 <body>
@@ -38,7 +43,7 @@
                 <i class="fas fa-arrow-left"></i>
                 <span>Back to Projects</span>
             </a>
-            <!-- UPDATED: Fixed navigation branding (removed inline style, using spans) -->
+            <!-- Project Navigation Header -->
             <a href="../index.html" class="project-home-btn">
                 <span>Majestor</span>
                 <span>Kepseu</span>
@@ -50,7 +55,6 @@
     <section class="project-hero">
         <div class="container">
             <div class="project-hero-content">
-                <!-- ENHANCED: Badge with icon -->
                 <div class="project-hero-badge">
                     <i class="fas fa-envelope"></i>
                     Messaging & Collaboration
@@ -171,7 +175,6 @@
                     <p><em>Visual documentation of the Exchange Server 2019 implementation and DAG configuration. Click
                             any image to enlarge.</em></p>
 
-                    <!-- ENHANCED: Gallery items now have lightbox functionality automatically -->
                     <div class="project-gallery">
                         <div class="project-gallery-item">
                             <img src="../assets/images/exchange-dag-diagram.jpg" alt="Exchange DAG Architecture Diagram"
