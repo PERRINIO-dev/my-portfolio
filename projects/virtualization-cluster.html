@@ -9,13 +9,17 @@
         content="Enterprise Virtualization Cluster with VMware vSphere, HA & Fault Tolerance - Majestor Kepseu">
     <title>Virtualization Cluster Project | Majestor Kepseu</title>
 
+    <!-- UPDATED: Corrected stylesheet order -->
+    <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../light-theme.css">
     <link rel="stylesheet" href="../animations.css">
+    <link rel="stylesheet" href="project-styles.css">
+
+    <!-- Theme Manager -->
     <script src="../theme-manager.js" defer></script>
     <script src="../lightbox.js" defer></script>
 
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="project-styles.css">
+    <!-- Font Awesome & Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,7 +31,7 @@
 <body>
     <!-- Project Navigation Header -->
     <header class="project-page-header">
-        <div class="container project-nav-container">
+        <div class="project-nav-container">
             <a href="../index.html#projects" class="project-back-btn">
                 <i class="fas fa-arrow-left"></i>
                 <span>Back to Projects</span>
@@ -43,7 +47,10 @@
     <section class="project-hero">
         <div class="container">
             <div class="project-hero-content">
-                <div class="project-hero-badge">Virtualization</div>
+                <div class="project-hero-badge">
+                    <i class="fas fa-server"></i>
+                    Virtualization
+                </div>
                 <h1 class="project-hero-title">Enterprise Virtualization Cluster with VMware vSphere, HA & Fault
                     Tolerance</h1>
                 <p class="project-hero-subtitle">Designed, deployed, and validated a highly available enterprise
@@ -55,123 +62,129 @@
 
     <!-- Project Content -->
     <main class="project-content">
-        <!-- Overview Section -->
-        <section id="overview" class="project-section">
-            <h2 class="project-section-title">
-                <i class="fas fa-eye"></i>
-                Project Overview
-            </h2>
-            <div class="project-section-content">
-                <p>The objective of this project was to design, deploy, and validate a highly available enterprise
-                    virtualization infrastructure using VMware vSphere. The environment was built to ensure service
-                    continuity, centralized management, and infrastructure resilience through the implementation of High
-                    Availability (HA) and Fault Tolerance (FT).</p>
+        <div class="container">
+            <!-- Overview Section -->
+            <section id="overview" class="project-section">
+                <h2 class="project-section-title">
+                    <i class="fas fa-eye"></i>
+                    Project Overview
+                </h2>
+                <div class="project-section-content">
+                    <p>The objective of this project was to design, deploy, and validate a highly available enterprise
+                        virtualization infrastructure using VMware vSphere. The environment was built to ensure service
+                        continuity, centralized management, and infrastructure resilience through the implementation of
+                        High
+                        Availability (HA) and Fault Tolerance (FT).</p>
 
-                <p>This project demonstrates enterprise-grade virtualization capabilities, focusing on minimizing
-                    downtime and ensuring business continuity for critical workloads in a simulated production
-                    environment.</p>
-            </div>
-        </section>
-
-        <!-- Architecture Section -->
-        <section id="architecture" class="project-section">
-            <h2 class="project-section-title">
-                <i class="fas fa-sitemap"></i>
-                Architecture & Implementation
-            </h2>
-            <div class="project-section-content">
-                <ul class="project-list">
-                    <li>Deployed and configured multiple VMware ESXi hosts to form a clustered environment.</li>
-                    <li>Installed and configured vCenter Server for centralized management and monitoring.</li>
-                    <li>Created a vSphere cluster with High Availability (HA) enabled for automatic VM recovery.</li>
-                    <li>Implemented Fault Tolerance (FT) to ensure zero downtime for critical virtual machines.</li>
-                    <li>Configured shared iSCSI storage to support VM mobility and cluster services.</li>
-                    <li>Designed virtual networking for management, storage, and VM traffic separation.</li>
-                    <li>Integrated Active Directory authentication for role-based administrative access.</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Results Section -->
-        <section id="results" class="project-section">
-            <h2 class="project-section-title">
-                <i class="fas fa-chart-line"></i>
-                Results & Validation
-            </h2>
-            <div class="project-section-content">
-                <ul class="project-list">
-                    <li>Successfully validated HA failover by simulating host outages and confirming automatic VM
-                        restarts.</li>
-                    <li>Achieved continuous availability for protected workloads using Fault Tolerance.</li>
-                    <li>Ensured reliable VM mobility and storage accessibility across cluster nodes.</li>
-                    <li>Demonstrated enterprise-grade resilience, redundancy, and manageability.</li>
-                    <li>Confirmed compliance with virtualization best practices for availability and fault tolerance.
-                    </li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Skills Section -->
-        <section id="skills" class="project-section">
-            <h2 class="project-section-title">
-                <i class="fas fa-tools"></i>
-                Skills & Technologies Used
-            </h2>
-            <div class="project-section-content">
-                <div class="project-skills-container">
-                    <span class="project-skill-tag">VMware vSphere / ESXi</span>
-                    <span class="project-skill-tag">vCenter Server</span>
-                    <span class="project-skill-tag">High Availability (HA)</span>
-                    <span class="project-skill-tag">Fault Tolerance (FT)</span>
-                    <span class="project-skill-tag">iSCSI shared storage</span>
-                    <span class="project-skill-tag">Virtual networking & traffic segmentation</span>
-                    <span class="project-skill-tag">Active Directory integration</span>
-                    <span class="project-skill-tag">Infrastructure testing & validation</span>
+                    <p>This project demonstrates enterprise-grade virtualization capabilities, focusing on minimizing
+                        downtime and ensuring business continuity for critical workloads in a simulated production
+                        environment.</p>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Images Section -->
-        <section id="images" class="project-section">
-            <h2 class="project-section-title">
-                <i class="fas fa-images"></i>
-                Project Documentation
-            </h2>
-            <div class="project-section-content">
-                <p><em>Visual documentation of the project's implementation and outcomes.</em></p>
+            <!-- Architecture Section -->
+            <section id="architecture" class="project-section">
+                <h2 class="project-section-title">
+                    <i class="fas fa-sitemap"></i>
+                    Architecture & Implementation
+                </h2>
+                <div class="project-section-content">
+                    <ul class="project-list">
+                        <li>Deployed and configured multiple VMware ESXi hosts to form a clustered environment.</li>
+                        <li>Installed and configured vCenter Server for centralized management and monitoring.</li>
+                        <li>Created a vSphere cluster with High Availability (HA) enabled for automatic VM recovery.
+                        </li>
+                        <li>Implemented Fault Tolerance (FT) to ensure zero downtime for critical virtual machines.</li>
+                        <li>Configured shared iSCSI storage to support VM mobility and cluster services.</li>
+                        <li>Designed virtual networking for management, storage, and VM traffic separation.</li>
+                        <li>Integrated Active Directory authentication for role-based administrative access.</li>
+                    </ul>
+                </div>
+            </section>
 
-                <div class="project-gallery">
-                    <div class="project-gallery-item">
-                        <img src="../assets/images/vmware-arch-diagram.jpg" alt="VMware vSphere Architecture Diagram"
-                            class="project-gallery-img" loading="lazy">
-                        <div class="project-gallery-caption">Virtualization Cluster Architecture</div>
-                    </div>
-                    <div class="project-gallery-item">
-                        <img src="../assets/images/vcenter-dashboard.png" alt="vCenter Server Management Dashboard"
-                            class="project-gallery-img" loading="lazy">
-                        <div class="project-gallery-caption">vCenter Management Interface</div>
-                    </div>
-                    <div class="project-gallery-item">
-                        <img src="../assets/images/ha-test-result.png" alt="HA Failover Test Results"
-                            class="project-gallery-img" loading="lazy">
-                        <div class="project-gallery-caption">HA Failover Validation Results</div>
+            <!-- Results Section -->
+            <section id="results" class="project-section">
+                <h2 class="project-section-title">
+                    <i class="fas fa-chart-line"></i>
+                    Results & Validation
+                </h2>
+                <div class="project-section-content">
+                    <ul class="project-list">
+                        <li>Successfully validated HA failover by simulating host outages and confirming automatic VM
+                            restarts.</li>
+                        <li>Achieved continuous availability for protected workloads using Fault Tolerance.</li>
+                        <li>Ensured reliable VM mobility and storage accessibility across cluster nodes.</li>
+                        <li>Demonstrated enterprise-grade resilience, redundancy, and manageability.</li>
+                        <li>Confirmed compliance with virtualization best practices for availability and fault
+                            tolerance.
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Skills Section -->
+            <section id="skills" class="project-section">
+                <h2 class="project-section-title">
+                    <i class="fas fa-tools"></i>
+                    Skills & Technologies Used
+                </h2>
+                <div class="project-section-content">
+                    <div class="project-skills-container">
+                        <span class="project-skill-tag">VMware vSphere / ESXi</span>
+                        <span class="project-skill-tag">vCenter Server</span>
+                        <span class="project-skill-tag">High Availability (HA)</span>
+                        <span class="project-skill-tag">Fault Tolerance (FT)</span>
+                        <span class="project-skill-tag">iSCSI shared storage</span>
+                        <span class="project-skill-tag">Virtual networking & traffic segmentation</span>
+                        <span class="project-skill-tag">Active Directory integration</span>
+                        <span class="project-skill-tag">Infrastructure testing & validation</span>
                     </div>
                 </div>
+            </section>
 
-                <div class="project-note">
-                    <p><strong>Note:</strong> This project was implemented in a controlled lab environment simulating
-                        enterprise production conditions. All configurations followed VMware best practices and
-                        documentation.</p>
+            <!-- Images Section -->
+            <section id="images" class="project-section">
+                <h2 class="project-section-title">
+                    <i class="fas fa-images"></i>
+                    Project Documentation
+                </h2>
+                <div class="project-section-content">
+                    <p><em>Visual documentation of the project's implementation and outcomes.</em></p>
+
+                    <div class="project-gallery">
+                        <div class="project-gallery-item">
+                            <img src="../assets/images/vmware-arch-diagram.jpg"
+                                alt="VMware vSphere Architecture Diagram" class="project-gallery-img" loading="lazy">
+                            <div class="project-gallery-caption">Virtualization Cluster Architecture</div>
+                        </div>
+                        <div class="project-gallery-item">
+                            <img src="../assets/images/vcenter-dashboard.png" alt="vCenter Server Management Dashboard"
+                                class="project-gallery-img" loading="lazy">
+                            <div class="project-gallery-caption">vCenter Management Interface</div>
+                        </div>
+                        <div class="project-gallery-item">
+                            <img src="../assets/images/ha-test-result.png" alt="HA Failover Test Results"
+                                class="project-gallery-img" loading="lazy">
+                            <div class="project-gallery-caption">HA Failover Validation Results</div>
+                        </div>
+                    </div>
+
+                    <div class="project-note">
+                        <p><strong>Note:</strong> This project was implemented in a controlled lab environment
+                            simulating
+                            enterprise production conditions. All configurations followed VMware best practices and
+                            documentation.</p>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Navigation Footer -->
-        <div class="project-navigation">
-            <a href="exchange-server-dag.html" class="btn btn-primary press-down ripple">
-                <span>Next Project</span>
-                <i class="fas fa-arrow-right"></i>
-            </a>
+            <!-- Navigation Footer -->
+            <div class="project-navigation">
+                <a href="exchange-server-dag.html" class="btn btn-primary press-down ripple">
+                    <span>Next Project</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
         </div>
     </main>
 
@@ -197,12 +210,11 @@
     </footer>
 
     <script>
-        // Simple script for project pages
         document.addEventListener('DOMContentLoaded', function () {
-            // Update copyright year
+            // Set current year
             document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-            // Add smooth scroll for anchor links
+            // Smooth scroll for anchor links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();

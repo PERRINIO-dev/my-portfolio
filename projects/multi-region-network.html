@@ -9,13 +9,17 @@
         content="Multi-Region Enterprise Network Architecture & IP Addressing Strategy - Majestor Kepseu">
     <title>Multi-Region Network Project | Majestor Kepseu</title>
 
+    <!-- UPDATED: Corrected stylesheet order -->
+    <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../light-theme.css">
     <link rel="stylesheet" href="../animations.css">
+    <link rel="stylesheet" href="project-styles.css">
+
+    <!-- Theme Manager -->
     <script src="../theme-manager.js" defer></script>
     <script src="../lightbox.js" defer></script>
 
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="project-styles.css">
+    <!-- Font Awesome & Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,7 +31,7 @@
 <body>
     <!-- Project Navigation Header -->
     <header class="project-page-header">
-        <div class="container project-nav-container">
+        <div class="project-nav-container">
             <a href="../index.html#projects" class="project-back-btn">
                 <i class="fas fa-arrow-left"></i>
                 <span>Back to Projects</span>
@@ -43,7 +47,10 @@
     <section class="project-hero">
         <div class="container">
             <div class="project-hero-content">
-                <div class="project-hero-badge">Network Design & Architecture</div>
+                <div class="project-hero-badge">
+                    <i class="fas fa-network-wired"></i>
+                    Network Design & Architecture
+                </div>
                 <h1 class="project-hero-title">Multi-Region Enterprise Network Architecture & IP Addressing Strategy
                 </h1>
                 <p class="project-hero-subtitle">Capstone project designing scalable multi-region enterprise network
@@ -54,133 +61,143 @@
 
     <!-- Project Content -->
     <main class="project-content">
-        <!-- Overview Section -->
-        <section id="overview" class="project-section">
-            <h2 class="project-section-title">
-                <i class="fas fa-eye"></i>
-                Project Overview
-            </h2>
-            <div class="project-section-content">
-                <p>The objective of this capstone project was to design and model a scalable, multi-region enterprise
-                    network supporting geographically distributed offices. The environment simulated corporate sites in
-                    North America and Asia, focusing on hardware selection, IP addressing strategy, site connectivity,
-                    and infrastructure scalability.</p>
+        <div class="container">
+            <!-- Overview Section -->
+            <section id="overview" class="project-section">
+                <h2 class="project-section-title">
+                    <i class="fas fa-eye"></i>
+                    Project Overview
+                </h2>
+                <div class="project-section-content">
+                    <p>The objective of this capstone project was to design and model a scalable, multi-region
+                        enterprise
+                        network supporting geographically distributed offices. The environment simulated corporate sites
+                        in
+                        North America and Asia, focusing on hardware selection, IP addressing strategy, site
+                        connectivity,
+                        and infrastructure scalability.</p>
 
-                <p>This project demonstrates enterprise network planning and architecture capabilities, focusing on
-                    scalability, interoperability, and future growth considerations for global organizations.</p>
-            </div>
-        </section>
-
-        <!-- Architecture Section -->
-        <section id="architecture" class="project-section">
-            <h2 class="project-section-title">
-                <i class="fas fa-sitemap"></i>
-                Architecture & Implementation
-            </h2>
-            <div class="project-section-content">
-                <ul class="project-list">
-                    <li>Designed a multi-site enterprise network architecture connecting regional offices across
-                        different geographic locations.</li>
-                    <li>Evaluated and selected end-user workstation models tailored to office staff and software
-                        development workloads.</li>
-                    <li>Recommended enterprise-grade server hardware optimized for virtualization and infrastructure
-                        services.</li>
-                    <li>Designed a virtualized infrastructure model suitable for hosting server workloads at each site.
-                    </li>
-                    <li>Developed a structured IP addressing scheme based on organizational size, scalability, and
-                        regional segmentation.</li>
-                    <li>Selected appropriate IP address classes and subnetting strategies to support future growth.</li>
-                    <li>Planned inter-site connectivity to ensure reliable communication between regions.</li>
-                    <li>Executed the design within a vSphere-based academic environment, collaborating remotely with
-                        team members on shared virtual infrastructure.</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Results Section -->
-        <section id="results" class="project-section">
-            <h2 class="project-section-title">
-                <i class="fas fa-chart-line"></i>
-                Results & Validation
-            </h2>
-            <div class="project-section-content">
-                <ul class="project-list">
-                    <li>Delivered a complete end-to-end network design addressing compute, network, and server
-                        infrastructure needs.</li>
-                    <li>Produced a scalable IP addressing plan that supports expansion without re-architecting.</li>
-                    <li>Demonstrated effective capacity planning for both user devices and server workloads.</li>
-                    <li>Validated connectivity and interoperability between regional office environments.</li>
-                    <li>Successfully collaborated in a distributed team environment, simulating real enterprise project
-                        workflows.</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Skills Section -->
-        <section id="skills" class="project-section">
-            <h2 class="project-section-title">
-                <i class="fas fa-tools"></i>
-                Skills & Technologies Used
-            </h2>
-            <div class="project-section-content">
-                <div class="project-skills-container">
-                    <span class="project-skill-tag">Enterprise network design & planning</span>
-                    <span class="project-skill-tag">IP addressing & subnetting</span>
-                    <span class="project-skill-tag">Multi-site infrastructure architecture</span>
-                    <span class="project-skill-tag">Virtualization-ready server design</span>
-                    <span class="project-skill-tag">Capacity planning & hardware evaluation</span>
-                    <span class="project-skill-tag">vSphere-based lab environments</span>
-                    <span class="project-skill-tag">Technical documentation</span>
-                    <span class="project-skill-tag">Team collaboration</span>
+                    <p>This project demonstrates enterprise network planning and architecture capabilities, focusing on
+                        scalability, interoperability, and future growth considerations for global organizations.</p>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Images Section -->
-        <section id="images" class="project-section">
-            <h2 class="project-section-title">
-                <i class="fas fa-images"></i>
-                Project Documentation
-            </h2>
-            <div class="project-section-content">
-                <p><em>Visual documentation of the network architecture design and implementation planning.</em></p>
+            <!-- Architecture Section -->
+            <section id="architecture" class="project-section">
+                <h2 class="project-section-title">
+                    <i class="fas fa-sitemap"></i>
+                    Architecture & Implementation
+                </h2>
+                <div class="project-section-content">
+                    <ul class="project-list">
+                        <li>Designed a multi-site enterprise network architecture connecting regional offices across
+                            different geographic locations.</li>
+                        <li>Evaluated and selected end-user workstation models tailored to office staff and software
+                            development workloads.</li>
+                        <li>Recommended enterprise-grade server hardware optimized for virtualization and infrastructure
+                            services.</li>
+                        <li>Designed a virtualized infrastructure model suitable for hosting server workloads at each
+                            site.
+                        </li>
+                        <li>Developed a structured IP addressing scheme based on organizational size, scalability, and
+                            regional segmentation.</li>
+                        <li>Selected appropriate IP address classes and subnetting strategies to support future growth.
+                        </li>
+                        <li>Planned inter-site connectivity to ensure reliable communication between regions.</li>
+                        <li>Executed the design within a vSphere-based academic environment, collaborating remotely with
+                            team members on shared virtual infrastructure.</li>
+                    </ul>
+                </div>
+            </section>
 
-                <div class="project-gallery">
-                    <div class="project-gallery-item">
-                        <img src="../assets/images/network-architecture-diagram.png"
-                            alt="Multi-Region Network Architecture Diagram" class="project-gallery-img" loading="lazy">
-                        <div class="project-gallery-caption">Network Architecture Diagram</div>
-                    </div>
-                    <div class="project-gallery-item">
-                        <img src="../assets/images/ip-addressing-plan.jpg" alt="IP Addressing Scheme Documentation"
-                            class="project-gallery-img" loading="lazy">
-                        <div class="project-gallery-caption">IP Addressing Plan</div>
-                    </div>
-                    <div class="project-gallery-item">
-                        <img src="../assets/images/team-collab-screen.png" alt="Team Collaboration Screenshot"
-                            class="project-gallery-img" loading="lazy">
-                        <div class="project-gallery-caption">Team Collaboration</div>
+            <!-- Results Section -->
+            <section id="results" class="project-section">
+                <h2 class="project-section-title">
+                    <i class="fas fa-chart-line"></i>
+                    Results & Validation
+                </h2>
+                <div class="project-section-content">
+                    <ul class="project-list">
+                        <li>Delivered a complete end-to-end network design addressing compute, network, and server
+                            infrastructure needs.</li>
+                        <li>Produced a scalable IP addressing plan that supports expansion without re-architecting.</li>
+                        <li>Demonstrated effective capacity planning for both user devices and server workloads.</li>
+                        <li>Validated connectivity and interoperability between regional office environments.</li>
+                        <li>Successfully collaborated in a distributed team environment, simulating real enterprise
+                            project
+                            workflows.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Skills Section -->
+            <section id="skills" class="project-section">
+                <h2 class="project-section-title">
+                    <i class="fas fa-tools"></i>
+                    Skills & Technologies Used
+                </h2>
+                <div class="project-section-content">
+                    <div class="project-skills-container">
+                        <span class="project-skill-tag">Enterprise network design & planning</span>
+                        <span class="project-skill-tag">IP addressing & subnetting</span>
+                        <span class="project-skill-tag">Multi-site infrastructure architecture</span>
+                        <span class="project-skill-tag">Virtualization-ready server design</span>
+                        <span class="project-skill-tag">Capacity planning & hardware evaluation</span>
+                        <span class="project-skill-tag">vSphere-based lab environments</span>
+                        <span class="project-skill-tag">Technical documentation</span>
+                        <span class="project-skill-tag">Team collaboration</span>
                     </div>
                 </div>
+            </section>
 
-                <div class="project-note">
-                    <p><strong>Note:</strong> This capstone project required comprehensive network design skills
-                        including hardware selection, IP planning, and collaborative team execution. The design followed
-                        industry best practices for scalability and future growth.</p>
+            <!-- Images Section -->
+            <section id="images" class="project-section">
+                <h2 class="project-section-title">
+                    <i class="fas fa-images"></i>
+                    Project Documentation
+                </h2>
+                <div class="project-section-content">
+                    <p><em>Visual documentation of the network architecture design and implementation planning.</em></p>
+
+                    <div class="project-gallery">
+                        <div class="project-gallery-item">
+                            <img src="../assets/images/network-architecture-diagram.png"
+                                alt="Multi-Region Network Architecture Diagram" class="project-gallery-img"
+                                loading="lazy">
+                            <div class="project-gallery-caption">Network Architecture Diagram</div>
+                        </div>
+                        <div class="project-gallery-item">
+                            <img src="../assets/images/ip-addressing-plan.jpg" alt="IP Addressing Scheme Documentation"
+                                class="project-gallery-img" loading="lazy">
+                            <div class="project-gallery-caption">IP Addressing Plan</div>
+                        </div>
+                        <div class="project-gallery-item">
+                            <img src="../assets/images/team-collab-screen.png" alt="Team Collaboration Screenshot"
+                                class="project-gallery-img" loading="lazy">
+                            <div class="project-gallery-caption">Team Collaboration</div>
+                        </div>
+                    </div>
+
+                    <div class="project-note">
+                        <p><strong>Note:</strong> This capstone project required comprehensive network design skills
+                            including hardware selection, IP planning, and collaborative team execution. The design
+                            followed
+                            industry best practices for scalability and future growth.</p>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Navigation Footer -->
-        <div class="project-navigation">
-            <a href="exchange-server-dag.html" class="btn btn-secondary press-down ripple">
-                <i class="fas fa-arrow-left"></i>
-                <span>Previous Project</span>
-            </a>
-            <a href="secure-enterprise-network.html" class="btn btn-primary press-down ripple">
-                <span>Next Project</span>
-                <i class="fas fa-arrow-right"></i>
-            </a>
+            <!-- Navigation Footer -->
+            <div class="project-navigation">
+                <a href="exchange-server-dag.html" class="btn btn-secondary press-down ripple">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Previous Project</span>
+                </a>
+                <a href="secure-enterprise-network.html" class="btn btn-primary press-down ripple">
+                    <span>Next Project</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
         </div>
     </main>
 
@@ -207,8 +224,10 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // Set current year
             document.getElementById('currentYear').textContent = new Date().getFullYear();
 
+            // Smooth scroll for anchor links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();

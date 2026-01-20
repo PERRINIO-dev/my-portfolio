@@ -9,13 +9,17 @@
         content="Multi-Site Secure Enterprise Network with Segmentation, Dynamic Routing & Centralized Services - Majestor Kepseu">
     <title>Secure Enterprise Network Project | Majestor Kepseu</title>
 
+    <!-- UPDATED: Corrected stylesheet order -->
+    <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../light-theme.css">
     <link rel="stylesheet" href="../animations.css">
+    <link rel="stylesheet" href="project-styles.css">
+
+    <!-- Theme Manager -->
     <script src="../theme-manager.js" defer></script>
     <script src="../lightbox.js" defer></script>
 
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="project-styles.css">
+    <!-- Font Awesome & Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,7 +31,7 @@
 <body>
     <!-- Project Navigation Header -->
     <header class="project-page-header">
-        <div class="container project-nav-container">
+        <div class="project-nav-container">
             <a href="../index.html#projects" class="project-back-btn">
                 <i class="fas fa-arrow-left"></i>
                 <span>Back to Projects</span>
@@ -43,7 +47,10 @@
     <section class="project-hero">
         <div class="container">
             <div class="project-hero-content">
-                <div class="project-hero-badge">Network Security & Infrastructure</div>
+                <div class="project-hero-badge">
+                    <i class="fas fa-shield-alt"></i>
+                    Network Security & Infrastructure
+                </div>
                 <h1 class="project-hero-title">Multi-Site Secure Enterprise Network with Segmentation, Dynamic Routing &
                     Centralized Services</h1>
                 <p class="project-hero-subtitle">Designed and deployed a secure multi-site enterprise network with VLAN
@@ -54,143 +61,151 @@
 
     <!-- Project Content -->
     <main class="project-content">
-        <!-- Overview Section -->
-        <section id="overview" class="project-section">
-            <h2 class="project-section-title">
-                <i class="fas fa-eye"></i>
-                Project Overview
-            </h2>
-            <div class="project-section-content">
-                <p>The objective of this project was to design, deploy, and secure a multi-site enterprise network
-                    interconnecting geographically distributed offices. The environment simulated corporate sites
-                    located in Toronto, Vancouver, and Tokyo, with a focus on secure inter-site connectivity, network
-                    segmentation, centralized services, and controlled administrative access.</p>
+        <div class="container">
+            <!-- Overview Section -->
+            <section id="overview" class="project-section">
+                <h2 class="project-section-title">
+                    <i class="fas fa-eye"></i>
+                    Project Overview
+                </h2>
+                <div class="project-section-content">
+                    <p>The objective of this project was to design, deploy, and secure a multi-site enterprise network
+                        interconnecting geographically distributed offices. The environment simulated corporate sites
+                        located in Toronto, Vancouver, and Tokyo, with a focus on secure inter-site connectivity,
+                        network
+                        segmentation, centralized services, and controlled administrative access.</p>
 
-                <p>This project demonstrates comprehensive enterprise network security capabilities, focusing on
-                    defense-in-depth, secure segmentation, and centralized monitoring for modern distributed
-                    organizations.</p>
-            </div>
-        </section>
-
-        <!-- Architecture Section -->
-        <section id="architecture" class="project-section">
-            <h2 class="project-section-title">
-                <i class="fas fa-sitemap"></i>
-                Architecture & Implementation
-            </h2>
-            <div class="project-section-content">
-                <ul class="project-list">
-                    <li>Designed a Layer 3 multi-site network architecture interconnecting three enterprise locations.
-                    </li>
-                    <li>Implemented dynamic routing using EIGRP (AS100) to enable scalable and resilient inter-site
-                        communication.</li>
-                    <li>Segmented each site into Admin and General VLANs to reduce broadcast domains and enforce
-                        security boundaries.</li>
-                    <li>Applied inter-VLAN access control lists (ACLs) to restrict General VLAN access to sensitive
-                        administrative resources.</li>
-                    <li>Deployed centralized enterprise services (web server, TFTP backup server, and Syslog server)
-                        hosted in the Tokyo site.</li>
-                    <li>Configured extended ACLs to tightly control access to centralized services based on site and
-                        user role.</li>
-                    <li>Implemented port security on access-layer switch ports with real-time violation logging to a
-                        centralized Syslog server.</li>
-                    <li>Enabled secure remote device management using SSH.</li>
-                    <li>Configured role-based access control (RBAC) with distinct privilege levels for administrators,
-                        technicians, and interns.</li>
-                    <li>Modeled the network in Cisco Packet Tracer, then replicated and tested the design on physical
-                        networking equipment.</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Results Section -->
-        <section id="results" class="project-section">
-            <h2 class="project-section-title">
-                <i class="fas fa-chart-line"></i>
-                Results & Validation
-            </h2>
-            <div class="project-section-content">
-                <ul class="project-list">
-                    <li>Successfully established reliable inter-site connectivity across all enterprise locations.</li>
-                    <li>Verified correct routing convergence and failover behavior using EIGRP.</li>
-                    <li>Confirmed VLAN isolation and ACL enforcement through controlled access testing.</li>
-                    <li>Validated secure access to centralized services based on user role and site location.</li>
-                    <li>Detected and logged port security violations in real time via centralized Syslog monitoring.
-                    </li>
-                    <li>Demonstrated secure and auditable remote network administration using SSH and RBAC.</li>
-                    <li>Delivered a scalable and security-focused enterprise network aligned with industry best
-                        practices.</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Skills Section -->
-        <section id="skills" class="project-section">
-            <h2 class="project-section-title">
-                <i class="fas fa-tools"></i>
-                Skills & Technologies Used
-            </h2>
-            <div class="project-section-content">
-                <div class="project-skills-container">
-                    <span class="project-skill-tag">Enterprise network architecture & design</span>
-                    <span class="project-skill-tag">EIGRP dynamic routing</span>
-                    <span class="project-skill-tag">VLAN segmentation & inter-VLAN routing</span>
-                    <span class="project-skill-tag">Standard & extended Access Control Lists (ACLs)</span>
-                    <span class="project-skill-tag">Port security & centralized logging (Syslog)</span>
-                    <span class="project-skill-tag">Secure remote management (SSH)</span>
-                    <span class="project-skill-tag">Role-Based Access Control (RBAC)</span>
-                    <span class="project-skill-tag">Cisco Packet Tracer</span>
-                    <span class="project-skill-tag">Physical network devices</span>
-                    <span class="project-skill-tag">Enterprise documentation & testing</span>
+                    <p>This project demonstrates comprehensive enterprise network security capabilities, focusing on
+                        defense-in-depth, secure segmentation, and centralized monitoring for modern distributed
+                        organizations.</p>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Images Section -->
-        <section id="images" class="project-section">
-            <h2 class="project-section-title">
-                <i class="fas fa-images"></i>
-                Project Documentation
-            </h2>
-            <div class="project-section-content">
-                <p><em>Visual documentation of the secure network topology and security implementations.</em></p>
+            <!-- Architecture Section -->
+            <section id="architecture" class="project-section">
+                <h2 class="project-section-title">
+                    <i class="fas fa-sitemap"></i>
+                    Architecture & Implementation
+                </h2>
+                <div class="project-section-content">
+                    <ul class="project-list">
+                        <li>Designed a Layer 3 multi-site network architecture interconnecting three enterprise
+                            locations.
+                        </li>
+                        <li>Implemented dynamic routing using EIGRP (AS100) to enable scalable and resilient inter-site
+                            communication.</li>
+                        <li>Segmented each site into Admin and General VLANs to reduce broadcast domains and enforce
+                            security boundaries.</li>
+                        <li>Applied inter-VLAN access control lists (ACLs) to restrict General VLAN access to sensitive
+                            administrative resources.</li>
+                        <li>Deployed centralized enterprise services (web server, TFTP backup server, and Syslog server)
+                            hosted in the Tokyo site.</li>
+                        <li>Configured extended ACLs to tightly control access to centralized services based on site and
+                            user role.</li>
+                        <li>Implemented port security on access-layer switch ports with real-time violation logging to a
+                            centralized Syslog server.</li>
+                        <li>Enabled secure remote device management using SSH.</li>
+                        <li>Configured role-based access control (RBAC) with distinct privilege levels for
+                            administrators,
+                            technicians, and interns.</li>
+                        <li>Modeled the network in Cisco Packet Tracer, then replicated and tested the design on
+                            physical
+                            networking equipment.</li>
+                    </ul>
+                </div>
+            </section>
 
-                <div class="project-gallery">
-                    <div class="project-gallery-item">
-                        <img src="../assets/images/network-topology.jpg" alt="Secure Network Topology Diagram"
-                            class="project-gallery-img" loading="lazy">
-                        <div class="project-gallery-caption">Network Topology Design</div>
-                    </div>
-                    <div class="project-gallery-item">
-                        <img src="../assets/images/eigrp-tables.png" alt="EIGRP Routing Tables"
-                            class="project-gallery-img" loading="lazy">
-                        <div class="project-gallery-caption">EIGRP Routing Configuration</div>
-                    </div>
-                    <div class="project-gallery-item">
-                        <img src="../assets/images/syslog-monitor.png" alt="Syslog Monitoring Interface"
-                            class="project-gallery-img" loading="lazy">
-                        <div class="project-gallery-caption">Centralized Syslog Monitoring</div>
+            <!-- Results Section -->
+            <section id="results" class="project-section">
+                <h2 class="project-section-title">
+                    <i class="fas fa-chart-line"></i>
+                    Results & Validation
+                </h2>
+                <div class="project-section-content">
+                    <ul class="project-list">
+                        <li>Successfully established reliable inter-site connectivity across all enterprise locations.
+                        </li>
+                        <li>Verified correct routing convergence and failover behavior using EIGRP.</li>
+                        <li>Confirmed VLAN isolation and ACL enforcement through controlled access testing.</li>
+                        <li>Validated secure access to centralized services based on user role and site location.</li>
+                        <li>Detected and logged port security violations in real time via centralized Syslog monitoring.
+                        </li>
+                        <li>Demonstrated secure and auditable remote network administration using SSH and RBAC.</li>
+                        <li>Delivered a scalable and security-focused enterprise network aligned with industry best
+                            practices.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Skills Section -->
+            <section id="skills" class="project-section">
+                <h2 class="project-section-title">
+                    <i class="fas fa-tools"></i>
+                    Skills & Technologies Used
+                </h2>
+                <div class="project-section-content">
+                    <div class="project-skills-container">
+                        <span class="project-skill-tag">Enterprise network architecture & design</span>
+                        <span class="project-skill-tag">EIGRP dynamic routing</span>
+                        <span class="project-skill-tag">VLAN segmentation & inter-VLAN routing</span>
+                        <span class="project-skill-tag">Standard & extended Access Control Lists (ACLs)</span>
+                        <span class="project-skill-tag">Port security & centralized logging (Syslog)</span>
+                        <span class="project-skill-tag">Secure remote management (SSH)</span>
+                        <span class="project-skill-tag">Role-Based Access Control (RBAC)</span>
+                        <span class="project-skill-tag">Cisco Packet Tracer</span>
+                        <span class="project-skill-tag">Physical network devices</span>
+                        <span class="project-skill-tag">Enterprise documentation & testing</span>
                     </div>
                 </div>
+            </section>
 
-                <div class="project-note">
-                    <p><strong>Note:</strong> This project implemented comprehensive enterprise network security
-                        measures following the principle of least privilege and defense-in-depth. All configurations
-                        were validated on both simulation and physical equipment to ensure real-world applicability.</p>
+            <!-- Images Section -->
+            <section id="images" class="project-section">
+                <h2 class="project-section-title">
+                    <i class="fas fa-images"></i>
+                    Project Documentation
+                </h2>
+                <div class="project-section-content">
+                    <p><em>Visual documentation of the secure network topology and security implementations.</em></p>
+
+                    <div class="project-gallery">
+                        <div class="project-gallery-item">
+                            <img src="../assets/images/network-topology.jpg" alt="Secure Network Topology Diagram"
+                                class="project-gallery-img" loading="lazy">
+                            <div class="project-gallery-caption">Network Topology Design</div>
+                        </div>
+                        <div class="project-gallery-item">
+                            <img src="../assets/images/eigrp-tables.png" alt="EIGRP Routing Tables"
+                                class="project-gallery-img" loading="lazy">
+                            <div class="project-gallery-caption">EIGRP Routing Configuration</div>
+                        </div>
+                        <div class="project-gallery-item">
+                            <img src="../assets/images/syslog-monitor.png" alt="Syslog Monitoring Interface"
+                                class="project-gallery-img" loading="lazy">
+                            <div class="project-gallery-caption">Centralized Syslog Monitoring</div>
+                        </div>
+                    </div>
+
+                    <div class="project-note">
+                        <p><strong>Note:</strong> This project implemented comprehensive enterprise network security
+                            measures following the principle of least privilege and defense-in-depth. All configurations
+                            were validated on both simulation and physical equipment to ensure real-world applicability.
+                        </p>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Navigation Footer -->
-        <div class="project-navigation">
-            <a href="multi-region-network.html" class="btn btn-secondary press-down ripple">
-                <i class="fas fa-arrow-left"></i>
-                <span>Previous Project</span>
-            </a>
-            <a href="../index.html#projects" class="btn btn-primary press-down ripple">
-                <span>Back to All Projects</span>
-                <i class="fas fa-th"></i>
-            </a>
+            <!-- Navigation Footer -->
+            <div class="project-navigation">
+                <a href="multi-region-network.html" class="btn btn-secondary press-down ripple">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Previous Project</span>
+                </a>
+                <a href="../index.html#projects" class="btn btn-primary press-down ripple">
+                    <span>Back to All Projects</span>
+                    <i class="fas fa-th"></i>
+                </a>
+            </div>
         </div>
     </main>
 
@@ -217,8 +232,10 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // Set current year
             document.getElementById('currentYear').textContent = new Date().getFullYear();
 
+            // Smooth scroll for anchor links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();

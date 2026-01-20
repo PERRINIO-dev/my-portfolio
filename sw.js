@@ -1,15 +1,17 @@
 // Service Worker for Majestor Kepseu Portfolio
-const CACHE_NAME = 'portfolio-v5.4'; // UPDATED FROM v5.3
+const CACHE_NAME = 'portfolio-v5.5'; // UPDATED PWA Fixes
 const urlsToCache = [
     '/',
     '/index.html',
     '/style.css',
-    '/animations.css', // ADDED
-    '/light-theme.css', // ADDED
+    '/animations.css',
+    '/light-theme.css',
     '/script.js',
-    '/theme-manager.js', // ADDED
-    '/lightbox.js', // ADDED
+    '/theme-manager.js',
+    '/lightbox.js',
     '/manifest.json',
+    '/assets/icon-192.png', // ADDED: PWA Icon
+    '/assets/icon-512.png', // ADDED: PWA Icon
     '/projects/project-styles.css',
     '/projects/virtualization-cluster.html',
     '/projects/exchange-server-dag.html',
@@ -21,7 +23,7 @@ const urlsToCache = [
 
 // Install event
 self.addEventListener('install', event => {
-    console.log('[Service Worker] Installing v5.3...'); // UPDATED
+    console.log('[Service Worker] Installing v5.5...'); // UPDATED
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then(cache => {
@@ -34,7 +36,7 @@ self.addEventListener('install', event => {
 
 // Activate event
 self.addEventListener('activate', event => {
-    console.log('[Service Worker] Activating v5.3...'); // UPDATED
+    console.log('[Service Worker] Activating v5.5...'); // UPDATED
     event.waitUntil(
         caches.keys().then(cacheNames => {
             return Promise.all(
