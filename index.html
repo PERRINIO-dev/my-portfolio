@@ -1,781 +1,611 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#070A0D">
-    <meta name="description" content="Majestor Kepseu - Security-Focused Network & Systems Professional Portfolio">
-    <title>Majestor Kepseu | Cloud & Security Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="animations.css">
-    <!-- Light Theme Styles -->
-    <link rel="stylesheet" href="light-theme.css">
-
-    <!-- Theme Manager Script -->
-    <script src="theme-manager.js" defer></script>
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="theme-color" content="#0a0a0f">
+    <meta name="description" content="Majestor Kepseu - Security-Focused Network & Infrastructure Engineer Portfolio">
+    <title>Majestor Kepseu | Network & Infrastructure Engineer</title>
+    
+    <!-- Premium Font Stack: Sora (Display) + DM Sans (Body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400&display=swap"
-        rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400&display=swap"
-            rel="stylesheet">
-    </noscript>
-    <!-- Preload critical resources -->
-    <link rel="preload" href="style.css" as="style">
-    <link rel="preload" href="script.js" as="script">
-    <!-- Add these lines to index.html head section -->
-    <!-- PWA Meta Tags -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="apple-mobile-web-app-title" content="MK Portfolio">
-    <link rel="apple-touch-icon" href="assets/icon-192.png">
-    <!-- Theme color for mobile browsers -->
-    <meta name="theme-color" content="#070A0D" media="(prefers-color-scheme: dark)">
-    <meta name="theme-color" content="#20D3D3" media="(prefers-color-scheme: light)">
-    <!-- Register service worker -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js');
-            });
-        }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <!-- ====== Navigation ====== -->
-    <nav class="main-nav" aria-label="Main Navigation">
-        <div class="container nav-container">
-            <a href="#" class="logo" aria-label="Home">
-                <span class="logo-text">Majestor</span>
-                <span class="logo-accent">Kepseu</span>
+    <!-- Ambient Background -->
+    <div class="ambient-bg">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+        <div class="noise-overlay"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <span class="logo-mark">MK</span>
+                <span class="logo-text">Majestor<span class="logo-accent">.</span></span>
             </a>
-
-            <!-- Hamburger Menu Button (Mobile) -->
-            <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false"
-                aria-controls="nav-links">
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
+            
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
             </button>
-
-            <!-- Navigation Links -->
-            <ul class="nav-links" id="nav-links" role="menubar">
-                <li role="none"><a href="#home" class="nav-link mobile-menu-item" role="menuitem">Home</a></li>
-                <li role="none"><a href="#about" class="nav-link mobile-menu-item" role="menuitem">About</a></li>
-                <li role="none"><a href="#experience" class="nav-link mobile-menu-item" role="menuitem">Experience</a>
+            
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#experience" class="nav-link">Experience</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#certifications" class="nav-link">Certifications</a></li>
+                <li><a href="#contact" class="nav-link nav-link-cta">Let's Talk</a></li>
+                <li>
+                    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                        <i class="fas fa-sun"></i>
+                        <span>Light</span>
+                    </button>
                 </li>
-                <li role="none"><a href="#projects" class="nav-link mobile-menu-item" role="menuitem">Projects</a></li>
-                <li role="none"><a href="#skills" class="nav-link mobile-menu-item" role="menuitem">Skills</a></li>
-                <li role="none"><a href="#education" class="nav-link mobile-menu-item" role="menuitem">Education</a>
-                </li>
-                <li role="none"><a href="#certifications" class="nav-link mobile-menu-item"
-                        role="menuitem">Certifications</a></li>
-                <li role="none"><a href="#contact" class="nav-link mobile-menu-item" role="menuitem">Contact</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- ====== Hero Section ====== -->
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-grid">
-                <!-- Social Icons (Left Column) -->
-                <div class="hero-social">
-                    <a href="https://www.linkedin.com/in/majestor-kepseu-20bb1b314" target="_blank"
-                        rel="noopener noreferrer" class="social-icon" aria-label="LinkedIn">
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-eyebrow">
+                    <span class="eyebrow-line"></span>
+                    <span class="eyebrow-text">Network & Security Professional</span>
+                </div>
+                
+                <h1 class="hero-title">
+                    Building Secure<br>
+                    <span class="title-gradient">Infrastructure</span><br>
+                    That Scales
+                </h1>
+                
+                <p class="hero-description">
+                    I'm <strong>Majestor Kepseu</strong>, a security-focused engineer with a Master's in Network Security. 
+                    I design, deploy, and protect enterprise IT environments—bridging the gap between robust infrastructure and cloud-ready security.
+                </p>
+                
+                <div class="hero-actions">
+                    <a href="#projects" class="btn btn-primary">
+                        <span>View My Work</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="assets/Majestor_Kepseu_Resume.pdf" download class="btn btn-secondary">
+                        <i class="fas fa-download"></i>
+                        <span>Download Resume</span>
+                    </a>
+                </div>
+                
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">6+</span>
+                        <span class="stat-label">Enterprise Projects</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">M.Eng</span>
+                        <span class="stat-label">Network Security</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">99.9%</span>
+                        <span class="stat-label">Infrastructure Uptime</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="portrait-wrapper">
+                    <div class="portrait-ring"></div>
+                    <div class="portrait-glow"></div>
+                    <img src="assets/profile.jpg" alt="Majestor Kepseu" class="portrait-img" loading="eager">
+                </div>
+                
+                <div class="hero-socials">
+                    <a href="https://www.linkedin.com/in/majestor-kepseu-20bb1b314" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
                         <i class="fab fa-linkedin-in"></i>
                     </a>
-                    <a href="https://github.com/PERRINIO-dev" target="_blank" rel="noopener noreferrer"
-                        class="social-icon" aria-label="GitHub">
+                    <a href="https://github.com/PERRINIO-dev" target="_blank" rel="noopener" class="social-link" aria-label="GitHub">
                         <i class="fab fa-github"></i>
                     </a>
-                    <a href="mailto:majestork@gmail.com" class="social-icon" aria-label="Email">
+                    <a href="mailto:majestork@gmail.com" class="social-link" aria-label="Email">
                         <i class="fas fa-envelope"></i>
                     </a>
                 </div>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
 
-                <!-- Portrait (Middle Column) -->
-                <div class="hero-portrait">
-                    <div class="portrait-container">
-                        <div class="portrait-ring">
-                            <div class="portrait-glow"></div>
-                            <img src="assets/profile.jpg"
-                                alt="Majestor Kepseu - Security-Focused Network & Systems Professional"
-                                class="portrait-img">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Content (Right Column) -->
-                <div class="hero-content">
-                    <div class="hero-badge">Network & Security Professional</div>
-                    <h1 class="hero-title">Hi, I'm <span class="hero-highlight">Majestor Kepseu</span></h1>
-                    <h2 class="hero-subtitle">Security-Focused Network & Systems Specialist</h2>
-                    <p class="hero-description">
-                        Leveraging a Master's degree in <strong>Network Security</strong> and hands-on training in
-                        <strong>Applied Network Infrastructure & System Administration</strong> to design, deploy, and
-                        secure
-                        modern IT environments.
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">01</span>
+                <h2 class="section-title">About Me</h2>
+            </div>
+            
+            <div class="about-grid">
+                <div class="about-content">
+                    <p class="about-lead">
+                        I'm a security-focused IT professional building toward cloud security roles, combining rigorous academic training with hands-on infrastructure experience.
                     </p>
-                    <div class="hero-actions">
-                        <a href="#projects" class="btn btn-primary press-down ripple">
-                            <span>View My Projects</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                        <a href="#contact" class="btn btn-secondary press-down ripple">
-                            <span>Get In Touch</span>
-                            <i class="fas fa-paper-plane"></i>
-                        </a>
+                    <p class="about-text">
+                        With a Master's degree in Network Security and advanced training in Applied Network Infrastructure & System Administration, I bring both theoretical depth and practical skills to every project. My work spans virtualization clusters, enterprise messaging systems, and secure network architectures.
+                    </p>
+                </div>
+                
+                <div class="about-cards">
+                    <div class="about-card">
+                        <div class="card-icon">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <h3>What Drives Me</h3>
+                        <p>A belief that robust security is the foundation of reliable and innovative IT infrastructure.</p>
+                    </div>
+                    <div class="about-card">
+                        <div class="card-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3>My Goal</h3>
+                        <p>To design and defend resilient systems in hybrid and cloud environments for forward-thinking organizations.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ====== About Section ====== -->
-    <section id="about" class="section about reveal">
+    <!-- Experience Section -->
+    <section class="section section-alt" id="experience">
         <div class="container">
-            <h2 class="section-title reveal">About Me</h2>
-            <div class="about-content reveal">
-                <div class="about-card card-lift">
-                    <p class="about-summary">
-                        I am a security-focused IT professional with a strong foundation in network security and system
-                        administration, currently building toward cloud security focused roles. My experience combines
-                        rigorous academic training with practical, hands-on infrastructure labs. I am now applying this
-                        expertise to secure modern, scalable environments.
-                    </p>
-
-                    <div class="about-motivations">
-                        <div class="motivation-item">
-                            <div class="motivation-icon">
-                                <i class="fas fa-bullseye"></i>
-                            </div>
-                            <div class="motivation-content">
-                                <h3 class="motivation-title">What drives me</h3>
-                                <p class="motivation-text">A belief that robust security is the foundation of reliable
-                                    and
-                                    innovative IT infrastructure.</p>
-                            </div>
+            <div class="section-header">
+                <span class="section-tag">02</span>
+                <h2 class="section-title">Experience</h2>
+            </div>
+            
+            <div class="experience-card">
+                <div class="exp-header">
+                    <div class="exp-company">
+                        <div class="company-logo">
+                            <i class="fas fa-broadcast-tower"></i>
                         </div>
-
-                        <div class="motivation-item">
-                            <div class="motivation-icon">
-                                <i class="fas fa-flag-checkered"></i>
-                            </div>
-                            <div class="motivation-content">
-                                <h3 class="motivation-title">My goal</h3>
-                                <p class="motivation-text">To contribute to teams that design and defend resilient
-                                    systems in
-                                    hybrid and cloud environments.</p>
-                            </div>
+                        <div class="company-info">
+                            <h3>CAMTEL</h3>
+                            <span class="company-full">Cameroon Telecommunications</span>
                         </div>
+                    </div>
+                    <div class="exp-meta">
+                        <span class="exp-role">Intern Engineer</span>
+                        <span class="exp-date">Jun – Aug 2024</span>
+                        <span class="exp-location"><i class="fas fa-map-marker-alt"></i> Yaoundé, Cameroon</span>
+                    </div>
+                </div>
+                
+                <p class="exp-summary">
+                    Gained hands-on field engineering experience at Cameroon's national telecommunications provider, contributing to physical network deployment and operational support.
+                </p>
+                
+                <div class="exp-achievements">
+                    <div class="achievement">
+                        <span class="achievement-metric">12+</span>
+                        <span class="achievement-text">On-site infrastructure surveys conducted across commercial and residential districts</span>
+                    </div>
+                    <div class="achievement">
+                        <span class="achievement-metric">8km</span>
+                        <span class="achievement-text">Fiber optic backbone connectivity installed, supporting 1,500+ endpoints</span>
+                    </div>
+                    <div class="achievement">
+                        <span class="achievement-metric">98%</span>
+                        <span class="achievement-text">Uptime maintained through network monitoring via OSS/IU200 tools</span>
+                    </div>
+                    <div class="achievement">
+                        <span class="achievement-metric">50+</span>
+                        <span class="achievement-text">Equipment units tested with documented fault reports</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ====== Professional Experience Section ====== -->
-    <section id="experience" class="section experience reveal">
+    <!-- Projects Section -->
+    <section class="section" id="projects">
         <div class="container">
-            <h2 class="section-title reveal">Professional Experience</h2>
-
-            <div class="experience-card card-lift reveal">
-                <div class="experience-header">
-                    <div class="experience-badge">Internship</div>
-                    <div class="experience-meta">
-                        <span class="experience-date">June 2024 – August 2024</span>
-                        <span class="experience-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            Biyem-Assi, Yaoundé, Cameroon
-                        </span>
-                    </div>
-                </div>
-
-                <div class="experience-content">
-                    <h3 class="experience-title">Intern Engineer</h3>
-                    <div class="experience-company">
-                        <i class="fas fa-building"></i>
-                        CAMTEL (Cameroon Telecommunications)
-                    </div>
-
-                    <p class="experience-summary">
-                        Gained hands-on field engineering experience in a national telecommunications provider,
-                        contributing to physical network deployment and operational support.
-                    </p>
-
-                    <ul class="experience-details">
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span>Conducted on-site infrastructure surveys to assess network readiness and identify
-                                deployment constraints.</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span>Participated in fiber optic cable installation and optical fiber splicing for access
-                                and backbone connectivity.</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span>Assisted in monitoring and supervising network operations using Operational Support
-                                Systems (OSS) and IU200 tools.</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span>Performed equipment diagnostics to identify operational faults and support corrective
-                                action recommendations.</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span>Supported documentation of network installations, maintenance activities, and
-                                technical reports for operational tracking.</span>
-                        </li>
-                    </ul>
-                </div>
+            <div class="section-header">
+                <span class="section-tag">03</span>
+                <h2 class="section-title">Featured Projects</h2>
+                <p class="section-subtitle">Hands-on infrastructure projects demonstrating enterprise-level solutions</p>
             </div>
-        </div>
-    </section>
-
-    <!-- ====== Projects Section ====== -->
-    <section id="projects" class="section projects reveal">
-        <div class="container">
-            <h2 class="section-title reveal">Projects</h2>
-            <p class="section-subtitle reveal">Hands-on infrastructure projects demonstrating enterprise-level security
-                and network solutions</p>
-
-            <!-- PROJECTS GRID WITH LINKS TO INDIVIDUAL PAGES -->
+            
             <div class="projects-grid">
-                <!-- Project 1: Virtualization Cluster -->
-                <a href="projects/virtualization-cluster.html" class="project-card card-lift press-down ripple reveal">
-                    <div class="project-card-header">
-                        <div class="project-card-icon">
+                <!-- Project 1 -->
+                <a href="projects/virtualization-cluster.html" class="project-card">
+                    <div class="project-image">
+                        <div class="project-icon-wrapper">
                             <i class="fas fa-server"></i>
                         </div>
-                        <div class="project-card-badge">Virtualization</div>
+                        <span class="project-category">Virtualization</span>
                     </div>
-                    <div class="project-card-img project-image-zoom">
-                        <div class="img-placeholder">VMware vSphere HA/FT Diagram</div>
+                    <div class="project-content">
+                        <h3 class="project-title">Enterprise Virtualization Cluster</h3>
+                        <p class="project-desc">VMware vSphere infrastructure with HA, Fault Tolerance, and automatic failover capabilities.</p>
+                        <div class="project-tech">
+                            <span>VMware</span>
+                            <span>vSphere</span>
+                            <span>HA/FT</span>
+                            <span>iSCSI</span>
+                        </div>
                     </div>
-                    <div class="project-card-content">
-                        <h3 class="project-card-title">Enterprise Virtualization Cluster with VMware vSphere, HA & Fault
-                            Tolerance</h3>
-                        <p class="project-card-desc">Designed and deployed a highly available enterprise virtualization
-                            infrastructure with automatic failover and continuous availability...</p>
-                        <div class="project-card-tags">
-                            <span class="project-tag">VMware</span>
-                            <span class="project-tag">HA</span>
-                            <span class="project-tag">vSphere</span>
-                        </div>
-                        <div class="project-card-hint">
-                            <span>View project details</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </div>
+                    <div class="project-arrow">
+                        <i class="fas fa-arrow-right"></i>
                     </div>
                 </a>
-
-                <!-- Project 2: Exchange Server -->
-                <a href="projects/exchange-server-dag.html" class="project-card card-lift press-down ripple reveal">
-                    <div class="project-card-header">
-                        <div class="project-card-icon">
+                
+                <!-- Project 2 -->
+                <a href="projects/exchange-server-dag.html" class="project-card">
+                    <div class="project-image">
+                        <div class="project-icon-wrapper">
                             <i class="fas fa-envelope"></i>
                         </div>
-                        <div class="project-card-badge">Messaging</div>
+                        <span class="project-category">Messaging</span>
                     </div>
-                    <div class="project-card-img project-image-zoom">
-                        <div class="img-placeholder">Exchange DAG Architecture</div>
+                    <div class="project-content">
+                        <h3 class="project-title">Exchange Server with DAG</h3>
+                        <p class="project-desc">Highly available enterprise email infrastructure with database replication and failover.</p>
+                        <div class="project-tech">
+                            <span>Exchange</span>
+                            <span>DAG</span>
+                            <span>AD</span>
+                            <span>DNS</span>
+                        </div>
                     </div>
-                    <div class="project-card-content">
-                        <h3 class="project-card-title">Microsoft Exchange Server 2019 Infrastructure with Database
-                            Availability Group (DAG)</h3>
-                        <p class="project-card-desc">Deployed a highly available enterprise email infrastructure with
-                            mailbox database replication and automatic failover capabilities...</p>
-                        <div class="project-card-tags">
-                            <span class="project-tag">Exchange</span>
-                            <span class="project-tag">DAG</span>
-                            <span class="project-tag">Active</span>
-                        </div>
-                        <div class="project-card-hint">
-                            <span>View project details</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </div>
+                    <div class="project-arrow">
+                        <i class="fas fa-arrow-right"></i>
                     </div>
                 </a>
-
-                <!-- Project 3: Network Architecture -->
-                <a href="projects/multi-region-network.html" class="project-card card-lift press-down ripple reveal">
-                    <div class="project-card-header">
-                        <div class="project-card-icon">
-                            <i class="fas fa-network-wired"></i>
+                
+                <!-- Project 3 -->
+                <a href="projects/multi-region-network.html" class="project-card">
+                    <div class="project-image">
+                        <div class="project-icon-wrapper">
+                            <i class="fas fa-globe-americas"></i>
                         </div>
-                        <div class="project-card-badge">Network Design</div>
+                        <span class="project-category">Network Design</span>
                     </div>
-                    <div class="project-card-img project-image-zoom">
-                        <div class="img-placeholder">Multi-Region Network Diagram</div>
+                    <div class="project-content">
+                        <h3 class="project-title">Multi-Region Network Architecture</h3>
+                        <p class="project-desc">Scalable enterprise network design supporting geographically distributed offices.</p>
+                        <div class="project-tech">
+                            <span>VLSM</span>
+                            <span>OSPF</span>
+                            <span>BGP</span>
+                            <span>WAN</span>
+                        </div>
                     </div>
-                    <div class="project-card-content">
-                        <h3 class="project-card-title">Multi-Region Enterprise Network Architecture & IP Addressing
-                            Strategy</h3>
-                        <p class="project-card-desc">Capstone project designing scalable multi-region enterprise network
-                            supporting geographically distributed offices across continents...</p>
-                        <div class="project-card-tags">
-                            <span class="project-tag">Network</span>
-                            <span class="project-tag">IP</span>
-                            <span class="project-tag">Design</span>
-                        </div>
-                        <div class="project-card-hint">
-                            <span>View project details</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </div>
+                    <div class="project-arrow">
+                        <i class="fas fa-arrow-right"></i>
                     </div>
                 </a>
-
-                <!-- Project 4: Secure Network -->
-                <a href="projects/secure-enterprise-network.html"
-                    class="project-card card-lift press-down ripple reveal">
-                    <div class="project-card-header">
-                        <div class="project-card-icon">
+                
+                <!-- Project 4 -->
+                <a href="projects/secure-enterprise-network.html" class="project-card">
+                    <div class="project-image">
+                        <div class="project-icon-wrapper">
                             <i class="fas fa-shield-alt"></i>
                         </div>
-                        <div class="project-card-badge">Security</div>
+                        <span class="project-category">Security</span>
                     </div>
-                    <div class="project-card-img project-image-zoom">
-                        <div class="img-placeholder">Secure Network Topology</div>
+                    <div class="project-content">
+                        <h3 class="project-title">Secure Enterprise Network</h3>
+                        <p class="project-desc">Multi-site network with VLAN segmentation, dynamic routing, and centralized monitoring.</p>
+                        <div class="project-tech">
+                            <span>VLAN</span>
+                            <span>ACL</span>
+                            <span>IDS/IPS</span>
+                            <span>EIGRP</span>
+                        </div>
                     </div>
-                    <div class="project-card-content">
-                        <h3 class="project-card-title">Multi-Site Secure Enterprise Network with Segmentation, Dynamic
-                            Routing & Centralized Services</h3>
-                        <p class="project-card-desc">Designed and deployed a secure multi-site enterprise network with
-                            VLAN segmentation, dynamic routing, and centralized security monitoring...</p>
-                        <div class="project-card-tags">
-                            <span class="project-tag">Security</span>
-                            <span class="project-tag">VLAN</span>
-                            <span class="project-tag">EIGRP</span>
-                        </div>
-                        <div class="project-card-hint">
-                            <span>View project details</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </div>
+                    <div class="project-arrow">
+                        <i class="fas fa-arrow-right"></i>
                     </div>
                 </a>
             </div>
-            <!-- REMOVED: Project detail modal section -->
         </div>
     </section>
 
-    <!-- ====== Technical Skills Section ====== -->
-    <section id="skills" class="section skills reveal">
+    <!-- Skills Section -->
+    <section class="section section-alt" id="skills">
         <div class="container">
-            <h2 class="section-title reveal">Technical Skills & Competencies</h2>
-            <p class="section-subtitle reveal">A structured overview of my hands-on technical capabilities, categorized
-                by domain.</p>
-
+            <div class="section-header">
+                <span class="section-tag">04</span>
+                <h2 class="section-title">Technical Expertise</h2>
+            </div>
+            
             <div class="skills-grid">
-                <!-- Skill Category 1 -->
-                <div class="skill-category card-lift reveal">
-                    <div class="skill-category-header">
-                        <div class="skill-category-icon">
-                            <i class="fas fa-network-wired"></i>
-                        </div>
-                        <h3 class="skill-category-title">Networking & Infrastructure</h3>
+                <div class="skill-domain">
+                    <div class="domain-header">
+                        <i class="fas fa-users-cog"></i>
+                        <h3>Identity & Access</h3>
                     </div>
                     <ul class="skill-list">
-                        <li>TCP/IP, Subnetting & IP Addressing</li>
-                        <li>Network Segmentation & Traffic Isolation</li>
-                        <li>Static and Dynamic Routing</li>
-                        <li>Inter-VLAN Routing</li>
-                        <li>Access Control & Traffic Filtering</li>
-                        <li>Multi-Site Network Design</li>
-                        <li>Secure Remote Network Management</li>
+                        <li>Active Directory (multi-domain, trusts)</li>
+                        <li>Group Policy design & delegation</li>
+                        <li>DNS & DHCP enterprise configs</li>
+                        <li>LDAP integration</li>
+                        <li>AD Certificate Services (PKI)</li>
                     </ul>
                 </div>
-
-                <!-- Skill Category 2 -->
-                <div class="skill-category card-lift reveal">
-                    <div class="skill-category-header">
-                        <div class="skill-category-icon">
-                            <i class="fas fa-server"></i>
-                        </div>
-                        <h3 class="skill-category-title">Systems & Server Administration</h3>
+                
+                <div class="skill-domain">
+                    <div class="domain-header">
+                        <i class="fas fa-layer-group"></i>
+                        <h3>Virtualization</h3>
                     </div>
                     <ul class="skill-list">
-                        <li>Windows Server Administration</li>
-                        <li>Directory Services & Identity Management</li>
-                        <li>DNS & DHCP Services</li>
-                        <li>Group Policy & Access Enforcement</li>
-                        <li>File Services & Permission Management</li>
-                        <li>Infrastructure Documentation & Operations</li>
+                        <li>VMware ESXi & vCenter</li>
+                        <li>Clusters & resource pools</li>
+                        <li>HA & Fault Tolerance</li>
+                        <li>iSCSI storage integration</li>
+                        <li>VM lifecycle management</li>
                     </ul>
                 </div>
-
-                <!-- Skill Category 3 -->
-                <div class="skill-category card-lift reveal">
-                    <div class="skill-category-header">
-                        <div class="skill-category-icon">
-                            <i class="fas fa-cloud"></i>
-                        </div>
-                        <h3 class="skill-category-title">Virtualization & High Availability</h3>
+                
+                <div class="skill-domain">
+                    <div class="domain-header">
+                        <i class="fas fa-network-wired"></i>
+                        <h3>Networking</h3>
                     </div>
                     <ul class="skill-list">
-                        <li>Server Virtualization</li>
-                        <li>Clustered Infrastructure Design</li>
-                        <li>High Availability & Fault Tolerance</li>
-                        <li>Shared Storage Architectures</li>
-                        <li>Virtual Networking</li>
+                        <li>LAN/WAN design (multi-site)</li>
+                        <li>TCP/IP, subnetting, VLSM</li>
+                        <li>VLANs & trunking</li>
+                        <li>OSPF, EIGRP, BGP</li>
+                        <li>Wireshark analysis</li>
                     </ul>
                 </div>
-
-                <!-- Skill Category 4 -->
-                <div class="skill-category card-lift reveal">
-                    <div class="skill-category-header">
-                        <div class="skill-category-icon">
-                            <i class="fas fa-exchange-alt"></i>
-                        </div>
-                        <h3 class="skill-category-title">Messaging & Collaboration</h3>
+                
+                <div class="skill-domain">
+                    <div class="domain-header">
+                        <i class="fas fa-server"></i>
+                        <h3>Systems</h3>
                     </div>
                     <ul class="skill-list">
-                        <li>Enterprise Messaging Platforms</li>
-                        <li>Mailbox & Database Management</li>
-                        <li>High Availability Messaging Architectures</li>
-                        <li>Administrative Automation & Scripting</li>
+                        <li>Windows Server 2019/2022</li>
+                        <li>Failover clustering</li>
+                        <li>Linux (Ubuntu, Rocky)</li>
+                        <li>Remote Desktop Gateway</li>
+                        <li>Cross-platform auth</li>
                     </ul>
                 </div>
-
-                <!-- Skill Category 5 -->
-                <div class="skill-category card-lift reveal">
-                    <div class="skill-category-header">
-                        <div class="skill-category-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <h3 class="skill-category-title">Security & Monitoring</h3>
+                
+                <div class="skill-domain">
+                    <div class="domain-header">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Security</h3>
                     </div>
                     <ul class="skill-list">
-                        <li>Network Hardening Principles</li>
-                        <li>Least Privilege & Access Control</li>
-                        <li>Centralized Logging & Monitoring</li>
-                        <li>Role-Based Access Control (RBAC)</li>
-                        <li>Infrastructure Security Best Practices</li>
+                        <li>Infrastructure security</li>
+                        <li>Firewalling & ACLs</li>
+                        <li>IDS/IPS (Snort)</li>
+                        <li>System hardening</li>
+                        <li>PKI & certificates</li>
                     </ul>
                 </div>
-
-                <!-- Skill Category 6 -->
-                <div class="skill-category card-lift reveal">
-                    <div class="skill-category-header">
-                        <div class="skill-category-icon">
-                            <i class="fas fa-tools"></i>
-                        </div>
-                        <h3 class="skill-category-title">Tools & Environments</h3>
+                
+                <div class="skill-domain">
+                    <div class="domain-header">
+                        <i class="fas fa-terminal"></i>
+                        <h3>Automation</h3>
                     </div>
                     <ul class="skill-list">
-                        <li>Network Simulation & Modeling Tools</li>
-                        <li>Virtualization Platforms</li>
-                        <li>Physical & Virtual Lab Environments</li>
-                        <li>Scripting & Automation Tools</li>
-                        <li>Version Control & Documentation Tools</li>
+                        <li>PowerShell scripting</li>
+                        <li>Infrastructure automation</li>
+                        <li>Apache Guacamole</li>
+                        <li>Apache HTTP Server</li>
+                        <li>Git & GitHub</li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ====== Education Section ====== -->
-    <section id="education" class="section education reveal">
+    <!-- Education Section -->
+    <section class="section" id="education">
         <div class="container">
-            <h2 class="section-title reveal">Education</h2>
-
+            <div class="section-header">
+                <span class="section-tag">05</span>
+                <h2 class="section-title">Education</h2>
+            </div>
+            
             <div class="education-timeline">
-                <!-- Education Item 1 -->
-                <div class="education-item reveal">
-                    <div class="education-card card-lift">
-                        <div class="education-header">
-                            <div class="education-badge">Graduate Certificate</div>
-                            <div class="education-date">2025</div>
-                        </div>
-                        <h3 class="education-degree">Applied Network Infrastructure & System Administration</h3>
-                        <div class="education-school">
-                            <i class="fas fa-university"></i>
-                            Conestoga College — Kitchener, Canada
-                        </div>
-                        <div class="education-description">
-                            Advanced training in enterprise network design, system administration, and infrastructure
-                            security.
-                        </div>
+                <div class="timeline-line"></div>
+                
+                <div class="edu-item">
+                    <div class="edu-marker">
+                        <span class="edu-year">2025</span>
+                    </div>
+                    <div class="edu-card">
+                        <span class="edu-type">Graduate Certificate</span>
+                        <h3>Applied Network Infrastructure & System Administration</h3>
+                        <p class="edu-school"><i class="fas fa-university"></i> Conestoga College — Kitchener, Canada</p>
+                        <p class="edu-desc">Advanced training in enterprise infrastructure, virtualization, and systems administration.</p>
                     </div>
                 </div>
-
-                <!-- Education Item 2 -->
-                <div class="education-item reveal">
-                    <div class="education-card card-lift">
-                        <div class="education-header">
-                            <div class="education-badge">Master of Engineering</div>
-                            <div class="education-date">2024</div>
-                        </div>
-                        <h3 class="education-degree">Network Security</h3>
-                        <div class="education-school">
-                            <i class="fas fa-university"></i>
-                            SUP'PTIC — Yaoundé, Cameroon
-                        </div>
-                        <div class="education-description">
-                            Specialized graduate program focusing on network security protocols, cryptographic systems,
-                            and secure infrastructure design.
-                        </div>
+                
+                <div class="edu-item">
+                    <div class="edu-marker">
+                        <span class="edu-year">2024</span>
+                    </div>
+                    <div class="edu-card">
+                        <span class="edu-type">Master of Engineering</span>
+                        <h3>Network Security</h3>
+                        <p class="edu-school"><i class="fas fa-university"></i> SUP'PTIC — Yaoundé, Cameroon</p>
+                        <p class="edu-desc">Comprehensive study of network security, cryptography, and secure system design.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ====== Certifications Section ====== -->
-    <section id="certifications" class="section certifications reveal">
+    <!-- Certifications Section -->
+    <section class="section section-alt" id="certifications">
         <div class="container">
-            <h2 class="section-title reveal">Certification Roadmap</h2>
-            <p class="section-subtitle reveal">A structured path of industry-recognized credentials I am actively
-                pursuing to deepen my expertise in cloud and network security.</p>
-
-            <div class="certifications-grid">
-                <!-- Certification Card 1 -->
-                <div class="certification-card card-lift reveal" data-status="in-progress">
-                    <div class="certification-header">
-                        <div class="certification-icon">
-                            <i class="fab fa-cisco"></i>
-                        </div>
-                        <div class="certification-status">In Progress</div>
-                    </div>
-                    <h3 class="certification-title">Cisco CCNA</h3>
-                    <p class="certification-desc">Cisco Certified Network Associate – Foundational networking
-                        certification covering routing, switching, and network basics.</p>
+            <div class="section-header">
+                <span class="section-tag">06</span>
+                <h2 class="section-title">Certification Roadmap</h2>
+            </div>
+            
+            <div class="cert-grid">
+                <div class="cert-card cert-active">
+                    <div class="cert-status">In Progress</div>
+                    <div class="cert-icon"><i class="fab fa-cisco"></i></div>
+                    <h3>Cisco CCNA</h3>
+                    <p>Foundational networking certification covering routing, switching, and network fundamentals.</p>
                 </div>
-
-                <!-- Certification Card 2 -->
-                <div class="certification-card card-lift reveal" data-status="planned">
-                    <div class="certification-header">
-                        <div class="certification-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <div class="certification-status">Planned</div>
-                    </div>
-                    <h3 class="certification-title">CompTIA Security+</h3>
-                    <p class="certification-desc">Global benchmark for core cybersecurity skills, risk management, and
-                        threat mitigation.</p>
+                
+                <div class="cert-card">
+                    <div class="cert-status">Planned</div>
+                    <div class="cert-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>CompTIA Security+</h3>
+                    <p>Core cybersecurity skills, risk management, and threat mitigation techniques.</p>
                 </div>
-
-                <!-- Certification Card 3 -->
-                <div class="certification-card card-lift reveal" data-status="planned">
-                    <div class="certification-header">
-                        <div class="certification-icon">
-                            <i class="fab fa-microsoft"></i>
-                        </div>
-                        <div class="certification-status">Planned</div>
-                    </div>
-                    <h3 class="certification-title">Microsoft Azure Fundamentals (AZ-900)</h3>
-                    <p class="certification-desc">Foundational understanding of cloud concepts, Azure services,
-                        security, privacy, and pricing.</p>
+                
+                <div class="cert-card">
+                    <div class="cert-status">Planned</div>
+                    <div class="cert-icon"><i class="fab fa-microsoft"></i></div>
+                    <h3>AZ-900</h3>
+                    <p>Azure Fundamentals — cloud concepts, services, security, and pricing.</p>
                 </div>
-
-                <!-- Certification Card 4 -->
-                <div class="certification-card card-lift reveal" data-status="planned">
-                    <div class="certification-header">
-                        <div class="certification-icon">
-                            <i class="fab fa-microsoft"></i>
-                        </div>
-                        <div class="certification-status">Planned</div>
-                    </div>
-                    <h3 class="certification-title">Microsoft Azure Security Engineer (AZ-500)</h3>
-                    <p class="certification-desc">Implement security controls, threat protection, identity management,
-                        and data security in Azure.</p>
+                
+                <div class="cert-card">
+                    <div class="cert-status">Planned</div>
+                    <div class="cert-icon"><i class="fab fa-microsoft"></i></div>
+                    <h3>AZ-104</h3>
+                    <p>Azure Administrator — managing subscriptions, identities, storage, and compute.</p>
                 </div>
-
-                <!-- Certification Card 5 -->
-                <div class="certification-card card-lift reveal" data-status="planned">
-                    <div class="certification-header">
-                        <div class="certification-icon">
-                            <i class="fab fa-microsoft"></i>
-                        </div>
-                        <div class="certification-status">Planned</div>
-                    </div>
-                    <h3 class="certification-title">Microsoft Security Operations Analyst (SC-200)</h3>
-                    <p class="certification-desc">Mitigate threats using Microsoft security, compliance, and identity
-                        solutions across environments.</p>
+                
+                <div class="cert-card">
+                    <div class="cert-status">Planned</div>
+                    <div class="cert-icon"><i class="fab fa-microsoft"></i></div>
+                    <h3>AZ-500</h3>
+                    <p>Azure Security Engineer — security controls, threat protection, and identity management.</p>
                 </div>
-
-                <!-- Certification Card 6 -->
-                <div class="certification-card card-lift reveal" data-status="planned">
-                    <div class="certification-header">
-                        <div class="certification-icon">
-                            <i class="fab fa-cisco"></i>
-                        </div>
-                        <div class="certification-status">Planned</div>
-                    </div>
-                    <h3 class="certification-title">Cisco CCNP</h3>
-                    <p class="certification-desc">Advanced-level enterprise networking certification focusing on
-                        implementation and troubleshooting.</p>
+                
+                <div class="cert-card">
+                    <div class="cert-status">Planned</div>
+                    <div class="cert-icon"><i class="fas fa-cube"></i></div>
+                    <h3>HashiCorp Terraform</h3>
+                    <p>Infrastructure as Code — provisioning and managing cloud resources with Terraform.</p>
                 </div>
-
-                <!-- Certification Card 7 -->
-                <div class="certification-card card-lift reveal" data-status="later">
-                    <div class="certification-header">
-                        <div class="certification-icon">
-                            <i class="fas fa-graduation-cap"></i>
-                        </div>
-                        <div class="certification-status">Later</div>
-                    </div>
-                    <h3 class="certification-title">Certified Information Systems Security Professional (CISSP)</h3>
-                    <p class="certification-desc">Advanced, experience-based certification in information security and
-                        risk management.</p>
+                
+                <div class="cert-card">
+                    <div class="cert-status">Later</div>
+                    <div class="cert-icon"><i class="fas fa-cloud"></i></div>
+                    <h3>CCSP</h3>
+                    <p>Certified Cloud Security Professional — advanced cloud security architecture and design.</p>
+                </div>
+                
+                <div class="cert-card">
+                    <div class="cert-status">Later</div>
+                    <div class="cert-icon"><i class="fas fa-award"></i></div>
+                    <h3>CISSP</h3>
+                    <p>Advanced certification in information security leadership and risk management.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ====== Contact Section ====== -->
-    <section id="contact" class="section contact reveal">
+    <!-- Contact Section -->
+    <section class="section" id="contact">
         <div class="container">
-            <h2 class="section-title reveal">Get In Touch</h2>
-            <p class="section-subtitle reveal">Send a message directly or connect with me through any platform below.
-            </p>
-
-            <div class="contact-card card-lift reveal">
-                <div class="contact-grid">
-                    <!-- LEFT COLUMN: CONTACT FORM -->
-                    <div class="contact-form-section">
-                        <div class="contact-form-header">
-                            <i class="fas fa-paper-plane"></i>
-                            <h3>Send a Message</h3>
+            <div class="section-header section-header-center">
+                <span class="section-tag">07</span>
+                <h2 class="section-title">Let's Connect</h2>
+                <p class="section-subtitle">Interested in working together? I'd love to hear from you.</p>
+            </div>
+            
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <span class="contact-label">Email</span>
+                            <a href="mailto:majestork@gmail.com">majestork@gmail.com</a>
                         </div>
-                        <form id="contact-form" action="https://formspree.io/f/mbdrzrbq" method="POST">
-                            <div class="form-group form-field">
-                                <label for="name" class="input-label">
-                                    <i class="fas fa-user"></i>
-                                    Your Name
-                                </label>
-                                <input type="text" id="name" name="name" required placeholder="Enter your name">
-                            </div>
-                            <div class="form-group form-field">
-                                <label for="email" class="input-label">
-                                    <i class="fas fa-envelope"></i>
-                                    Your Email
-                                </label>
-                                <input type="email" id="email" name="email" required
-                                    placeholder="Enter your email address">
-                            </div>
-                            <div class="form-group form-field">
-                                <label for="message" class="input-label">
-                                    <i class="fas fa-comment-alt"></i>
-                                    Your Message
-                                </label>
-                                <textarea id="message" name="message" rows="5" required
-                                    placeholder="Hi Majestor, I'd like to discuss..."></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-submit press-down ripple">
-                                <span>Send Message</span>
-                                <i class="fas fa-paper-plane"></i>
-                            </button>
-                            <div id="form-status" class="form-status"></div>
-                        </form>
                     </div>
-
-                    <!-- RIGHT COLUMN: DIRECT CONTACT -->
-                    <div class="contact-info-section">
-                        <div class="contact-info-header">
-                            <i class="fas fa-address-card"></i>
-                            <h3>Direct Contact</h3>
+                    <div class="contact-card">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <span class="contact-label">Phone</span>
+                            <a href="tel:+15194972756">+1 (519) 497-2756</a>
                         </div>
-
-                        <div class="contact-methods">
-                            <!-- Email -->
-                            <a href="mailto:majestork@gmail.com" class="contact-method ripple">
-                                <div class="contact-icon">
-                                    <i class="fas fa-envelope"></i>
-                                </div>
-                                <div class="contact-text">
-                                    <strong>Email</strong>
-                                    <span>majestork@gmail.com</span>
-                                </div>
-                            </a>
-
-                            <!-- LinkedIn -->
-                            <a href="https://www.linkedin.com/in/majestor-kepseu-20bb1b314" target="_blank"
-                                rel="noopener noreferrer" class="contact-method ripple">
-                                <div class="contact-icon">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </div>
-                                <div class="contact-text">
-                                    <strong>LinkedIn</strong>
-                                    <span>@majestor-kepseu</span>
-                                </div>
-                            </a>
-
-                            <!-- GitHub -->
-                            <a href="https://github.com/PERRINIO-dev" target="_blank" rel="noopener noreferrer"
-                                class="contact-method ripple">
-                                <div class="contact-icon">
-                                    <i class="fab fa-github"></i>
-                                </div>
-                                <div class="contact-text">
-                                    <strong>GitHub</strong>
-                                    <span>@PERRINIO-dev</span>
-                                </div>
-                            </a>
-
-                            <!-- Phone -->
-                            <a href="tel:+15194972756" class="contact-method ripple">
-                                <div class="contact-icon">
-                                    <i class="fas fa-phone"></i>
-                                </div>
-                                <div class="contact-text">
-                                    <strong>Phone</strong>
-                                    <span>+1 (519) 497 2756</span>
-                                </div>
-                            </a>
-
-                            <!-- WhatsApp -->
-                            <a href="https://wa.me/13828892553" target="_blank" rel="noopener noreferrer"
-                                class="contact-method ripple">
-                                <div class="contact-icon">
-                                    <i class="fab fa-whatsapp"></i>
-                                </div>
-                                <div class="contact-text">
-                                    <strong>WhatsApp</strong>
-                                    <span>+1 (382) 889 2553</span>
-                                </div>
-                            </a>
+                    </div>
+                    <div class="contact-card">
+                        <i class="fab fa-linkedin-in"></i>
+                        <div>
+                            <span class="contact-label">LinkedIn</span>
+                            <a href="https://www.linkedin.com/in/majestor-kepseu-20bb1b314" target="_blank">@majestor-kepseu</a>
                         </div>
-
-                        <div class="contact-note">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <div>
-                                <strong>Based in Canada</strong>
-                                <span>Open to hybrid/remote opportunities across North America</span>
-                            </div>
+                    </div>
+                    <div class="contact-card">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <span class="contact-label">Location</span>
+                            <span>Ontario, Canada</span>
                         </div>
                     </div>
                 </div>
+                
+                <form class="contact-form" id="contact-form" action="https://formspree.io/f/mbdrzrbq" method="POST">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required placeholder="Your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required placeholder="Tell me about your project or opportunity..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <span>Send Message</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                    <div class="form-status" id="form-status"></div>
+                </form>
             </div>
         </div>
     </section>
 
-    <!-- ====== Footer ====== -->
-    <footer class="site-footer">
+    <!-- Footer -->
+    <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-logo">
-                    <span class="logo-text">Majestor</span>
-                    <span class="logo-accent">Kepseu</span>
+                <div class="footer-brand">
+                    <span class="footer-logo">Majestor<span class="footer-accent">.</span></span>
+                    <span class="footer-name">Kepseu</span>
                 </div>
-                <p class="footer-copyright">© <span id="currentYear"></span> Majestor Perrincio Kaptue Kepseu. All
-                    rights reserved.</p>
-                <p class="footer-tech">
-                    <i class="fas fa-code"></i>
-                    Portfolio built with HTML, CSS & JavaScript
-                    <span class="separator">•</span>
-                    <i class="fas fa-cloud"></i>
-                    Hosted on GitHub Pages
-                </p>
+                <p class="footer-tagline">Network & Infrastructure Engineer · Aspiring Cloud Security Engineer</p>
+                <div class="footer-divider"></div>
+                <p class="footer-copyright">© <span id="year"></span> Majestor Perrincio Kaptue Kepseu. All rights reserved.</p>
             </div>
         </div>
     </footer>

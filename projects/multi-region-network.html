@@ -1,251 +1,176 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#070A0D">
-    <meta name="description"
-        content="Multi-Region Enterprise Network Architecture & IP Addressing Strategy - Majestor Kepseu">
-    <title>Multi-Region Network Project | Majestor Kepseu</title>
-
-    <!-- Core Styles & Theme -->
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="../light-theme.css">
-    <link rel="stylesheet" href="../animations.css">
-    <link rel="stylesheet" href="project-styles.css">
-
-    <!-- Theme Manager -->
-    <script src="../theme-manager.js" defer></script>
-    <script src="../lightbox.js" defer></script>
-
-    <!-- Font Awesome & Fonts -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Multi-Region Network | Majestor Kepseu</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400&display=swap"
-        rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400&display=swap"
-            rel="stylesheet">
-    </noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../project-styles.css">
 </head>
 
 <body>
-    <!-- Project Navigation Header -->
-    <header class="project-page-header">
+    <div class="ambient-bg"></div>
+
+    <nav class="project-nav">
         <div class="project-nav-container">
-            <a href="../index.html#projects" class="project-back-btn">
+            <a href="../index.html" class="back-btn">
                 <i class="fas fa-arrow-left"></i>
-                <span>Back to Projects</span>
+                <span>Back to Portfolio</span>
             </a>
-            <a href="../index.html" class="project-home-btn">
-                <span>Majestor</span>
-                <span>Kepseu</span>
+            <a href="../index.html" class="nav-logo">
+                <span class="logo-mark">MK</span>
+                <span>Majestor<span class="logo-accent">.</span></span>
             </a>
         </div>
-    </header>
+    </nav>
 
-    <!-- Project Hero Section -->
     <section class="project-hero">
-        <div class="container">
-            <div class="project-hero-content">
-                <div class="project-hero-badge">
-                    <i class="fas fa-network-wired"></i>
-                    Network Design & Architecture
-                </div>
-                <h1 class="project-hero-title">Multi-Region Enterprise Network Architecture & IP Addressing Strategy
-                </h1>
-                <p class="project-hero-subtitle">Capstone project designing scalable multi-region enterprise network
-                    supporting geographically distributed offices across continents.</p>
+        <div class="project-hero-container">
+            <div class="project-category">
+                <i class="fas fa-globe-americas"></i>
+                <span>Network Design</span>
+            </div>
+            
+            <h1 class="project-title">Multi-Region Enterprise Network Architecture & IP Strategy</h1>
+            
+            <p class="project-subtitle">
+                Capstone project designing a scalable multi-region enterprise network supporting geographically 
+                distributed offices across North America, Europe, and Asia-Pacific with optimized routing.
+            </p>
+            
+            <div class="tech-stack">
+                <span class="tech-tag"><i class="fas fa-network-wired"></i> VLSM</span>
+                <span class="tech-tag"><i class="fas fa-route"></i> OSPF</span>
+                <span class="tech-tag"><i class="fas fa-globe"></i> BGP</span>
+                <span class="tech-tag"><i class="fas fa-sitemap"></i> WAN Design</span>
+                <span class="tech-tag"><i class="fas fa-calculator"></i> IP Planning</span>
             </div>
         </div>
     </section>
 
-    <!-- Project Content -->
     <main class="project-content">
-        <div class="container">
-            <!-- Overview Section -->
-            <section id="overview" class="project-section">
-                <h2 class="project-section-title">
-                    <i class="fas fa-eye"></i>
-                    Project Overview
-                </h2>
-                <div class="project-section-content">
-                    <p>The objective of this capstone project was to design and model a scalable, multi-region
-                        enterprise
-                        network supporting geographically distributed offices. The environment simulated corporate sites
-                        in
-                        North America and Asia, focusing on hardware selection, IP addressing strategy, site
-                        connectivity,
-                        and infrastructure scalability.</p>
-
-                    <p>This project demonstrates enterprise network planning and architecture capabilities, focusing on
-                        scalability, interoperability, and future growth considerations for global organizations.</p>
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-sitemap"></i> Network Topology</h2>
+            <div class="architecture-image">
+                <div class="architecture-placeholder">
+                    <i class="fas fa-globe-americas"></i>
+                    <span>Multi-region network topology</span>
+                    <small>Add your network diagram screenshot here</small>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- Architecture Section -->
-            <section id="architecture" class="project-section">
-                <h2 class="project-section-title">
-                    <i class="fas fa-sitemap"></i>
-                    Architecture & Implementation
-                </h2>
-                <div class="project-section-content">
-                    <ul class="project-list">
-                        <li>Designed a multi-site enterprise network architecture connecting regional offices across
-                            different geographic locations.</li>
-                        <li>Evaluated and selected end-user workstation models tailored to office staff and software
-                            development workloads.</li>
-                        <li>Recommended enterprise-grade server hardware optimized for virtualization and infrastructure
-                            services.</li>
-                        <li>Designed a virtualized infrastructure model suitable for hosting server workloads at each
-                            site.
-                        </li>
-                        <li>Developed a structured IP addressing scheme based on organizational size, scalability, and
-                            regional segmentation.</li>
-                        <li>Selected appropriate IP address classes and subnetting strategies to support future growth.
-                        </li>
-                        <li>Planned inter-site connectivity to ensure reliable communication between regions.</li>
-                        <li>Executed the design within a vSphere-based academic environment, collaborating remotely with
-                            team members on shared virtual infrastructure.</li>
-                    </ul>
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-star"></i> Design Highlights</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-calculator"></i></div>
+                    <h3>VLSM IP Scheme</h3>
+                    <p>Efficient IP address allocation using Variable Length Subnet Masking for optimal address utilization.</p>
                 </div>
-            </section>
-
-            <!-- Results Section -->
-            <section id="results" class="project-section">
-                <h2 class="project-section-title">
-                    <i class="fas fa-chart-line"></i>
-                    Results & Validation
-                </h2>
-                <div class="project-section-content">
-                    <ul class="project-list">
-                        <li>Delivered a complete end-to-end network design addressing compute, network, and server
-                            infrastructure needs.</li>
-                        <li>Produced a scalable IP addressing plan that supports expansion without re-architecting.</li>
-                        <li>Demonstrated effective capacity planning for both user devices and server workloads.</li>
-                        <li>Validated connectivity and interoperability between regional office environments.</li>
-                        <li>Successfully collaborated in a distributed team environment, simulating real enterprise
-                            project
-                            workflows.</li>
-                    </ul>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-route"></i></div>
+                    <h3>Hierarchical Routing</h3>
+                    <p>OSPF areas for intra-region routing with BGP for inter-region and internet connectivity.</p>
                 </div>
-            </section>
-
-            <!-- Skills Section -->
-            <section id="skills" class="project-section">
-                <h2 class="project-section-title">
-                    <i class="fas fa-tools"></i>
-                    Skills & Technologies Used
-                </h2>
-                <div class="project-section-content">
-                    <div class="project-skills-container">
-                        <span class="project-skill-tag">Enterprise network design & planning</span>
-                        <span class="project-skill-tag">IP addressing & subnetting</span>
-                        <span class="project-skill-tag">Multi-site infrastructure architecture</span>
-                        <span class="project-skill-tag">Virtualization-ready server design</span>
-                        <span class="project-skill-tag">Capacity planning & hardware evaluation</span>
-                        <span class="project-skill-tag">vSphere-based lab environments</span>
-                        <span class="project-skill-tag">Technical documentation</span>
-                        <span class="project-skill-tag">Team collaboration</span>
-                    </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-expand-arrows-alt"></i></div>
+                    <h3>Scalability</h3>
+                    <p>Design accommodates 50% growth with reserved address space and modular architecture.</p>
                 </div>
-            </section>
-
-            <!-- Images Section -->
-            <section id="images" class="project-section">
-                <h2 class="project-section-title">
-                    <i class="fas fa-images"></i>
-                    Project Documentation
-                </h2>
-                <div class="project-section-content">
-                    <p><em>Visual documentation of the network architecture design and implementation planning.</em></p>
-
-                    <div class="project-gallery">
-                        <div class="project-gallery-item">
-                            <img src="../assets/images/network-architecture-diagram.png"
-                                alt="Multi-Region Network Architecture Diagram" class="project-gallery-img"
-                                loading="lazy">
-                            <div class="project-gallery-caption">Network Architecture Diagram</div>
-                        </div>
-                        <div class="project-gallery-item">
-                            <img src="../assets/images/ip-addressing-plan.jpg" alt="IP Addressing Scheme Documentation"
-                                class="project-gallery-img" loading="lazy">
-                            <div class="project-gallery-caption">IP Addressing Plan</div>
-                        </div>
-                        <div class="project-gallery-item">
-                            <img src="../assets/images/team-collab-screen.png" alt="Team Collaboration Screenshot"
-                                class="project-gallery-img" loading="lazy">
-                            <div class="project-gallery-caption">Team Collaboration</div>
-                        </div>
-                    </div>
-
-                    <div class="project-note">
-                        <p><strong>Note:</strong> This capstone project required comprehensive network design skills
-                            including hardware selection, IP planning, and collaborative team execution. The design
-                            followed
-                            industry best practices for scalability and future growth.</p>
-                    </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-random"></i></div>
+                    <h3>Redundancy</h3>
+                    <p>Dual WAN links per region with automatic failover and load balancing capabilities.</p>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- Navigation Footer -->
-            <div class="project-navigation">
-                <a href="exchange-server-dag.html" class="btn btn-secondary press-down ripple">
-                    <i class="fas fa-arrow-left"></i>
-                    <span>Previous Project</span>
-                </a>
-                <a href="secure-enterprise-network.html" class="btn btn-primary press-down ripple">
-                    <span>Next Project</span>
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-map"></i> Regional Overview</h2>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Region</th>
+                            <th>Headquarters</th>
+                            <th>Sites</th>
+                            <th>Address Block</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>North America</td>
+                            <td>New York</td>
+                            <td>5 offices</td>
+                            <td>10.10.0.0/16</td>
+                        </tr>
+                        <tr>
+                            <td>Europe</td>
+                            <td>London</td>
+                            <td>4 offices</td>
+                            <td>10.20.0.0/16</td>
+                        </tr>
+                        <tr>
+                            <td>Asia-Pacific</td>
+                            <td>Singapore</td>
+                            <td>3 offices</td>
+                            <td>10.30.0.0/16</td>
+                        </tr>
+                        <tr>
+                            <td>Global Services</td>
+                            <td>Cloud DC</td>
+                            <td>2 DCs</td>
+                            <td>10.100.0.0/16</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-cogs"></i> Technical Implementation</h2>
+            <ul class="content-list">
+                <li>Developed comprehensive IP addressing scheme using VLSM for 12 sites across 3 continents</li>
+                <li>Designed OSPF multi-area topology with Area 0 backbone connecting regional areas</li>
+                <li>Configured BGP peering for WAN connectivity with ISP redundancy</li>
+                <li>Created route summarization strategy to minimize routing table size</li>
+                <li>Documented addressing standards and naming conventions for operations team</li>
+                <li>Planned growth capacity for future site additions and departmental expansion</li>
+            </ul>
+        </section>
+
+        <section class="project-cta">
+            <h2 class="cta-title">Explore More Projects</h2>
+            <div class="cta-buttons">
+                <a href="secure-enterprise-network.html" class="btn btn-primary">
+                    <span>Next: Secure Network</span>
                     <i class="fas fa-arrow-right"></i>
                 </a>
+                <a href="../index.html#projects" class="btn btn-secondary">
+                    <i class="fas fa-th-large"></i>
+                    <span>All Projects</span>
+                </a>
             </div>
-        </div>
+        </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="site-footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <span class="logo-text">Majestor</span>
-                    <span class="logo-accent">Kepseu</span>
-                </div>
-                <p class="footer-copyright">© <span id="currentYear"></span> Majestor Perrincio Kaptue Kepseu. All
-                    rights reserved.</p>
-                <p class="footer-tech">
-                    <i class="fas fa-code"></i>
-                    Portfolio built with HTML, CSS & JavaScript
-                    <span class="separator">•</span>
-                    <i class="fas fa-cloud"></i>
-                    Hosted on GitHub Pages
-                </p>
-            </div>
-        </div>
+    <footer class="project-footer">
+        <p>© <span id="year"></span> Majestor Kepseu. All rights reserved.</p>
     </footer>
 
+    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Set current year
-            document.getElementById('currentYear').textContent = new Date().getFullYear();
-
-            // Smooth scroll for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
-        });
+        // Theme persistence across pages
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
     </script>
 </body>
 

@@ -1,262 +1,172 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#070A0D">
-    <meta name="description"
-        content="Microsoft Exchange Server 2019 Infrastructure with Database Availability Group (DAG) - Majestor Kepseu">
-    <title>Exchange Server DAG Project | Majestor Kepseu</title>
-
-    <!-- Core Styles & Theme -->
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="../light-theme.css">
-    <link rel="stylesheet" href="../animations.css">
-    <link rel="stylesheet" href="project-styles.css">
-
-    <!-- Theme Manager -->
-    <script src="../theme-manager.js" defer></script>
-    <script src="../lightbox.js" defer></script>
-
-    <!-- NEW: Lightbox JavaScript -->
-
-    <!-- Font Awesome & Fonts -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Exchange Server DAG | Majestor Kepseu</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400&display=swap"
-        rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400&display=swap"
-            rel="stylesheet">
-    </noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../project-styles.css">
 </head>
 
 <body>
-    <!-- Project Navigation Header -->
-    <header class="project-page-header">
+    <div class="ambient-bg"></div>
+
+    <nav class="project-nav">
         <div class="project-nav-container">
-            <a href="../index.html#projects" class="project-back-btn">
+            <a href="../index.html" class="back-btn">
                 <i class="fas fa-arrow-left"></i>
-                <span>Back to Projects</span>
+                <span>Back to Portfolio</span>
             </a>
-            <!-- Project Navigation Header -->
-            <a href="../index.html" class="project-home-btn">
-                <span>Majestor</span>
-                <span>Kepseu</span>
+            <a href="../index.html" class="nav-logo">
+                <span class="logo-mark">MK</span>
+                <span>Majestor<span class="logo-accent">.</span></span>
             </a>
         </div>
-    </header>
+    </nav>
 
-    <!-- Project Hero Section -->
     <section class="project-hero">
-        <div class="container">
-            <div class="project-hero-content">
-                <div class="project-hero-badge">
-                    <i class="fas fa-envelope"></i>
-                    Messaging & Collaboration
-                </div>
-                <h1 class="project-hero-title">Microsoft Exchange Server 2019 Infrastructure with Database Availability
-                    Group (DAG)</h1>
-                <p class="project-hero-subtitle">Designed and deployed a highly available enterprise email
-                    infrastructure with mailbox database replication and automatic failover capabilities.</p>
+        <div class="project-hero-container">
+            <div class="project-category">
+                <i class="fas fa-envelope"></i>
+                <span>Enterprise Messaging</span>
+            </div>
+            
+            <h1 class="project-title">Microsoft Exchange Server 2019 with Database Availability Group</h1>
+            
+            <p class="project-subtitle">
+                Deployed a highly available enterprise email infrastructure with mailbox database replication, 
+                automatic failover, and integrated Active Directory authentication.
+            </p>
+            
+            <div class="tech-stack">
+                <span class="tech-tag"><i class="fab fa-microsoft"></i> Exchange 2019</span>
+                <span class="tech-tag"><i class="fas fa-database"></i> DAG</span>
+                <span class="tech-tag"><i class="fas fa-server"></i> Active Directory</span>
+                <span class="tech-tag"><i class="fas fa-network-wired"></i> DNS/MX</span>
+                <span class="tech-tag"><i class="fas fa-certificate"></i> SSL/TLS</span>
             </div>
         </div>
     </section>
 
-    <!-- Project Content -->
     <main class="project-content">
-        <div class="container">
-            <!-- Overview Section -->
-            <section id="overview" class="project-section">
-                <h2 class="project-section-title">
-                    <i class="fas fa-eye"></i>
-                    Project Overview
-                </h2>
-                <div class="project-section-content">
-                    <p>The objective of this project was to design, deploy, and validate a highly available enterprise
-                        email infrastructure using Microsoft Exchange Server 2019. The environment was built to support
-                        secure messaging, centralized administration, and high availability through the implementation
-                        of
-                        a Database Availability Group (DAG).</p>
-
-                    <p>This project demonstrates comprehensive enterprise messaging capabilities, focusing on
-                        resilience,
-                        scalability, and secure collaboration for modern business environments.</p>
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-sitemap"></i> Architecture Overview</h2>
+            <div class="architecture-image">
+                <div class="architecture-placeholder">
+                    <i class="fas fa-envelope-open-text"></i>
+                    <span>Exchange DAG architecture diagram</span>
+                    <small>Add your Exchange topology screenshot here</small>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- Architecture Section -->
-            <section id="architecture" class="project-section">
-                <h2 class="project-section-title">
-                    <i class="fas fa-sitemap"></i>
-                    Architecture & Implementation
-                </h2>
-                <div class="project-section-content">
-                    <ul class="project-list">
-                        <li>Deployed a Windows Server–based Active Directory domain with integrated DNS services.</li>
-                        <li>Designed and implemented a structured Organizational Unit (OU) hierarchy following best
-                            practices.</li>
-                        <li>Created and managed users, security groups, and service accounts for Exchange
-                            administration.
-                        </li>
-                        <li>Installed and configured Microsoft Exchange Server 2019 on multiple member servers.</li>
-                        <li>Configured DHCP services to support dynamic client addressing within the environment.</li>
-                        <li>Implemented department-based file shares with access control enforced through Group Policy
-                            Objects (GPOs).</li>
-                        <li>Created and mounted custom mailbox databases across Exchange servers.</li>
-                        <li>Configured mailboxes, shared mailboxes, resource mailboxes, and distribution groups using
-                            the
-                            Exchange Admin Center (EAC).</li>
-                        <li>Performed Exchange administration using PowerShell, including mailbox and group creation.
-                        </li>
-                        <li>Implemented a Database Availability Group (DAG) with mailbox database replication and
-                            failover
-                            capabilities.</li>
-                        <li>Configured a witness server to support DAG quorum and resiliency.</li>
-                    </ul>
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-star"></i> Key Features</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-sync-alt"></i></div>
+                    <h3>Database Availability Group</h3>
+                    <p>Multi-server mailbox database replication with automatic failover for continuous mail access.</p>
                 </div>
-            </section>
-
-            <!-- Results Section -->
-            <section id="results" class="project-section">
-                <h2 class="project-section-title">
-                    <i class="fas fa-chart-line"></i>
-                    Results & Validation
-                </h2>
-                <div class="project-section-content">
-                    <ul class="project-list">
-                        <li>Successfully validated mail flow between users across different departments.</li>
-                        <li>Confirmed correct functionality of shared mailboxes, resource booking, and distribution
-                            groups.</li>
-                        <li>Verified mailbox database replication between Exchange servers.</li>
-                        <li>Tested DAG failover to ensure mailbox availability during simulated server outages.</li>
-                        <li>Achieved a resilient and fault-tolerant enterprise email platform aligned with Microsoft
-                            best
-                            practices.</li>
-                        <li>Demonstrated reliable identity-based access control through AD and Exchange role separation.
-                        </li>
-                    </ul>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-users"></i></div>
+                    <h3>AD Integration</h3>
+                    <p>Seamless authentication and recipient management through Active Directory integration.</p>
                 </div>
-            </section>
-
-            <!-- Skills Section -->
-            <section id="skills" class="project-section">
-                <h2 class="project-section-title">
-                    <i class="fas fa-tools"></i>
-                    Skills & Technologies Used
-                </h2>
-                <div class="project-section-content">
-                    <div class="project-skills-container">
-                        <span class="project-skill-tag">Microsoft Exchange Server 2019</span>
-                        <span class="project-skill-tag">Database Availability Group (DAG)</span>
-                        <span class="project-skill-tag">Windows Server</span>
-                        <span class="project-skill-tag">Active Directory Domain Services (AD DS)</span>
-                        <span class="project-skill-tag">DNS & DHCP</span>
-                        <span class="project-skill-tag">Group Policy Objects (GPO)</span>
-                        <span class="project-skill-tag">Exchange Admin Center (EAC)</span>
-                        <span class="project-skill-tag">Exchange Management Shell (PowerShell)</span>
-                        <span class="project-skill-tag">Mailbox databases & replication</span>
-                        <span class="project-skill-tag">Enterprise messaging infrastructure</span>
-                    </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-route"></i></div>
+                    <h3>Mail Flow</h3>
+                    <p>Configured send/receive connectors, transport rules, and MX records for reliable delivery.</p>
                 </div>
-            </section>
-
-            <!-- Images Section -->
-            <section id="images" class="project-section">
-                <h2 class="project-section-title">
-                    <i class="fas fa-images"></i>
-                    Project Documentation
-                </h2>
-                <div class="project-section-content">
-                    <p><em>Visual documentation of the Exchange Server 2019 implementation and DAG configuration. Click
-                            any image to enlarge.</em></p>
-
-                    <div class="project-gallery">
-                        <div class="project-gallery-item">
-                            <img src="../assets/images/exchange-dag-diagram.jpg" alt="Exchange DAG Architecture Diagram"
-                                class="project-gallery-img" loading="lazy">
-                            <div class="project-gallery-caption">DAG Architecture Design</div>
-                        </div>
-                        <div class="project-gallery-item">
-                            <img src="../assets/images/eac-mailflow.png" alt="Exchange Admin Center Mail Flow"
-                                class="project-gallery-img" loading="lazy">
-                            <div class="project-gallery-caption">Exchange Admin Center Interface</div>
-                        </div>
-                        <div class="project-gallery-item">
-                            <img src="../assets/images/powershell-output.png" alt="PowerShell Administration Output"
-                                class="project-gallery-img" loading="lazy">
-                            <div class="project-gallery-caption">PowerShell Administration</div>
-                        </div>
-                    </div>
-
-                    <div class="project-note">
-                        <p><strong>Note:</strong> This project implemented enterprise-grade Exchange Server 2019 with
-                            full High Availability capabilities. All configurations followed Microsoft best practices
-                            for
-                            security, performance, and resilience.</p>
-                    </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-lock"></i></div>
+                    <h3>Security</h3>
+                    <p>SSL certificates, anti-spam filtering, and secure client access protocols implemented.</p>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- Navigation Footer -->
-            <div class="project-navigation">
-                <a href="virtualization-cluster.html" class="btn btn-secondary press-down ripple">
-                    <i class="fas fa-arrow-left"></i>
-                    <span>Previous Project</span>
-                </a>
-                <a href="multi-region-network.html" class="btn btn-primary press-down ripple">
-                    <span>Next Project</span>
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-server"></i> Infrastructure Components</h2>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Component</th>
+                            <th>Specification</th>
+                            <th>Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Exchange Server 1</td>
+                            <td>Windows Server 2019</td>
+                            <td>Mailbox + CAS (Primary)</td>
+                        </tr>
+                        <tr>
+                            <td>Exchange Server 2</td>
+                            <td>Windows Server 2019</td>
+                            <td>Mailbox + CAS (Secondary)</td>
+                        </tr>
+                        <tr>
+                            <td>Domain Controller</td>
+                            <td>Windows Server 2022</td>
+                            <td>AD DS, DNS, Global Catalog</td>
+                        </tr>
+                        <tr>
+                            <td>File Share Witness</td>
+                            <td>Windows Server</td>
+                            <td>DAG quorum witness</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-cogs"></i> Implementation Highlights</h2>
+            <ul class="content-list">
+                <li>Prepared Active Directory schema and deployed Exchange prerequisites</li>
+                <li>Installed Exchange 2019 on multiple servers with role co-location</li>
+                <li>Created Database Availability Group with automatic failover configuration</li>
+                <li>Configured mailbox database copies across DAG members</li>
+                <li>Set up virtual directories, URLs, and SSL certificates for client access</li>
+                <li>Created shared mailboxes, distribution groups, and resource mailboxes</li>
+                <li>Implemented transport rules and mail flow connectors</li>
+            </ul>
+        </section>
+
+        <section class="project-cta">
+            <h2 class="cta-title">Explore More Projects</h2>
+            <div class="cta-buttons">
+                <a href="multi-region-network.html" class="btn btn-primary">
+                    <span>Next: Multi-Region Network</span>
                     <i class="fas fa-arrow-right"></i>
                 </a>
+                <a href="../index.html#projects" class="btn btn-secondary">
+                    <i class="fas fa-th-large"></i>
+                    <span>All Projects</span>
+                </a>
             </div>
-        </div>
+        </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="site-footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <span class="logo-text">Majestor</span>
-                    <span class="logo-accent">Kepseu</span>
-                </div>
-                <p class="footer-copyright">© <span id="currentYear"></span> Majestor Perrincio Kaptue Kepseu. All
-                    rights reserved.</p>
-                <p class="footer-tech">
-                    <i class="fas fa-code"></i>
-                    Portfolio built with HTML, CSS & JavaScript
-                    <span class="separator">•</span>
-                    <i class="fas fa-cloud"></i>
-                    Hosted on GitHub Pages
-                </p>
-            </div>
-        </div>
+    <footer class="project-footer">
+        <p>© <span id="year"></span> Majestor Kepseu. All rights reserved.</p>
     </footer>
 
-    <!-- Inline Script -->
+    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Set current year
-            document.getElementById('currentYear').textContent = new Date().getFullYear();
-
-            // Smooth scroll for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
-        });
+        // Theme persistence across pages
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
     </script>
 </body>
 
