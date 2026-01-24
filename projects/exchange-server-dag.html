@@ -1,26 +1,32 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exchange Server DAG | Majestor Kepseu</title>
+    <title>Exchange Server 2019 with DAG | Majestor Kepseu</title>
+    <meta name="description" content="Enterprise Microsoft Exchange Server 2019 deployment with Database Availability Group for high availability and automatic failover.">
     
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
     <link rel="stylesheet" href="../project-styles.css">
 </head>
-
 <body>
+    <!-- Ambient Background -->
     <div class="ambient-bg"></div>
-
+    
+    <!-- Navigation -->
     <nav class="project-nav">
         <div class="project-nav-container">
-            <a href="../index.html" class="back-btn">
+            <a href="../index.html#projects" class="back-btn">
                 <i class="fas fa-arrow-left"></i>
-                <span>Back to Portfolio</span>
+                <span>Back to Projects</span>
             </a>
             <a href="../index.html" class="nav-logo">
                 <span class="logo-mark">MK</span>
@@ -28,125 +34,392 @@
             </a>
         </div>
     </nav>
-
-    <section class="project-hero">
+    
+    <!-- Hero Section -->
+    <header class="project-hero">
         <div class="project-hero-container">
-            <div class="project-category">
-                <i class="fas fa-envelope"></i>
-                <span>Enterprise Messaging</span>
-            </div>
-            
-            <h1 class="project-title">Microsoft Exchange Server 2019 with Database Availability Group</h1>
-            
-            <p class="project-subtitle">
-                Deployed a highly available enterprise email infrastructure with mailbox database replication, 
-                automatic failover, and integrated Active Directory authentication.
-            </p>
+            <span class="project-category"><i class="fas fa-envelope"></i> Messaging & Collaboration</span>
+            <h1 class="project-title">Enterprise Microsoft Exchange Server 2019 with Database Availability Group</h1>
+            <p class="project-subtitle">Design and implement a secure, highly available, and collaborative messaging environment for CollabCo with Active Directory integration, automated client configuration, and mailbox redundancy.</p>
             
             <div class="tech-stack">
                 <span class="tech-tag"><i class="fab fa-microsoft"></i> Exchange 2019</span>
+                <span class="tech-tag"><i class="fas fa-users-cog"></i> Active Directory</span>
                 <span class="tech-tag"><i class="fas fa-database"></i> DAG</span>
-                <span class="tech-tag"><i class="fas fa-server"></i> Active Directory</span>
-                <span class="tech-tag"><i class="fas fa-network-wired"></i> DNS/MX</span>
-                <span class="tech-tag"><i class="fas fa-certificate"></i> SSL/TLS</span>
+                <span class="tech-tag"><i class="fas fa-globe"></i> DNS</span>
+                <span class="tech-tag"><i class="fas fa-network-wired"></i> DHCP</span>
+                <span class="tech-tag"><i class="fas fa-folder"></i> Storage Spaces</span>
+                <span class="tech-tag"><i class="fas fa-cogs"></i> Group Policy</span>
+            </div>
+            
+            <div class="project-meta">
+                <div class="meta-item">
+                    <i class="fas fa-user"></i>
+                    <span>Individual Project</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-layer-group"></i>
+                    <span>Two-part Implementation</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Completed</span>
+                </div>
             </div>
         </div>
-    </section>
-
+    </header>
+    
+    <!-- Main Content -->
     <main class="project-content">
+        
+        <!-- Overview Section -->
         <section class="content-section">
-            <h2 class="section-title"><i class="fas fa-sitemap"></i> Architecture Overview</h2>
+            <h2 class="section-title"><i class="fas fa-bullseye"></i> Project Objective</h2>
+            <div class="overview-card">
+                <p>A multi-server, domain-based environment built to support <strong>enterprise email, calendaring, and collaboration</strong> with a focus on resilience and high availability through Database Availability Groups. The final state delivers a fully functional, redundant email system with role-based mailboxes, shared resources, and automated user provisioning for the fictional company CollabCo.</p>
+            </div>
+            
+            <div class="highlight-box">
+                <div class="highlight-icon"><i class="fas fa-trophy"></i></div>
+                <div class="highlight-content">
+                    <h4>Key Achievement</h4>
+                    <p>Achieved mailbox database redundancy with automatic failover capability through properly configured Database Availability Group (CollabCoDAG).</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Architecture Diagram -->
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-project-diagram"></i> Architecture Overview</h2>
             <div class="architecture-image">
-                <div class="architecture-placeholder">
-                    <i class="fas fa-envelope-open-text"></i>
-                    <span>Exchange DAG architecture diagram</span>
-                    <small>Add your Exchange topology screenshot here</small>
+                <div class="architecture-placeholder" id="arch-diagram">
+                    <i class="fas fa-image"></i>
+                    <span>Architecture Diagram</span>
+                    <small>Domain → Servers → DAG Cluster → Clients</small>
                 </div>
             </div>
         </section>
-
+        
+        <!-- Server Infrastructure -->
         <section class="content-section">
-            <h2 class="section-title"><i class="fas fa-star"></i> Key Features</h2>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-sync-alt"></i></div>
-                    <h3>Database Availability Group</h3>
-                    <p>Multi-server mailbox database replication with automatic failover for continuous mail access.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-users"></i></div>
-                    <h3>AD Integration</h3>
-                    <p>Seamless authentication and recipient management through Active Directory integration.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-route"></i></div>
-                    <h3>Mail Flow</h3>
-                    <p>Configured send/receive connectors, transport rules, and MX records for reliable delivery.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-lock"></i></div>
-                    <h3>Security</h3>
-                    <p>SSL certificates, anti-spam filtering, and secure client access protocols implemented.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="content-section">
-            <h2 class="section-title"><i class="fas fa-server"></i> Infrastructure Components</h2>
+            <h2 class="section-title"><i class="fas fa-server"></i> Server Infrastructure</h2>
             <div class="table-container">
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>Component</th>
-                            <th>Specification</th>
+                            <th>Server</th>
                             <th>Role</th>
+                            <th>Function</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Exchange Server 1</td>
-                            <td>Windows Server 2019</td>
-                            <td>Mailbox + CAS (Primary)</td>
-                        </tr>
-                        <tr>
-                            <td>Exchange Server 2</td>
-                            <td>Windows Server 2019</td>
-                            <td>Mailbox + CAS (Secondary)</td>
-                        </tr>
-                        <tr>
+                            <td><strong>MK-DC</strong></td>
                             <td>Domain Controller</td>
-                            <td>Windows Server 2022</td>
-                            <td>AD DS, DNS, Global Catalog</td>
+                            <td>Active Directory, DNS, forest root for mkexchange.local</td>
                         </tr>
                         <tr>
-                            <td>File Share Witness</td>
-                            <td>Windows Server</td>
-                            <td>DAG quorum witness</td>
+                            <td><strong>MK-FS</strong></td>
+                            <td>File/DHCP/Witness Server</td>
+                            <td>File shares, DHCP (10.171.143.100-200), DAG witness</td>
+                        </tr>
+                        <tr>
+                            <td><strong>MK-MS1</strong></td>
+                            <td>Exchange Mailbox Server</td>
+                            <td>Primary mailbox server, hosts DB01</td>
+                        </tr>
+                        <tr>
+                            <td><strong>MK-MS2</strong></td>
+                            <td>Exchange Mailbox Server</td>
+                            <td>Secondary mailbox server, hosts DB02</td>
+                        </tr>
+                        <tr>
+                            <td><strong>MK-CM1, MK-CM2</strong></td>
+                            <td>Client Machines</td>
+                            <td>Windows 10 workstations, domain-joined</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </section>
-
+        
+        <!-- Core Features -->
         <section class="content-section">
-            <h2 class="section-title"><i class="fas fa-cogs"></i> Implementation Highlights</h2>
-            <ul class="content-list">
-                <li>Prepared Active Directory schema and deployed Exchange prerequisites</li>
-                <li>Installed Exchange 2019 on multiple servers with role co-location</li>
-                <li>Created Database Availability Group with automatic failover configuration</li>
-                <li>Configured mailbox database copies across DAG members</li>
-                <li>Set up virtual directories, URLs, and SSL certificates for client access</li>
-                <li>Created shared mailboxes, distribution groups, and resource mailboxes</li>
-                <li>Implemented transport rules and mail flow connectors</li>
-            </ul>
+            <h2 class="section-title"><i class="fas fa-cubes"></i> Exchange Features Implemented</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-inbox"></i></div>
+                    <h3>User Mailboxes</h3>
+                    <p>Individual mailboxes for all AD users with database assignments across MK-MS1 (DB01) and MK-MS2 (DB02).</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-door-open"></i></div>
+                    <h3>Room Mailboxes</h3>
+                    <p>Resource mailboxes for each department enabling conference room and equipment scheduling.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-users"></i></div>
+                    <h3>Shared Mailboxes</h3>
+                    <p>Team-based email addresses with appropriate Send As and Full Access permissions for collaboration.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-paper-plane"></i></div>
+                    <h3>Distribution Groups</h3>
+                    <p>Email-enabled groups for one-to-many communications across departments and teams.</p>
+                </div>
+            </div>
         </section>
-
+        
+        <!-- Implementation Phases -->
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-tasks"></i> Implementation Phases</h2>
+            
+            <div class="phase-timeline">
+                <div class="phase-item">
+                    <div class="phase-marker">
+                        <span class="phase-number">01</span>
+                    </div>
+                    <div class="phase-content">
+                        <h3>Core Infrastructure & Prerequisites</h3>
+                        <ul class="content-list">
+                            <li>Provisioned and configured six VMs in vSphere with appropriate resources</li>
+                            <li>Installed Active Directory Domain Services on MK-DC, created mkexchange.local forest</li>
+                            <li>Deployed DHCP server on MK-FS with scope (10.171.143.100-200)</li>
+                            <li>Created logical OU hierarchy and populated with user accounts and security groups</li>
+                            <li>Built resilient file server using Windows Storage Spaces and created secure departmental file shares</li>
+                            <li>Implemented Group Policy Objects (GPOs) for automated drive mapping</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="phase-item">
+                    <div class="phase-marker">
+                        <span class="phase-number">02</span>
+                    </div>
+                    <div class="phase-content">
+                        <h3>Exchange Server Deployment & Foundation</h3>
+                        <ul class="content-list">
+                            <li>Installed Microsoft Exchange Server 2019 on both MK-MS1 and MK-MS2</li>
+                            <li>Created critical DNS records (A, MX, CNAME for mail, owa, autodiscover)</li>
+                            <li>Joined Windows 10 client VMs to domain and verified automatic configuration</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="phase-item">
+                    <div class="phase-marker">
+                        <span class="phase-number">03</span>
+                    </div>
+                    <div class="phase-content">
+                        <h3>Mailbox Configuration & Collaboration</h3>
+                        <ul class="content-list">
+                            <li>Created two primary mailbox databases (DB01 on MK-MS1, DB02 on MK-MS2)</li>
+                            <li>Enabled mailboxes for all existing AD users with database assignments</li>
+                            <li>Created Room Mailboxes for each department for resource scheduling</li>
+                            <li>Configured Shared Mailboxes for team-based email with appropriate permissions</li>
+                            <li>Created email-enabled Distribution Groups for one-to-many communications</li>
+                            <li>Conducted comprehensive end-to-end mail flow testing</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="phase-item">
+                    <div class="phase-marker">
+                        <span class="phase-number">04</span>
+                    </div>
+                    <div class="phase-content">
+                        <h3>High Availability & Resilience</h3>
+                        <ul class="content-list">
+                            <li>Installed Exchange Mailbox role on file server to serve as File Share Witness</li>
+                            <li>Created Database Availability Group (CollabCoDAG) in Exchange Admin Center</li>
+                            <li>Delegated necessary Active Directory permissions for cluster management</li>
+                            <li>Added MK-MS1 and MK-MS2 as DAG members</li>
+                            <li>Configured database copies: DB01 copy on MK-MS2, DB02 copy on MK-MS1</li>
+                            <li>Performed manual failover test by activating passive copy, verifying seamless transition</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- DAG Configuration -->
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-database"></i> Database Availability Group Configuration</h2>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Database</th>
+                            <th>Primary Server</th>
+                            <th>Copy Location</th>
+                            <th>Replication</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>DB01</strong></td>
+                            <td>MK-MS1</td>
+                            <td>MK-MS2</td>
+                            <td>Continuous</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DB02</strong></td>
+                            <td>MK-MS2</td>
+                            <td>MK-MS1</td>
+                            <td>Continuous</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="highlight-box" style="margin-top: var(--space-lg);">
+                <div class="highlight-icon"><i class="fas fa-lightbulb"></i></div>
+                <div class="highlight-content">
+                    <h4>Design Decision: Optimizing the Witness Server</h4>
+                    <p>Justified the use of the existing file server (MK-FS) as DAG witness rather than deploying additional infrastructure. This balances assignment requirements with real-world best practices for witness server placement using Node & File Share Majority quorum model.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Screenshots Gallery -->
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-images"></i> Project Gallery</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Exchange Admin Center</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <i class="fas fa-database"></i>
+                        <span>DAG Status Dashboard</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <i class="fas fa-paper-plane"></i>
+                        <span>Mail Flow Test</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <i class="fas fa-search"></i>
+                        <span>DNS Records (nslookup)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Technical Highlights -->
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-star"></i> Technical Highlights</h2>
+            <div class="callout-grid">
+                <div class="callout-box">
+                    <div class="callout-icon"><i class="fas fa-sync-alt"></i></div>
+                    <h4>Automatic Failover</h4>
+                    <p>DAG provides automatic mailbox database failover ensuring email continuity even during server maintenance or failure.</p>
+                </div>
+                <div class="callout-box">
+                    <div class="callout-icon"><i class="fas fa-magic"></i></div>
+                    <h4>Autodiscover</h4>
+                    <p>Clients automatically configure email settings through DNS-based autodiscover, eliminating manual setup.</p>
+                </div>
+                <div class="callout-box">
+                    <div class="callout-icon"><i class="fas fa-hdd"></i></div>
+                    <h4>Storage Spaces</h4>
+                    <p>Resilient file shares built on Windows Storage Spaces provide reliable storage for departmental data.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Technologies -->
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-cogs"></i> Technologies Used</h2>
+            <div class="tech-categories">
+                <div class="tech-category">
+                    <h4>Core Platform</h4>
+                    <div class="tech-tags">
+                        <span>Microsoft Exchange 2019</span>
+                        <span>Windows Server 2019</span>
+                        <span>Windows 10</span>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <h4>Directory Services</h4>
+                    <div class="tech-tags">
+                        <span>Active Directory</span>
+                        <span>Organizational Units</span>
+                        <span>Group Policy Objects</span>
+                        <span>Security Groups</span>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <h4>Network Services</h4>
+                    <div class="tech-tags">
+                        <span>DNS (A, MX, CNAME)</span>
+                        <span>DHCP</span>
+                        <span>Autodiscover</span>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <h4>Exchange Management</h4>
+                    <div class="tech-tags">
+                        <span>Exchange Admin Center</span>
+                        <span>Exchange Management Shell</span>
+                        <span>Mailbox Databases</span>
+                        <span>Distribution Groups</span>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <h4>High Availability</h4>
+                    <div class="tech-tags">
+                        <span>Database Availability Group</span>
+                        <span>File Share Witness</span>
+                        <span>Quorum Models</span>
+                        <span>Database Failover</span>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <h4>Storage</h4>
+                    <div class="tech-tags">
+                        <span>Windows Storage Spaces</span>
+                        <span>NTFS Permissions</span>
+                        <span>Share Permissions</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Outcomes -->
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-flag-checkered"></i> Project Outcomes</h2>
+            <ul class="content-list">
+                <li>Deployed production-ready, collaborative messaging platform from ground up</li>
+                <li>Achieved high availability for mailbox databases through properly configured DAG</li>
+                <li>Demonstrated critical thinking by justifying use of existing file server as DAG witness</li>
+                <li>Provided secure, role-based email and calendaring for all departments</li>
+                <li>Automated client configuration through DHCP and GPO-driven drive maps</li>
+                <li>Streamlined group communications through Distribution Groups and Shared Mailboxes</li>
+            </ul>
+            
+            <div class="highlight-box" style="margin-top: var(--space-lg);">
+                <div class="highlight-icon"><i class="fas fa-certificate"></i></div>
+                <div class="highlight-content">
+                    <h4>Value Delivered</h4>
+                    <p>The solution ensures email service resilience in event of server failure while balancing assignment requirements with real-world best practices for witness server placement.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- CTA -->
         <section class="project-cta">
-            <h2 class="cta-title">Explore More Projects</h2>
+            <h3 class="cta-title">Explore More Projects</h3>
             <div class="cta-buttons">
-                <a href="multi-region-network.html" class="btn btn-primary">
-                    <span>Next: Multi-Region Network</span>
-                    <i class="fas fa-arrow-right"></i>
+                <a href="multi-site-network.html" class="btn btn-primary">
+                    <i class="fas fa-network-wired"></i>
+                    <span>Multi-Site Enterprise Network</span>
                 </a>
                 <a href="../index.html#projects" class="btn btn-secondary">
                     <i class="fas fa-th-large"></i>
@@ -154,12 +427,14 @@
                 </a>
             </div>
         </section>
+        
     </main>
-
+    
+    <!-- Footer -->
     <footer class="project-footer">
-        <p>© <span id="year"></span> Majestor Kepseu. All rights reserved.</p>
+        <p>© <span id="year"></span> Majestor Perrincio Kaptue Kepseu. All rights reserved.</p>
     </footer>
-
+    
     <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
     <script>
         // Theme persistence across pages
@@ -169,5 +444,4 @@
         document.documentElement.setAttribute('data-theme', theme);
     </script>
 </body>
-
 </html>

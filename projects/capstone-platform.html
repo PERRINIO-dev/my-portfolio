@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unified Collaboration Platform | Majestor Kepseu</title>
+    <meta name="description" content="Capstone project: Enterprise IT platform with AD SSO integration, Docker gateway, and unified service portal.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../project-styles.css">
+</head>
+<body>
+    <!-- Ambient Background -->
+    <div class="ambient-bg"></div>
+    
+    <!-- Navigation -->
+    <nav class="project-nav">
+        <div class="project-nav-container">
+            <a href="../index.html#projects" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                <span>Back to Projects</span>
+            </a>
+            <a href="../index.html" class="nav-logo">
+                <span class="logo-mark">MK</span>
+                <span>Majestor<span class="logo-accent">.</span></span>
+            </a>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <header class="project-hero">
+        <div class="project-hero-container">
+            <span class="project-category"><i class="fas fa-sitemap"></i> Enterprise IT Integration</span>
+            <h1 class="project-title">Unified Collaboration & Management Platform</h1>
+            <p class="project-subtitle">Capstone project delivering a secure, fully integrated IT service platform with centralized authentication, unified portal access, and essential enterprise services for a multi-site organization.</p>
+            
+            <div class="tech-stack">
+                <span class="tech-tag"><i class="fab fa-microsoft"></i> Active Directory</span>
+                <span class="tech-tag"><i class="fab fa-docker"></i> Docker</span>
+                <span class="tech-tag"><i class="fas fa-shield-alt"></i> pfSense</span>
+                <span class="tech-tag"><i class="fas fa-chart-line"></i> Zabbix</span>
+                <span class="tech-tag"><i class="fas fa-envelope"></i> Zimbra</span>
+                <span class="tech-tag"><i class="fas fa-headset"></i> Zammad</span>
+                <span class="tech-tag"><i class="fas fa-certificate"></i> PKI</span>
+                <span class="tech-tag"><i class="fas fa-mobile-alt"></i> MDM</span>
+            </div>
+            
+            <div class="project-meta">
+                <div class="meta-item">
+                    <i class="fas fa-users"></i>
+                    <span>Team of 5</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-calendar"></i>
+                    <span>Capstone Project</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Completed</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="project-content">
+        
+        <!-- Overview Section -->
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-bullseye"></i> Project Objective</h2>
+            <div class="overview-card">
+                <p>Design and implement a secure, fully integrated IT service platform for a fictional software development company (Company XYZ) with offices in <strong>Los Angeles</strong> and <strong>Singapore</strong>. The solution centralizes authentication, provides unified access via a corporate portal, and delivers essential enterprise services including collaboration, helpdesk, monitoring, and endpoint management.</p>
+            </div>
+            
+            <div class="highlight-box">
+                <div class="highlight-icon"><i class="fas fa-lightbulb"></i></div>
+                <div class="highlight-content">
+                    <h4>Value Proposition</h4>
+                    <p>Demonstrates ability to architect and integrate complex systems to solve real business problems, transitioning from technician to IT architect capabilities.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Architecture Diagram -->
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-project-diagram"></i> Architecture Overview</h2>
+            <div class="architecture-image">
+                <div class="architecture-placeholder" id="arch-diagram">
+                    <i class="fas fa-image"></i>
+                    <span>Architecture Diagram</span>
+                    <small>Users → Portal → Services → AD/Backend</small>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Core Architecture -->
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-cubes"></i> Platform Architecture</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-id-card"></i></div>
+                    <h3>Core Identity</h3>
+                    <p>Two Windows Server 2019 Domain Controllers (cg5dc1, cg5dc2) forming the <strong>capsg5.local</strong> forest with redundant authentication services.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Security Perimeter</h3>
+                    <p>pfSense firewall with Snort IDS/IPS for intrusion detection and prevention, plus site-to-site VPN capability for multi-office connectivity.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-door-open"></i></div>
+                    <h3>Unified Access Layer</h3>
+                    <p>Docker-based Nginx Proxy Manager and Homer dashboard serving as the corporate portal (portal.capsg5.local) with one-click access to all services.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-certificate"></i></div>
+                    <h3>Enterprise PKI</h3>
+                    <p>Internal Root Certificate Authority using AD Certificate Services for trusted SSL certificates across all internal services.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Service Stack -->
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-layer-group"></i> Integrated Service Stack</h2>
+            <div class="service-grid">
+                <div class="service-card">
+                    <div class="service-header">
+                        <div class="service-icon zimbra"><i class="fas fa-envelope"></i></div>
+                        <div>
+                            <h3>Zimbra Collaboration Suite</h3>
+                            <span class="service-type">Email, Calendar, Files</span>
+                        </div>
+                    </div>
+                    <p>Full collaboration platform deployed on Ubuntu with LDAP authentication and auto-provisioning for seamless user onboarding.</p>
+                    <ul class="service-features">
+                        <li>SMTP/IMAP email services</li>
+                        <li>Shared calendaring</li>
+                        <li>Briefcase file sharing</li>
+                        <li>AD/LDAP SSO integration</li>
+                    </ul>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-header">
+                        <div class="service-icon zabbix"><i class="fas fa-chart-line"></i></div>
+                        <div>
+                            <h3>Zabbix Monitoring</h3>
+                            <span class="service-type">Infrastructure Monitoring</span>
+                        </div>
+                    </div>
+                    <p>Enterprise monitoring with MySQL backend, AD authentication, and real-time alerting via Telegram for proactive issue resolution.</p>
+                    <ul class="service-features">
+                        <li>Server & network monitoring</li>
+                        <li>Custom alert thresholds</li>
+                        <li>Telegram notifications</li>
+                        <li>AD/LDAP authentication</li>
+                    </ul>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-header">
+                        <div class="service-icon zammad"><i class="fas fa-headset"></i></div>
+                        <div>
+                            <h3>Zammad Helpdesk</h3>
+                            <span class="service-type">IT Service Management</span>
+                        </div>
+                    </div>
+                    <p>Professional ticketing system with Elasticsearch for fast search, integrated with AD/LDAP for automatic user synchronization.</p>
+                    <ul class="service-features">
+                        <li>Ticket management</li>
+                        <li>Email integration</li>
+                        <li>Knowledge base</li>
+                        <li>LDAP user sync</li>
+                    </ul>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-header">
+                        <div class="service-icon mdm"><i class="fas fa-mobile-alt"></i></div>
+                        <div>
+                            <h3>Headwind MDM</h3>
+                            <span class="service-type">Mobile Device Management</span>
+                        </div>
+                    </div>
+                    <p>Android enterprise device management with LDAP authentication and policy enforcement for corporate mobile devices.</p>
+                    <ul class="service-features">
+                        <li>Device enrollment</li>
+                        <li>Policy enforcement</li>
+                        <li>App management</li>
+                        <li>LDAP authentication</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Key Achievements -->
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-trophy"></i> Key Achievements</h2>
+            
+            <div class="achievement-grid">
+                <div class="achievement-card">
+                    <h3><i class="fas fa-server"></i> Core Infrastructure & Authentication</h3>
+                    <ul class="content-list">
+                        <li>Provisioned redundant AD environment with structured OU hierarchy</li>
+                        <li>Configured pfSense with firewall rules, Snort IDS/IPS, and LDAP authentication</li>
+                        <li>Established standardized naming convention and IP schema across all services</li>
+                    </ul>
+                </div>
+                
+                <div class="achievement-card">
+                    <h3><i class="fas fa-plug"></i> Enterprise Service Deployment & Integration</h3>
+                    <ul class="content-list">
+                        <li>Zimbra: Deployed on Ubuntu with LDAP auth and auto-provisioning</li>
+                        <li>Zammad: Installed with Elasticsearch, integrated AD/LDAP for user sync</li>
+                        <li>Zabbix: Configured with MySQL, AD authentication, Telegram alerting</li>
+                        <li>Headwind MDM: Deployed enterprise trial with LDAP auth and policy enforcement</li>
+                    </ul>
+                </div>
+                
+                <div class="achievement-card">
+                    <h3><i class="fas fa-door-open"></i> Unified Portal & Secure Access</h3>
+                    <ul class="content-list">
+                        <li>Deployed containerized gateway (NPM + Homer) with restart policies</li>
+                        <li>Built internal PKI with AD CS and SAN certificates for all services</li>
+                        <li>Configured SSL termination with trusted CA-signed certificates</li>
+                        <li>Created branded Homer dashboard (Company XYZ IT Portal) with service grouping</li>
+                    </ul>
+                </div>
+                
+                <div class="achievement-card">
+                    <h3><i class="fas fa-link"></i> Cross-Service Integration</h3>
+                    <ul class="content-list">
+                        <li>Achieved true SSO across six different technology stacks using LDAP binds to AD</li>
+                        <li>Implemented defense-in-depth: perimeter security, endpoint management, monitoring, centralized identity</li>
+                        <li>Ensured all internal web communication secured with HTTPS using enterprise PKI</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Screenshots Gallery -->
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-images"></i> Project Gallery</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <i class="fas fa-th-large"></i>
+                        <span>Homer Portal Dashboard</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <i class="fas fa-chart-area"></i>
+                        <span>Zabbix Monitoring Dashboard</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <i class="fas fa-inbox"></i>
+                        <span>Zimbra Email Interface</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <i class="fas fa-certificate"></i>
+                        <span>Trusted SSL Certificate</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Callout Highlights -->
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-star"></i> Technical Highlights</h2>
+            <div class="callout-grid">
+                <div class="callout-box">
+                    <div class="callout-icon"><i class="fas fa-sign-in-alt"></i></div>
+                    <h4>Enterprise SSO</h4>
+                    <p>Achieved Single Sign-On across six different technology stacks (Windows, Linux, Docker) using LDAP binds to Active Directory.</p>
+                </div>
+                <div class="callout-box">
+                    <div class="callout-icon"><i class="fas fa-lock"></i></div>
+                    <h4>Internal PKI</h4>
+                    <p>Built enterprise Certificate Authority using AD CS to eliminate browser certificate trust warnings across all internal services.</p>
+                </div>
+                <div class="callout-box">
+                    <div class="callout-icon"><i class="fab fa-docker"></i></div>
+                    <h4>Containerized Gateway</h4>
+                    <p>Docker-based service gateway with Nginx Proxy Manager for resilience, easy management, and rapid service deployment.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Technologies -->
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-cogs"></i> Technologies Used</h2>
+            <div class="tech-categories">
+                <div class="tech-category">
+                    <h4>Virtualization & OS</h4>
+                    <div class="tech-tags">
+                        <span>VMware vSphere</span>
+                        <span>Windows Server 2019</span>
+                        <span>Ubuntu Linux</span>
+                        <span>Rocky Linux</span>
+                        <span>pfSense</span>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <h4>Core Infrastructure</h4>
+                    <div class="tech-tags">
+                        <span>Active Directory</span>
+                        <span>DNS</span>
+                        <span>DHCP</span>
+                        <span>Group Policy</span>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <h4>Security</h4>
+                    <div class="tech-tags">
+                        <span>pfSense Firewall</span>
+                        <span>Snort IDS/IPS</span>
+                        <span>Site-to-Site VPN</span>
+                        <span>AD Certificate Services</span>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <h4>Enterprise Services</h4>
+                    <div class="tech-tags">
+                        <span>Zimbra Suite</span>
+                        <span>Zammad Helpdesk</span>
+                        <span>Zabbix Server</span>
+                        <span>Headwind MDM</span>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <h4>DevOps & Delivery</h4>
+                    <div class="tech-tags">
+                        <span>Docker</span>
+                        <span>Docker Compose</span>
+                        <span>Nginx Proxy Manager</span>
+                        <span>Homer Dashboard</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Deliverables -->
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-box-open"></i> Project Deliverables</h2>
+            <ul class="content-list">
+                <li>Production-grade integrated IT platform transforming siloed services into cohesive ecosystem</li>
+                <li>Single secure portal (portal.capsg5.local) with one-click SSO access to all tools</li>
+                <li>Centralized AD management for all users and services</li>
+                <li>Automated monitoring and alerting (Zabbix + Telegram) for proactive issue resolution</li>
+                <li>Layered security model combining network, endpoint, encryption, and identity governance</li>
+                <li>Containerized, modular gateway designed for easy scaling and high availability</li>
+                <li>Comprehensive "Build Book" documentation for deployment and extension</li>
+            </ul>
+        </section>
+        
+        <!-- My Role -->
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-user-tie"></i> My Contribution</h2>
+            <div class="role-card">
+                <p>As a key contributor in a team of 5, I was responsible for the <strong>design and integration of the monitoring system</strong> (Zabbix with Telegram alerting) and the <strong>Docker-based unified gateway</strong> (Nginx Proxy Manager + Homer dashboard). This included configuring LDAP authentication, setting up SSL termination with enterprise PKI certificates, and ensuring service resilience through proper container orchestration.</p>
+            </div>
+        </section>
+        
+        <!-- CTA -->
+        <section class="project-cta">
+            <h3 class="cta-title">Explore More Projects</h3>
+            <div class="cta-buttons">
+                <a href="virtualization-cluster.html" class="btn btn-primary">
+                    <i class="fas fa-server"></i>
+                    <span>VMware vSphere Infrastructure</span>
+                </a>
+                <a href="../index.html#projects" class="btn btn-secondary">
+                    <i class="fas fa-th-large"></i>
+                    <span>All Projects</span>
+                </a>
+            </div>
+        </section>
+        
+    </main>
+    
+    <!-- Footer -->
+    <footer class="project-footer">
+        <p>© <span id="year"></span> Majestor Perrincio Kaptue Kepseu. All rights reserved.</p>
+    </footer>
+    
+    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+    <script>
+        // Theme persistence across pages
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+    </script>
+</body>
+</html>

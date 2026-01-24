@@ -1,32 +1,32 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VMware vSphere Cluster | Majestor Kepseu</title>
+    <title>VMware vSphere Infrastructure | Majestor Kepseu</title>
+    <meta name="description" content="Enterprise VMware vSphere virtualization infrastructure with HA, DRS, Fault Tolerance, and shared iSCSI storage.">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     
-    <!-- Font Awesome -->
+    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Styles -->
     <link rel="stylesheet" href="../project-styles.css">
 </head>
-
 <body>
+    <!-- Ambient Background -->
     <div class="ambient-bg"></div>
-
+    
     <!-- Navigation -->
     <nav class="project-nav">
         <div class="project-nav-container">
-            <a href="../index.html" class="back-btn">
+            <a href="../index.html#projects" class="back-btn">
                 <i class="fas fa-arrow-left"></i>
-                <span>Back to Portfolio</span>
+                <span>Back to Projects</span>
             </a>
             <a href="../index.html" class="nav-logo">
                 <span class="logo-mark">MK</span>
@@ -34,163 +34,350 @@
             </a>
         </div>
     </nav>
-
-    <!-- Hero -->
-    <section class="project-hero">
+    
+    <!-- Hero Section -->
+    <header class="project-hero">
         <div class="project-hero-container">
-            <div class="project-category">
-                <i class="fas fa-server"></i>
-                <span>Virtualization</span>
-            </div>
-            
-            <h1 class="project-title">Enterprise Virtualization Cluster with VMware vSphere</h1>
-            
-            <p class="project-subtitle">
-                Designed and deployed a highly available enterprise virtualization infrastructure with automatic failover, 
-                continuous availability, and centralized management using VMware vSphere, HA, and Fault Tolerance.
-            </p>
+            <span class="project-category"><i class="fas fa-server"></i> Virtualization & Infrastructure</span>
+            <h1 class="project-title">Enterprise VMware vSphere Virtualization Infrastructure</h1>
+            <p class="project-subtitle">Design, deploy, configure, and manage a complete, enterprise-grade virtualized data center environment with high availability, automated resource management, and fault tolerance protection.</p>
             
             <div class="tech-stack">
-                <span class="tech-tag"><i class="fas fa-cube"></i> VMware ESXi 8.0</span>
-                <span class="tech-tag"><i class="fas fa-server"></i> vCenter Server</span>
-                <span class="tech-tag"><i class="fas fa-sync-alt"></i> HA & FT</span>
-                <span class="tech-tag"><i class="fas fa-database"></i> iSCSI Storage</span>
-                <span class="tech-tag"><i class="fas fa-network-wired"></i> vSwitch</span>
+                <span class="tech-tag"><i class="fas fa-cube"></i> VMware vSphere 7.x</span>
+                <span class="tech-tag"><i class="fas fa-server"></i> ESXi Hosts</span>
+                <span class="tech-tag"><i class="fas fa-database"></i> vCenter Server</span>
+                <span class="tech-tag"><i class="fas fa-hdd"></i> iSCSI Storage</span>
+                <span class="tech-tag"><i class="fas fa-sync"></i> vMotion</span>
+                <span class="tech-tag"><i class="fas fa-balance-scale"></i> DRS</span>
+                <span class="tech-tag"><i class="fas fa-heart"></i> HA/FT</span>
+            </div>
+            
+            <div class="project-meta">
+                <div class="meta-item">
+                    <i class="fas fa-user"></i>
+                    <span>Individual Project</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-layer-group"></i>
+                    <span>4 Phases</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Completed</span>
+                </div>
             </div>
         </div>
-    </section>
-
-    <!-- Content -->
+    </header>
+    
+    <!-- Main Content -->
     <main class="project-content">
-        <!-- Architecture -->
+        
+        <!-- Overview Section -->
         <section class="content-section">
-            <h2 class="section-title"><i class="fas fa-sitemap"></i> Architecture Overview</h2>
+            <h2 class="section-title"><i class="fas fa-bullseye"></i> Project Objective</h2>
+            <div class="overview-card">
+                <p>A nested virtualization lab built on a provided Windows Server foundation that progressed from basic host provisioning to a <strong>fully automated, fault-tolerant cluster</strong>. This project demonstrates comprehensive hands-on expertise in enterprise virtualization, embodying cloud principles such as resource pooling, rapid elasticity, and on-demand service delivery.</p>
+            </div>
             
-            <div class="architecture-image">
-                <div class="architecture-placeholder">
-                    <i class="fas fa-project-diagram"></i>
-                    <span>Architecture diagram placeholder</span>
-                    <small>Add your VMware cluster topology screenshot here</small>
+            <div class="highlight-box">
+                <div class="highlight-icon"><i class="fas fa-trophy"></i></div>
+                <div class="highlight-content">
+                    <h4>Key Achievement</h4>
+                    <p>Successfully achieved zero-downtime failover using vSphere Fault Tolerance, with automated load balancing via DRS triggering vMotion based on CPU contention.</p>
                 </div>
             </div>
         </section>
-
-        <!-- Key Features -->
+        
+        <!-- Architecture Diagram -->
         <section class="content-section">
-            <h2 class="section-title"><i class="fas fa-star"></i> Key Features</h2>
-            
+            <h2 class="section-title"><i class="fas fa-project-diagram"></i> Architecture Overview</h2>
+            <div class="architecture-image">
+                <div class="architecture-placeholder" id="arch-diagram">
+                    <i class="fas fa-image"></i>
+                    <span>Architecture Diagram</span>
+                    <small>ESXi Hosts, vCenter, Storage, Network Segments</small>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Core Components -->
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-cubes"></i> Core Components</h2>
             <div class="feature-grid">
                 <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
-                    <h3>High Availability</h3>
-                    <p>Automatic VM restart on healthy hosts during hardware failures with configurable admission control.</p>
+                    <div class="feature-icon"><i class="fas fa-server"></i></div>
+                    <h3>ESXi Hosts</h3>
+                    <p>2 x Nested ESXi 7.0 Hosts (ESXi1, ESXi2) providing the compute layer for virtual machines with local and shared storage.</p>
                 </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-sync"></i></div>
-                    <h3>Fault Tolerance</h3>
-                    <p>Zero-downtime protection for mission-critical VMs through continuous replication to secondary hosts.</p>
-                </div>
-                
                 <div class="feature-card">
                     <div class="feature-icon"><i class="fas fa-database"></i></div>
-                    <h3>Shared Storage</h3>
-                    <p>iSCSI-based shared datastore enabling vMotion, HA, and centralized VM storage management.</p>
+                    <h3>vCenter Server</h3>
+                    <p>vCenter Server Appliance (vCSA) providing centralized management, inventory, and advanced features like DRS and HA.</p>
                 </div>
-                
                 <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-tachometer-alt"></i></div>
-                    <h3>Resource Management</h3>
-                    <p>DRS-ready cluster with resource pools for workload balancing and performance optimization.</p>
+                    <div class="feature-icon"><i class="fas fa-users-cog"></i></div>
+                    <h3>Active Directory</h3>
+                    <p>Domain Controller for vclass.local domain with integrated DNS, providing identity services and RBAC integration.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-hdd"></i></div>
+                    <h3>iSCSI Storage</h3>
+                    <p>Windows-based iSCSI Target Server providing shared storage for live migration and fault tolerance capabilities.</p>
                 </div>
             </div>
         </section>
-
-        <!-- Infrastructure -->
+        
+        <!-- Network Design -->
         <section class="content-section">
-            <h2 class="section-title"><i class="fas fa-server"></i> Infrastructure Components</h2>
-            
+            <h2 class="section-title"><i class="fas fa-network-wired"></i> Network Architecture</h2>
             <div class="table-container">
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>Component</th>
-                            <th>Specification</th>
-                            <th>Role</th>
+                            <th>Network Segment</th>
+                            <th>Purpose</th>
+                            <th>VMkernel Adapter</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ESXi Host 1</td>
-                            <td>8 vCPU, 32GB RAM</td>
-                            <td>Primary compute host</td>
+                            <td>Management Network</td>
+                            <td>ESXi host management, vCenter communication</td>
+                            <td>vmk0</td>
                         </tr>
                         <tr>
-                            <td>ESXi Host 2</td>
-                            <td>8 vCPU, 32GB RAM</td>
-                            <td>Secondary compute host</td>
+                            <td>Production Network</td>
+                            <td>VM guest traffic</td>
+                            <td>VM Port Group</td>
                         </tr>
                         <tr>
-                            <td>vCenter Server</td>
-                            <td>VCSA 8.0</td>
-                            <td>Centralized management</td>
+                            <td>Storage Network (iSCSI)</td>
+                            <td>iSCSI traffic to shared storage</td>
+                            <td>vmk1</td>
                         </tr>
                         <tr>
-                            <td>Storage Server</td>
-                            <td>TrueNAS iSCSI</td>
-                            <td>Shared datastore</td>
+                            <td>vMotion Network</td>
+                            <td>Live migration traffic between hosts</td>
+                            <td>vmk2</td>
                         </tr>
                         <tr>
-                            <td>Domain Controller</td>
-                            <td>Windows Server 2022</td>
-                            <td>AD/DNS/DHCP services</td>
+                            <td>Fault Tolerance Network</td>
+                            <td>FT logging traffic</td>
+                            <td>vmk3</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </section>
-
-        <!-- Implementation -->
+        
+        <!-- Implementation Phases -->
         <section class="content-section">
-            <h2 class="section-title"><i class="fas fa-cogs"></i> Implementation Highlights</h2>
+            <h2 class="section-title"><i class="fas fa-tasks"></i> Implementation Phases</h2>
             
-            <ul class="content-list">
-                <li>Deployed two ESXi 8.0 hosts with nested virtualization for lab environment</li>
-                <li>Configured vCenter Server Appliance (VCSA) for centralized cluster management</li>
-                <li>Established iSCSI shared storage with multipathing for redundancy</li>
-                <li>Enabled vSphere HA with host monitoring and VM restart priority settings</li>
-                <li>Configured Fault Tolerance for critical VMs requiring zero-downtime</li>
-                <li>Created distributed virtual switches for consistent network configuration</li>
-                <li>Implemented resource pools to allocate compute resources by workload type</li>
-            </ul>
-        </section>
-
-        <!-- Outcomes -->
-        <section class="content-section">
-            <h2 class="section-title"><i class="fas fa-chart-line"></i> Outcomes & Skills Demonstrated</h2>
-            
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
-                    <h3>99.9% Availability</h3>
-                    <p>Achieved near-continuous uptime through HA and FT configuration with tested failover scenarios.</p>
+            <div class="phase-timeline">
+                <div class="phase-item">
+                    <div class="phase-marker">
+                        <span class="phase-number">01</span>
+                    </div>
+                    <div class="phase-content">
+                        <h3>Foundation & Host Provisioning</h3>
+                        <ul class="content-list">
+                            <li>Deployed Windows Server 2019 management VM with dual NICs</li>
+                            <li>Created and installed two nested VMware ESXi 7.0 hosts</li>
+                            <li>Configured local VMFS datastores and deployed Ubuntu Server VM</li>
+                        </ul>
+                    </div>
                 </div>
                 
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-graduation-cap"></i></div>
-                    <h3>Enterprise Skills</h3>
-                    <p>Hands-on experience with production-grade virtualization technologies used in enterprise environments.</p>
+                <div class="phase-item">
+                    <div class="phase-marker">
+                        <span class="phase-number">02</span>
+                    </div>
+                    <div class="phase-content">
+                        <h3>Centralized Management & Identity Services</h3>
+                        <ul class="content-list">
+                            <li>Configured Active Directory Domain Services and DNS</li>
+                            <li>Deployed vCenter Server Appliance using template</li>
+                            <li>Standardized time synchronization using NTP across all components</li>
+                            <li>Licensed vCenter, created Datacenter, added ESXi hosts by FQDN</li>
+                            <li>Joined vCenter to Active Directory and configured RBAC</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="phase-item">
+                    <div class="phase-marker">
+                        <span class="phase-number">03</span>
+                    </div>
+                    <div class="phase-content">
+                        <h3>Shared Storage & VM Lifecycle Management</h3>
+                        <ul class="content-list">
+                            <li>Configured Windows Server as iSCSI target with dedicated storage network</li>
+                            <li>Created VMkernel adapters and port groups for iSCSI traffic</li>
+                            <li>Connected ESXi hosts to shared storage and created iSCSI-Datastore</li>
+                            <li>Demonstrated advanced VM management: templates, snapshots, cloning</li>
+                            <li>Configured vMotion networks and performed live migrations between hosts</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="phase-item">
+                    <div class="phase-marker">
+                        <span class="phase-number">04</span>
+                    </div>
+                    <div class="phase-content">
+                        <h3>Automation, High Availability & Resilience</h3>
+                        <ul class="content-list">
+                            <li>Created vCenter alarms for resource monitoring and validated with load testing</li>
+                            <li>Built vSphere cluster with Distributed Resource Scheduler (DRS)</li>
+                            <li>Tested DRS automation levels and resource-based vMotion recommendations</li>
+                            <li>Configured and tested vSphere High Availability (HA) failover</li>
+                            <li>Enabled vSphere Fault Tolerance for zero-downtime VM protection</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
-
+        
+        <!-- Screenshots Gallery -->
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-images"></i> Project Gallery</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <i class="fas fa-desktop"></i>
+                        <span>vCenter Dashboard</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <i class="fas fa-exchange-alt"></i>
+                        <span>vMotion in Progress</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <i class="fas fa-clone"></i>
+                        <span>Fault Tolerance Status</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>DRS Recommendations</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Technical Highlights -->
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-star"></i> Technical Highlights</h2>
+            <div class="callout-grid">
+                <div class="callout-box">
+                    <div class="callout-icon"><i class="fas fa-sync"></i></div>
+                    <h4>Live Migration</h4>
+                    <p>Performed seamless vMotion migrations between hosts with zero VM downtime, demonstrating workload mobility.</p>
+                </div>
+                <div class="callout-box">
+                    <div class="callout-icon"><i class="fas fa-balance-scale"></i></div>
+                    <h4>Automated Load Balancing</h4>
+                    <p>DRS automatically triggered vMotion based on CPU contention, optimizing resource utilization across the cluster.</p>
+                </div>
+                <div class="callout-box">
+                    <div class="callout-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h4>Zero-Downtime Protection</h4>
+                    <p>vSphere Fault Tolerance maintained a secondary VM copy in lockstep, providing instant failover capability.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Technologies -->
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-cogs"></i> Technologies Used</h2>
+            <div class="tech-categories">
+                <div class="tech-category">
+                    <h4>Platform</h4>
+                    <div class="tech-tags">
+                        <span>VMware vSphere 7.x</span>
+                        <span>ESXi 7.0</span>
+                        <span>vCenter Server</span>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <h4>Virtualization Features</h4>
+                    <div class="tech-tags">
+                        <span>VM Templates</span>
+                        <span>Snapshots</span>
+                        <span>Cloning</span>
+                        <span>Storage vMotion</span>
+                        <span>Compute vMotion</span>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <h4>Storage</h4>
+                    <div class="tech-tags">
+                        <span>VMFS Datastores</span>
+                        <span>Windows iSCSI Target</span>
+                        <span>Shared Storage</span>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <h4>Networking</h4>
+                    <div class="tech-tags">
+                        <span>VMkernel Networking</span>
+                        <span>Port Groups</span>
+                        <span>NIC Teaming</span>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <h4>Enterprise Features</h4>
+                    <div class="tech-tags">
+                        <span>vSphere Clustering</span>
+                        <span>DRS</span>
+                        <span>High Availability</span>
+                        <span>Fault Tolerance</span>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <h4>Infrastructure Services</h4>
+                    <div class="tech-tags">
+                        <span>Active Directory</span>
+                        <span>DNS</span>
+                        <span>NTP</span>
+                        <span>RBAC</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Outcomes -->
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-flag-checkered"></i> Project Outcomes</h2>
+            <ul class="content-list">
+                <li>Built production-like virtual infrastructure embodying cloud principles: resource pooling, rapid elasticity, on-demand service</li>
+                <li>Automated resource optimization through DRS with dynamic workload balancing</li>
+                <li>Provided business continuity through HA automatic failover capabilities</li>
+                <li>Achieved zero-downtime protection for critical workloads using Fault Tolerance</li>
+                <li>Demonstrated end-to-end virtualization lifecycle management from provisioning to decommissioning</li>
+            </ul>
+            
+            <div class="highlight-box" style="margin-top: var(--space-lg);">
+                <div class="highlight-icon"><i class="fas fa-certificate"></i></div>
+                <div class="highlight-content">
+                    <h4>Value Delivered</h4>
+                    <p>Validated deep practical expertise in enterprise virtualization, from foundational host provisioning to advanced automation and high-availability configurations.</p>
+                </div>
+            </div>
+        </section>
+        
         <!-- CTA -->
         <section class="project-cta">
-            <h2 class="cta-title">Explore More Projects</h2>
+            <h3 class="cta-title">Explore More Projects</h3>
             <div class="cta-buttons">
                 <a href="exchange-server-dag.html" class="btn btn-primary">
-                    <span>Next: Exchange Server DAG</span>
-                    <i class="fas fa-arrow-right"></i>
+                    <i class="fas fa-envelope"></i>
+                    <span>Exchange Server with DAG</span>
                 </a>
                 <a href="../index.html#projects" class="btn btn-secondary">
                     <i class="fas fa-th-large"></i>
@@ -198,13 +385,14 @@
                 </a>
             </div>
         </section>
+        
     </main>
-
+    
     <!-- Footer -->
     <footer class="project-footer">
-        <p>© <span id="year"></span> Majestor Kepseu. All rights reserved.</p>
+        <p>© <span id="year"></span> Majestor Perrincio Kaptue Kepseu. All rights reserved.</p>
     </footer>
-
+    
     <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
     <script>
         // Theme persistence across pages
@@ -214,5 +402,4 @@
         document.documentElement.setAttribute('data-theme', theme);
     </script>
 </body>
-
 </html>

@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Site Enterprise Network | Majestor Kepseu</title>
+    <meta name="description" content="Multi-site enterprise network for NinjaPostal Corporation connecting Toronto, Vancouver, and Tokyo with EIGRP routing and defense-in-depth security.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../project-styles.css">
+</head>
+<body>
+    <!-- Ambient Background -->
+    <div class="ambient-bg"></div>
+    
+    <!-- Navigation -->
+    <nav class="project-nav">
+        <div class="project-nav-container">
+            <a href="../index.html#projects" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                <span>Back to Projects</span>
+            </a>
+            <a href="../index.html" class="nav-logo">
+                <span class="logo-mark">MK</span>
+                <span>Majestor<span class="logo-accent">.</span></span>
+            </a>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <header class="project-hero">
+        <div class="project-hero-container">
+            <span class="project-category"><i class="fas fa-network-wired"></i> Core Networking & Security</span>
+            <h1 class="project-title">Multi-Site Enterprise Network for NinjaPostal Corporation</h1>
+            <p class="project-subtitle">Design, configure, and deploy a secure, scalable, and manageable multi-site enterprise network connecting three global offices with comprehensive security policies and centralized management.</p>
+            
+            <div class="tech-stack">
+                <span class="tech-tag"><i class="fas fa-sitemap"></i> Cisco IOS</span>
+                <span class="tech-tag"><i class="fas fa-route"></i> EIGRP</span>
+                <span class="tech-tag"><i class="fas fa-layer-group"></i> VLANs</span>
+                <span class="tech-tag"><i class="fas fa-shield-alt"></i> ACLs</span>
+                <span class="tech-tag"><i class="fas fa-lock"></i> Port Security</span>
+                <span class="tech-tag"><i class="fas fa-terminal"></i> SSH/RBAC</span>
+                <span class="tech-tag"><i class="fas fa-clipboard-list"></i> Syslog</span>
+            </div>
+            
+            <div class="project-meta">
+                <div class="meta-item">
+                    <i class="fas fa-users"></i>
+                    <span>Team of 4</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-calendar"></i>
+                    <span>Semester Project</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Completed</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="project-content">
+        
+        <!-- Overview Section -->
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-bullseye"></i> Project Objective</h2>
+            <div class="overview-card">
+                <p>A geographically dispersed network built on <strong>hierarchical design</strong> using Layer 3 switching at each site, interconnected via routed WAN links, with comprehensive security policies and centralized management. The network supports NinjaPostal Corporation's operations across <strong>Toronto, Vancouver, and Tokyo</strong> offices.</p>
+            </div>
+            
+            <div class="highlight-box">
+                <div class="highlight-icon"><i class="fas fa-lightbulb"></i></div>
+                <div class="highlight-content">
+                    <h4>Challenge & Adaptation</h4>
+                    <p>Successfully pivoted from BGP to EIGRP routing protocol due to physical hardware limitations, demonstrating adaptability and problem-solving skills while maintaining all functional requirements.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Architecture Diagram -->
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-project-diagram"></i> Network Topology</h2>
+            <div class="architecture-image">
+                <div class="architecture-placeholder" id="arch-diagram">
+                    <i class="fas fa-image"></i>
+                    <span>Network Topology Diagram</span>
+                    <small>Toronto ↔ Vancouver ↔ Tokyo with L3 Switches</small>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Site Overview -->
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-globe"></i> Site Architecture</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <h3>Toronto (HQ)</h3>
+                    <p>Headquarters with Admin VLAN (192.168.10.0/24) and General VLAN (192.168.20.0/24). L3 switch with SVI for inter-VLAN routing.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <h3>Vancouver</h3>
+                    <p>Western Canada office with Admin VLAN (192.168.30.0/24) and General VLAN (192.168.40.0/24). Connected via 10.1.1.0/30 link.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <h3>Tokyo</h3>
+                    <p>Asia-Pacific office with Admin VLAN (192.168.50.0/24) and General VLAN (192.168.60.0/24). Hosts centralized services.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-server"></i></div>
+                    <h3>Centralized Services</h3>
+                    <p>Tokyo Admin VLAN hosts WAMP web server, TFTP for config backup, and Kiwi Syslog server for logging.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- IP Addressing Scheme -->
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-sitemap"></i> IP Addressing Scheme</h2>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Site</th>
+                            <th>VLAN</th>
+                            <th>Subnet</th>
+                            <th>Gateway (SVI)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="2"><strong>Toronto</strong></td>
+                            <td>Admin (VLAN 10)</td>
+                            <td>192.168.10.0/24</td>
+                            <td>192.168.10.1</td>
+                        </tr>
+                        <tr>
+                            <td>General (VLAN 20)</td>
+                            <td>192.168.20.0/24</td>
+                            <td>192.168.20.1</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2"><strong>Vancouver</strong></td>
+                            <td>Admin (VLAN 30)</td>
+                            <td>192.168.30.0/24</td>
+                            <td>192.168.30.1</td>
+                        </tr>
+                        <tr>
+                            <td>General (VLAN 40)</td>
+                            <td>192.168.40.0/24</td>
+                            <td>192.168.40.1</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2"><strong>Tokyo</strong></td>
+                            <td>Admin (VLAN 50)</td>
+                            <td>192.168.50.0/24</td>
+                            <td>192.168.50.1</td>
+                        </tr>
+                        <tr>
+                            <td>General (VLAN 60)</td>
+                            <td>192.168.60.0/24</td>
+                            <td>192.168.60.1</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h4 style="margin-top: var(--space-lg); margin-bottom: var(--space-sm);">Point-to-Point WAN Links</h4>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Link</th>
+                            <th>Subnet</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Toronto ↔ Vancouver</td>
+                            <td>10.1.1.0/30</td>
+                        </tr>
+                        <tr>
+                            <td>Vancouver ↔ Tokyo</td>
+                            <td>10.1.2.0/30</td>
+                        </tr>
+                        <tr>
+                            <td>Tokyo ↔ Toronto</td>
+                            <td>10.1.3.0/30</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <!-- Technical Implementation -->
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-cog"></i> Technical Implementation</h2>
+            
+            <div class="implementation-block">
+                <h3><i class="fas fa-network-wired"></i> Network Foundation</h3>
+                <ul class="content-list">
+                    <li>Comprehensive IP scheme: VLAN subnets (192.168.x.0/24), P2P links (10.1.x.0/30)</li>
+                    <li>VLAN creation and SVI configuration for inter-VLAN routing on L3 switches</li>
+                    <li>EIGRP AS100 on all L3 switches (adapted from initial BGP design due to hardware constraints)</li>
+                </ul>
+            </div>
+            
+            <div class="implementation-block">
+                <h3><i class="fas fa-shield-alt"></i> Security Policy Enforcement</h3>
+                <ul class="content-list">
+                    <li>Extended ACLs for one-way VLAN access: General → Admin blocked, Admin → General allowed</li>
+                    <li>Service ACLs: HTTP to Tokyo server restricted to Vancouver Admin only</li>
+                    <li>Port Security: One MAC per port, sticky learning, restrict violation mode with syslog</li>
+                    <li>SSHv2 with RBAC: netadmin (15), techsupport (5), intern (1) privilege levels</li>
+                </ul>
+            </div>
+            
+            <div class="implementation-block">
+                <h3><i class="fas fa-server"></i> Centralized Services</h3>
+                <ul class="content-list">
+                    <li>WAMP web server for internal applications hosted in Tokyo</li>
+                    <li>TFTPD32 for configuration backups and firmware updates</li>
+                    <li>Kiwi Syslog Server for centralized logging from all network devices</li>
+                    <li>Syslog integration for all switches and port-security violations</li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- Security Configuration -->
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-lock"></i> Security Configuration</h2>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Security Feature</th>
+                            <th>Configuration</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>VLAN ACLs</strong></td>
+                            <td>Extended ACLs on SVIs</td>
+                            <td>General → Admin blocked; Admin → General allowed</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Service ACLs</strong></td>
+                            <td>HTTP permit from Vancouver Admin only</td>
+                            <td>Restrict web server access to authorized subnet</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Port Security</strong></td>
+                            <td>Max 1 MAC, sticky, restrict mode</td>
+                            <td>Prevent unauthorized device connections</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SSH Access</strong></td>
+                            <td>SSHv2 only, VTY ACL</td>
+                            <td>Secure remote management</td>
+                        </tr>
+                        <tr>
+                            <td><strong>RBAC</strong></td>
+                            <td>Privilege levels 1, 5, 15</td>
+                            <td>Role-based command authorization</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <!-- Testing & Validation -->
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-clipboard-check"></i> Testing & Validation</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-network-wired"></i></div>
+                    <h3>Reachability Testing</h3>
+                    <p>Inter-VLAN and inter-site ping tests across all permitted paths verified full mesh connectivity.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-ban"></i></div>
+                    <h3>ACL Enforcement</h3>
+                    <p>Verified General-to-Admin blocking and web server access restrictions working as designed.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-server"></i></div>
+                    <h3>Service Testing</h3>
+                    <p>HTTP access, TFTP configuration backups, and syslog message reception validated.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-user-shield"></i></div>
+                    <h3>Security Validation</h3>
+                    <p>Port security violations triggered and logged; RBAC privilege levels verified via SSH.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Screenshots Gallery -->
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-images"></i> Project Gallery</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <i class="fas fa-sitemap"></i>
+                        <span>Packet Tracer Topology</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <i class="fas fa-route"></i>
+                        <span>EIGRP Routing Table</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <i class="fas fa-clipboard-list"></i>
+                        <span>Syslog Messages</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <i class="fas fa-server"></i>
+                        <span>Physical Lab Setup</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Technical Highlights -->
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-star"></i> Technical Highlights</h2>
+            <div class="callout-grid">
+                <div class="callout-box">
+                    <div class="callout-icon"><i class="fas fa-random"></i></div>
+                    <h4>Protocol Adaptation</h4>
+                    <p>Successfully pivoted from BGP to EIGRP due to hardware support limitations while maintaining full functionality.</p>
+                </div>
+                <div class="callout-box">
+                    <div class="callout-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h4>Defense-in-Depth</h4>
+                    <p>Implemented layered security with VLANs, ACLs, port security, and RBAC following least privilege principles.</p>
+                </div>
+                <div class="callout-box">
+                    <div class="callout-icon"><i class="fas fa-flask"></i></div>
+                    <h4>Sim-to-Physical</h4>
+                    <p>Translated simulated Packet Tracer design to working physical Cisco switches, overcoming software limitations.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Technologies -->
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-cogs"></i> Technologies Used</h2>
+            <div class="tech-categories">
+                <div class="tech-category">
+                    <h4>Network Design</h4>
+                    <div class="tech-tags">
+                        <span>Subnetting</span>
+                        <span>VLAN Design</span>
+                        <span>Hierarchical Models</span>
+                        <span>L3 Switching</span>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <h4>Cisco IOS</h4>
+                    <div class="tech-tags">
+                        <span>Layer 2/3 Switching</span>
+                        <span>SVI Configuration</span>
+                        <span>Inter-VLAN Routing</span>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <h4>Routing Protocols</h4>
+                    <div class="tech-tags">
+                        <span>EIGRP AS100</span>
+                        <span>Route Summarization</span>
+                        <span>Dynamic Routing</span>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <h4>Network Security</h4>
+                    <div class="tech-tags">
+                        <span>Standard ACLs</span>
+                        <span>Extended ACLs</span>
+                        <span>Port Security</span>
+                        <span>SSH</span>
+                        <span>RBAC</span>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <h4>Network Services</h4>
+                    <div class="tech-tags">
+                        <span>DHCP</span>
+                        <span>TFTP</span>
+                        <span>Syslog</span>
+                        <span>HTTP/WAMP</span>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <h4>Tools</h4>
+                    <div class="tech-tags">
+                        <span>Cisco Packet Tracer</span>
+                        <span>Physical Cisco Switches</span>
+                        <span>PuTTY</span>
+                        <span>Kiwi Syslog</span>
+                        <span>TFTPD32</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Outcomes -->
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-flag-checkered"></i> Project Outcomes</h2>
+            <ul class="content-list">
+                <li>Built fully functional, secure, policy-driven enterprise network meeting all requirements</li>
+                <li>Successfully pivoted from BGP to EIGRP due to hardware limitations, demonstrating adaptability</li>
+                <li>Implemented defense-in-depth security following principle of least privilege</li>
+                <li>Centralized critical services for simplified administration and troubleshooting</li>
+                <li>Translated simulated design to working physical network, overcoming software limitations</li>
+            </ul>
+            
+            <h4 style="margin-top: var(--space-lg); margin-bottom: var(--space-sm);">Business Value Delivered</h4>
+            <ul class="content-list">
+                <li><strong>Scalable Connectivity:</strong> Three-office network with expansion-ready design</li>
+                <li><strong>Enhanced Security:</strong> Segmentation, access control, and secure management</li>
+                <li><strong>Operational Efficiency:</strong> Centralized services and role-based management</li>
+            </ul>
+            
+            <div class="highlight-box" style="margin-top: var(--space-lg);">
+                <div class="highlight-icon"><i class="fas fa-link"></i></div>
+                <div class="highlight-content">
+                    <h4>Foundation for Systems Projects</h4>
+                    <p>This networking infrastructure represents the foundation that would host virtualized systems from other projects—demonstrating the full stack from physical network to application services.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- CTA -->
+        <section class="project-cta">
+            <h3 class="cta-title">Explore More Projects</h3>
+            <div class="cta-buttons">
+                <a href="capstone-platform.html" class="btn btn-primary">
+                    <i class="fas fa-sitemap"></i>
+                    <span>Unified Collaboration Platform</span>
+                </a>
+                <a href="../index.html#projects" class="btn btn-secondary">
+                    <i class="fas fa-th-large"></i>
+                    <span>All Projects</span>
+                </a>
+            </div>
+        </section>
+        
+    </main>
+    
+    <!-- Footer -->
+    <footer class="project-footer">
+        <p>© <span id="year"></span> Majestor Perrincio Kaptue Kepseu. All rights reserved.</p>
+    </footer>
+    
+    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+    <script>
+        // Theme persistence across pages
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+    </script>
+</body>
+</html>
