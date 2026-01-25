@@ -1,238 +1,263 @@
-# Portfolio - Majestor Kepseu
+# Majestor Kepseu — Portfolio
 
-> A modern, professional portfolio showcasing cybersecurity and cloud infrastructure expertise.
+A premium, responsive portfolio website showcasing enterprise infrastructure and network engineering projects. Built with modern web technologies and a focus on elegant design, accessibility, and performance.
 
-![Portfolio Version](https://img.shields.io/badge/version-6.0-blue)
-![License](https://img.shields.io/badge/license-MIT-green)
-![Status](https://img.shields.io/badge/status-production-success)
+![Portfolio Preview](assets/preview.png)
 
-## 🌐 Live Demo
+---
 
-**[View Portfolio](https://perrinio-dev.github.io/my-portfolio)**
+## 🚀 Live Demo
+
+[View Portfolio](#) *(Add your deployed URL here)*
 
 ---
 
 ## ✨ Features
 
-- **Dual Theme System** - Auto/Light/Dark modes with seamless switching
-- **Professional Project Pages** - Detailed case studies with image lightbox
-- **Responsive Design** - Mobile-first approach with touch-optimized interactions
-- **PWA Support** - Installable with offline capabilities
-- **Performance Optimized** - Lighthouse score 95+
-- **Accessible** - WCAG 2.1 AA compliant with keyboard navigation
+### Design
+- **Premium Dark/Light Theme** — Sophisticated dual-theme system with OS auto-detection and manual toggle
+- **Atmospheric Backgrounds** — Subtle gradient orbs with depth and noise overlay
+- **Distinctive Typography** — Sora (display) + DM Sans (body) font pairing
+- **Minimal Animations** — Refined interactions without overwhelming effects
+- **Fully Responsive** — Optimized for desktop, tablet, and mobile devices
 
----
+### Content
+- **Hero Section** — Professional introduction with stats, portrait, and call-to-action
+- **About** — Background story with career motivation cards
+- **Experience** — CAMTEL internship with achievement metrics
+- **Projects** — 4 comprehensive enterprise projects with detailed case study pages
+- **Skills** — Organized by domain (Identity, Virtualization, Networking, Security, etc.)
+- **Education** — Vertical timeline showing academic progression
+- **Certifications** — Roadmap with status indicators (In Progress, Planned, Later)
+- **Contact** — Form with Formspree integration + direct contact info
 
-## 🛠️ Tech Stack
-
-**Frontend**
-- HTML5, CSS3, JavaScript (ES6+)
-- CSS Grid & Flexbox
-- CSS Custom Properties
-
-**Libraries**
-- Font Awesome 6 (Icons)
-- Google Fonts (Poppins, Roboto Mono)
-- Formspree (Contact form)
-
-**Features**
-- Service Worker (PWA)
-- Intersection Observer (Animations)
-- LocalStorage (Theme persistence)
+### Technical
+- **Semantic HTML5** — Accessible, SEO-friendly markup
+- **CSS Custom Properties** — Centralized design tokens for easy theming
+- **Vanilla JavaScript** — No framework dependencies, fast load times
+- **Theme Persistence** — User preference saved to localStorage
+- **Smooth Scrolling** — Native scroll behavior with offset compensation
+- **Intersection Observer** — Performant scroll-triggered animations
 
 ---
 
 ## 📁 Project Structure
 
 ```
-my-portfolio/
-├── index.html                 # Main homepage
-├── style.css                  # Core styles
-├── light-theme.css            # Light theme styles
-├── animations.css             # Animation utilities
-├── theme-manager.js           # Theme switching logic
-├── script.js                  # Main JavaScript
-├── lightbox.js                # Image viewer
-├── sw.js                      # Service worker
-├── manifest.json              # PWA manifest
+portfolio-v7/
+├── index.html              # Main portfolio page
+├── style.css               # Main stylesheet (design system + components)
+├── script.js               # Theme toggle, navigation, animations
+├── project-styles.css      # Shared styles for project detail pages
+├── README.md               # This file
 │
 ├── assets/
-│   ├── profile.jpg            # Professional photo
-│   ├── icon-192.png           # PWA icon
-│   ├── icon-512.png           # PWA icon
-│   └── images/                # Project screenshots
+│   ├── profile.jpg         # Professional headshot (you provide)
+│   ├── Majestor_Kepseu_Resume.pdf  # Downloadable resume (you provide)
+│   └── projects/           # Project screenshots and diagrams
+│       ├── capstone/
+│       ├── vsphere/
+│       ├── exchange/
+│       └── network/
 │
 └── projects/
-    ├── project-styles.css     # Shared project styles
-    ├── virtualization-cluster.html
-    ├── exchange-server-dag.html
-    ├── multi-region-network.html
-    └── secure-enterprise-network.html
+    ├── capstone-platform.html       # Unified Collaboration Platform
+    ├── virtualization-cluster.html  # VMware vSphere Infrastructure
+    ├── exchange-server-dag.html     # Exchange Server 2019 with DAG
+    └── multi-site-network.html      # Multi-Site Enterprise Network
 ```
 
 ---
 
-## 🚀 Getting Started
+## 🛠️ Setup & Deployment
 
 ### Prerequisites
+- A web browser (Chrome, Firefox, Safari, Edge)
+- A web server or hosting platform (GitHub Pages, Netlify, Vercel, etc.)
 
-- Modern web browser (Chrome, Firefox, Safari, Edge)
-- Local web server (optional for development)
+### Local Development
 
-### Installation
-
-1. **Clone the repository**
+1. **Clone or download** the repository
    ```bash
-   git clone https://github.com/PERRINIO-dev/my-portfolio.git
-   cd portfolio
+   git clone https://github.com/PERRINIO-dev/my-portfolio
+   cd my-portfolio
    ```
 
-2. **Run locally**
-   
-   Using Python:
+2. **Add your assets**
+   - Place your professional photo as `assets/profile.jpg`
+   - Add your resume as `assets/Majestor_Kepseu_Resume.pdf`
+   - Add project screenshots to `assets/projects/`
+
+3. **Serve locally** (choose one method)
    ```bash
+   # Using Python
    python -m http.server 8000
-   ```
    
-   Using Node.js:
-   ```bash
-   npx http-server
-   ```
+   # Using Node.js
+   npx serve
    
-   Or simply open `index.html` in your browser.
+   # Using VS Code
+   # Install "Live Server" extension and click "Go Live"
+   ```
 
-3. **View the site**
+4. **Open in browser**
    ```
    http://localhost:8000
    ```
+
+### Deployment
+
+#### GitHub Pages
+1. Push code to a GitHub repository
+2. Go to Settings → Pages
+3. Select branch (main) and folder (root)
+4. Your site will be live at `https://username.github.io/repository`
+
+#### Netlify
+1. Connect your GitHub repository
+2. Build command: *(leave empty)*
+3. Publish directory: `.` or `/`
+4. Deploy!
+
+#### Custom Domain
+Add a `CNAME` file with your domain name, then configure DNS settings with your registrar.
 
 ---
 
 ## 🎨 Customization
 
-### Personal Information
+### Colors
+Edit CSS variables in `style.css` under `:root`:
 
-Edit `index.html` and update:
-- Name and professional title (Hero section)
-- Social media links
-- Contact information
-- About me content
-- Work experience
-- Skills and certifications
-
-### Profile Photo
-
-Replace `assets/profile.jpg` with your professional photo (recommended: 420x420px).
-
-### Theme Colors
-
-Modify CSS variables in `style.css`:
 ```css
 :root {
-    --accent: #20D3D3;           /* Primary accent color */
-    --bg-primary: #070A0D;       /* Dark theme background */
-    /* ... more variables ... */
+    /* Dark Theme (default) */
+    --bg-deep: #08090c;
+    --bg-primary: #0c0d12;
+    --accent: #22d3d3;
+    --accent-dim: #1ab3b3;
+    /* ... */
+}
+
+[data-theme="light"] {
+    /* Light Theme */
+    --bg-deep: #f8f9fb;
+    --bg-primary: #ffffff;
+    --accent: #0d9488;
+    /* ... */
 }
 ```
 
-### Adding Projects
+### Typography
+Change fonts in `style.css`:
 
-1. Create new HTML file in `projects/` folder (copy existing as template)
-2. Add project images to `assets/images/`
-3. Add project card to `index.html` projects section
-4. Update project details in the new HTML file
+```css
+:root {
+    --font-display: 'Sora', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+}
+```
 
----
+Update the Google Fonts link in `<head>` to match.
 
-## 🌓 Theme System
-
-The portfolio supports three theme modes:
-
-- **Auto** - Follows system preference (default)
-- **Light** - Manual light mode
-- **Dark** - Manual dark mode
-
-Click the theme toggle button (bottom-right) to cycle through modes.
-
-Theme preference is saved in `localStorage` and persists across sessions.
+### Content
+- **Personal Info** — Edit `index.html` directly
+- **Projects** — Modify files in `/projects/` folder
+- **Contact Form** — Replace Formspree endpoint in `index.html`
 
 ---
 
-## 🖼️ Image Lightbox
+## 📸 Adding Project Images
 
-Gallery images are clickable and open in a full-screen lightbox viewer.
+### Architecture Diagrams
+Replace placeholder divs in project pages:
 
-**Controls:**
-- Click image to enlarge
-- ESC to close
-- ← → Arrow keys to navigate
-- Click outside to close
+```html
+<!-- Before -->
+<div class="architecture-placeholder">
+    <i class="fas fa-image"></i>
+    <span>Architecture Diagram</span>
+</div>
 
----
+<!-- After -->
+<img src="../assets/projects/vsphere/architecture.png" alt="vSphere Architecture Diagram">
+```
 
-## 📱 PWA Features
+### Gallery Images
+```html
+<!-- Before -->
+<div class="gallery-placeholder">
+    <i class="fas fa-desktop"></i>
+    <span>vCenter Dashboard</span>
+</div>
 
-The portfolio is installable as a Progressive Web App:
+<!-- After -->
+<img src="../assets/projects/vsphere/vcenter-dashboard.png" alt="vCenter Dashboard">
+```
 
-**Desktop:**
-1. Click the install icon in the browser address bar
-2. Follow the prompts
-
-**Mobile:**
-1. Open menu (three dots)
-2. Select "Add to Home Screen"
-3. The portfolio will install as an app
-
----
-
-## 🧪 Testing
-
-Ensure the following work correctly:
-
-**Theme System:**
-- [ ] Auto mode follows system preference
-- [ ] Manual modes override system
-- [ ] Theme persists after refresh
-- [ ] All elements properly themed
-
-**Responsive Design:**
-- [ ] Mobile navigation works
-- [ ] Content readable on all screen sizes
-- [ ] Touch targets 48px minimum
-- [ ] Images load properly
-
-**Lightbox:**
-- [ ] Images enlarge on click
-- [ ] Keyboard navigation works
-- [ ] Mobile controls accessible
+### Recommended Image Sizes
+| Type | Dimensions | Format |
+|------|------------|--------|
+| Profile Photo | 400×400px | JPG/WebP |
+| Architecture Diagram | 1200×800px | PNG |
+| Gallery Screenshots | 800×500px | PNG/WebP |
+| Preview/OG Image | 1200×630px | PNG |
 
 ---
 
-## 📊 Performance
+## 📧 Contact Form Setup
 
-Current metrics:
-- First Contentful Paint: ~1.2s
-- Largest Contentful Paint: ~1.8s
-- Cumulative Layout Shift: 0.05
-- Lighthouse Score: 95+
+The contact form uses [Formspree](https://formspree.io/) for backend processing.
 
----
+1. Create a free account at formspree.io
+2. Create a new form and copy the endpoint
+3. Update the form action in `index.html`:
 
-## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome!
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+```html
+<form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+```
 
 ---
 
-## 📄 License
+## 🔧 Browser Support
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+| Browser | Version |
+|---------|---------|
+| Chrome | 90+ |
+| Firefox | 88+ |
+| Safari | 14+ |
+| Edge | 90+ |
+
+---
+
+## 📄 Featured Projects
+
+### 1. Unified Collaboration & Management Platform
+**Type:** Enterprise IT Integration | **Team:** 5 members
+
+Capstone project delivering AD-integrated platform with Zimbra, Zabbix, Zammad, Headwind MDM, Docker gateway, and enterprise PKI.
+
+### 2. VMware vSphere Enterprise Infrastructure
+**Type:** Virtualization | **Individual Project**
+
+Production-grade virtualized datacenter with nested ESXi hosts, vCenter, DRS automation, HA failover, and Fault Tolerance.
+
+### 3. Exchange Server 2019 with DAG
+**Type:** Messaging & Collaboration | **Individual Project**
+
+Highly available enterprise messaging with Database Availability Group, automated failover, and full AD integration.
+
+### 4. Multi-Site Enterprise Network
+**Type:** Core Networking & Security | **Team:** 4 members
+
+Secure network connecting Toronto, Vancouver, and Tokyo with EIGRP routing, VLANs, ACLs, and centralized management.
+
+---
+
+## 📝 License
+
+This portfolio is personal work. Feel free to use it as inspiration, but please don't copy content directly.
 
 ---
 
@@ -240,49 +265,18 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Majestor Perrincio Kaptue Kepseu**
 
-- Email: majestork@gmail.com
-- LinkedIn: [Majestor Kepseu](https://www.linkedin.com/in/majestor-kepseu)
-- GitHub: [@PERRINIO-dev](https://github.com/PERRINIO-dev)
-- Portfolio: [perrinio-dev.github.io/portfolio](https://perrinio-dev.github.io/my-portfolio)
+- Network & Infrastructure Engineer
+- Cloud Security Engineer
+- M.Eng Network Security | Post-Graduate Certificate, Applied Network Infrastructure
+
+📍 Kitchener, Ontario, Canada
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/majestor-kepseu)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/majestorkepseu)
+[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:majestorkepseu@gmail.com)
 
 ---
 
-## 🙏 Acknowledgments
-
-- **Design Inspiration**: Modern IT portfolios and Material Design
-- **Icons**: [Font Awesome](https://fontawesome.com/)
-- **Fonts**: [Google Fonts](https://fonts.google.com/)
-- **Form Handling**: [Formspree](https://formspree.io/)
-
----
-
-## 📝 Version History
-
-**v6.0** (Current) - Professional Enhancement
-- Enhanced project pages with lightbox functionality
-- Improved typography and spacing
-- Mobile optimization (17-18px body text, 48px touch targets)
-- Navigation branding consistency
-- Complete theme system refinement
-
-**v5.3** - Theme System
-- Dual theme support with auto/light/dark modes
-- Theme persistence with localStorage
-- Mobile animations and touch feedback
-- PWA features with service worker
-
-**v5.0** - Architecture Redesign
-- Individual HTML project pages
-- Simplified codebase
-- Enhanced SEO and performance
-
----
-
-<div align="center">
-
-**Built with ❤️ using HTML, CSS & JavaScript**
-
-[![GitHub](https://img.shields.io/badge/GitHub-PERRINIO--dev-181717?logo=github)](https://github.com/PERRINIO-dev)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Majestor_Kepseu-0077B5?logo=linkedin)](https://www.linkedin.com/in/majestor-kepseu)
-
-</div>
+<p align="center">
+  <sub>Built with precision and passion. © 2025 Majestor Kepseu</sub>
+</p>
