@@ -1,4 +1,4 @@
-# Majestor Kepseu — Portfolio
+# Majestor Kepseu - Portfolio
 
 A premium, responsive portfolio website showcasing enterprise infrastructure and network engineering projects. Built with modern web technologies and a focus on elegant design, accessibility, and performance.
 
@@ -6,45 +6,46 @@ A premium, responsive portfolio website showcasing enterprise infrastructure and
 
 ---
 
-## 🚀 Live Demo
+## Live Demo
 
-[View Portfolio](#) *(Add your deployed URL here)*
+[View Portfolio](#) https://perrinio-dev.github.io/my-portfolio/index.html
 
 ---
 
-## ✨ Features
+## Features
 
 ### Design
-- **Premium Dark/Light Theme** — Sophisticated dual-theme system with OS auto-detection and manual toggle
-- **Atmospheric Backgrounds** — Subtle gradient orbs with depth and noise overlay
-- **Distinctive Typography** — Sora (display) + DM Sans (body) font pairing
-- **Minimal Animations** — Refined interactions without overwhelming effects
-- **Fully Responsive** — Optimized for desktop, tablet, and mobile devices
+- **Premium Dark/Light Theme** - Sophisticated dual-theme system with OS auto-detection and manual toggle
+- **Atmospheric Backgrounds** - Subtle gradient orbs with depth and noise overlay
+- **Distinctive Typography** - Sora (display) + DM Sans (body) font pairing
+- **Minimal Animations** - Refined interactions without overwhelming effects
+- **Fully Responsive** - Optimized for desktop, tablet, and mobile devices
 
 ### Content
-- **Hero Section** — Professional introduction with stats, portrait, and call-to-action
-- **About** — Background story with career motivation cards
-- **Experience** — CAMTEL internship with achievement metrics
-- **Projects** — 4 comprehensive enterprise projects with detailed case study pages
-- **Skills** — Organized by domain (Identity, Virtualization, Networking, Security, etc.)
-- **Education** — Vertical timeline showing academic progression
-- **Certifications** — Roadmap with status indicators (In Progress, Planned, Later)
-- **Contact** — Form with Formspree integration + direct contact info
+- **Hero Section** - Professional introduction with stats, portrait, and call-to-action
+- **About** - Background story with career motivation cards
+- **Experience** - CAMTEL internship with achievement metrics
+- **Projects** - 4 comprehensive enterprise projects with detailed case study pages
+- **Skills** - Organized by domain (Identity, Virtualization, Networking, Security, etc.)
+- **Education** - Vertical timeline showing academic progression
+- **Certifications** - Roadmap with status indicators (In Progress, Planned, Later)
+- **Contact** - Form with Formspree integration + direct contact info
 
 ### Technical
-- **Semantic HTML5** — Accessible, SEO-friendly markup
-- **CSS Custom Properties** — Centralized design tokens for easy theming
-- **Vanilla JavaScript** — No framework dependencies, fast load times
-- **Theme Persistence** — User preference saved to localStorage
-- **Smooth Scrolling** — Native scroll behavior with offset compensation
-- **Intersection Observer** — Performant scroll-triggered animations
+- **Semantic HTML5** - Accessible, SEO-friendly markup
+- **CSS Custom Properties** - Centralized design tokens for easy theming
+- **Vanilla JavaScript** - No framework dependencies, fast load times
+- **Theme Persistence** - User preference saved to localStorage
+- **Smooth Scrolling** - Native scroll behavior with offset compensation
+- **Intersection Observer** - Performant scroll-triggered animations
+- **Image Lightbox** - Click-to-expand gallery with keyboard navigation
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
-portfolio-v7/
+portfolio/
 ├── index.html              # Main portfolio page
 ├── style.css               # Main stylesheet (design system + components)
 ├── script.js               # Theme toggle, navigation, animations
@@ -52,8 +53,9 @@ portfolio-v7/
 ├── README.md               # This file
 │
 ├── assets/
-│   ├── profile.jpg         # Professional headshot (you provide)
-│   ├── Majestor_Kepseu_Resume.pdf  # Downloadable resume (you provide)
+│   ├── profile.jpg         # Professional headshot
+│   ├── favicon.svg         # Site favicon
+│   ├── Majestor_Kepseu_Resume.pdf  # Downloadable resume
 │   └── projects/           # Project screenshots and diagrams
 │       ├── capstone/
 │       ├── vsphere/
@@ -69,7 +71,7 @@ portfolio-v7/
 
 ---
 
-## 🛠️ Setup & Deployment
+## Setup & Deployment
 
 ### Prerequisites
 - A web browser (Chrome, Firefox, Safari, Edge)
@@ -109,7 +111,7 @@ portfolio-v7/
 
 #### GitHub Pages
 1. Push code to a GitHub repository
-2. Go to Settings → Pages
+2. Go to Settings > Pages
 3. Select branch (main) and folder (root)
 4. Your site will be live at `https://username.github.io/repository`
 
@@ -124,7 +126,7 @@ Add a `CNAME` file with your domain name, then configure DNS settings with your 
 
 ---
 
-## 🎨 Customization
+## Customization
 
 ### Colors
 Edit CSS variables in `style.css` under `:root`:
@@ -162,51 +164,42 @@ Change fonts in `style.css`:
 Update the Google Fonts link in `<head>` to match.
 
 ### Content
-- **Personal Info** — Edit `index.html` directly
-- **Projects** — Modify files in `/projects/` folder
-- **Contact Form** — Replace Formspree endpoint in `index.html`
+- **Personal Info** - Edit `index.html` directly
+- **Projects** - Modify files in `/projects/` folder
+- **Contact Form** - Replace Formspree endpoint in `index.html`
 
 ---
 
-## 📸 Adding Project Images
+## Adding Project Images
 
 ### Architecture Diagrams
-Replace placeholder divs in project pages:
+Images are placed in the architecture section:
 
 ```html
-<!-- Before -->
-<div class="architecture-placeholder">
-    <i class="fas fa-image"></i>
-    <span>Architecture Diagram</span>
+<div class="architecture-image" data-lightbox="architecture" data-caption="Your Caption">
+    <img src="../assets/projects/vsphere/architecture.png" alt="Architecture Diagram">
 </div>
-
-<!-- After -->
-<img src="../assets/projects/vsphere/architecture.png" alt="vSphere Architecture Diagram">
 ```
 
 ### Gallery Images
 ```html
-<!-- Before -->
-<div class="gallery-placeholder">
-    <i class="fas fa-desktop"></i>
-    <span>vCenter Dashboard</span>
+<div class="gallery-item" data-lightbox="gallery" data-caption="Screenshot Description">
+    <img src="../assets/projects/vsphere/screenshot.png" alt="Screenshot">
+    <span class="gallery-caption">Label</span>
 </div>
-
-<!-- After -->
-<img src="../assets/projects/vsphere/vcenter-dashboard.png" alt="vCenter Dashboard">
 ```
 
 ### Recommended Image Sizes
 | Type | Dimensions | Format |
 |------|------------|--------|
-| Profile Photo | 400×400px | JPG/WebP |
-| Architecture Diagram | 1200×800px | PNG |
-| Gallery Screenshots | 800×500px | PNG/WebP |
-| Preview/OG Image | 1200×630px | PNG |
+| Profile Photo | 400x400px | JPG/WebP |
+| Architecture Diagram | 1200x800px | PNG |
+| Gallery Screenshots | Keep native resolution | PNG/WebP |
+| Preview/OG Image | 1200x630px | PNG |
 
 ---
 
-## 📧 Contact Form Setup
+## Contact Form Setup
 
 The contact form uses [Formspree](https://formspree.io/) for backend processing.
 
@@ -220,7 +213,7 @@ The contact form uses [Formspree](https://formspree.io/) for backend processing.
 
 ---
 
-## 🔧 Browser Support
+## Browser Support
 
 | Browser | Version |
 |---------|---------|
@@ -231,7 +224,7 @@ The contact form uses [Formspree](https://formspree.io/) for backend processing.
 
 ---
 
-## 📄 Featured Projects
+## Featured Projects
 
 ### 1. Unified Collaboration & Management Platform
 **Type:** Enterprise IT Integration | **Team:** 5 members
@@ -255,13 +248,13 @@ Secure network connecting Toronto, Vancouver, and Tokyo with EIGRP routing, VLAN
 
 ---
 
-## 📝 License
+## License
 
 This portfolio is personal work. Feel free to use it as inspiration, but please don't copy content directly.
 
 ---
 
-## 👤 Author
+## Author
 
 **Majestor Perrincio Kaptue Kepseu**
 
@@ -269,10 +262,10 @@ This portfolio is personal work. Feel free to use it as inspiration, but please 
 - Cloud Security Engineer
 - M.Eng Network Security | Post-Graduate Certificate, Applied Network Infrastructure
 
-📍 Kitchener, Ontario, Canada
+Location: Kitchener, Ontario, Canada
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/majestor-kepseu)
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/majestorkepseu)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/PERRINIO-dev)
 [![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:majestorkepseu@gmail.com)
 
 ---
