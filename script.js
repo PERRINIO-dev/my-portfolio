@@ -170,15 +170,22 @@ function initSmoothScroll() {
     });
 }
 
-// Reveal Animations (subtle fade in on scroll)
+// Reveal Animations (staggered cascade on scroll with varied directions)
 function initRevealAnimations() {
-    const observerOptions = {
+    // Respect reduced motion preference
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var STAGGER_DELAY = parseFloat(
+        getComputedStyle(document.documentElement).getPropertyValue('--reveal-stagger')
+    ) || 0.1;
+
+    var observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     };
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+    var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
             if (entry.isIntersecting) {
                 entry.target.classList.add('revealed');
                 observer.unobserve(entry.target);
@@ -187,24 +194,75 @@ function initRevealAnimations() {
     }, observerOptions);
 
     // If page loaded with a hash, find that section so we can skip its animation
-    let hashTarget = null;
+    var hashTarget = null;
     if (window.location.hash) {
         try { hashTarget = document.querySelector(window.location.hash); } catch (e) { /* invalid selector */ }
     }
 
     // Observe sections and cards
-    document.querySelectorAll('.section, .project-card, .skill-domain, .cert-card, .edu-item, .about-card').forEach(el => {
+    document.querySelectorAll('.section, .project-card, .skill-domain, .cert-card, .edu-item, .about-card').forEach(function(el) {
         // Skip animation for the hash-targeted section and its children
-        // so the browser can scroll to it without a race condition
         if (hashTarget && (el === hashTarget || hashTarget.contains(el))) {
             el.classList.add('revealed');
             return;
         }
+
+        // Determine stagger index among siblings of the same type
+        var staggerIndex = 0;
+        if (!el.classList.contains('section')) {
+            var siblings = el.parentElement.children;
+            var count = 0;
+            for (var i = 0; i < siblings.length; i++) {
+                if (siblings[i] === el) { staggerIndex = count; break; }
+                if (siblings[i].tagName === el.tagName) count++;
+            }
+        }
+
+        var delay = staggerIndex * STAGGER_DELAY;
+        var direction = getRevealDirection(el, staggerIndex);
+        var easing = 'cubic-bezier(0.16, 1, 0.3, 1)';
+
         el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        el.style.transform = direction;
+        el.style.transition = 'opacity 0.6s ' + easing + ' ' + delay + 's, transform 0.6s ' + easing + ' ' + delay + 's';
+
         observer.observe(el);
     });
+}
+
+function getRevealDirection(el, index) {
+    // Sections: standard fade up
+    if (el.classList.contains('section')) {
+        return 'translateY(20px)';
+    }
+
+    // About cards: slide from right
+    if (el.classList.contains('about-card')) {
+        return 'translateX(30px)';
+    }
+
+    // Education items: slide from left (toward timeline)
+    if (el.classList.contains('edu-item')) {
+        return 'translateX(-30px)';
+    }
+
+    // Project cards: alternate left/right
+    if (el.classList.contains('project-card')) {
+        return index % 2 === 0 ? 'translateX(-20px)' : 'translateX(20px)';
+    }
+
+    // Skill domains: fade up with slightly more distance
+    if (el.classList.contains('skill-domain')) {
+        return 'translateY(25px)';
+    }
+
+    // Cert cards: fade up with subtle scale
+    if (el.classList.contains('cert-card')) {
+        return 'translateY(15px) scale(0.97)';
+    }
+
+    // Default: fade up
+    return 'translateY(20px)';
 }
 
 

@@ -124,9 +124,7 @@ a {
     transition: transform 0.3s ease;
 }
 
-.back-btn:hover i {
-    transform: translateX(-4px);
-}
+/* back-btn:hover i transform in @media (hover: hover) below */
 
 .nav-logo {
     display: flex;
@@ -301,8 +299,6 @@ a {
 
 .feature-card:hover {
     border-color: var(--accent);
-    transform: translateY(-4px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
 
 .feature-icon {
@@ -459,8 +455,6 @@ a {
 
 .btn-primary:hover {
     background: var(--accent-dim);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px var(--accent-glow);
 }
 
 [data-theme="light"] .btn-primary {
@@ -662,8 +656,6 @@ a {
 
 .gallery-item:hover {
     border-color: var(--accent);
-    transform: translateY(-4px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
 }
 
 .gallery-item img {
@@ -673,9 +665,7 @@ a {
     transition: transform 0.3s ease;
 }
 
-.gallery-item:hover img {
-    transform: scale(1.05);
-}
+/* gallery-item:hover img transform in @media (hover: hover) below */
 
 .gallery-item .gallery-caption {
     position: absolute;
@@ -743,9 +733,7 @@ a {
     transition: transform 0.3s ease;
 }
 
-.architecture-image:hover img {
-    transform: scale(1.02);
-}
+/* architecture-image:hover img transform in @media (hover: hover) below */
 
 .architecture-placeholder {
     height: 280px;
@@ -845,7 +833,6 @@ a {
 .lightbox-close:hover {
     background: var(--accent);
     border-color: var(--accent);
-    transform: rotate(90deg);
 }
 
 .lightbox-nav {
@@ -924,7 +911,6 @@ a {
 
 .callout-box:hover {
     border-color: var(--accent);
-    transform: translateY(-4px);
 }
 
 .callout-icon {
@@ -1160,6 +1146,101 @@ a {
     background: transparent;
     border: none;
     padding: 0;
+}
+
+/* ====== HOVER TRANSFORMS (pointer devices only) ====== */
+@media (hover: hover) {
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px var(--accent-glow);
+    }
+
+    .feature-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .gallery-item:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    .gallery-item:hover img {
+        transform: scale(1.05);
+    }
+
+    .architecture-image:hover img {
+        transform: scale(1.02);
+    }
+
+    .lightbox-close:hover {
+        transform: rotate(90deg);
+    }
+
+    .callout-box:hover {
+        transform: translateY(-4px);
+    }
+
+    .back-btn:hover i {
+        transform: translateX(-4px);
+    }
+}
+
+/* ====== TAP FEEDBACK ====== */
+.back-btn:active {
+    transform: scale(0.95);
+    border-color: var(--accent);
+    color: var(--accent);
+    transition-duration: 0.1s;
+}
+
+.btn:active {
+    transform: scale(0.97);
+    transition-duration: 0.1s;
+}
+
+.feature-card:active {
+    transform: scale(0.98);
+    border-color: var(--accent);
+    transition-duration: 0.1s;
+}
+
+.gallery-item:active {
+    transform: scale(0.97);
+    border-color: var(--accent);
+    transition-duration: 0.1s;
+}
+
+.callout-box:active {
+    transform: scale(0.98);
+    border-color: var(--accent);
+    transition-duration: 0.1s;
+}
+
+.tech-tag:active {
+    border-color: var(--accent);
+    color: var(--accent);
+    transition-duration: 0.1s;
+}
+
+.lightbox-close:active,
+.lightbox-nav:active {
+    transform: scale(0.9);
+    transition-duration: 0.1s;
+}
+
+/* ====== TAP HIGHLIGHT SUPPRESSION ====== */
+@media (pointer: coarse) {
+    .back-btn,
+    .btn,
+    .feature-card,
+    .gallery-item,
+    .callout-box,
+    .tech-tag,
+    .lightbox-close,
+    .lightbox-nav {
+        -webkit-tap-highlight-color: transparent;
+    }
 }
 
 /* ====== RESPONSIVE ====== */

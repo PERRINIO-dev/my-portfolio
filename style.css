@@ -368,8 +368,6 @@ a {
 
 .btn-primary:hover {
     background: var(--accent-dim);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 40px var(--accent-glow);
 }
 
 .btn-secondary {
@@ -479,7 +477,6 @@ a {
 .social-link:hover {
     color: var(--accent);
     border-color: var(--accent);
-    transform: translateY(-3px);
 }
 
 /* Scroll Indicator */
@@ -735,8 +732,6 @@ a {
 
 .project-card:hover {
     border-color: var(--accent);
-    transform: translateY(-4px);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
 
 .project-image {
@@ -820,7 +815,6 @@ a {
 .project-card:hover .project-arrow {
     background: var(--accent);
     color: var(--bg-deep);
-    transform: translateX(4px);
 }
 
 /* ====== SKILLS SECTION ====== */
@@ -953,7 +947,6 @@ a {
 
 .edu-card:hover {
     border-color: var(--accent);
-    transform: translateX(8px);
 }
 
 .edu-type {
@@ -1011,7 +1004,6 @@ a {
 
 .cert-card:hover {
     border-color: var(--accent);
-    transform: translateY(-4px);
 }
 
 .cert-active {
@@ -1249,6 +1241,119 @@ a {
 .footer-copyright {
     font-size: 0.8rem;
     color: var(--text-muted);
+}
+
+/* ====== HOVER TRANSFORMS (pointer devices only) ====== */
+@media (hover: hover) {
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 40px var(--accent-glow);
+    }
+
+    .social-link:hover {
+        transform: translateY(-3px);
+    }
+
+    .project-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .project-card:hover .project-arrow {
+        transform: translateX(4px);
+    }
+
+    .edu-card:hover {
+        transform: translateX(8px);
+    }
+
+    .cert-card:hover {
+        transform: translateY(-4px);
+    }
+}
+
+/* ====== TAP FEEDBACK ====== */
+.btn:active {
+    transform: scale(0.97);
+    transition-duration: 0.1s;
+}
+
+.btn-primary:active {
+    transform: scale(0.97);
+    filter: brightness(0.9);
+    transition-duration: 0.1s;
+}
+
+.social-link:active {
+    transform: scale(0.9);
+    border-color: var(--accent);
+    color: var(--accent);
+    transition-duration: 0.1s;
+}
+
+.project-card:active {
+    transform: scale(0.985);
+    border-color: var(--accent);
+    transition-duration: 0.1s;
+}
+
+.about-card:active {
+    border-color: var(--accent);
+    transition-duration: 0.1s;
+}
+
+.skill-domain:active {
+    border-color: var(--accent);
+    transition-duration: 0.1s;
+}
+
+.cert-card:active {
+    transform: scale(0.98);
+    border-color: var(--accent);
+    transition-duration: 0.1s;
+}
+
+.edu-card:active {
+    border-color: var(--accent);
+    transition-duration: 0.1s;
+}
+
+.contact-card:active {
+    border-color: var(--accent);
+    transition-duration: 0.1s;
+}
+
+.nav-link:active {
+    color: var(--accent);
+    transition-duration: 0.1s;
+}
+
+.theme-toggle:active {
+    transform: scale(0.95);
+    border-color: var(--accent);
+    transition-duration: 0.1s;
+}
+
+.nav-toggle:active {
+    opacity: 0.7;
+    transition-duration: 0.1s;
+}
+
+/* ====== TAP HIGHLIGHT SUPPRESSION ====== */
+@media (pointer: coarse) {
+    .btn,
+    .social-link,
+    .project-card,
+    .cert-card,
+    .about-card,
+    .skill-domain,
+    .edu-card,
+    .contact-card,
+    .nav-link,
+    .theme-toggle,
+    .nav-toggle {
+        -webkit-tap-highlight-color: transparent;
+    }
 }
 
 /* ====== RESPONSIVE ====== */
@@ -1551,7 +1656,7 @@ a {
 /* ====== REVEAL ANIMATIONS ====== */
 .revealed {
     opacity: 1 !important;
-    transform: translateY(0) !important;
+    transform: none !important;
 }
 
 /* ====== NAV TOGGLE ANIMATION ====== */
