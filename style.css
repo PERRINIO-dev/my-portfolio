@@ -776,10 +776,6 @@ a {
     letter-spacing: 0.05em;
 }
 
-.project-content {
-    flex: 1;
-}
-
 .project-title {
     font-size: 1.1rem;
     margin-bottom: 0.5rem;
@@ -1514,8 +1510,7 @@ a {
     background: linear-gradient(to bottom, var(--accent), transparent);
 }
 
-[data-theme="light"] .project-tech span,
-[data-theme="light"] .tech-tag {
+[data-theme="light"] .project-tech span {
     background: var(--bg-primary);
 }
 

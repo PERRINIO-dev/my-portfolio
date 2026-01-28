@@ -150,7 +150,8 @@ function initSmoothScroll() {
             const href = this.getAttribute('href');
             if (href === '#') return;
             
-            const target = document.querySelector(href);
+            let target;
+            try { target = document.querySelector(href); } catch (e) { return; }
             if (!target) return;
             
             e.preventDefault();
@@ -186,7 +187,10 @@ function initRevealAnimations() {
     }, observerOptions);
 
     // If page loaded with a hash, find that section so we can skip its animation
-    const hashTarget = window.location.hash ? document.querySelector(window.location.hash) : null;
+    let hashTarget = null;
+    if (window.location.hash) {
+        try { hashTarget = document.querySelector(window.location.hash); } catch (e) { /* invalid selector */ }
+    }
 
     // Observe sections and cards
     document.querySelectorAll('.section, .project-card, .skill-domain, .cert-card, .edu-item, .about-card').forEach(el => {

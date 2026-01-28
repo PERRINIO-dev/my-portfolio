@@ -86,6 +86,8 @@
     lightbox.addEventListener('touchstart', function(e) {
         touchStartX = e.changedTouches[0].screenX;
         touchStartY = e.changedTouches[0].screenY;
+        touchEndX = touchStartX;
+        touchEndY = touchStartY;
         swiping = true;
     }, { passive: true });
 
