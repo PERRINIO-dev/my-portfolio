@@ -391,7 +391,8 @@ a {
 /* Hero Stats */
 .hero-stats {
     display: flex;
-    gap: var(--space-xl);
+    gap: var(--space-lg);
+    flex-wrap: wrap;
 }
 
 .stat {
@@ -1326,7 +1327,7 @@ a {
         background: var(--bg-primary);
         flex-direction: column;
         padding: var(--space-lg);
-        gap: var(--space-xs);
+        gap: var(--space-sm);
         transform: translateX(100%);
         transition: transform 0.3s ease;
         border-left: 1px solid var(--border);
