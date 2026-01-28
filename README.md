@@ -1,6 +1,6 @@
 # Majestor Kepseu - Portfolio
 
-A premium, responsive portfolio website showcasing enterprise infrastructure and network engineering projects. Built with modern web technologies and a focus on elegant design, accessibility, and performance.
+A premium, responsive portfolio website showcasing enterprise infrastructure and network engineering projects. Built with vanilla HTML, CSS, and JavaScript with a focus on elegant design, accessibility, and performance.
 
 ![Portfolio Preview](assets/preview.png)
 
@@ -8,55 +8,62 @@ A premium, responsive portfolio website showcasing enterprise infrastructure and
 
 ## Live Demo
 
-[View Portfolio](#) https://perrinio-dev.github.io/my-portfolio/index.html
+[View Portfolio](https://perrinio-dev.github.io/my-portfolio/)
 
 ---
 
 ## Features
 
 ### Design
-- **Premium Dark/Light Theme** - Sophisticated dual-theme system with OS auto-detection and manual toggle
+- **Premium Dark/Light Theme** - Dual-theme system with OS auto-detection, manual toggle, and cross-page persistence via `localStorage`
 - **Atmospheric Backgrounds** - Subtle gradient orbs with depth and noise overlay
-- **Distinctive Typography** - Sora (display) + DM Sans (body) font pairing
-- **Minimal Animations** - Refined interactions without overwhelming effects
-- **Fully Responsive** - Optimized for desktop, tablet, and mobile devices
+- **Distinctive Typography** - Sora (display) + DM Sans (body) + JetBrains Mono (code) font pairing
+- **Minimal Animations** - Scroll-triggered reveal animations using `IntersectionObserver`
+- **Fully Responsive** - Optimized for desktop, tablet, and mobile with dedicated breakpoints at 1024px, 768px, and 480px
 
 ### Content
 - **Hero Section** - Professional introduction with stats, portrait, and call-to-action
 - **About** - Background story with career motivation cards
 - **Experience** - CAMTEL internship with achievement metrics
-- **Projects** - 4 comprehensive enterprise projects with detailed case study pages
+- **Projects** - 4 comprehensive enterprise projects with dedicated case study pages
 - **Skills** - Organized by domain (Identity, Virtualization, Networking, Security, etc.)
 - **Education** - Vertical timeline showing academic progression
 - **Certifications** - Roadmap with status indicators (In Progress, Planned, Later)
 - **Contact** - Form with Formspree integration + direct contact info
 
 ### Technical
-- **Semantic HTML5** - Accessible, SEO-friendly markup
-- **CSS Custom Properties** - Centralized design tokens for easy theming
+- **Semantic HTML5** - Accessible, SEO-friendly markup with ARIA labels
+- **Centralized Design Tokens** - Shared `variables.css` used by both main and project stylesheets
 - **Vanilla JavaScript** - No framework dependencies, fast load times
-- **Theme Persistence** - User preference saved to localStorage
-- **Smooth Scrolling** - Native scroll behavior with offset compensation
-- **Intersection Observer** - Performant scroll-triggered animations
-- **Image Lightbox** - Click-to-expand gallery with keyboard navigation
+- **FOUC Prevention** - Blocking theme script in `<head>` ensures correct theme before first paint
+- **Smooth Scrolling** - Scroll with nav offset compensation using `replaceState` (no history pollution)
+- **Image Lightbox** - Gallery with keyboard navigation (Escape, Arrow keys) and mobile swipe gestures
+- **Mobile Menu** - Slide-in navigation with backdrop overlay and click-outside dismiss
+- **Reduced Motion** - Respects `prefers-reduced-motion` across all animations
 
 ---
 
 ## Project Structure
 
 ```
-portfolio/
-├── index.html              # Main portfolio page
-├── style.css               # Main stylesheet (design system + components)
-├── script.js               # Theme toggle, navigation, animations
-├── project-styles.css      # Shared styles for project detail pages
-├── README.md               # This file
+my-portfolio/
+├── index.html                # Main portfolio page
+├── variables.css             # Shared design tokens (single source of truth)
+├── style.css                 # Main page styles (imports variables.css)
+├── project-styles.css        # Project page styles (imports variables.css)
+├── script.js                 # Theme, navigation, animations, contact form
+├── lightbox.js               # Shared lightbox with keyboard nav + swipe gestures
+├── favicon.ico               # Favicon (ICO)
+├── .nojekyll                 # GitHub Pages bypass for Jekyll processing
+├── README.md
 │
 ├── assets/
-│   ├── profile.jpg         # Professional headshot
-│   ├── favicon.svg         # Site favicon
+│   ├── profile.jpg           # Professional headshot
+│   ├── preview.png           # Portfolio preview screenshot
+│   ├── favicon.svg           # Favicon (SVG)
+│   ├── favicon.png           # Favicon (PNG fallback)
 │   ├── Majestor_Kepseu_Resume.pdf  # Downloadable resume
-│   └── projects/           # Project screenshots and diagrams
+│   └── projects/             # Project screenshots and diagrams
 │       ├── capstone/
 │       ├── vsphere/
 │       ├── exchange/
@@ -71,6 +78,19 @@ portfolio/
 
 ---
 
+## Architecture Decisions
+
+| Decision | Approach | Rationale |
+|----------|----------|-----------|
+| Design tokens | `variables.css` imported by both stylesheets | Single source of truth; change once, apply everywhere |
+| Theme persistence | Blocking `<script>` in `<head>` on every page | Prevents flash of wrong theme (FOUC) on navigation |
+| Lightbox | Shared `lightbox.js` with touch support | One file to maintain; swipe gestures for mobile UX |
+| Mobile menu | Backdrop overlay + click-outside dismiss | Standard modal pattern; consistent with user expectations |
+| Animations | `IntersectionObserver` with `unobserve` | Performant; each element animates once, then stops observing |
+| History | `replaceState` for section links | Avoids polluting browser back/forward history |
+
+---
+
 ## Setup & Deployment
 
 ### Prerequisites
@@ -79,30 +99,25 @@ portfolio/
 
 ### Local Development
 
-1. **Clone or download** the repository
+1. **Clone the repository**
    ```bash
-   git clone https://github.com/PERRINIO-dev/my-portfolio
+   git clone https://github.com/PERRINIO-dev/my-portfolio.git
    cd my-portfolio
    ```
 
-2. **Add your assets**
-   - Place your professional photo as `assets/profile.jpg`
-   - Add your resume as `assets/Majestor_Kepseu_Resume.pdf`
-   - Add project screenshots to `assets/projects/`
-
-3. **Serve locally** (choose one method)
+2. **Serve locally** (choose one method)
    ```bash
    # Using Python
    python -m http.server 8000
-   
+
    # Using Node.js
    npx serve
-   
+
    # Using VS Code
    # Install "Live Server" extension and click "Go Live"
    ```
 
-4. **Open in browser**
+3. **Open in browser**
    ```
    http://localhost:8000
    ```
@@ -112,14 +127,14 @@ portfolio/
 #### GitHub Pages
 1. Push code to a GitHub repository
 2. Go to Settings > Pages
-3. Select branch (main) and folder (root)
+3. Select branch (`main`) and folder (root)
 4. Your site will be live at `https://username.github.io/repository`
 
 #### Netlify
 1. Connect your GitHub repository
 2. Build command: *(leave empty)*
-3. Publish directory: `.` or `/`
-4. Deploy!
+3. Publish directory: `.`
+4. Deploy
 
 #### Custom Domain
 Add a `CNAME` file with your domain name, then configure DNS settings with your registrar.
@@ -128,12 +143,11 @@ Add a `CNAME` file with your domain name, then configure DNS settings with your 
 
 ## Customization
 
-### Colors
-Edit CSS variables in `style.css` under `:root`:
+### Colors & Theming
+Edit design tokens in `variables.css`:
 
 ```css
 :root {
-    /* Dark Theme (default) */
     --bg-deep: #08090c;
     --bg-primary: #0c0d12;
     --accent: #22d3d3;
@@ -142,7 +156,6 @@ Edit CSS variables in `style.css` under `:root`:
 }
 
 [data-theme="light"] {
-    /* Light Theme */
     --bg-deep: #f8f9fb;
     --bg-primary: #ffffff;
     --accent: #0d9488;
@@ -150,22 +163,14 @@ Edit CSS variables in `style.css` under `:root`:
 }
 ```
 
+Both `style.css` and `project-styles.css` import this file, so changes apply globally.
+
 ### Typography
-Change fonts in `style.css`:
-
-```css
-:root {
-    --font-display: 'Sora', sans-serif;
-    --font-body: 'DM Sans', sans-serif;
-    --font-mono: 'JetBrains Mono', monospace;
-}
-```
-
-Update the Google Fonts link in `<head>` to match.
+Update font variables in `variables.css` and the corresponding Google Fonts `<link>` in each HTML file's `<head>`.
 
 ### Content
 - **Personal Info** - Edit `index.html` directly
-- **Projects** - Modify files in `/projects/` folder
+- **Projects** - Modify files in `projects/`
 - **Contact Form** - Replace Formspree endpoint in `index.html`
 
 ---
@@ -173,8 +178,6 @@ Update the Google Fonts link in `<head>` to match.
 ## Adding Project Images
 
 ### Architecture Diagrams
-Images are placed in the architecture section:
-
 ```html
 <div class="architecture-image" data-lightbox="architecture" data-caption="Your Caption">
     <img src="../assets/projects/vsphere/architecture.png" alt="Architecture Diagram">
@@ -266,10 +269,10 @@ Location: Kitchener, Ontario, Canada
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/majestor-kepseu)
 [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/PERRINIO-dev)
-[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:majestorkepseu@gmail.com)
+[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:majestork@gmail.com)
 
 ---
 
 <p align="center">
-  <sub>Built with precision and passion. © 2025 Majestor Kepseu</sub>
+  <sub>Built with precision and passion. &copy; 2025 Majestor Kepseu</sub>
 </p>

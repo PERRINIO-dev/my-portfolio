@@ -24,6 +24,15 @@
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- Theme persistence (must run before render to prevent FOUC) -->
+    <script>
+        (function() {
+            var saved = localStorage.getItem('theme');
+            var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'));
+        })();
+    </script>
 </head>
 
 <body>
@@ -94,7 +103,7 @@
                         <span>View My Work</span>
                         <i class="fas fa-arrow-right"></i>
                     </a>
-                    <a href="assets/Majestor_Kepseu_Resume.pdf" download class="btn btn-secondary">
+                    <a href="assets/Majestor_Kepseu_Resume.pdf" target="_blank" rel="noopener" class="btn btn-secondary">
                         <i class="fas fa-download"></i>
                         <span>Download Resume</span>
                     </a>
@@ -132,7 +141,7 @@
                         aria-label="GitHub">
                         <i class="fab fa-github"></i>
                     </a>
-                    <a href="mailto:majestorkepseu@gmail.com" class="social-link" aria-label="Email">
+                    <a href="mailto:majestork@gmail.com" class="social-link" aria-label="Email">
                         <i class="fas fa-envelope"></i>
                     </a>
                 </div>
@@ -569,7 +578,7 @@
                         <i class="fas fa-envelope"></i>
                         <div>
                             <span class="contact-label">Email</span>
-                            <a href="mailto:majestorkepseu@gmail.com">majestorkepseu@gmail.com</a>
+                            <a href="mailto:majestork@gmail.com">majestork@gmail.com</a>
                         </div>
                     </div>
                     <div class="contact-card">
@@ -584,7 +593,7 @@
                         <div>
                             <span class="contact-label">LinkedIn</span>
                             <a href="https://www.linkedin.com/in/majestor-kepseu-20bb1b314"
-                                target="_blank">@majestor-kepseu</a>
+                                target="_blank" rel="noopener">@majestor-kepseu</a>
                         </div>
                     </div>
                     <div class="contact-card">

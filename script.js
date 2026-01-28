@@ -78,18 +78,12 @@ function initNavigation() {
     const nav = document.getElementById('nav');
     if (!nav) return;
 
-    let lastScroll = 0;
-    
     window.addEventListener('scroll', () => {
-        const currentScroll = window.scrollY;
-        
-        if (currentScroll > 50) {
+        if (window.scrollY > 50) {
             nav.classList.add('scrolled');
         } else {
             nav.classList.remove('scrolled');
         }
-        
-        lastScroll = currentScroll;
     }, { passive: true });
 }
 
@@ -99,28 +93,46 @@ function initMobileMenu() {
     const menu = document.getElementById('nav-menu');
     
     if (!toggle || !menu) return;
-    
+
+    // Create backdrop overlay for mobile menu
+    const backdrop = document.createElement('div');
+    backdrop.className = 'nav-backdrop';
+    document.body.appendChild(backdrop);
+
+    function openMenu() {
+        menu.classList.add('active');
+        toggle.classList.add('active');
+        backdrop.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+        menu.classList.remove('active');
+        toggle.classList.remove('active');
+        backdrop.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
     toggle.addEventListener('click', () => {
-        menu.classList.toggle('active');
-        toggle.classList.toggle('active');
-        document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
+        if (menu.classList.contains('active')) {
+            closeMenu();
+        } else {
+            openMenu();
+        }
     });
-    
+
     // Close on link click
     menu.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-            menu.classList.remove('active');
-            toggle.classList.remove('active');
-            document.body.style.overflow = '';
-        });
+        link.addEventListener('click', closeMenu);
     });
-    
+
+    // Close on backdrop click (click-outside)
+    backdrop.addEventListener('click', closeMenu);
+
     // Close on escape
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && menu.classList.contains('active')) {
-            menu.classList.remove('active');
-            toggle.classList.remove('active');
-            document.body.style.overflow = '';
+            closeMenu();
         }
     });
 }
@@ -145,8 +157,8 @@ function initSmoothScroll() {
                 behavior: 'smooth'
             });
             
-            // Update URL
-            history.pushState(null, null, href);
+            // Update URL without polluting browser history
+            history.replaceState(null, null, href);
         });
     });
 }
@@ -176,15 +188,6 @@ function initRevealAnimations() {
     });
 }
 
-// Add revealed class styles
-const style = document.createElement('style');
-style.textContent = `
-    .revealed {
-        opacity: 1 !important;
-        transform: translateY(0) !important;
-    }
-`;
-document.head.appendChild(style);
 
 // Contact Form
 function initContactForm() {
@@ -202,13 +205,16 @@ function initContactForm() {
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<span>Sending...</span>';
         
+        // Reset status visibility before showing new result
+        status.className = 'form-status';
+
         try {
             const response = await fetch(form.action, {
                 method: 'POST',
                 body: new FormData(form),
                 headers: { 'Accept': 'application/json' }
             });
-            
+
             if (response.ok) {
                 status.className = 'form-status success';
                 status.innerHTML = '<strong>Thank you!</strong> Your message has been sent. I\'ll respond within 24-48 hours.';
@@ -220,28 +226,14 @@ function initContactForm() {
             status.className = 'form-status error';
             status.innerHTML = 'Something went wrong. Please try again or email me directly.';
         }
-        
+
         submitBtn.innerHTML = originalText;
         submitBtn.disabled = false;
-        
+
         // Auto-hide status after 5 seconds
         setTimeout(() => {
-            status.style.display = 'none';
+            status.className = 'form-status';
         }, 5000);
     });
 }
 
-// Handle nav toggle animation
-const toggleStyle = document.createElement('style');
-toggleStyle.textContent = `
-    .nav-toggle.active span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-    }
-    .nav-toggle.active span:nth-child(2) {
-        opacity: 0;
-    }
-    .nav-toggle.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(6px, -6px);
-    }
-`;
-document.head.appendChild(toggleStyle);

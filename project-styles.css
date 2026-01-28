@@ -1,72 +1,12 @@
 /* ====== PROJECT PAGES - PREMIUM v7.1 ====== */
 /* Matching the main portfolio design system */
 
-/* ====== CSS CUSTOM PROPERTIES ====== */
-:root {
-    /* Rich Dark Palette */
-    --bg-deep: #08090c;
-    --bg-primary: #0c0d12;
-    --bg-elevated: #12141a;
-    --bg-card: rgba(18, 20, 26, 0.7);
-    --bg-glass: rgba(12, 13, 18, 0.85);
-    
-    /* Text Hierarchy */
-    --text-primary: #f0f2f5;
-    --text-secondary: #a0a6b5;
-    --text-muted: #6b7280;
-    
-    /* Accent */
-    --accent: #22d3d3;
-    --accent-dim: #1ab3b3;
-    --accent-glow: rgba(34, 211, 211, 0.15);
-    --accent-subtle: rgba(34, 211, 211, 0.08);
-    
-    /* Borders */
-    --border: rgba(255, 255, 255, 0.06);
-    --border-hover: rgba(255, 255, 255, 0.12);
-    
-    /* Typography */
-    --font-display: 'Sora', sans-serif;
-    --font-body: 'DM Sans', sans-serif;
-    --font-mono: 'JetBrains Mono', monospace;
-    
-    /* Spacing */
-    --space-xs: 0.5rem;
-    --space-sm: 1rem;
-    --space-md: 1.5rem;
-    --space-lg: 2rem;
-    --space-xl: 3rem;
-    --space-2xl: 5rem;
-    
-    /* Layout */
-    --container: 900px;
-    --nav-height: 80px;
-    
-    /* Radius */
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 20px;
-}
+/* ====== SHARED DESIGN TOKENS ====== */
+@import url('variables.css');
 
-/* ====== LIGHT THEME ====== */
-[data-theme="light"] {
-    --bg-deep: #f8f9fb;
-    --bg-primary: #ffffff;
-    --bg-elevated: #f0f2f5;
-    --bg-card: rgba(255, 255, 255, 0.9);
-    --bg-glass: rgba(255, 255, 255, 0.9);
-    
-    --text-primary: #1a1a2e;
-    --text-secondary: #4a5568;
-    --text-muted: #718096;
-    
-    --accent: #0d9488;
-    --accent-dim: #0f766e;
-    --accent-glow: rgba(13, 148, 136, 0.15);
-    --accent-subtle: rgba(13, 148, 136, 0.08);
-    
-    --border: rgba(0, 0, 0, 0.08);
-    --border-hover: rgba(0, 0, 0, 0.15);
+/* ====== PAGE-SPECIFIC OVERRIDES ====== */
+:root {
+    --container: 900px;
 }
 
 /* ====== RESET & BASE ====== */
