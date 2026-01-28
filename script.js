@@ -103,14 +103,20 @@ function initMobileMenu() {
         menu.classList.add('active');
         toggle.classList.add('active');
         backdrop.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        // Defer overflow lock until transition ends to avoid iOS Safari reflow mid-animation
+        menu.addEventListener('transitionend', function handler() {
+            menu.removeEventListener('transitionend', handler);
+            if (menu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            }
+        });
     }
 
     function closeMenu() {
+        document.body.style.overflow = '';
         menu.classList.remove('active');
         toggle.classList.remove('active');
         backdrop.classList.remove('active');
-        document.body.style.overflow = '';
     }
 
     toggle.addEventListener('click', () => {
@@ -169,7 +175,7 @@ function initRevealAnimations() {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     };
-    
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -178,9 +184,18 @@ function initRevealAnimations() {
             }
         });
     }, observerOptions);
-    
+
+    // If page loaded with a hash, find that section so we can skip its animation
+    const hashTarget = window.location.hash ? document.querySelector(window.location.hash) : null;
+
     // Observe sections and cards
     document.querySelectorAll('.section, .project-card, .skill-domain, .cert-card, .edu-item, .about-card').forEach(el => {
+        // Skip animation for the hash-targeted section and its children
+        // so the browser can scroll to it without a race condition
+        if (hashTarget && (el === hashTarget || hashTarget.contains(el))) {
+            el.classList.add('revealed');
+            return;
+        }
         el.style.opacity = '0';
         el.style.transform = 'translateY(20px)';
         el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
