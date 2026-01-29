@@ -1,9 +1,6 @@
 /* ====== PREMIUM PORTFOLIO v7.0 ====== */
 /* Technical Elegance: Sophisticated, refined, memorable */
 
-/* ====== SHARED DESIGN TOKENS ====== */
-@import url('variables.css');
-
 /* ====== PAGE-SPECIFIC OVERRIDES ====== */
 :root {
     --container: 1200px;

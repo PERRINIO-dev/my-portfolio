@@ -1,9 +1,6 @@
 /* ====== PROJECT PAGES - PREMIUM v7.1 ====== */
 /* Matching the main portfolio design system */
 
-/* ====== SHARED DESIGN TOKENS ====== */
-@import url('variables.css');
-
 /* ====== PAGE-SPECIFIC OVERRIDES ====== */
 :root {
     --container: 900px;
@@ -683,6 +680,10 @@ a {
 
 .gallery-item:hover .gallery-caption {
     opacity: 1;
+}
+
+.gallery-item:has(.gallery-placeholder) {
+    cursor: default;
 }
 
 .gallery-placeholder {
