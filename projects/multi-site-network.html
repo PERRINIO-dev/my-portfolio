@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Multi-Site Enterprise Network | Majestor Kepseu</title>
-    <meta name="description" content="Multi-site enterprise network for NinjaPostal Corporation connecting Toronto, Vancouver, and Tokyo with EIGRP routing and defense-in-depth security.">
+    <meta name="description"
+        content="Multi-site enterprise network for NinjaPostal Corporation connecting Toronto, Vancouver, and Tokyo with EIGRP routing and defense-in-depth security.">
     <meta name="theme-color" content="#0a0a0f">
 
     <!-- Open Graph -->
     <meta property="og:type" content="article">
     <meta property="og:title" content="Multi-Site Enterprise Network | Majestor Kepseu">
-    <meta property="og:description" content="Multi-site enterprise network for NinjaPostal Corporation connecting Toronto, Vancouver, and Tokyo with EIGRP routing and defense-in-depth security.">
+    <meta property="og:description"
+        content="Multi-site enterprise network for NinjaPostal Corporation connecting Toronto, Vancouver, and Tokyo with EIGRP routing and defense-in-depth security.">
     <meta property="og:image" content="https://perrinio-dev.github.io/my-portfolio/assets/preview.png">
     <meta property="og:url" content="https://perrinio-dev.github.io/my-portfolio/projects/multi-site-network.html">
 
@@ -21,28 +24,31 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Styles -->
-    <link rel="stylesheet" href="../variables.css">
-    <link rel="stylesheet" href="../project-styles.css">
+    <link rel="stylesheet" href="../variables.css?v=2">
+    <link rel="stylesheet" href="../project-styles.css?v=2">
 
     <!-- Theme persistence (must run before render to prevent FOUC) -->
     <script>
-        (function() {
+        (function () {
             var saved = localStorage.getItem('theme');
             var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             document.documentElement.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'));
         })();
     </script>
 </head>
+
 <body>
     <!-- Ambient Background -->
     <div class="ambient-bg"></div>
-    
+
     <!-- Navigation -->
     <nav class="project-nav">
         <div class="project-nav-container">
@@ -56,14 +62,16 @@
             </a>
         </div>
     </nav>
-    
+
     <!-- Hero Section -->
     <header class="project-hero">
         <div class="project-hero-container">
             <span class="project-category"><i class="fas fa-network-wired"></i> Core Networking & Security</span>
             <h1 class="project-title">Multi-Site Enterprise Network for NinjaPostal Corporation</h1>
-            <p class="project-subtitle">Design, configure, and deploy a secure, scalable, and manageable multi-site enterprise network connecting three global offices with comprehensive security policies and centralized management.</p>
-            
+            <p class="project-subtitle">Design, configure, and deploy a secure, scalable, and manageable multi-site
+                enterprise network connecting three global offices with comprehensive security policies and centralized
+                management.</p>
+
             <div class="tech-stack">
                 <span class="tech-tag"><i class="fas fa-sitemap"></i> Cisco IOS</span>
                 <span class="tech-tag"><i class="fas fa-route"></i> EIGRP</span>
@@ -73,7 +81,7 @@
                 <span class="tech-tag"><i class="fas fa-terminal"></i> SSH/RBAC</span>
                 <span class="tech-tag"><i class="fas fa-clipboard-list"></i> Syslog</span>
             </div>
-            
+
             <div class="project-meta">
                 <div class="meta-item">
                     <i class="fas fa-users"></i>
@@ -90,34 +98,41 @@
             </div>
         </div>
     </header>
-    
+
     <!-- Main Content -->
     <main class="project-content">
-        
+
         <!-- Overview Section -->
         <section class="content-section">
             <h2 class="section-title"><i class="fas fa-bullseye"></i> Project Objective</h2>
             <div class="overview-card">
-                <p>A geographically dispersed network built on <strong>hierarchical design</strong> using Layer 3 switching at each site, interconnected via routed WAN links, with comprehensive security policies and centralized management. The network supports NinjaPostal Corporation's operations across <strong>Toronto, Vancouver, and Tokyo</strong> offices.</p>
+                <p>A geographically dispersed network built on <strong>hierarchical design</strong> using Layer 3
+                    switching at each site, interconnected via routed WAN links, with comprehensive security policies
+                    and centralized management. The network supports NinjaPostal Corporation's operations across
+                    <strong>Toronto, Vancouver, and Tokyo</strong> offices.
+                </p>
             </div>
-            
+
             <div class="highlight-box">
                 <div class="highlight-icon"><i class="fas fa-lightbulb"></i></div>
                 <div class="highlight-content">
                     <h4>Challenge & Adaptation</h4>
-                    <p>Successfully pivoted from BGP to EIGRP routing protocol due to physical hardware limitations, demonstrating adaptability and problem-solving skills while maintaining all functional requirements.</p>
+                    <p>Successfully pivoted from BGP to EIGRP routing protocol due to physical hardware limitations,
+                        demonstrating adaptability and problem-solving skills while maintaining all functional
+                        requirements.</p>
                 </div>
             </div>
         </section>
-        
+
         <!-- Architecture Diagram -->
         <section class="content-section">
             <h2 class="section-title"><i class="fas fa-project-diagram"></i> Network Topology</h2>
-            <div class="architecture-image" data-lightbox="architecture" data-caption="Multi-Site Network Topology — Toronto, Vancouver, Tokyo">
+            <div class="architecture-image" data-lightbox="architecture"
+                data-caption="Multi-Site Network Topology — Toronto, Vancouver, Tokyo">
                 <img src="../assets/projects/network/network_topology.png" alt="Network Topology Diagram">
             </div>
         </section>
-        
+
         <!-- Site Overview -->
         <section class="content-section">
             <h2 class="section-title"><i class="fas fa-globe"></i> Site Architecture</h2>
@@ -125,26 +140,30 @@
                 <div class="feature-card">
                     <div class="feature-icon"><i class="fas fa-map-marker-alt"></i></div>
                     <h3>Toronto (HQ)</h3>
-                    <p>Headquarters with Admin VLAN (192.168.10.0/24) and General VLAN (192.168.20.0/24). L3 switch with SVI for inter-VLAN routing.</p>
+                    <p>Headquarters with Admin VLAN (192.168.10.0/24) and General VLAN (192.168.20.0/24). L3 switch with
+                        SVI for inter-VLAN routing.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon"><i class="fas fa-map-marker-alt"></i></div>
                     <h3>Vancouver</h3>
-                    <p>Western Canada office with Admin VLAN (192.168.30.0/24) and General VLAN (192.168.40.0/24). Connected via 10.1.1.0/30 link.</p>
+                    <p>Western Canada office with Admin VLAN (192.168.30.0/24) and General VLAN (192.168.40.0/24).
+                        Connected via 10.1.1.0/30 link.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon"><i class="fas fa-map-marker-alt"></i></div>
                     <h3>Tokyo</h3>
-                    <p>Asia-Pacific office with Admin VLAN (192.168.50.0/24) and General VLAN (192.168.60.0/24). Hosts centralized services.</p>
+                    <p>Asia-Pacific office with Admin VLAN (192.168.50.0/24) and General VLAN (192.168.60.0/24). Hosts
+                        centralized services.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon"><i class="fas fa-server"></i></div>
                     <h3>Centralized Services</h3>
-                    <p>Tokyo Admin VLAN hosts WAMP web server, TFTP for config backup, and Kiwi Syslog server for logging.</p>
+                    <p>Tokyo Admin VLAN hosts WAMP web server, TFTP for config backup, and Kiwi Syslog server for
+                        logging.</p>
                 </div>
             </div>
         </section>
-        
+
         <!-- IP Addressing Scheme -->
         <section class="content-section">
             <h2 class="section-title"><i class="fas fa-sitemap"></i> IP Addressing Scheme</h2>
@@ -195,7 +214,7 @@
                     </tbody>
                 </table>
             </div>
-            
+
             <h4 style="margin-top: var(--space-lg); margin-bottom: var(--space-sm);">Point-to-Point WAN Links</h4>
             <div class="table-container">
                 <table class="data-table">
@@ -222,20 +241,21 @@
                 </table>
             </div>
         </section>
-        
+
         <!-- Technical Implementation -->
         <section class="content-section">
             <h2 class="section-title"><i class="fas fa-cog"></i> Technical Implementation</h2>
-            
+
             <div class="implementation-block">
                 <h3><i class="fas fa-network-wired"></i> Network Foundation</h3>
                 <ul class="content-list">
                     <li>Comprehensive IP scheme: VLAN subnets (192.168.x.0/24), P2P links (10.1.x.0/30)</li>
                     <li>VLAN creation and SVI configuration for inter-VLAN routing on L3 switches</li>
-                    <li>EIGRP AS100 on all L3 switches (adapted from initial BGP design due to hardware constraints)</li>
+                    <li>EIGRP AS100 on all L3 switches (adapted from initial BGP design due to hardware constraints)
+                    </li>
                 </ul>
             </div>
-            
+
             <div class="implementation-block">
                 <h3><i class="fas fa-shield-alt"></i> Security Policy Enforcement</h3>
                 <ul class="content-list">
@@ -245,7 +265,7 @@
                     <li>SSHv2 with RBAC: netadmin (15), techsupport (5), intern (1) privilege levels</li>
                 </ul>
             </div>
-            
+
             <div class="implementation-block">
                 <h3><i class="fas fa-server"></i> Centralized Services</h3>
                 <ul class="content-list">
@@ -256,7 +276,7 @@
                 </ul>
             </div>
         </section>
-        
+
         <!-- Security Configuration -->
         <section class="content-section">
             <h2 class="section-title"><i class="fas fa-lock"></i> Security Configuration</h2>
@@ -299,7 +319,7 @@
                 </table>
             </div>
         </section>
-        
+
         <!-- Testing & Validation -->
         <section class="content-section">
             <h2 class="section-title"><i class="fas fa-clipboard-check"></i> Testing & Validation</h2>
@@ -307,7 +327,8 @@
                 <div class="feature-card">
                     <div class="feature-icon"><i class="fas fa-network-wired"></i></div>
                     <h3>Reachability Testing</h3>
-                    <p>Inter-VLAN and inter-site ping tests across all permitted paths verified full mesh connectivity.</p>
+                    <p>Inter-VLAN and inter-site ping tests across all permitted paths verified full mesh connectivity.
+                    </p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon"><i class="fas fa-ban"></i></div>
@@ -326,7 +347,7 @@
                 </div>
             </div>
         </section>
-        
+
         <!-- Screenshots Gallery -->
         <section class="content-section">
             <h2 class="section-title"><i class="fas fa-images"></i> Project Gallery</h2>
@@ -355,9 +376,10 @@
                     </div>
                 </div>
             </div>
-            <p style="text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: var(--space-md);"><i class="fas fa-info-circle"></i> Additional screenshots coming soon</p>
+            <p style="text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: var(--space-md);"><i
+                    class="fas fa-info-circle"></i> Additional screenshots coming soon</p>
         </section>
-        
+
         <!-- Technical Highlights -->
         <section class="content-section">
             <h2 class="section-title"><i class="fas fa-star"></i> Technical Highlights</h2>
@@ -365,21 +387,24 @@
                 <div class="callout-box">
                     <div class="callout-icon"><i class="fas fa-random"></i></div>
                     <h4>Protocol Adaptation</h4>
-                    <p>Successfully pivoted from BGP to EIGRP due to hardware support limitations while maintaining full functionality.</p>
+                    <p>Successfully pivoted from BGP to EIGRP due to hardware support limitations while maintaining full
+                        functionality.</p>
                 </div>
                 <div class="callout-box">
                     <div class="callout-icon"><i class="fas fa-shield-alt"></i></div>
                     <h4>Defense-in-Depth</h4>
-                    <p>Implemented layered security with VLANs, ACLs, port security, and RBAC following least privilege principles.</p>
+                    <p>Implemented layered security with VLANs, ACLs, port security, and RBAC following least privilege
+                        principles.</p>
                 </div>
                 <div class="callout-box">
                     <div class="callout-icon"><i class="fas fa-flask"></i></div>
                     <h4>Sim-to-Physical</h4>
-                    <p>Translated simulated Packet Tracer design to working physical Cisco switches, overcoming software limitations.</p>
+                    <p>Translated simulated Packet Tracer design to working physical Cisco switches, overcoming software
+                        limitations.</p>
                 </div>
             </div>
         </section>
-        
+
         <!-- Technologies -->
         <section class="content-section">
             <h2 class="section-title"><i class="fas fa-cogs"></i> Technologies Used</h2>
@@ -440,7 +465,7 @@
                 </div>
             </div>
         </section>
-        
+
         <!-- Outcomes -->
         <section class="content-section">
             <h2 class="section-title"><i class="fas fa-flag-checkered"></i> Project Outcomes</h2>
@@ -451,23 +476,24 @@
                 <li>Centralized critical services for simplified administration and troubleshooting</li>
                 <li>Translated simulated design to working physical network, overcoming software limitations</li>
             </ul>
-            
+
             <h4 style="margin-top: var(--space-lg); margin-bottom: var(--space-sm);">Business Value Delivered</h4>
             <ul class="content-list">
                 <li><strong>Scalable Connectivity:</strong> Three-office network with expansion-ready design</li>
                 <li><strong>Enhanced Security:</strong> Segmentation, access control, and secure management</li>
                 <li><strong>Operational Efficiency:</strong> Centralized services and role-based management</li>
             </ul>
-            
+
             <div class="highlight-box" style="margin-top: var(--space-lg);">
                 <div class="highlight-icon"><i class="fas fa-link"></i></div>
                 <div class="highlight-content">
                     <h4>Foundation for Systems Projects</h4>
-                    <p>This networking infrastructure represents the foundation that would host virtualized systems from other projects—demonstrating the full stack from physical network to application services.</p>
+                    <p>This networking infrastructure represents the foundation that would host virtualized systems from
+                        other projects—demonstrating the full stack from physical network to application services.</p>
                 </div>
             </div>
         </section>
-        
+
         <!-- CTA -->
         <section class="project-cta">
             <h3 class="cta-title">Explore More Projects</h3>
@@ -482,28 +508,30 @@
                 </a>
             </div>
         </section>
-        
+
     </main>
-    
+
     <!-- Footer -->
     <footer class="project-footer">
         <p>© <span id="year"></span> Majestor Perrincio Kaptue Kepseu. All rights reserved.</p>
     </footer>
-    
+
     <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-    
+
     <!-- Lightbox Modal -->
     <div class="lightbox" id="lightbox">
         <div class="lightbox-content">
             <button class="lightbox-close" aria-label="Close">&times;</button>
-            <button class="lightbox-nav lightbox-prev" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+            <button class="lightbox-nav lightbox-prev" aria-label="Previous"><i
+                    class="fas fa-chevron-left"></i></button>
             <button class="lightbox-nav lightbox-next" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
             <img src="" alt="" id="lightbox-img">
             <p class="lightbox-caption" id="lightbox-caption"></p>
             <span class="lightbox-counter" id="lightbox-counter"></span>
         </div>
     </div>
-    
-    <script src="../lightbox.js"></script>
+
+    <script src="../lightbox.js?v=2"></script>
 </body>
+
 </html>

@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exchange Server 2019 with DAG | Majestor Kepseu</title>
-    <meta name="description" content="Enterprise Microsoft Exchange Server 2019 deployment with Database Availability Group for high availability and automatic failover.">
+    <meta name="description"
+        content="Enterprise Microsoft Exchange Server 2019 deployment with Database Availability Group for high availability and automatic failover.">
     <meta name="theme-color" content="#0a0a0f">
 
     <!-- Open Graph -->
     <meta property="og:type" content="article">
     <meta property="og:title" content="Exchange Server 2019 with DAG | Majestor Kepseu">
-    <meta property="og:description" content="Enterprise Microsoft Exchange Server 2019 deployment with Database Availability Group for high availability and automatic failover.">
+    <meta property="og:description"
+        content="Enterprise Microsoft Exchange Server 2019 deployment with Database Availability Group for high availability and automatic failover.">
     <meta property="og:image" content="https://perrinio-dev.github.io/my-portfolio/assets/preview.png">
     <meta property="og:url" content="https://perrinio-dev.github.io/my-portfolio/projects/exchange-server-dag.html">
 
@@ -21,28 +24,31 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Styles -->
-    <link rel="stylesheet" href="../variables.css">
-    <link rel="stylesheet" href="../project-styles.css">
+    <link rel="stylesheet" href="../variables.css?v=2">
+    <link rel="stylesheet" href="../project-styles.css?v=2">
 
     <!-- Theme persistence (must run before render to prevent FOUC) -->
     <script>
-        (function() {
+        (function () {
             var saved = localStorage.getItem('theme');
             var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             document.documentElement.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'));
         })();
     </script>
 </head>
+
 <body>
     <!-- Ambient Background -->
     <div class="ambient-bg"></div>
-    
+
     <!-- Navigation -->
     <nav class="project-nav">
         <div class="project-nav-container">
@@ -56,14 +62,16 @@
             </a>
         </div>
     </nav>
-    
+
     <!-- Hero Section -->
     <header class="project-hero">
         <div class="project-hero-container">
             <span class="project-category"><i class="fas fa-envelope"></i> Messaging & Collaboration</span>
             <h1 class="project-title">Enterprise Microsoft Exchange Server 2019 with Database Availability Group</h1>
-            <p class="project-subtitle">Design and implement a secure, highly available, and collaborative messaging environment for CollabCo with Active Directory integration, automated client configuration, and mailbox redundancy.</p>
-            
+            <p class="project-subtitle">Design and implement a secure, highly available, and collaborative messaging
+                environment for CollabCo with Active Directory integration, automated client configuration, and mailbox
+                redundancy.</p>
+
             <div class="tech-stack">
                 <span class="tech-tag"><i class="fab fa-microsoft"></i> Exchange 2019</span>
                 <span class="tech-tag"><i class="fas fa-users-cog"></i> Active Directory</span>
@@ -73,7 +81,7 @@
                 <span class="tech-tag"><i class="fas fa-folder"></i> Storage Spaces</span>
                 <span class="tech-tag"><i class="fas fa-cogs"></i> Group Policy</span>
             </div>
-            
+
             <div class="project-meta">
                 <div class="meta-item">
                     <i class="fas fa-user"></i>
@@ -90,34 +98,41 @@
             </div>
         </div>
     </header>
-    
+
     <!-- Main Content -->
     <main class="project-content">
-        
+
         <!-- Overview Section -->
         <section class="content-section">
             <h2 class="section-title"><i class="fas fa-bullseye"></i> Project Objective</h2>
             <div class="overview-card">
-                <p>A multi-server, domain-based environment built to support <strong>enterprise email, calendaring, and collaboration</strong> with a focus on resilience and high availability through Database Availability Groups. The final state delivers a fully functional, redundant email system with role-based mailboxes, shared resources, and automated user provisioning for the fictional company CollabCo.</p>
+                <p>A multi-server, domain-based environment built to support <strong>enterprise email, calendaring, and
+                        collaboration</strong> with a focus on resilience and high availability through Database
+                    Availability Groups. The final state delivers a fully functional, redundant email system with
+                    role-based mailboxes, shared resources, and automated user provisioning for the fictional company
+                    CollabCo.</p>
             </div>
-            
+
             <div class="highlight-box">
                 <div class="highlight-icon"><i class="fas fa-trophy"></i></div>
                 <div class="highlight-content">
                     <h4>Key Achievement</h4>
-                    <p>Achieved mailbox database redundancy with automatic failover capability through properly configured Database Availability Group (CollabCoDAG).</p>
+                    <p>Achieved mailbox database redundancy with automatic failover capability through properly
+                        configured Database Availability Group (CollabCoDAG).</p>
                 </div>
             </div>
         </section>
-        
+
         <!-- Architecture Diagram -->
         <section class="content-section">
             <h2 class="section-title"><i class="fas fa-project-diagram"></i> Architecture Overview</h2>
-            <div class="architecture-image" data-lightbox="architecture" data-caption="Exchange Server 2019 with DAG Architecture">
-                <img src="../assets/projects/exchange/exchange_architecture_diagram.png" alt="Exchange Server Architecture Diagram">
+            <div class="architecture-image" data-lightbox="architecture"
+                data-caption="Exchange Server 2019 with DAG Architecture">
+                <img src="../assets/projects/exchange/exchange_architecture_diagram.png"
+                    alt="Exchange Server Architecture Diagram">
             </div>
         </section>
-        
+
         <!-- Server Infrastructure -->
         <section class="content-section">
             <h2 class="section-title"><i class="fas fa-server"></i> Server Infrastructure</h2>
@@ -160,7 +175,7 @@
                 </table>
             </div>
         </section>
-        
+
         <!-- Core Features -->
         <section class="content-section">
             <h2 class="section-title"><i class="fas fa-cubes"></i> Exchange Features Implemented</h2>
@@ -168,7 +183,8 @@
                 <div class="feature-card">
                     <div class="feature-icon"><i class="fas fa-inbox"></i></div>
                     <h3>User Mailboxes</h3>
-                    <p>Individual mailboxes for all AD users with database assignments across MK-MS1 (DB01) and MK-MS2 (DB02).</p>
+                    <p>Individual mailboxes for all AD users with database assignments across MK-MS1 (DB01) and MK-MS2
+                        (DB02).</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon"><i class="fas fa-door-open"></i></div>
@@ -178,7 +194,8 @@
                 <div class="feature-card">
                     <div class="feature-icon"><i class="fas fa-users"></i></div>
                     <h3>Shared Mailboxes</h3>
-                    <p>Team-based email addresses with appropriate Send As and Full Access permissions for collaboration.</p>
+                    <p>Team-based email addresses with appropriate Send As and Full Access permissions for
+                        collaboration.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon"><i class="fas fa-paper-plane"></i></div>
@@ -187,11 +204,11 @@
                 </div>
             </div>
         </section>
-        
+
         <!-- Implementation Phases -->
         <section class="content-section">
             <h2 class="section-title"><i class="fas fa-tasks"></i> Implementation Phases</h2>
-            
+
             <div class="phase-timeline">
                 <div class="phase-item">
                     <div class="phase-marker">
@@ -201,15 +218,17 @@
                         <h3>Core Infrastructure & Prerequisites</h3>
                         <ul class="content-list">
                             <li>Provisioned and configured six VMs in vSphere with appropriate resources</li>
-                            <li>Installed Active Directory Domain Services on MK-DC, created mkexchange.local forest</li>
+                            <li>Installed Active Directory Domain Services on MK-DC, created mkexchange.local forest
+                            </li>
                             <li>Deployed DHCP server on MK-FS with scope (10.171.143.100-200)</li>
                             <li>Created logical OU hierarchy and populated with user accounts and security groups</li>
-                            <li>Built resilient file server using Windows Storage Spaces and created secure departmental file shares</li>
+                            <li>Built resilient file server using Windows Storage Spaces and created secure departmental
+                                file shares</li>
                             <li>Implemented Group Policy Objects (GPOs) for automated drive mapping</li>
                         </ul>
                     </div>
                 </div>
-                
+
                 <div class="phase-item">
                     <div class="phase-marker">
                         <span class="phase-number">02</span>
@@ -223,7 +242,7 @@
                         </ul>
                     </div>
                 </div>
-                
+
                 <div class="phase-item">
                     <div class="phase-marker">
                         <span class="phase-number">03</span>
@@ -240,7 +259,7 @@
                         </ul>
                     </div>
                 </div>
-                
+
                 <div class="phase-item">
                     <div class="phase-marker">
                         <span class="phase-number">04</span>
@@ -253,13 +272,14 @@
                             <li>Delegated necessary Active Directory permissions for cluster management</li>
                             <li>Added MK-MS1 and MK-MS2 as DAG members</li>
                             <li>Configured database copies: DB01 copy on MK-MS2, DB02 copy on MK-MS1</li>
-                            <li>Performed manual failover test by activating passive copy, verifying seamless transition</li>
+                            <li>Performed manual failover test by activating passive copy, verifying seamless transition
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </section>
-        
+
         <!-- DAG Configuration -->
         <section class="content-section">
             <h2 class="section-title"><i class="fas fa-database"></i> Database Availability Group Configuration</h2>
@@ -289,16 +309,18 @@
                     </tbody>
                 </table>
             </div>
-            
+
             <div class="highlight-box" style="margin-top: var(--space-lg);">
                 <div class="highlight-icon"><i class="fas fa-lightbulb"></i></div>
                 <div class="highlight-content">
                     <h4>Design Decision: Optimizing the Witness Server</h4>
-                    <p>Justified the use of the existing file server (MK-FS) as DAG witness rather than deploying additional infrastructure. This balances assignment requirements with real-world best practices for witness server placement using Node & File Share Majority quorum model.</p>
+                    <p>Justified the use of the existing file server (MK-FS) as DAG witness rather than deploying
+                        additional infrastructure. This balances assignment requirements with real-world best practices
+                        for witness server placement using Node & File Share Majority quorum model.</p>
                 </div>
             </div>
         </section>
-        
+
         <!-- Screenshots Gallery -->
         <section class="content-section">
             <h2 class="section-title"><i class="fas fa-images"></i> Project Gallery</h2>
@@ -307,7 +329,8 @@
                     <img src="../assets/projects/exchange/Exchange_Admin_Center.png" alt="Exchange Admin Center">
                     <span class="gallery-caption">Exchange Admin Center</span>
                 </div>
-                <div class="gallery-item" data-lightbox="gallery" data-caption="Active Directory Users and Computers Wizard">
+                <div class="gallery-item" data-lightbox="gallery"
+                    data-caption="Active Directory Users and Computers Wizard">
                     <img src="../assets/projects/exchange/ADUC_wizard.png" alt="ADUC Wizard">
                     <span class="gallery-caption">AD User Management</span>
                 </div>
@@ -315,11 +338,13 @@
                     <img src="../assets/projects/exchange/DAGcreation.png" alt="DAG Creation">
                     <span class="gallery-caption">DAG Creation</span>
                 </div>
-                <div class="gallery-item" data-lightbox="gallery" data-caption="DAG Initialization and Member Configuration">
+                <div class="gallery-item" data-lightbox="gallery"
+                    data-caption="DAG Initialization and Member Configuration">
                     <img src="../assets/projects/exchange/DAGinitialisation.png" alt="DAG Initialization">
                     <span class="gallery-caption">DAG Initialization</span>
                 </div>
-                <div class="gallery-item" data-lightbox="gallery" data-caption="DNS Records Configuration (A, MX, CNAME)">
+                <div class="gallery-item" data-lightbox="gallery"
+                    data-caption="DNS Records Configuration (A, MX, CNAME)">
                     <img src="../assets/projects/exchange/DNS_records.png" alt="DNS Records">
                     <span class="gallery-caption">DNS Records</span>
                 </div>
@@ -329,7 +354,7 @@
                 </div>
             </div>
         </section>
-        
+
         <!-- Technical Highlights -->
         <section class="content-section">
             <h2 class="section-title"><i class="fas fa-star"></i> Technical Highlights</h2>
@@ -337,21 +362,24 @@
                 <div class="callout-box">
                     <div class="callout-icon"><i class="fas fa-sync-alt"></i></div>
                     <h4>Automatic Failover</h4>
-                    <p>DAG provides automatic mailbox database failover ensuring email continuity even during server maintenance or failure.</p>
+                    <p>DAG provides automatic mailbox database failover ensuring email continuity even during server
+                        maintenance or failure.</p>
                 </div>
                 <div class="callout-box">
                     <div class="callout-icon"><i class="fas fa-magic"></i></div>
                     <h4>Autodiscover</h4>
-                    <p>Clients automatically configure email settings through DNS-based autodiscover, eliminating manual setup.</p>
+                    <p>Clients automatically configure email settings through DNS-based autodiscover, eliminating manual
+                        setup.</p>
                 </div>
                 <div class="callout-box">
                     <div class="callout-icon"><i class="fas fa-hdd"></i></div>
                     <h4>Storage Spaces</h4>
-                    <p>Resilient file shares built on Windows Storage Spaces provide reliable storage for departmental data.</p>
+                    <p>Resilient file shares built on Windows Storage Spaces provide reliable storage for departmental
+                        data.</p>
                 </div>
             </div>
         </section>
-        
+
         <!-- Technologies -->
         <section class="content-section">
             <h2 class="section-title"><i class="fas fa-cogs"></i> Technologies Used</h2>
@@ -409,7 +437,7 @@
                 </div>
             </div>
         </section>
-        
+
         <!-- Outcomes -->
         <section class="content-section">
             <h2 class="section-title"><i class="fas fa-flag-checkered"></i> Project Outcomes</h2>
@@ -421,16 +449,17 @@
                 <li>Automated client configuration through DHCP and GPO-driven drive maps</li>
                 <li>Streamlined group communications through Distribution Groups and Shared Mailboxes</li>
             </ul>
-            
+
             <div class="highlight-box" style="margin-top: var(--space-lg);">
                 <div class="highlight-icon"><i class="fas fa-certificate"></i></div>
                 <div class="highlight-content">
                     <h4>Value Delivered</h4>
-                    <p>The solution ensures email service resilience in event of server failure while balancing assignment requirements with real-world best practices for witness server placement.</p>
+                    <p>The solution ensures email service resilience in event of server failure while balancing
+                        assignment requirements with real-world best practices for witness server placement.</p>
                 </div>
             </div>
         </section>
-        
+
         <!-- CTA -->
         <section class="project-cta">
             <h3 class="cta-title">Explore More Projects</h3>
@@ -445,28 +474,30 @@
                 </a>
             </div>
         </section>
-        
+
     </main>
-    
+
     <!-- Footer -->
     <footer class="project-footer">
         <p>© <span id="year"></span> Majestor Perrincio Kaptue Kepseu. All rights reserved.</p>
     </footer>
-    
+
     <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-    
+
     <!-- Lightbox Modal -->
     <div class="lightbox" id="lightbox">
         <div class="lightbox-content">
             <button class="lightbox-close" aria-label="Close">&times;</button>
-            <button class="lightbox-nav lightbox-prev" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+            <button class="lightbox-nav lightbox-prev" aria-label="Previous"><i
+                    class="fas fa-chevron-left"></i></button>
             <button class="lightbox-nav lightbox-next" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
             <img src="" alt="" id="lightbox-img">
             <p class="lightbox-caption" id="lightbox-caption"></p>
             <span class="lightbox-counter" id="lightbox-counter"></span>
         </div>
     </div>
-    
-    <script src="../lightbox.js"></script>
+
+    <script src="../lightbox.js?v=2"></script>
 </body>
+
 </html>

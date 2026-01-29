@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VMware vSphere Infrastructure | Majestor Kepseu</title>
-    <meta name="description" content="Enterprise VMware vSphere virtualization infrastructure with HA, DRS, Fault Tolerance, and shared iSCSI storage.">
+    <meta name="description"
+        content="Enterprise VMware vSphere virtualization infrastructure with HA, DRS, Fault Tolerance, and shared iSCSI storage.">
     <meta name="theme-color" content="#0a0a0f">
 
     <!-- Open Graph -->
     <meta property="og:type" content="article">
     <meta property="og:title" content="VMware vSphere Infrastructure | Majestor Kepseu">
-    <meta property="og:description" content="Enterprise VMware vSphere virtualization infrastructure with HA, DRS, Fault Tolerance, and shared iSCSI storage.">
+    <meta property="og:description"
+        content="Enterprise VMware vSphere virtualization infrastructure with HA, DRS, Fault Tolerance, and shared iSCSI storage.">
     <meta property="og:image" content="https://perrinio-dev.github.io/my-portfolio/assets/preview.png">
     <meta property="og:url" content="https://perrinio-dev.github.io/my-portfolio/projects/virtualization-cluster.html">
 
@@ -21,28 +24,31 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Styles -->
-    <link rel="stylesheet" href="../variables.css">
-    <link rel="stylesheet" href="../project-styles.css">
+    <link rel="stylesheet" href="../variables.css?v=2">
+    <link rel="stylesheet" href="../project-styles.css?v=2">
 
     <!-- Theme persistence (must run before render to prevent FOUC) -->
     <script>
-        (function() {
+        (function () {
             var saved = localStorage.getItem('theme');
             var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             document.documentElement.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'));
         })();
     </script>
 </head>
+
 <body>
     <!-- Ambient Background -->
     <div class="ambient-bg"></div>
-    
+
     <!-- Navigation -->
     <nav class="project-nav">
         <div class="project-nav-container">
@@ -56,14 +62,16 @@
             </a>
         </div>
     </nav>
-    
+
     <!-- Hero Section -->
     <header class="project-hero">
         <div class="project-hero-container">
             <span class="project-category"><i class="fas fa-server"></i> Virtualization & Infrastructure</span>
             <h1 class="project-title">Enterprise VMware vSphere Virtualization Infrastructure</h1>
-            <p class="project-subtitle">Design, deploy, configure, and manage a complete, enterprise-grade virtualized data center environment with high availability, automated resource management, and fault tolerance protection.</p>
-            
+            <p class="project-subtitle">Design, deploy, configure, and manage a complete, enterprise-grade virtualized
+                data center environment with high availability, automated resource management, and fault tolerance
+                protection.</p>
+
             <div class="tech-stack">
                 <span class="tech-tag"><i class="fas fa-cube"></i> VMware vSphere 7.x</span>
                 <span class="tech-tag"><i class="fas fa-server"></i> ESXi Hosts</span>
@@ -73,7 +81,7 @@
                 <span class="tech-tag"><i class="fas fa-balance-scale"></i> DRS</span>
                 <span class="tech-tag"><i class="fas fa-heart"></i> HA/FT</span>
             </div>
-            
+
             <div class="project-meta">
                 <div class="meta-item">
                     <i class="fas fa-user"></i>
@@ -90,34 +98,40 @@
             </div>
         </div>
     </header>
-    
+
     <!-- Main Content -->
     <main class="project-content">
-        
+
         <!-- Overview Section -->
         <section class="content-section">
             <h2 class="section-title"><i class="fas fa-bullseye"></i> Project Objective</h2>
             <div class="overview-card">
-                <p>A nested virtualization lab built on a provided Windows Server foundation that progressed from basic host provisioning to a <strong>fully automated, fault-tolerant cluster</strong>. This project demonstrates comprehensive hands-on expertise in enterprise virtualization, embodying cloud principles such as resource pooling, rapid elasticity, and on-demand service delivery.</p>
+                <p>A nested virtualization lab built on a provided Windows Server foundation that progressed from basic
+                    host provisioning to a <strong>fully automated, fault-tolerant cluster</strong>. This project
+                    demonstrates comprehensive hands-on expertise in enterprise virtualization, embodying cloud
+                    principles such as resource pooling, rapid elasticity, and on-demand service delivery.</p>
             </div>
-            
+
             <div class="highlight-box">
                 <div class="highlight-icon"><i class="fas fa-trophy"></i></div>
                 <div class="highlight-content">
                     <h4>Key Achievement</h4>
-                    <p>Successfully achieved zero-downtime failover using vSphere Fault Tolerance, with automated load balancing via DRS triggering vMotion based on CPU contention.</p>
+                    <p>Successfully achieved zero-downtime failover using vSphere Fault Tolerance, with automated load
+                        balancing via DRS triggering vMotion based on CPU contention.</p>
                 </div>
             </div>
         </section>
-        
+
         <!-- Architecture Diagram -->
         <section class="content-section">
             <h2 class="section-title"><i class="fas fa-project-diagram"></i> Architecture Overview</h2>
-            <div class="architecture-image" data-lightbox="architecture" data-caption="VMware vSphere Infrastructure Architecture">
-                <img src="../assets/projects/vsphere/vmware_architecture_diagram.png" alt="VMware vSphere Architecture Diagram">
+            <div class="architecture-image" data-lightbox="architecture"
+                data-caption="VMware vSphere Infrastructure Architecture">
+                <img src="../assets/projects/vsphere/vmware_architecture_diagram.png"
+                    alt="VMware vSphere Architecture Diagram">
             </div>
         </section>
-        
+
         <!-- Core Components -->
         <section class="content-section">
             <h2 class="section-title"><i class="fas fa-cubes"></i> Core Components</h2>
@@ -125,26 +139,30 @@
                 <div class="feature-card">
                     <div class="feature-icon"><i class="fas fa-server"></i></div>
                     <h3>ESXi Hosts</h3>
-                    <p>2 x Nested ESXi 7.0 Hosts (ESXi1, ESXi2) providing the compute layer for virtual machines with local and shared storage.</p>
+                    <p>2 x Nested ESXi 7.0 Hosts (ESXi1, ESXi2) providing the compute layer for virtual machines with
+                        local and shared storage.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon"><i class="fas fa-database"></i></div>
                     <h3>vCenter Server</h3>
-                    <p>vCenter Server Appliance (vCSA) providing centralized management, inventory, and advanced features like DRS and HA.</p>
+                    <p>vCenter Server Appliance (vCSA) providing centralized management, inventory, and advanced
+                        features like DRS and HA.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon"><i class="fas fa-users-cog"></i></div>
                     <h3>Active Directory</h3>
-                    <p>Domain Controller for vclass.local domain with integrated DNS, providing identity services and RBAC integration.</p>
+                    <p>Domain Controller for vclass.local domain with integrated DNS, providing identity services and
+                        RBAC integration.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon"><i class="fas fa-hdd"></i></div>
                     <h3>iSCSI Storage</h3>
-                    <p>Windows-based iSCSI Target Server providing shared storage for live migration and fault tolerance capabilities.</p>
+                    <p>Windows-based iSCSI Target Server providing shared storage for live migration and fault tolerance
+                        capabilities.</p>
                 </div>
             </div>
         </section>
-        
+
         <!-- Network Design -->
         <section class="content-section">
             <h2 class="section-title"><i class="fas fa-network-wired"></i> Network Architecture</h2>
@@ -187,11 +205,11 @@
                 </table>
             </div>
         </section>
-        
+
         <!-- Implementation Phases -->
         <section class="content-section">
             <h2 class="section-title"><i class="fas fa-tasks"></i> Implementation Phases</h2>
-            
+
             <div class="phase-timeline">
                 <div class="phase-item">
                     <div class="phase-marker">
@@ -206,7 +224,7 @@
                         </ul>
                     </div>
                 </div>
-                
+
                 <div class="phase-item">
                     <div class="phase-marker">
                         <span class="phase-number">02</span>
@@ -222,7 +240,7 @@
                         </ul>
                     </div>
                 </div>
-                
+
                 <div class="phase-item">
                     <div class="phase-marker">
                         <span class="phase-number">03</span>
@@ -238,7 +256,7 @@
                         </ul>
                     </div>
                 </div>
-                
+
                 <div class="phase-item">
                     <div class="phase-marker">
                         <span class="phase-number">04</span>
@@ -256,7 +274,7 @@
                 </div>
             </div>
         </section>
-        
+
         <!-- Screenshots Gallery -->
         <section class="content-section">
             <h2 class="section-title"><i class="fas fa-images"></i> Project Gallery</h2>
@@ -277,13 +295,14 @@
                     <img src="../assets/projects/vsphere/DRS_Recommendations.png" alt="DRS Recommendations">
                     <span class="gallery-caption">DRS Recommendations</span>
                 </div>
-                <div class="gallery-item" data-lightbox="gallery" data-caption="vSphere High Availability Configuration">
+                <div class="gallery-item" data-lightbox="gallery"
+                    data-caption="vSphere High Availability Configuration">
                     <img src="../assets/projects/vsphere/vsphereHA.png" alt="vSphere HA">
                     <span class="gallery-caption">vSphere HA</span>
                 </div>
             </div>
         </section>
-        
+
         <!-- Technical Highlights -->
         <section class="content-section">
             <h2 class="section-title"><i class="fas fa-star"></i> Technical Highlights</h2>
@@ -291,21 +310,24 @@
                 <div class="callout-box">
                     <div class="callout-icon"><i class="fas fa-sync"></i></div>
                     <h4>Live Migration</h4>
-                    <p>Performed seamless vMotion migrations between hosts with zero VM downtime, demonstrating workload mobility.</p>
+                    <p>Performed seamless vMotion migrations between hosts with zero VM downtime, demonstrating workload
+                        mobility.</p>
                 </div>
                 <div class="callout-box">
                     <div class="callout-icon"><i class="fas fa-balance-scale"></i></div>
                     <h4>Automated Load Balancing</h4>
-                    <p>DRS automatically triggered vMotion based on CPU contention, optimizing resource utilization across the cluster.</p>
+                    <p>DRS automatically triggered vMotion based on CPU contention, optimizing resource utilization
+                        across the cluster.</p>
                 </div>
                 <div class="callout-box">
                     <div class="callout-icon"><i class="fas fa-shield-alt"></i></div>
                     <h4>Zero-Downtime Protection</h4>
-                    <p>vSphere Fault Tolerance maintained a secondary VM copy in lockstep, providing instant failover capability.</p>
+                    <p>vSphere Fault Tolerance maintained a secondary VM copy in lockstep, providing instant failover
+                        capability.</p>
                 </div>
             </div>
         </section>
-        
+
         <!-- Technologies -->
         <section class="content-section">
             <h2 class="section-title"><i class="fas fa-cogs"></i> Technologies Used</h2>
@@ -364,27 +386,30 @@
                 </div>
             </div>
         </section>
-        
+
         <!-- Outcomes -->
         <section class="content-section">
             <h2 class="section-title"><i class="fas fa-flag-checkered"></i> Project Outcomes</h2>
             <ul class="content-list">
-                <li>Built production-like virtual infrastructure embodying cloud principles: resource pooling, rapid elasticity, on-demand service</li>
+                <li>Built production-like virtual infrastructure embodying cloud principles: resource pooling, rapid
+                    elasticity, on-demand service</li>
                 <li>Automated resource optimization through DRS with dynamic workload balancing</li>
                 <li>Provided business continuity through HA automatic failover capabilities</li>
                 <li>Achieved zero-downtime protection for critical workloads using Fault Tolerance</li>
-                <li>Demonstrated end-to-end virtualization lifecycle management from provisioning to decommissioning</li>
+                <li>Demonstrated end-to-end virtualization lifecycle management from provisioning to decommissioning
+                </li>
             </ul>
-            
+
             <div class="highlight-box" style="margin-top: var(--space-lg);">
                 <div class="highlight-icon"><i class="fas fa-certificate"></i></div>
                 <div class="highlight-content">
                     <h4>Value Delivered</h4>
-                    <p>Validated deep practical expertise in enterprise virtualization, from foundational host provisioning to advanced automation and high-availability configurations.</p>
+                    <p>Validated deep practical expertise in enterprise virtualization, from foundational host
+                        provisioning to advanced automation and high-availability configurations.</p>
                 </div>
             </div>
         </section>
-        
+
         <!-- CTA -->
         <section class="project-cta">
             <h3 class="cta-title">Explore More Projects</h3>
@@ -399,28 +424,30 @@
                 </a>
             </div>
         </section>
-        
+
     </main>
-    
+
     <!-- Footer -->
     <footer class="project-footer">
         <p>© <span id="year"></span> Majestor Perrincio Kaptue Kepseu. All rights reserved.</p>
     </footer>
-    
+
     <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-    
+
     <!-- Lightbox Modal -->
     <div class="lightbox" id="lightbox">
         <div class="lightbox-content">
             <button class="lightbox-close" aria-label="Close">&times;</button>
-            <button class="lightbox-nav lightbox-prev" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+            <button class="lightbox-nav lightbox-prev" aria-label="Previous"><i
+                    class="fas fa-chevron-left"></i></button>
             <button class="lightbox-nav lightbox-next" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
             <img src="" alt="" id="lightbox-img">
             <p class="lightbox-caption" id="lightbox-caption"></p>
             <span class="lightbox-counter" id="lightbox-counter"></span>
         </div>
     </div>
-    
-    <script src="../lightbox.js"></script>
+
+    <script src="../lightbox.js?v=2"></script>
 </body>
+
 </html>
