@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#0a0a0f">
     <meta name="description" content="Majestor Kepseu - Security-Focused Network & Infrastructure Engineer Portfolio">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://perrinio-dev.github.io/my-portfolio/">
     <title>Majestor Kepseu | Network & Infrastructure Engineer</title>
 
     <!-- Open Graph -->
@@ -49,9 +51,31 @@
             document.documentElement.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'));
         })();
     </script>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Majestor Kepseu",
+        "url": "https://perrinio-dev.github.io/my-portfolio/",
+        "jobTitle": "Network & Infrastructure Engineer",
+        "description": "Security-focused engineer with a Master's in Network Security",
+        "sameAs": [
+            "https://www.linkedin.com/in/majestor-kepseu-20bb1b314",
+            "https://github.com/PERRINIO-dev"
+        ],
+        "alumniOf": {
+            "@type": "EducationOrganization",
+            "name": "Collège La Cité"
+        }
+    }
+    </script>
 </head>
 
 <body>
+    <a href="#main" class="sr-only">Skip to main content</a>
+
     <!-- Ambient Background -->
     <div class="ambient-bg">
         <div class="gradient-orb orb-1"></div>
@@ -68,7 +92,7 @@
                 <span class="logo-text">Majestor<span class="logo-accent">.</span></span>
             </a>
 
-            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -91,6 +115,8 @@
             </ul>
         </div>
     </nav>
+
+    <main id="main">
 
     <!-- Hero Section -->
     <section class="hero" id="hero">
@@ -645,6 +671,8 @@
             </div>
         </div>
     </section>
+
+    </main>
 
     <!-- Footer -->
     <footer class="footer">

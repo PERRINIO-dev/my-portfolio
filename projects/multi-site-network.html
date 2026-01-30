@@ -7,6 +7,8 @@
     <title>Multi-Site Enterprise Network | Majestor Kepseu</title>
     <meta name="description"
         content="Multi-site enterprise network for NinjaPostal Corporation connecting Toronto, Vancouver, and Tokyo with EIGRP routing and defense-in-depth security.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://perrinio-dev.github.io/my-portfolio/projects/multi-site-network.html">
     <meta name="theme-color" content="#0a0a0f">
 
     <!-- Open Graph -->
@@ -16,6 +18,10 @@
         content="Multi-site enterprise network for NinjaPostal Corporation connecting Toronto, Vancouver, and Tokyo with EIGRP routing and defense-in-depth security.">
     <meta property="og:image" content="https://perrinio-dev.github.io/my-portfolio/assets/preview.png">
     <meta property="og:url" content="https://perrinio-dev.github.io/my-portfolio/projects/multi-site-network.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Multi-Site Enterprise Network | Majestor Kepseu">
+    <meta name="twitter:description" content="Multi-site enterprise network for NinjaPostal Corporation connecting Toronto, Vancouver, and Tokyo with EIGRP routing and defense-in-depth security.">
+    <meta name="twitter:image" content="https://perrinio-dev.github.io/my-portfolio/assets/preview.png">
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
@@ -46,6 +52,7 @@
 </head>
 
 <body>
+    <a href="#main" class="sr-only">Skip to main content</a>
     <!-- Ambient Background -->
     <div class="ambient-bg"></div>
 
@@ -116,7 +123,7 @@
             <div class="highlight-box">
                 <div class="highlight-icon"><i class="fas fa-lightbulb"></i></div>
                 <div class="highlight-content">
-                    <h4>Challenge & Adaptation</h4>
+                    <h3>Challenge & Adaptation</h3>
                     <p>Successfully pivoted from BGP to EIGRP routing protocol due to physical hardware limitations,
                         demonstrating adaptability and problem-solving skills while maintaining all functional
                         requirements.</p>
@@ -129,7 +136,10 @@
             <h2 class="section-title"><i class="fas fa-project-diagram"></i> Network Topology</h2>
             <div class="architecture-image" data-lightbox="architecture"
                 data-caption="Multi-Site Network Topology — Toronto, Vancouver, Tokyo">
-                <img src="../assets/projects/network/network_topology.png" alt="Network Topology Diagram">
+                <picture>
+                    <source srcset="../assets/projects/network/network_topology.webp" type="image/webp">
+                    <img src="../assets/projects/network/network_topology.png" alt="Network Topology Diagram" width="1200" height="800" loading="lazy">
+                </picture>
             </div>
         </section>
 
@@ -215,7 +225,7 @@
                 </table>
             </div>
 
-            <h4 style="margin-top: var(--space-lg); margin-bottom: var(--space-sm);">Point-to-Point WAN Links</h4>
+            <h3 style="margin-top: var(--space-lg); margin-bottom: var(--space-sm);">Point-to-Point WAN Links</h3>
             <div class="table-container">
                 <table class="data-table">
                     <thead>
@@ -353,7 +363,10 @@
             <h2 class="section-title"><i class="fas fa-images"></i> Project Gallery</h2>
             <div class="gallery-grid">
                 <div class="gallery-item" data-lightbox="gallery" data-caption="ACL Configuration Snippets">
-                    <img src="../assets/projects/network/ACL_snippets.png" alt="ACL Configuration">
+                    <picture>
+                        <source srcset="../assets/projects/network/ACL_snippets.webp" type="image/webp">
+                        <img src="../assets/projects/network/ACL_snippets.png" alt="ACL Configuration" width="627" height="414" loading="lazy">
+                    </picture>
                     <span class="gallery-caption">ACL Configuration</span>
                 </div>
                 <!-- Placeholder for future images -->
@@ -386,19 +399,19 @@
             <div class="callout-grid">
                 <div class="callout-box">
                     <div class="callout-icon"><i class="fas fa-random"></i></div>
-                    <h4>Protocol Adaptation</h4>
+                    <h3>Protocol Adaptation</h3>
                     <p>Successfully pivoted from BGP to EIGRP due to hardware support limitations while maintaining full
                         functionality.</p>
                 </div>
                 <div class="callout-box">
                     <div class="callout-icon"><i class="fas fa-shield-alt"></i></div>
-                    <h4>Defense-in-Depth</h4>
+                    <h3>Defense-in-Depth</h3>
                     <p>Implemented layered security with VLANs, ACLs, port security, and RBAC following least privilege
                         principles.</p>
                 </div>
                 <div class="callout-box">
                     <div class="callout-icon"><i class="fas fa-flask"></i></div>
-                    <h4>Sim-to-Physical</h4>
+                    <h3>Sim-to-Physical</h3>
                     <p>Translated simulated Packet Tracer design to working physical Cisco switches, overcoming software
                         limitations.</p>
                 </div>
@@ -410,7 +423,7 @@
             <h2 class="section-title"><i class="fas fa-cogs"></i> Technologies Used</h2>
             <div class="tech-categories">
                 <div class="tech-category">
-                    <h4>Network Design</h4>
+                    <h3>Network Design</h3>
                     <div class="tech-tags">
                         <span>Subnetting</span>
                         <span>VLAN Design</span>
@@ -419,7 +432,7 @@
                     </div>
                 </div>
                 <div class="tech-category">
-                    <h4>Cisco IOS</h4>
+                    <h3>Cisco IOS</h3>
                     <div class="tech-tags">
                         <span>Layer 2/3 Switching</span>
                         <span>SVI Configuration</span>
@@ -427,7 +440,7 @@
                     </div>
                 </div>
                 <div class="tech-category">
-                    <h4>Routing Protocols</h4>
+                    <h3>Routing Protocols</h3>
                     <div class="tech-tags">
                         <span>EIGRP AS100</span>
                         <span>Route Summarization</span>
@@ -435,7 +448,7 @@
                     </div>
                 </div>
                 <div class="tech-category">
-                    <h4>Network Security</h4>
+                    <h3>Network Security</h3>
                     <div class="tech-tags">
                         <span>Standard ACLs</span>
                         <span>Extended ACLs</span>
@@ -445,7 +458,7 @@
                     </div>
                 </div>
                 <div class="tech-category">
-                    <h4>Network Services</h4>
+                    <h3>Network Services</h3>
                     <div class="tech-tags">
                         <span>DHCP</span>
                         <span>TFTP</span>
@@ -454,7 +467,7 @@
                     </div>
                 </div>
                 <div class="tech-category">
-                    <h4>Tools</h4>
+                    <h3>Tools</h3>
                     <div class="tech-tags">
                         <span>Cisco Packet Tracer</span>
                         <span>Physical Cisco Switches</span>
@@ -477,7 +490,7 @@
                 <li>Translated simulated design to working physical network, overcoming software limitations</li>
             </ul>
 
-            <h4 style="margin-top: var(--space-lg); margin-bottom: var(--space-sm);">Business Value Delivered</h4>
+            <h3 style="margin-top: var(--space-lg); margin-bottom: var(--space-sm);">Business Value Delivered</h3>
             <ul class="content-list">
                 <li><strong>Scalable Connectivity:</strong> Three-office network with expansion-ready design</li>
                 <li><strong>Enhanced Security:</strong> Segmentation, access control, and secure management</li>
@@ -487,7 +500,7 @@
             <div class="highlight-box" style="margin-top: var(--space-lg);">
                 <div class="highlight-icon"><i class="fas fa-link"></i></div>
                 <div class="highlight-content">
-                    <h4>Foundation for Systems Projects</h4>
+                    <h3>Foundation for Systems Projects</h3>
                     <p>This networking infrastructure represents the foundation that would host virtualized systems from
                         other projects—demonstrating the full stack from physical network to application services.</p>
                 </div>
@@ -519,7 +532,7 @@
     <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 
     <!-- Lightbox Modal -->
-    <div class="lightbox" id="lightbox">
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image gallery">
         <div class="lightbox-content">
             <button class="lightbox-close" aria-label="Close">&times;</button>
             <button class="lightbox-nav lightbox-prev" aria-label="Previous"><i

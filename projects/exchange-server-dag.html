@@ -7,6 +7,8 @@
     <title>Exchange Server 2019 with DAG | Majestor Kepseu</title>
     <meta name="description"
         content="Enterprise Microsoft Exchange Server 2019 deployment with Database Availability Group for high availability and automatic failover.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://perrinio-dev.github.io/my-portfolio/projects/exchange-server-dag.html">
     <meta name="theme-color" content="#0a0a0f">
 
     <!-- Open Graph -->
@@ -16,6 +18,10 @@
         content="Enterprise Microsoft Exchange Server 2019 deployment with Database Availability Group for high availability and automatic failover.">
     <meta property="og:image" content="https://perrinio-dev.github.io/my-portfolio/assets/preview.png">
     <meta property="og:url" content="https://perrinio-dev.github.io/my-portfolio/projects/exchange-server-dag.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Exchange Server 2019 with DAG | Majestor Kepseu">
+    <meta name="twitter:description" content="Enterprise Microsoft Exchange Server 2019 deployment with Database Availability Group for high availability and automatic failover.">
+    <meta name="twitter:image" content="https://perrinio-dev.github.io/my-portfolio/assets/preview.png">
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
@@ -46,6 +52,7 @@
 </head>
 
 <body>
+    <a href="#main" class="sr-only">Skip to main content</a>
     <!-- Ambient Background -->
     <div class="ambient-bg"></div>
 
@@ -116,7 +123,7 @@
             <div class="highlight-box">
                 <div class="highlight-icon"><i class="fas fa-trophy"></i></div>
                 <div class="highlight-content">
-                    <h4>Key Achievement</h4>
+                    <h3>Key Achievement</h3>
                     <p>Achieved mailbox database redundancy with automatic failover capability through properly
                         configured Database Availability Group (CollabCoDAG).</p>
                 </div>
@@ -128,8 +135,10 @@
             <h2 class="section-title"><i class="fas fa-project-diagram"></i> Architecture Overview</h2>
             <div class="architecture-image" data-lightbox="architecture"
                 data-caption="Exchange Server 2019 with DAG Architecture">
-                <img src="../assets/projects/exchange/exchange_architecture_diagram.png"
-                    alt="Exchange Server Architecture Diagram">
+                <picture>
+                    <source srcset="../assets/projects/exchange/exchange_architecture_diagram.webp" type="image/webp">
+                    <img src="../assets/projects/exchange/exchange_architecture_diagram.png" alt="Exchange Server Architecture Diagram" width="1200" height="800" loading="lazy">
+                </picture>
             </div>
         </section>
 
@@ -313,7 +322,7 @@
             <div class="highlight-box" style="margin-top: var(--space-lg);">
                 <div class="highlight-icon"><i class="fas fa-lightbulb"></i></div>
                 <div class="highlight-content">
-                    <h4>Design Decision: Optimizing the Witness Server</h4>
+                    <h3>Design Decision: Optimizing the Witness Server</h3>
                     <p>Justified the use of the existing file server (MK-FS) as DAG witness rather than deploying
                         additional infrastructure. This balances assignment requirements with real-world best practices
                         for witness server placement using Node & File Share Majority quorum model.</p>
@@ -326,30 +335,48 @@
             <h2 class="section-title"><i class="fas fa-images"></i> Project Gallery</h2>
             <div class="gallery-grid">
                 <div class="gallery-item" data-lightbox="gallery" data-caption="Exchange Admin Center Dashboard">
-                    <img src="../assets/projects/exchange/Exchange_Admin_Center.png" alt="Exchange Admin Center">
+                    <picture>
+                        <source srcset="../assets/projects/exchange/Exchange_Admin_Center.webp" type="image/webp">
+                        <img src="../assets/projects/exchange/Exchange_Admin_Center.png" alt="Exchange Admin Center" width="1457" height="820" loading="lazy">
+                    </picture>
                     <span class="gallery-caption">Exchange Admin Center</span>
                 </div>
                 <div class="gallery-item" data-lightbox="gallery"
                     data-caption="Active Directory Users and Computers Wizard">
-                    <img src="../assets/projects/exchange/ADUC_wizard.png" alt="ADUC Wizard">
+                    <picture>
+                        <source srcset="../assets/projects/exchange/ADUC_wizard.webp" type="image/webp">
+                        <img src="../assets/projects/exchange/ADUC_wizard.png" alt="ADUC Wizard" width="1547" height="820" loading="lazy">
+                    </picture>
                     <span class="gallery-caption">AD User Management</span>
                 </div>
                 <div class="gallery-item" data-lightbox="gallery" data-caption="Database Availability Group Creation">
-                    <img src="../assets/projects/exchange/DAGcreation.png" alt="DAG Creation">
+                    <picture>
+                        <source srcset="../assets/projects/exchange/DAGcreation.webp" type="image/webp">
+                        <img src="../assets/projects/exchange/DAGcreation.png" alt="DAG Creation" width="1655" height="880" loading="lazy">
+                    </picture>
                     <span class="gallery-caption">DAG Creation</span>
                 </div>
                 <div class="gallery-item" data-lightbox="gallery"
                     data-caption="DAG Initialization and Member Configuration">
-                    <img src="../assets/projects/exchange/DAGinitialisation.png" alt="DAG Initialization">
+                    <picture>
+                        <source srcset="../assets/projects/exchange/DAGinitialisation.webp" type="image/webp">
+                        <img src="../assets/projects/exchange/DAGinitialisation.png" alt="DAG Initialization" width="1662" height="935" loading="lazy">
+                    </picture>
                     <span class="gallery-caption">DAG Initialization</span>
                 </div>
                 <div class="gallery-item" data-lightbox="gallery"
                     data-caption="DNS Records Configuration (A, MX, CNAME)">
-                    <img src="../assets/projects/exchange/DNS_records.png" alt="DNS Records">
+                    <picture>
+                        <source srcset="../assets/projects/exchange/DNS_records.webp" type="image/webp">
+                        <img src="../assets/projects/exchange/DNS_records.png" alt="DNS Records" width="1570" height="817" loading="lazy">
+                    </picture>
                     <span class="gallery-caption">DNS Records</span>
                 </div>
                 <div class="gallery-item" data-lightbox="gallery" data-caption="End-to-End Mail Flow Testing">
-                    <img src="../assets/projects/exchange/mailflowtesting.png" alt="Mail Flow Testing">
+                    <picture>
+                        <source srcset="../assets/projects/exchange/mailflowtesting.webp" type="image/webp">
+                        <img src="../assets/projects/exchange/mailflowtesting.png" alt="Mail Flow Testing" width="1659" height="933" loading="lazy">
+                    </picture>
                     <span class="gallery-caption">Mail Flow Test</span>
                 </div>
             </div>
@@ -361,19 +388,19 @@
             <div class="callout-grid">
                 <div class="callout-box">
                     <div class="callout-icon"><i class="fas fa-sync-alt"></i></div>
-                    <h4>Automatic Failover</h4>
+                    <h3>Automatic Failover</h3>
                     <p>DAG provides automatic mailbox database failover ensuring email continuity even during server
                         maintenance or failure.</p>
                 </div>
                 <div class="callout-box">
                     <div class="callout-icon"><i class="fas fa-magic"></i></div>
-                    <h4>Autodiscover</h4>
+                    <h3>Autodiscover</h3>
                     <p>Clients automatically configure email settings through DNS-based autodiscover, eliminating manual
                         setup.</p>
                 </div>
                 <div class="callout-box">
                     <div class="callout-icon"><i class="fas fa-hdd"></i></div>
-                    <h4>Storage Spaces</h4>
+                    <h3>Storage Spaces</h3>
                     <p>Resilient file shares built on Windows Storage Spaces provide reliable storage for departmental
                         data.</p>
                 </div>
@@ -385,7 +412,7 @@
             <h2 class="section-title"><i class="fas fa-cogs"></i> Technologies Used</h2>
             <div class="tech-categories">
                 <div class="tech-category">
-                    <h4>Core Platform</h4>
+                    <h3>Core Platform</h3>
                     <div class="tech-tags">
                         <span>Microsoft Exchange 2019</span>
                         <span>Windows Server 2019</span>
@@ -393,7 +420,7 @@
                     </div>
                 </div>
                 <div class="tech-category">
-                    <h4>Directory Services</h4>
+                    <h3>Directory Services</h3>
                     <div class="tech-tags">
                         <span>Active Directory</span>
                         <span>Organizational Units</span>
@@ -402,7 +429,7 @@
                     </div>
                 </div>
                 <div class="tech-category">
-                    <h4>Network Services</h4>
+                    <h3>Network Services</h3>
                     <div class="tech-tags">
                         <span>DNS (A, MX, CNAME)</span>
                         <span>DHCP</span>
@@ -410,7 +437,7 @@
                     </div>
                 </div>
                 <div class="tech-category">
-                    <h4>Exchange Management</h4>
+                    <h3>Exchange Management</h3>
                     <div class="tech-tags">
                         <span>Exchange Admin Center</span>
                         <span>Exchange Management Shell</span>
@@ -419,7 +446,7 @@
                     </div>
                 </div>
                 <div class="tech-category">
-                    <h4>High Availability</h4>
+                    <h3>High Availability</h3>
                     <div class="tech-tags">
                         <span>Database Availability Group</span>
                         <span>File Share Witness</span>
@@ -428,7 +455,7 @@
                     </div>
                 </div>
                 <div class="tech-category">
-                    <h4>Storage</h4>
+                    <h3>Storage</h3>
                     <div class="tech-tags">
                         <span>Windows Storage Spaces</span>
                         <span>NTFS Permissions</span>
@@ -453,7 +480,7 @@
             <div class="highlight-box" style="margin-top: var(--space-lg);">
                 <div class="highlight-icon"><i class="fas fa-certificate"></i></div>
                 <div class="highlight-content">
-                    <h4>Value Delivered</h4>
+                    <h3>Value Delivered</h3>
                     <p>The solution ensures email service resilience in event of server failure while balancing
                         assignment requirements with real-world best practices for witness server placement.</p>
                 </div>
@@ -485,7 +512,7 @@
     <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 
     <!-- Lightbox Modal -->
-    <div class="lightbox" id="lightbox">
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image gallery">
         <div class="lightbox-content">
             <button class="lightbox-close" aria-label="Close">&times;</button>
             <button class="lightbox-nav lightbox-prev" aria-label="Previous"><i

@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var galleryImages = [];
     var currentIndex = 0;
+    var previouslyFocused = null;
+    var mainContent = document.querySelector('main');
+    var focusableElements = [closeBtn, prevBtn, nextBtn];
 
     // Collect all lightbox triggers
     var triggers = document.querySelectorAll('[data-lightbox]');
@@ -42,11 +45,20 @@ document.addEventListener('DOMContentLoaded', function() {
         lightboxCounter.textContent = (currentIndex + 1) + ' / ' + galleryImages.length;
         lightbox.classList.add('active');
         document.body.style.overflow = 'hidden';
+
+        // Accessibility: save focus, hide background, move focus into dialog
+        previouslyFocused = document.activeElement;
+        if (mainContent) mainContent.setAttribute('aria-hidden', 'true');
+        closeBtn.focus();
     }
 
     function closeLightbox() {
         lightbox.classList.remove('active');
         document.body.style.overflow = '';
+
+        // Accessibility: restore background visibility and focus
+        if (mainContent) mainContent.removeAttribute('aria-hidden');
+        if (previouslyFocused) previouslyFocused.focus();
     }
 
     function showPrev() {
@@ -69,12 +81,32 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.target === lightbox) closeLightbox();
     });
 
-    // Keyboard navigation
+    // Keyboard navigation + focus trap
     document.addEventListener('keydown', function(e) {
         if (!lightbox.classList.contains('active')) return;
         if (e.key === 'Escape') closeLightbox();
         if (e.key === 'ArrowLeft') showPrev();
         if (e.key === 'ArrowRight') showNext();
+
+        // Focus trap: cycle Tab between close, prev, next buttons
+        if (e.key === 'Tab') {
+            var currentFocus = document.activeElement;
+            var idx = focusableElements.indexOf(currentFocus);
+
+            if (e.shiftKey) {
+                // Shift+Tab: go backward
+                if (idx <= 0) {
+                    e.preventDefault();
+                    focusableElements[focusableElements.length - 1].focus();
+                }
+            } else {
+                // Tab: go forward
+                if (idx === focusableElements.length - 1 || idx === -1) {
+                    e.preventDefault();
+                    focusableElements[0].focus();
+                }
+            }
+        }
     });
 
     // Touch swipe support for mobile

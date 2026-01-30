@@ -108,31 +108,25 @@ function initMobileMenu() {
     backdrop.className = 'nav-backdrop';
     document.body.appendChild(backdrop);
 
-    let savedScrollY = 0;
-
     function openMenu() {
         menu.classList.add('active');
         toggle.classList.add('active');
+        toggle.setAttribute('aria-expanded', 'true');
         backdrop.classList.add('active');
-        // Defer scroll lock until transition ends to avoid iOS Safari reflow mid-animation
+        // Defer overflow lock until transition ends to avoid iOS Safari reflow mid-animation
         menu.addEventListener('transitionend', function handler() {
             menu.removeEventListener('transitionend', handler);
             if (menu.classList.contains('active')) {
-                savedScrollY = window.scrollY;
-                document.body.style.position = 'fixed';
-                document.body.style.top = `-${savedScrollY}px`;
-                document.body.style.width = '100%';
+                document.body.style.overflow = 'hidden';
             }
         });
     }
 
     function closeMenu() {
-        document.body.style.position = '';
-        document.body.style.top = '';
-        document.body.style.width = '';
-        window.scrollTo(0, savedScrollY);
+        document.body.style.overflow = '';
         menu.classList.remove('active');
         toggle.classList.remove('active');
+        toggle.setAttribute('aria-expanded', 'false');
         backdrop.classList.remove('active');
     }
 

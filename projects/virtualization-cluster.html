@@ -7,6 +7,8 @@
     <title>VMware vSphere Infrastructure | Majestor Kepseu</title>
     <meta name="description"
         content="Enterprise VMware vSphere virtualization infrastructure with HA, DRS, Fault Tolerance, and shared iSCSI storage.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://perrinio-dev.github.io/my-portfolio/projects/virtualization-cluster.html">
     <meta name="theme-color" content="#0a0a0f">
 
     <!-- Open Graph -->
@@ -16,6 +18,10 @@
         content="Enterprise VMware vSphere virtualization infrastructure with HA, DRS, Fault Tolerance, and shared iSCSI storage.">
     <meta property="og:image" content="https://perrinio-dev.github.io/my-portfolio/assets/preview.png">
     <meta property="og:url" content="https://perrinio-dev.github.io/my-portfolio/projects/virtualization-cluster.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="VMware vSphere Infrastructure | Majestor Kepseu">
+    <meta name="twitter:description" content="Enterprise VMware vSphere virtualization infrastructure with HA, DRS, Fault Tolerance, and shared iSCSI storage.">
+    <meta name="twitter:image" content="https://perrinio-dev.github.io/my-portfolio/assets/preview.png">
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
@@ -46,6 +52,7 @@
 </head>
 
 <body>
+    <a href="#main" class="sr-only">Skip to main content</a>
     <!-- Ambient Background -->
     <div class="ambient-bg"></div>
 
@@ -115,7 +122,7 @@
             <div class="highlight-box">
                 <div class="highlight-icon"><i class="fas fa-trophy"></i></div>
                 <div class="highlight-content">
-                    <h4>Key Achievement</h4>
+                    <h3>Key Achievement</h3>
                     <p>Successfully achieved zero-downtime failover using vSphere Fault Tolerance, with automated load
                         balancing via DRS triggering vMotion based on CPU contention.</p>
                 </div>
@@ -127,8 +134,10 @@
             <h2 class="section-title"><i class="fas fa-project-diagram"></i> Architecture Overview</h2>
             <div class="architecture-image" data-lightbox="architecture"
                 data-caption="VMware vSphere Infrastructure Architecture">
-                <img src="../assets/projects/vsphere/vmware_architecture_diagram.png"
-                    alt="VMware vSphere Architecture Diagram">
+                <picture>
+                    <source srcset="../assets/projects/vsphere/vmware_architecture_diagram.webp" type="image/webp">
+                    <img src="../assets/projects/vsphere/vmware_architecture_diagram.png" alt="VMware vSphere Architecture Diagram" width="1200" height="800" loading="lazy">
+                </picture>
             </div>
         </section>
 
@@ -280,24 +289,39 @@
             <h2 class="section-title"><i class="fas fa-images"></i> Project Gallery</h2>
             <div class="gallery-grid">
                 <div class="gallery-item" data-lightbox="gallery" data-caption="vCenter Server Dashboard">
-                    <img src="../assets/projects/vsphere/vcenterdashboard.png" alt="vCenter Dashboard">
+                    <picture>
+                        <source srcset="../assets/projects/vsphere/vcenterdashboard.webp" type="image/webp">
+                        <img src="../assets/projects/vsphere/vcenterdashboard.png" alt="vCenter Dashboard" width="1920" height="1080" loading="lazy">
+                    </picture>
                     <span class="gallery-caption">vCenter Dashboard</span>
                 </div>
                 <div class="gallery-item" data-lightbox="gallery" data-caption="vMotion Network Setup on ESXi1">
-                    <img src="../assets/projects/vsphere/vMotion_Setup_ESXi1.png" alt="vMotion Setup">
+                    <picture>
+                        <source srcset="../assets/projects/vsphere/vMotion_Setup_ESXi1.webp" type="image/webp">
+                        <img src="../assets/projects/vsphere/vMotion_Setup_ESXi1.png" alt="vMotion Setup" width="1547" height="821" loading="lazy">
+                    </picture>
                     <span class="gallery-caption">vMotion Setup</span>
                 </div>
                 <div class="gallery-item" data-lightbox="gallery" data-caption="vMotion Live Migration Testing">
-                    <img src="../assets/projects/vsphere/vMotion_Testing.png" alt="vMotion Testing">
+                    <picture>
+                        <source srcset="../assets/projects/vsphere/vMotion_Testing.webp" type="image/webp">
+                        <img src="../assets/projects/vsphere/vMotion_Testing.png" alt="vMotion Testing" width="1548" height="818" loading="lazy">
+                    </picture>
                     <span class="gallery-caption">vMotion Testing</span>
                 </div>
                 <div class="gallery-item" data-lightbox="gallery" data-caption="DRS Automation Recommendations">
-                    <img src="../assets/projects/vsphere/DRS_Recommendations.png" alt="DRS Recommendations">
+                    <picture>
+                        <source srcset="../assets/projects/vsphere/DRS_Recommendations.webp" type="image/webp">
+                        <img src="../assets/projects/vsphere/DRS_Recommendations.png" alt="DRS Recommendations" width="1540" height="818" loading="lazy">
+                    </picture>
                     <span class="gallery-caption">DRS Recommendations</span>
                 </div>
                 <div class="gallery-item" data-lightbox="gallery"
                     data-caption="vSphere High Availability Configuration">
-                    <img src="../assets/projects/vsphere/vsphereHA.png" alt="vSphere HA">
+                    <picture>
+                        <source srcset="../assets/projects/vsphere/vsphereHA.webp" type="image/webp">
+                        <img src="../assets/projects/vsphere/vsphereHA.png" alt="vSphere HA" width="1920" height="1080" loading="lazy">
+                    </picture>
                     <span class="gallery-caption">vSphere HA</span>
                 </div>
             </div>
@@ -309,19 +333,19 @@
             <div class="callout-grid">
                 <div class="callout-box">
                     <div class="callout-icon"><i class="fas fa-sync"></i></div>
-                    <h4>Live Migration</h4>
+                    <h3>Live Migration</h3>
                     <p>Performed seamless vMotion migrations between hosts with zero VM downtime, demonstrating workload
                         mobility.</p>
                 </div>
                 <div class="callout-box">
                     <div class="callout-icon"><i class="fas fa-balance-scale"></i></div>
-                    <h4>Automated Load Balancing</h4>
+                    <h3>Automated Load Balancing</h3>
                     <p>DRS automatically triggered vMotion based on CPU contention, optimizing resource utilization
                         across the cluster.</p>
                 </div>
                 <div class="callout-box">
                     <div class="callout-icon"><i class="fas fa-shield-alt"></i></div>
-                    <h4>Zero-Downtime Protection</h4>
+                    <h3>Zero-Downtime Protection</h3>
                     <p>vSphere Fault Tolerance maintained a secondary VM copy in lockstep, providing instant failover
                         capability.</p>
                 </div>
@@ -333,7 +357,7 @@
             <h2 class="section-title"><i class="fas fa-cogs"></i> Technologies Used</h2>
             <div class="tech-categories">
                 <div class="tech-category">
-                    <h4>Platform</h4>
+                    <h3>Platform</h3>
                     <div class="tech-tags">
                         <span>VMware vSphere 7.x</span>
                         <span>ESXi 7.0</span>
@@ -341,7 +365,7 @@
                     </div>
                 </div>
                 <div class="tech-category">
-                    <h4>Virtualization Features</h4>
+                    <h3>Virtualization Features</h3>
                     <div class="tech-tags">
                         <span>VM Templates</span>
                         <span>Snapshots</span>
@@ -351,7 +375,7 @@
                     </div>
                 </div>
                 <div class="tech-category">
-                    <h4>Storage</h4>
+                    <h3>Storage</h3>
                     <div class="tech-tags">
                         <span>VMFS Datastores</span>
                         <span>Windows iSCSI Target</span>
@@ -359,7 +383,7 @@
                     </div>
                 </div>
                 <div class="tech-category">
-                    <h4>Networking</h4>
+                    <h3>Networking</h3>
                     <div class="tech-tags">
                         <span>VMkernel Networking</span>
                         <span>Port Groups</span>
@@ -367,7 +391,7 @@
                     </div>
                 </div>
                 <div class="tech-category">
-                    <h4>Enterprise Features</h4>
+                    <h3>Enterprise Features</h3>
                     <div class="tech-tags">
                         <span>vSphere Clustering</span>
                         <span>DRS</span>
@@ -376,7 +400,7 @@
                     </div>
                 </div>
                 <div class="tech-category">
-                    <h4>Infrastructure Services</h4>
+                    <h3>Infrastructure Services</h3>
                     <div class="tech-tags">
                         <span>Active Directory</span>
                         <span>DNS</span>
@@ -403,7 +427,7 @@
             <div class="highlight-box" style="margin-top: var(--space-lg);">
                 <div class="highlight-icon"><i class="fas fa-certificate"></i></div>
                 <div class="highlight-content">
-                    <h4>Value Delivered</h4>
+                    <h3>Value Delivered</h3>
                     <p>Validated deep practical expertise in enterprise virtualization, from foundational host
                         provisioning to advanced automation and high-availability configurations.</p>
                 </div>
@@ -435,7 +459,7 @@
     <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 
     <!-- Lightbox Modal -->
-    <div class="lightbox" id="lightbox">
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image gallery">
         <div class="lightbox-content">
             <button class="lightbox-close" aria-label="Close">&times;</button>
             <button class="lightbox-nav lightbox-prev" aria-label="Previous"><i
