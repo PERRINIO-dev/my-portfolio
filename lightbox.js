@@ -1,5 +1,6 @@
 // ====== SHARED LIGHTBOX ======
 // Reusable lightbox with keyboard nav and mobile swipe support
+document.addEventListener('DOMContentLoaded', function() {
 (function() {
     var lightbox = document.getElementById('lightbox');
     if (!lightbox) return;
@@ -115,3 +116,4 @@
         }
     }, { passive: true });
 })();
+});

@@ -1,6 +1,15 @@
 // ====== PORTFOLIO v7.0 - Clean & Minimal ======
 // No excessive touch effects, just smooth functionality
 
+// Centralized configuration — no more magic numbers scattered through code
+const CONFIG = {
+    SCROLL_THRESHOLD: 50,
+    NAV_HEIGHT_FALLBACK: 80,
+    OBSERVER_THRESHOLD: 0.1,
+    OBSERVER_ROOT_MARGIN: '0px 0px -50px 0px',
+    FORM_SUCCESS_TIMEOUT: 5000
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     // Set current year
     const yearEl = document.getElementById('year');
@@ -79,7 +88,7 @@ function initNavigation() {
     if (!nav) return;
 
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
+        if (window.scrollY > CONFIG.SCROLL_THRESHOLD) {
             nav.classList.add('scrolled');
         } else {
             nav.classList.remove('scrolled');
@@ -99,21 +108,29 @@ function initMobileMenu() {
     backdrop.className = 'nav-backdrop';
     document.body.appendChild(backdrop);
 
+    let savedScrollY = 0;
+
     function openMenu() {
         menu.classList.add('active');
         toggle.classList.add('active');
         backdrop.classList.add('active');
-        // Defer overflow lock until transition ends to avoid iOS Safari reflow mid-animation
+        // Defer scroll lock until transition ends to avoid iOS Safari reflow mid-animation
         menu.addEventListener('transitionend', function handler() {
             menu.removeEventListener('transitionend', handler);
             if (menu.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
+                savedScrollY = window.scrollY;
+                document.body.style.position = 'fixed';
+                document.body.style.top = `-${savedScrollY}px`;
+                document.body.style.width = '100%';
             }
         });
     }
 
     function closeMenu() {
-        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        window.scrollTo(0, savedScrollY);
         menu.classList.remove('active');
         toggle.classList.remove('active');
         backdrop.classList.remove('active');
@@ -156,7 +173,9 @@ function initSmoothScroll() {
             
             e.preventDefault();
             
-            const navHeight = document.getElementById('nav')?.offsetHeight || 80;
+            const navHeight = document.getElementById('nav')?.offsetHeight
+                || parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-height'))
+                || CONFIG.NAV_HEIGHT_FALLBACK;
             const targetPosition = target.getBoundingClientRect().top + window.scrollY - navHeight;
             
             window.scrollTo({
@@ -180,8 +199,8 @@ function initRevealAnimations() {
     ) || 0.1;
 
     var observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+        threshold: CONFIG.OBSERVER_THRESHOLD,
+        rootMargin: CONFIG.OBSERVER_ROOT_MARGIN
     };
 
     var observer = new IntersectionObserver(function(entries) {
@@ -310,7 +329,7 @@ function initContactForm() {
         // Auto-hide status after 5 seconds
         setTimeout(() => {
             status.className = 'form-status';
-        }, 5000);
+        }, CONFIG.FORM_SUCCESS_TIMEOUT);
     });
 }
 

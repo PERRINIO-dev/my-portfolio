@@ -242,7 +242,7 @@ a {
     opacity: 1;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1050px) {
     .nav-backdrop {
         display: block;
         pointer-events: none;
@@ -1405,16 +1405,11 @@ a {
     }
 }
 
-@media (max-width: 768px) {
-    :root {
-        --space-2xl: 3rem;
-        --space-3xl: 5rem;
-    }
-    
+@media (max-width: 1050px) {
     .nav-toggle {
         display: flex;
     }
-    
+
     .nav-menu {
         position: fixed;
         top: var(--nav-height);
@@ -1435,25 +1430,32 @@ a {
     .nav-menu.active {
         transform: translateX(0);
     }
-    
+
     .nav-link {
         padding: 1rem 1.25rem;
         width: 100%;
         font-size: 1rem;
     }
-    
+
     .nav-link-cta {
         margin-left: 0;
         margin-top: var(--space-sm);
         text-align: center;
     }
-    
+
     .theme-toggle {
         width: 100%;
         justify-content: center;
         margin-top: var(--space-sm);
     }
-    
+}
+
+@media (max-width: 768px) {
+    :root {
+        --space-2xl: 3rem;
+        --space-3xl: 5rem;
+    }
+
     .about-grid {
         grid-template-columns: 1fr;
     }
