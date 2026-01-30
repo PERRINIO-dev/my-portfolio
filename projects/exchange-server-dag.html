@@ -27,19 +27,37 @@
     <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
     <link rel="icon" type="image/png" href="../assets/favicon.png">
 
-    <!-- Fonts -->
+    <!-- Preconnect to external origins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
-        rel="stylesheet">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts (deferred) -->
+    <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Sora:wght@300;400;500;600;700&display=swap"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Sora:wght@300;400;500;600;700&display=swap"></noscript>
+
+    <!-- Font Awesome (only solid + brands, deferred) -->
+    <link rel="preload" as="style"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/solid.min.css"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" as="style"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/brands.min.css"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" as="style"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/fontawesome.min.css"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/solid.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/brands.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/fontawesome.min.css">
+    </noscript>
 
     <!-- Styles -->
-    <link rel="stylesheet" href="../variables.css?v=1">
-    <link rel="stylesheet" href="../project-styles.css?v=1">
+    <link rel="stylesheet" href="../variables.css?v=3">
+    <link rel="stylesheet" href="../project-styles.css?v=3">
 
     <!-- Theme persistence (must run before render to prevent FOUC) -->
     <script>
@@ -107,7 +125,7 @@
     </header>
 
     <!-- Main Content -->
-    <main class="project-content">
+    <main id="main" class="project-content">
 
         <!-- Overview Section -->
         <section class="content-section">
@@ -123,7 +141,7 @@
             <div class="highlight-box">
                 <div class="highlight-icon"><i class="fas fa-trophy"></i></div>
                 <div class="highlight-content">
-                    <h3>Key Achievement</h3>
+                    <h4>Key Achievement</h4>
                     <p>Achieved mailbox database redundancy with automatic failover capability through properly
                         configured Database Availability Group (CollabCoDAG).</p>
                 </div>
@@ -322,7 +340,7 @@
             <div class="highlight-box" style="margin-top: var(--space-lg);">
                 <div class="highlight-icon"><i class="fas fa-lightbulb"></i></div>
                 <div class="highlight-content">
-                    <h3>Design Decision: Optimizing the Witness Server</h3>
+                    <h4>Design Decision: Optimizing the Witness Server</h4>
                     <p>Justified the use of the existing file server (MK-FS) as DAG witness rather than deploying
                         additional infrastructure. This balances assignment requirements with real-world best practices
                         for witness server placement using Node & File Share Majority quorum model.</p>
@@ -480,7 +498,7 @@
             <div class="highlight-box" style="margin-top: var(--space-lg);">
                 <div class="highlight-icon"><i class="fas fa-certificate"></i></div>
                 <div class="highlight-content">
-                    <h3>Value Delivered</h3>
+                    <h4>Value Delivered</h4>
                     <p>The solution ensures email service resilience in event of server failure while balancing
                         assignment requirements with real-world best practices for witness server placement.</p>
                 </div>
@@ -524,7 +542,7 @@
         </div>
     </div>
 
-    <script src="../lightbox.js?v=1"></script>
+    <script src="../lightbox.js?v=3"></script>
 </body>
 
 </html>

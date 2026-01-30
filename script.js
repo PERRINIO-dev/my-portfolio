@@ -223,21 +223,22 @@ function initRevealAnimations() {
         // Determine stagger index among siblings of the same type
         var staggerIndex = 0;
         if (!el.classList.contains('section')) {
+            var matchClass = ['project-card', 'skill-domain', 'cert-card', 'edu-item', 'about-card']
+                .find(function(cls) { return el.classList.contains(cls); }) || '';
             var siblings = el.parentElement.children;
             var count = 0;
             for (var i = 0; i < siblings.length; i++) {
                 if (siblings[i] === el) { staggerIndex = count; break; }
-                if (siblings[i].tagName === el.tagName) count++;
+                if (matchClass && siblings[i].classList.contains(matchClass)) count++;
             }
         }
 
         var delay = staggerIndex * STAGGER_DELAY;
         var direction = getRevealDirection(el, staggerIndex);
-        var easing = 'cubic-bezier(0.16, 1, 0.3, 1)';
 
-        el.style.opacity = '0';
-        el.style.transform = direction;
-        el.style.transition = 'opacity 0.6s ' + easing + ' ' + delay + 's, transform 0.6s ' + easing + ' ' + delay + 's';
+        el.style.setProperty('--reveal-direction', direction);
+        el.style.setProperty('--reveal-delay', delay + 's');
+        el.classList.add('reveal-ready');
 
         observer.observe(el);
     });
@@ -288,13 +289,17 @@ function initContactForm() {
     
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
+
+        // Honeypot check — if filled, silently reject (bot submission)
+        const honeypot = form.querySelector('input[name="_gotcha"]');
+        if (honeypot && honeypot.value) return;
+
         const submitBtn = form.querySelector('button[type="submit"]');
         const originalText = submitBtn.innerHTML;
-        
+
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<span>Sending...</span>';
-        
+
         // Reset status visibility before showing new result
         status.className = 'form-status';
 

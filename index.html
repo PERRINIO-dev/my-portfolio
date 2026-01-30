@@ -58,8 +58,8 @@
     </noscript>
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="variables.css?v=1">
-    <link rel="stylesheet" href="style.css?v=1">
+    <link rel="stylesheet" href="variables.css?v=3">
+    <link rel="stylesheet" href="style.css?v=3">
 
     <!-- Theme persistence (must run before render to prevent FOUC) -->
     <script>
@@ -667,6 +667,8 @@
                 </div>
 
                 <form class="contact-form" id="contact-form" action="https://formspree.io/f/mbdrzrbq" method="POST">
+                    <!-- Honeypot field — hidden from real users, catches bots -->
+                    <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" id="name" name="name" required placeholder="Your name">
@@ -708,7 +710,7 @@
     </footer>
 
     <!-- JavaScript -->
-    <script src="script.js?v=1"></script>
+    <script src="script.js?v=3"></script>
 </body>
 
 </html>
