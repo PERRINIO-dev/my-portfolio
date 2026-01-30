@@ -36,6 +36,17 @@
     z-index: 10000;
 }
 
+/* ====== FONT-DISPLAY OVERRIDE ====== */
+/* Ensure Font Awesome fonts use swap to avoid invisible text */
+@font-face {
+    font-family: 'Font Awesome 6 Free';
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Font Awesome 6 Brands';
+    font-display: swap;
+}
+
 /* ====== RESET & BASE ====== */
 *, *::before, *::after {
     margin: 0;
