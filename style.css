@@ -74,6 +74,55 @@ body {
     overflow-x: hidden;
 }
 
+/* ====== PRELOADER ====== */
+.preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: var(--bg-deep);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: preloaderFadeOut 0.5s var(--ease-smooth) 0.9s both;
+}
+
+.preloader-logo {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    opacity: 0;
+    transform: scale(0.85);
+    animation: logoReveal 0.6s var(--ease-enter) 0.15s both;
+}
+
+@keyframes logoReveal {
+    from {
+        opacity: 0;
+        transform: scale(0.85);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes preloaderFadeOut {
+    from {
+        opacity: 1;
+        visibility: visible;
+    }
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+.preloader.done {
+    display: none;
+}
+
 ::selection {
     background: var(--accent);
     color: var(--bg-deep);
@@ -171,7 +220,8 @@ a {
     right: 0;
     height: var(--nav-height);
     z-index: 1000;
-    transition: background 0.3s ease, backdrop-filter 0.3s ease;
+    transition: background var(--duration-emphasis) var(--ease-smooth),
+                backdrop-filter var(--duration-emphasis) var(--ease-smooth);
 }
 
 .nav.scrolled {
@@ -234,7 +284,8 @@ a {
     font-weight: 500;
     color: var(--text-secondary);
     border-radius: var(--radius-sm);
-    transition: color 0.2s ease, background 0.2s ease;
+    transition: color var(--duration-micro) var(--ease-smooth),
+                background var(--duration-micro) var(--ease-smooth);
 }
 
 .nav-link:hover {
@@ -311,7 +362,8 @@ a {
     font-size: 0.85rem;
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: border-color var(--duration-micro) var(--ease-smooth),
+                color var(--duration-micro) var(--ease-smooth);
 }
 
 .theme-toggle:hover {
@@ -400,12 +452,39 @@ a {
     border-radius: var(--radius-md);
     border: none;
     cursor: pointer;
-    transition: all 0.3s var(--ease-out);
+    transition: all var(--duration-standard) var(--ease-smooth);
 }
 
 .btn-primary {
     background: var(--accent);
     color: var(--bg-deep);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: none;
+}
+
+.btn-primary:hover::after {
+    animation: btnShimmer 0.6s var(--ease-smooth);
+}
+
+@keyframes btnShimmer {
+    from { left: -100%; }
+    to { left: 150%; }
 }
 
 .btn-primary:hover {
@@ -513,7 +592,10 @@ a {
     border-radius: var(--radius-sm);
     color: var(--text-secondary);
     font-size: 1rem;
-    transition: all 0.3s ease;
+    transition: color var(--duration-micro) var(--ease-smooth),
+                border-color var(--duration-micro) var(--ease-smooth),
+                transform var(--duration-micro) var(--ease-smooth),
+                box-shadow var(--duration-micro) var(--ease-smooth);
 }
 
 .social-link:hover {
@@ -622,7 +704,8 @@ a {
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     padding: var(--space-lg);
-    transition: border-color 0.3s ease;
+    transition: border-color var(--duration-standard) var(--ease-smooth),
+                box-shadow var(--duration-standard) var(--ease-smooth);
 }
 
 .about-card:hover {
@@ -769,7 +852,9 @@ a {
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     padding: var(--space-lg);
-    transition: all 0.3s var(--ease-out);
+    transition: transform var(--duration-standard) var(--ease-out),
+                border-color var(--duration-standard) var(--ease-smooth),
+                box-shadow var(--duration-standard) var(--ease-smooth);
 }
 
 .project-card:hover {
@@ -851,7 +936,7 @@ a {
     background: var(--bg-deep);
     border-radius: 50%;
     color: var(--text-muted);
-    transition: all 0.3s ease;
+    transition: all var(--duration-standard) var(--ease-smooth);
 }
 
 .project-card:hover .project-arrow {
@@ -871,7 +956,8 @@ a {
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     padding: var(--space-lg);
-    transition: border-color 0.3s ease;
+    transition: border-color var(--duration-standard) var(--ease-smooth),
+                box-shadow var(--duration-standard) var(--ease-smooth);
 }
 
 .skill-domain:hover {
@@ -984,7 +1070,9 @@ a {
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     padding: var(--space-lg);
-    transition: border-color 0.3s ease, transform 0.3s ease;
+    transition: border-color var(--duration-standard) var(--ease-smooth),
+                transform var(--duration-standard) var(--ease-smooth),
+                box-shadow var(--duration-standard) var(--ease-smooth);
 }
 
 .edu-card:hover {
@@ -1041,7 +1129,9 @@ a {
     border-radius: var(--radius-lg);
     padding: var(--space-lg);
     position: relative;
-    transition: all 0.3s ease;
+    transition: transform var(--duration-standard) var(--ease-smooth),
+                border-color var(--duration-standard) var(--ease-smooth),
+                box-shadow var(--duration-standard) var(--ease-smooth);
 }
 
 .cert-card:hover {
@@ -1070,6 +1160,23 @@ a {
 .cert-active .cert-status {
     background: var(--accent);
     color: var(--bg-deep);
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.cert-active .cert-status::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--bg-deep);
+    animation: statusPulse 2s var(--ease-smooth) infinite;
+}
+
+@keyframes statusPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
 }
 
 .cert-icon {
@@ -1119,7 +1226,7 @@ a {
     background: var(--bg-elevated);
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
-    transition: border-color 0.3s ease;
+    transition: border-color var(--duration-standard) var(--ease-smooth);
 }
 
 .contact-card:hover {
@@ -1180,20 +1287,26 @@ a {
 .form-group input,
 .form-group textarea {
     width: 100%;
-    padding: 1rem;
+    padding: 1rem 1rem 1rem 1.25rem;
     background: var(--bg-deep);
     border: 1px solid var(--border);
+    border-left: 2px solid var(--border);
     border-radius: var(--radius-md);
     color: var(--text-primary);
     font-family: var(--font-body);
     font-size: 1rem;
-    transition: border-color 0.3s ease;
+    transition: border-color var(--duration-micro) var(--ease-smooth),
+                border-left-color var(--duration-micro) var(--ease-smooth),
+                border-left-width var(--duration-micro) var(--ease-smooth),
+                background var(--duration-micro) var(--ease-smooth);
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
     border-color: var(--accent);
+    border-left: 3px solid var(--accent);
+    background: var(--bg-elevated);
 }
 
 .form-group input::placeholder,
@@ -1289,16 +1402,17 @@ a {
 @media (hover: hover) {
     .btn-primary:hover {
         transform: translateY(-2px);
-        box-shadow: 0 10px 40px var(--accent-glow);
+        box-shadow: 0 8px 30px var(--accent-glow);
     }
 
     .social-link:hover {
         transform: translateY(-3px);
+        box-shadow: var(--shadow-glow-accent);
     }
 
     .project-card:hover {
         transform: translateY(-4px);
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        box-shadow: var(--shadow-hover-card);
     }
 
     .project-card:hover .project-arrow {
@@ -1307,10 +1421,20 @@ a {
 
     .edu-card:hover {
         transform: translateX(8px);
+        box-shadow: var(--shadow-glow-accent);
     }
 
     .cert-card:hover {
         transform: translateY(-4px);
+        box-shadow: var(--shadow-glow-accent);
+    }
+
+    .about-card:hover {
+        box-shadow: var(--shadow-glow-accent);
+    }
+
+    .skill-domain:hover {
+        box-shadow: var(--shadow-glow-accent);
     }
 }
 
@@ -1721,6 +1845,61 @@ a {
 
 .nav-toggle.active span:nth-child(3) {
     transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* ====== PAGE ENTRANCE ====== */
+@keyframes heroBreathIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-eyebrow {
+    animation: heroBreathIn 0.6s var(--ease-enter) calc(var(--entrance-offset) + 0.1s) both;
+}
+
+.hero-title {
+    animation: heroBreathIn 0.6s var(--ease-enter) calc(var(--entrance-offset) + 0.2s) both;
+}
+
+.hero-description {
+    animation: heroBreathIn 0.6s var(--ease-enter) calc(var(--entrance-offset) + 0.3s) both;
+}
+
+.hero-actions {
+    animation: heroBreathIn 0.6s var(--ease-enter) calc(var(--entrance-offset) + 0.4s) both;
+}
+
+.hero-stats {
+    animation: heroBreathIn 0.6s var(--ease-enter) calc(var(--entrance-offset) + 0.5s) both;
+}
+
+.hero-visual {
+    animation: heroBreathIn var(--duration-entrance) var(--ease-enter) calc(var(--entrance-offset) + 0.15s) both;
+}
+
+.scroll-indicator {
+    animation: heroBreathIn var(--duration-entrance) var(--ease-enter) calc(var(--entrance-offset) + 0.3s) both;
+}
+
+/* Skip entrance on back/forward navigation */
+.skip-entrance .preloader {
+    display: none;
+}
+
+.skip-entrance .hero-eyebrow,
+.skip-entrance .hero-title,
+.skip-entrance .hero-description,
+.skip-entrance .hero-actions,
+.skip-entrance .hero-stats,
+.skip-entrance .hero-visual,
+.skip-entrance .scroll-indicator {
+    animation: none;
 }
 
 /* ====== REDUCED MOTION ====== */

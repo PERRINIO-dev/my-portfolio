@@ -17,7 +17,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize theme (with OS detection)
     initTheme();
-    
+
+    // Page entrance (skip on back/forward nav)
+    initPageEntrance();
+
+    // Preloader cleanup
+    initPreloader();
+
     // Navigation scroll effect
     initNavigation();
     
@@ -29,7 +35,13 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Reveal animations
     initRevealAnimations();
-    
+
+    // Stat counter
+    initStatCounter();
+
+    // Hero fade on scroll
+    initHeroFade();
+
     // Contact form
     initContactForm();
 });
@@ -330,5 +342,91 @@ function initContactForm() {
             status.className = 'form-status';
         }, CONFIG.FORM_SUCCESS_TIMEOUT);
     });
+}
+
+// Page Entrance — skip animation on back/forward navigation
+function initPageEntrance() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var navEntries = performance.getEntriesByType('navigation');
+    var navType = navEntries.length ? navEntries[0].type : 'navigate';
+
+    if (navType === 'back_forward') {
+        document.documentElement.classList.add('skip-entrance');
+    }
+}
+
+// Preloader cleanup — remove from DOM after animation ends
+function initPreloader() {
+    var preloader = document.getElementById('preloader');
+    if (!preloader || preloader.classList.contains('done')) return;
+
+    preloader.addEventListener('animationend', function () {
+        preloader.classList.add('done');
+    });
+}
+
+// Stat Counter — animate numeric stats when they scroll into view
+function initStatCounter() {
+    var stats = document.querySelectorAll('.stat-number[data-count]');
+    if (!stats.length) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        stats.forEach(function (el) {
+            el.textContent = el.dataset.count + (el.dataset.suffix || '');
+        });
+        return;
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            var el = entry.target;
+            var target = parseInt(el.dataset.count, 10);
+            var suffix = el.dataset.suffix || '';
+            var current = 0;
+            var duration = 1200;
+            var start = null;
+
+            function step(timestamp) {
+                if (!start) start = timestamp;
+                var progress = Math.min((timestamp - start) / duration, 1);
+                // Ease out cubic
+                var eased = 1 - Math.pow(1 - progress, 3);
+                current = Math.round(eased * target);
+                el.textContent = current + suffix;
+                if (progress < 1) requestAnimationFrame(step);
+            }
+
+            requestAnimationFrame(step);
+            observer.unobserve(el);
+        });
+    }, { threshold: 0.5 });
+
+    stats.forEach(function (el) { observer.observe(el); });
+}
+
+// Hero Fade — reduce opacity and shift hero as user scrolls past
+function initHeroFade() {
+    var hero = document.querySelector('.hero');
+    if (!hero) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var ticking = false;
+    window.addEventListener('scroll', function () {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () {
+            var scrollY = window.pageYOffset;
+            var heroHeight = hero.offsetHeight;
+            if (scrollY < heroHeight) {
+                var progress = scrollY / heroHeight;
+                var opacity = 1 - progress * 0.6;
+                var translateY = progress * 30;
+                hero.style.opacity = opacity;
+                hero.style.transform = 'translateY(' + translateY + 'px)';
+            }
+            ticking = false;
+        });
+    }, { passive: true });
 }
 
