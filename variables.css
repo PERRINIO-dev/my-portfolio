@@ -2,31 +2,27 @@
 /* Single source of truth for all CSS custom properties */
 
 :root {
-    /* Rich Dark Palette */
-    --bg-deep: #08090c;
-    --bg-primary: #0c0d12;
-    --bg-elevated: #12141a;
-    --bg-card: rgba(18, 20, 26, 0.7);
-    --bg-glass: rgba(12, 13, 18, 0.85);
+    /* Layered Blue-Charcoal — visible depth between surfaces */
+    --bg-deep: #0a0c14;
+    --bg-primary: #10131c;
+    --bg-elevated: #1a1e2a;
+    --bg-card: rgba(26, 30, 42, 0.72);
+    --bg-glass: rgba(16, 19, 28, 0.88);
 
     /* Text Hierarchy */
     --text-primary: #f0f2f5;
-    --text-secondary: #a0a6b5;
-    --text-muted: #9ca3af;
+    --text-secondary: #8b93a8;
+    --text-muted: #7b8399;
 
-    /* Accent - Refined Teal with warmth */
-    --accent: #22d3d3;
-    --accent-dim: #1ab3b3;
-    --accent-glow: rgba(34, 211, 211, 0.15);
-    --accent-subtle: rgba(34, 211, 211, 0.08);
-
-    /* Secondary Accent - Warm gold for highlights */
-    --gold: #f0b429;
-    --gold-dim: rgba(240, 180, 41, 0.15);
+    /* Accent — Muted Teal (hue ~175°, sat ~42%) */
+    --accent: #4db8b0;
+    --accent-dim: #3fa39b;
+    --accent-glow: rgba(77, 184, 176, 0.12);
+    --accent-subtle: rgba(77, 184, 176, 0.06);
 
     /* Borders */
-    --border: rgba(255, 255, 255, 0.06);
-    --border-hover: rgba(255, 255, 255, 0.12);
+    --border: rgba(255, 255, 255, 0.08);
+    --border-hover: rgba(255, 255, 255, 0.15);
 
     /* Typography */
     --font-display: 'Sora', sans-serif;
@@ -68,7 +64,7 @@
     --lift-micro: -1px;
 
     /* Hover Shadows */
-    --shadow-hover-card: 0 8px 30px rgba(0, 0, 0, 0.15);
+    --shadow-hover-card: 0 8px 30px rgba(0, 0, 0, 0.18);
     --shadow-glow-accent: 0 0 20px var(--accent-glow);
 
     /* Reveal Animation */
@@ -80,20 +76,20 @@
 
 /* ====== LIGHT THEME ====== */
 [data-theme="light"] {
-    --bg-deep: #f8f9fb;
-    --bg-primary: #ffffff;
-    --bg-elevated: #f0f2f5;
-    --bg-card: rgba(255, 255, 255, 0.9);
-    --bg-glass: rgba(255, 255, 255, 0.9);
+    --bg-deep: #f2f4f7;
+    --bg-primary: #f9fafb;
+    --bg-elevated: #e8eaf0;
+    --bg-card: rgba(249, 250, 251, 0.9);
+    --bg-glass: rgba(242, 244, 247, 0.92);
 
-    --text-primary: #1a1a2e;
-    --text-secondary: #4a5568;
-    --text-muted: #5a6578;
+    --text-primary: #161a2b;
+    --text-secondary: #49536a;
+    --text-muted: #6b7590;
 
-    --accent: #0d9488;
-    --accent-dim: #0f766e;
-    --accent-glow: rgba(13, 148, 136, 0.15);
-    --accent-subtle: rgba(13, 148, 136, 0.08);
+    --accent: #1d847d;
+    --accent-dim: #186e68;
+    --accent-glow: rgba(29, 132, 125, 0.12);
+    --accent-subtle: rgba(29, 132, 125, 0.06);
 
     --border: rgba(0, 0, 0, 0.08);
     --border-hover: rgba(0, 0, 0, 0.15);

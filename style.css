@@ -147,7 +147,7 @@ body {
 .orb-1 {
     width: 600px;
     height: 600px;
-    background: radial-gradient(circle, rgba(34, 211, 211, 0.15) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(77, 184, 176, 0.12) 0%, transparent 70%);
     top: -200px;
     left: -200px;
 }
@@ -155,7 +155,7 @@ body {
 .orb-2 {
     width: 500px;
     height: 500px;
-    background: radial-gradient(circle, rgba(34, 211, 211, 0.1) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(77, 184, 176, 0.08) 0%, transparent 70%);
     bottom: -100px;
     right: -100px;
 }
@@ -163,7 +163,7 @@ body {
 .orb-3 {
     width: 400px;
     height: 400px;
-    background: radial-gradient(circle, rgba(240, 180, 41, 0.05) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(140, 150, 170, 0.04) 0%, transparent 70%);
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -422,7 +422,7 @@ a {
 }
 
 .title-gradient {
-    background: linear-gradient(135deg, var(--accent) 0%, #6ee7b7 50%, var(--accent) 100%);
+    background: linear-gradient(135deg, var(--accent) 0%, #8ed4cc 50%, var(--accent) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -1743,15 +1743,15 @@ a {
 }
 
 [data-theme="light"] .orb-1 {
-    background: radial-gradient(circle, rgba(13, 148, 136, 0.12) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(29, 132, 125, 0.10) 0%, transparent 70%);
 }
 
 [data-theme="light"] .orb-2 {
-    background: radial-gradient(circle, rgba(13, 148, 136, 0.08) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(29, 132, 125, 0.06) 0%, transparent 70%);
 }
 
 [data-theme="light"] .orb-3 {
-    background: radial-gradient(circle, rgba(240, 180, 41, 0.05) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(140, 150, 170, 0.04) 0%, transparent 70%);
 }
 
 [data-theme="light"] .noise-overlay {
@@ -1769,7 +1769,7 @@ a {
 }
 
 [data-theme="light"] .title-gradient {
-    background: linear-gradient(135deg, var(--accent) 0%, #10b981 50%, var(--accent) 100%);
+    background: linear-gradient(135deg, var(--accent) 0%, #3aada4 50%, var(--accent) 100%);
     -webkit-background-clip: text;
     background-clip: text;
 }
