@@ -83,9 +83,10 @@
                 document.documentElement.style.setProperty('--entrance-offset', '0.9s');
                 sessionStorage.setItem('preloaderShown', '1');
             } else {
-                // Hide preloader immediately
-                var el = document.getElementById('preloader');
-                if (el) el.classList.add('done');
+                // Hide preloader immediately via injected style (element doesn't exist yet in <head>)
+                var s = document.createElement('style');
+                s.textContent = '.preloader{display:none}';
+                document.head.appendChild(s);
             }
         })();
     </script>

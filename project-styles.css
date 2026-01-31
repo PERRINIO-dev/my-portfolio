@@ -153,7 +153,10 @@ a {
     border-radius: var(--radius-sm);
     background: var(--bg-elevated);
     border: 1px solid var(--border);
-    transition: all var(--duration-micro) var(--ease-smooth);
+    transition: color var(--duration-micro) var(--ease-smooth),
+                border-color var(--duration-micro) var(--ease-smooth),
+                background var(--duration-micro) var(--ease-smooth),
+                transform var(--duration-micro) var(--ease-smooth);
 }
 
 .back-btn:hover {
@@ -493,7 +496,11 @@ a {
     border-radius: var(--radius-md);
     border: none;
     cursor: pointer;
-    transition: all var(--duration-standard) var(--ease-smooth);
+    transition: transform var(--duration-standard) var(--ease-smooth),
+                background var(--duration-standard) var(--ease-smooth),
+                color var(--duration-standard) var(--ease-smooth),
+                border-color var(--duration-standard) var(--ease-smooth),
+                box-shadow var(--duration-standard) var(--ease-smooth);
 }
 
 .btn-primary {
@@ -882,7 +889,9 @@ a {
     color: #fff;
     font-size: 1.25rem;
     cursor: pointer;
-    transition: all var(--duration-micro) var(--ease-smooth);
+    transition: background var(--duration-micro) var(--ease-smooth),
+                border-color var(--duration-micro) var(--ease-smooth),
+                transform var(--duration-micro) var(--ease-smooth);
 }
 
 .lightbox-close:hover {
@@ -905,7 +914,8 @@ a {
     color: #fff;
     font-size: 1.25rem;
     cursor: pointer;
-    transition: all var(--duration-micro) var(--ease-smooth);
+    transition: background var(--duration-micro) var(--ease-smooth),
+                border-color var(--duration-micro) var(--ease-smooth);
 }
 
 .lightbox-nav:hover {

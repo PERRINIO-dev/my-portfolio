@@ -125,13 +125,7 @@ function initMobileMenu() {
         toggle.classList.add('active');
         toggle.setAttribute('aria-expanded', 'true');
         backdrop.classList.add('active');
-        // Defer overflow lock until transition ends to avoid iOS Safari reflow mid-animation
-        menu.addEventListener('transitionend', function handler() {
-            menu.removeEventListener('transitionend', handler);
-            if (menu.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            }
-        });
+        document.body.style.overflow = 'hidden';
     }
 
     function closeMenu() {
@@ -296,9 +290,14 @@ function getRevealDirection(el, index) {
 function initContactForm() {
     const form = document.getElementById('contact-form');
     const status = document.getElementById('form-status');
-    
+
     if (!form || !status) return;
-    
+
+    const submitBtn = form.querySelector('button[type="submit"]');
+    if (!submitBtn) return;
+
+    let statusTimeout = null;
+
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
@@ -306,11 +305,13 @@ function initContactForm() {
         const honeypot = form.querySelector('input[name="_gotcha"]');
         if (honeypot && honeypot.value) return;
 
-        const submitBtn = form.querySelector('button[type="submit"]');
         const originalText = submitBtn.innerHTML;
 
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<span>Sending...</span>';
+
+        // Clear any pending status timeout from a previous submission
+        if (statusTimeout) clearTimeout(statusTimeout);
 
         // Reset status visibility before showing new result
         status.className = 'form-status';
@@ -338,7 +339,7 @@ function initContactForm() {
         submitBtn.disabled = false;
 
         // Auto-hide status after 5 seconds
-        setTimeout(() => {
+        statusTimeout = setTimeout(() => {
             status.className = 'form-status';
         }, CONFIG.FORM_SUCCESS_TIMEOUT);
     });
@@ -361,8 +362,10 @@ function initPreloader() {
     var preloader = document.getElementById('preloader');
     if (!preloader || preloader.classList.contains('done')) return;
 
-    preloader.addEventListener('animationend', function () {
-        preloader.classList.add('done');
+    preloader.addEventListener('animationend', function (e) {
+        if (e.animationName === 'preloaderFadeOut') {
+            preloader.classList.add('done');
+        }
     });
 }
 
