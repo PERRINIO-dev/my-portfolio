@@ -14,11 +14,11 @@
     --text-secondary: #8b93a8;
     --text-muted: #7b8399;
 
-    /* Accent — Muted Teal (hue ~175°, sat ~42%) */
-    --accent: #4db8b0;
-    --accent-dim: #3fa39b;
-    --accent-glow: rgba(77, 184, 176, 0.12);
-    --accent-subtle: rgba(77, 184, 176, 0.06);
+    /* Accent — Warm Copper (hue ~22°, sat ~40%) */
+    --accent: #c49070;
+    --accent-dim: #a87c5e;
+    --accent-glow: rgba(196, 144, 112, 0.12);
+    --accent-subtle: rgba(196, 144, 112, 0.06);
 
     /* Borders */
     --border: rgba(255, 255, 255, 0.08);
@@ -86,10 +86,10 @@
     --text-secondary: #49536a;
     --text-muted: #6b7590;
 
-    --accent: #1d847d;
-    --accent-dim: #186e68;
-    --accent-glow: rgba(29, 132, 125, 0.12);
-    --accent-subtle: rgba(29, 132, 125, 0.06);
+    --accent: #8b6542;
+    --accent-dim: #76563a;
+    --accent-glow: rgba(139, 101, 66, 0.12);
+    --accent-subtle: rgba(139, 101, 66, 0.06);
 
     --border: rgba(0, 0, 0, 0.08);
     --border-hover: rgba(0, 0, 0, 0.15);
