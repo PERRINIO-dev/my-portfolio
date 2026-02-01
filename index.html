@@ -699,7 +699,7 @@
 
                     <form class="contact-form" id="contact-form" action="https://formspree.io/f/mbdrzrbq" method="POST">
                         <!-- Honeypot field — hidden from real users, catches bots -->
-                        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+                        <input type="text" name="_gotcha" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true">
                         <div class="form-group">
                             <label for="name">Name</label>
                             <input type="text" id="name" name="name" required placeholder="Your name">
