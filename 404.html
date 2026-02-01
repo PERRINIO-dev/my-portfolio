@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0c14">
+    <meta name="robots" content="noindex">
+    <title>404 — Page Not Found | Majestor Kepseu</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@400&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="variables.css?v=5">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            min-height: 100vh;
+            background: var(--bg-deep);
+            font-family: var(--font-body);
+            color: var(--text-primary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Ambient orbs */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            pointer-events: none;
+        }
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(196, 144, 112, 0.10) 0%, transparent 70%);
+            top: -100px;
+            left: -80px;
+        }
+        .orb-2 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(196, 144, 112, 0.06) 0%, transparent 70%);
+            bottom: -80px;
+            right: -60px;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: var(--space-lg);
+            max-width: 520px;
+        }
+
+        .error-code {
+            font-family: var(--font-display);
+            font-size: clamp(80px, 15vw, 140px);
+            font-weight: 700;
+            line-height: 1;
+            background: linear-gradient(135deg, var(--accent) 0%, #dbb896 50%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: var(--space-sm);
+        }
+
+        .error-title {
+            font-family: var(--font-display);
+            font-size: clamp(20px, 4vw, 28px);
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+            color: var(--text-primary);
+        }
+
+        .error-desc {
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: var(--space-xl);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-mono);
+            font-size: 14px;
+            color: var(--accent);
+            text-decoration: none;
+            padding: 12px 28px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            transition: border-color var(--duration-standard) var(--ease-smooth),
+                        transform var(--duration-standard) var(--ease-smooth);
+        }
+        .back-link:hover {
+            border-color: var(--accent);
+            transform: translateY(var(--lift-micro));
+        }
+        .back-link svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        .footer-mark {
+            position: absolute;
+            bottom: 40px;
+            font-family: var(--font-display);
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+        .footer-mark .accent { color: var(--accent); }
+
+        /* Light theme orb overrides */
+        [data-theme="light"] .orb-1 {
+            background: radial-gradient(circle, rgba(139, 101, 66, 0.08) 0%, transparent 70%);
+        }
+        [data-theme="light"] .orb-2 {
+            background: radial-gradient(circle, rgba(139, 101, 66, 0.05) 0%, transparent 70%);
+        }
+        [data-theme="light"] .error-code {
+            background: linear-gradient(135deg, var(--accent) 0%, #b08660 50%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .back-link { transition: none; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="content">
+        <div class="error-code">404</div>
+        <h1 class="error-title">Page not found</h1>
+        <p class="error-desc">The page you're looking for doesn't exist or has been moved.</p>
+        <a href="./" class="back-link">
+            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M7.3 1.3a1 1 0 0 1 1.4 1.4L4.4 7H14a1 1 0 1 1 0 2H4.4l4.3 4.3a1 1 0 0 1-1.4 1.4l-6-6a1 1 0 0 1 0-1.4l6-6z"/></svg>
+            Back to portfolio
+        </a>
+    </div>
+
+    <div class="footer-mark">MK<span class="accent">.</span></div>
+
+    <script>
+        // Respect saved theme preference
+        const saved = localStorage.getItem('theme');
+        if (saved) document.documentElement.setAttribute('data-theme', saved);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OG Card — Screenshot at 1200x630</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            width: 1200px;
+            height: 630px;
+            overflow: hidden;
+            background: #0a0c14;
+            font-family: 'DM Sans', sans-serif;
+            color: #f0f2f5;
+            position: relative;
+        }
+
+        /* Ambient orbs */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            pointer-events: none;
+        }
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(196, 144, 112, 0.12) 0%, transparent 70%);
+            top: -150px;
+            left: -100px;
+        }
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(196, 144, 112, 0.08) 0%, transparent 70%);
+            bottom: -100px;
+            right: -50px;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+            padding: 80px 100px;
+        }
+
+        .eyebrow {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #c49070;
+            margin-bottom: 24px;
+        }
+
+        .name {
+            font-family: 'Sora', sans-serif;
+            font-size: 64px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .name span {
+            background: linear-gradient(135deg, #c49070 0%, #dbb896 50%, #c49070 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tagline {
+            font-size: 22px;
+            color: #8b93a8;
+            line-height: 1.5;
+            max-width: 700px;
+        }
+
+        .bottom {
+            position: absolute;
+            bottom: 60px;
+            left: 100px;
+            right: 100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Sora', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: #f0f2f5;
+        }
+        .logo .accent { color: #c49070; }
+
+        .url {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: #7b8399;
+        }
+
+        .divider {
+            position: absolute;
+            bottom: 110px;
+            left: 100px;
+            right: 100px;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.08);
+        }
+    </style>
+</head>
+<body>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="content">
+        <div class="eyebrow">Network & System Engineer</div>
+        <h1 class="name">Majestor <span>Kepseu</span></h1>
+        <p class="tagline">I design, deploy, and defend enterprise IT environments. Virtualization, secure networking, and cloud-ready infrastructure.</p>
+    </div>
+
+    <div class="divider"></div>
+    <div class="bottom">
+        <div class="logo">MK<span class="accent">.</span></div>
+        <div class="url">perrinio-dev.github.io/my-portfolio</div>
+    </div>
+</body>
+</html>
