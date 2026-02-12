@@ -28,7 +28,7 @@ A premium, responsive portfolio website showcasing enterprise infrastructure and
 - **Projects** - 4 comprehensive enterprise projects with dedicated case study pages
 - **Skills** - Organized by domain (Identity, Virtualization, Networking, Security, etc.)
 - **Education** - Vertical timeline showing academic progression
-- **Certifications** - Roadmap with status indicators (In Progress, Planned, Later)
+- **Certifications** - Roadmap with status indicators (Completed, In Progress, Planned, Later)
 - **Contact** - Form with Formspree integration + direct contact info
 
 ### Technical
@@ -148,17 +148,17 @@ Edit design tokens in `variables.css`:
 
 ```css
 :root {
-    --bg-deep: #08090c;
-    --bg-primary: #0c0d12;
-    --accent: #22d3d3;
-    --accent-dim: #1ab3b3;
+    --bg-deep: #0a0c14;
+    --bg-primary: #10131c;
+    --accent: #c49070;
+    --accent-dim: #a87c5e;
     /* ... */
 }
 
 [data-theme="light"] {
-    --bg-deep: #f8f9fb;
-    --bg-primary: #ffffff;
-    --accent: #0d9488;
+    --bg-deep: #f2f4f7;
+    --bg-primary: #f9fafb;
+    --accent: #7a5636;
     /* ... */
 }
 ```
@@ -259,7 +259,7 @@ This portfolio is personal work. Feel free to use it as inspiration, but please 
 
 ## Author
 
-**Majestor Perrincio Kaptue Kepseu**
+**Majestor Kepseu**
 
 - Network & Infrastructure Engineer
 - Cloud Security Engineer
@@ -274,5 +274,5 @@ Location: Kitchener, Ontario, Canada
 ---
 
 <p align="center">
-  <sub>Built with precision and passion. &copy; 2025 Majestor Kepseu</sub>
+  <sub>Built with precision and passion. &copy; 2026 Majestor Kepseu</sub>
 </p>

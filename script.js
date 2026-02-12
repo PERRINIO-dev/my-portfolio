@@ -39,6 +39,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Stat counter
     initStatCounter();
 
+    // Scroll progress bar
+    initScrollProgress();
+
+    // Active section indicator in nav
+    initActiveSection();
+
+    // Back to top button
+    initBackToTop();
+
     // Contact form
     initContactForm();
 });
@@ -403,6 +412,83 @@ function initStatCounter() {
     }, { threshold: 0.5 });
 
     stats.forEach(function (el) { observer.observe(el); });
+}
+
+// Scroll Progress Bar
+function initScrollProgress() {
+    var bar = document.getElementById('scroll-progress');
+    if (!bar) return;
+
+    var ticking = false;
+
+    window.addEventListener('scroll', function () {
+        if (!ticking) {
+            requestAnimationFrame(function () {
+                var scrollTop = window.scrollY;
+                var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+                bar.style.width = progress + '%';
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
+}
+
+// Active Section Indicator in Navigation
+function initActiveSection() {
+    var sections = document.querySelectorAll('.section[id], .hero[id]');
+    var navLinks = document.querySelectorAll('.nav-link:not(.nav-link-cta)');
+    if (!sections.length || !navLinks.length) return;
+
+    // Build a map of section id → nav link
+    var linkMap = {};
+    navLinks.forEach(function (link) {
+        var href = link.getAttribute('href');
+        if (href && href.startsWith('#')) {
+            linkMap[href.substring(1)] = link;
+        }
+    });
+
+    var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+
+            // Always clear — even for sections with no nav link (hero, contact)
+            navLinks.forEach(function (l) { l.classList.remove('active'); });
+
+            var link = linkMap[entry.target.id];
+            if (link) link.classList.add('active');
+        });
+    }, {
+        rootMargin: '-20% 0px -60% 0px',
+        threshold: 0
+    });
+
+    sections.forEach(function (section) {
+        observer.observe(section);
+    });
+}
+
+// Back to Top Button
+function initBackToTop() {
+    var btn = document.getElementById('back-to-top');
+    if (!btn) return;
+
+    var hero = document.getElementById('hero');
+    var showThreshold = hero ? hero.offsetHeight : 600;
+
+    window.addEventListener('scroll', function () {
+        if (window.scrollY > showThreshold) {
+            btn.classList.add('visible');
+        } else {
+            btn.classList.remove('visible');
+        }
+    }, { passive: true });
+
+    btn.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 }
 
 

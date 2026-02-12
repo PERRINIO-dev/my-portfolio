@@ -36,9 +36,27 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    var isNavigating = false;
+
     function openLightbox(index) {
         currentIndex = index;
         var image = galleryImages[currentIndex];
+
+        // If lightbox is already open, crossfade to new image
+        if (lightbox.classList.contains('active') && !isNavigating) {
+            isNavigating = true;
+            lightboxImg.classList.add('lightbox-fade');
+            setTimeout(function () {
+                lightboxImg.src = image.src;
+                lightboxImg.alt = image.caption;
+                lightboxCaption.textContent = image.caption;
+                lightboxCounter.textContent = (currentIndex + 1) + ' / ' + galleryImages.length;
+                lightboxImg.classList.remove('lightbox-fade');
+                isNavigating = false;
+            }, 200);
+            return;
+        }
+
         lightboxImg.src = image.src;
         lightboxImg.alt = image.caption;
         lightboxCaption.textContent = image.caption;

@@ -6,50 +6,7 @@
     --container: 900px;
 }
 
-/* ====== ACCESSIBILITY ====== */
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-}
-
-.sr-only:focus {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: auto;
-    height: auto;
-    padding: 1rem 2rem;
-    margin: 0;
-    overflow: visible;
-    clip: auto;
-    white-space: normal;
-    background: var(--accent);
-    color: var(--bg-deep);
-    font-weight: 700;
-    z-index: 10000;
-}
-
-/* ====== FONT-DISPLAY OVERRIDE ====== */
-/* Ensure Font Awesome fonts use swap to avoid invisible text */
-@font-face {
-    font-family: 'Font Awesome 6 Free';
-    font-weight: 900;
-    font-display: swap;
-    src: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2') format('woff2');
-}
-@font-face {
-    font-family: 'Font Awesome 6 Brands';
-    font-weight: 400;
-    font-display: swap;
-    src: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-brands-400.woff2') format('woff2');
-}
+/* Shared utilities (.sr-only, @font-face) now live in variables.css */
 
 /* ====== RESET & BASE ====== */
 *, *::before, *::after {
@@ -313,6 +270,27 @@ a {
 /* Sections */
 .content-section {
     margin-bottom: var(--space-2xl);
+}
+
+/* Spacing utilities — replaces inline style="" attributes */
+.content-section .highlight-box ~ .highlight-box,
+.content-section .content-list + .highlight-box,
+.content-section .overview-card + .highlight-box,
+.content-section .achievement-grid + .highlight-box,
+.content-section .table-container + .highlight-box {
+    margin-top: var(--space-lg);
+}
+
+.content-section .subsection-heading {
+    margin-top: var(--space-lg);
+    margin-bottom: var(--space-sm);
+}
+
+.gallery-note {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-top: var(--space-md);
 }
 
 .section-title {
@@ -746,6 +724,7 @@ a {
     opacity: 1;
 }
 
+.gallery-item-placeholder,
 .gallery-item:has(.gallery-placeholder) {
     cursor: default;
 }
@@ -868,6 +847,11 @@ a {
     object-fit: contain;
     border-radius: var(--radius-md);
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    transition: opacity 0.2s var(--ease-smooth);
+}
+
+.lightbox-content img.lightbox-fade {
+    opacity: 0;
 }
 
 .lightbox-caption {
@@ -1008,7 +992,7 @@ a {
     color: #ffffff;
 }
 
-.callout-box h4 {
+.callout-box h3 {
     font-family: var(--font-display);
     font-size: 1rem;
     margin-bottom: var(--space-xs);
@@ -1144,7 +1128,7 @@ a {
     gap: var(--space-lg);
 }
 
-.tech-category h4 {
+.tech-category h3 {
     font-family: var(--font-display);
     font-size: 0.85rem;
     text-transform: uppercase;
@@ -1226,22 +1210,22 @@ a {
 /* ====== HOVER TRANSFORMS (pointer devices only) ====== */
 @media (hover: hover) {
     .btn-primary:hover {
-        transform: translateY(-2px);
+        transform: translateY(var(--lift-subtle));
         box-shadow: 0 8px 30px var(--accent-glow);
     }
 
     .feature-card:hover {
-        transform: translateY(-4px);
-        box-shadow: var(--shadow-hover-card);
+        transform: translateY(var(--lift-subtle));
+        box-shadow: var(--shadow-hover-card), var(--shadow-glow-accent);
     }
 
     .gallery-item:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        transform: translateY(var(--lift-subtle));
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     }
 
     .gallery-item:hover img {
-        transform: scale(1.05);
+        transform: scale(1.03);
     }
 
     .architecture-image:hover img {
@@ -1249,19 +1233,20 @@ a {
     }
 
     .lightbox-close:hover {
-        transform: rotate(90deg);
+        transform: rotate(45deg);
     }
 
     .callout-box:hover {
-        transform: translateY(-4px);
+        transform: translateY(var(--lift-subtle));
         box-shadow: var(--shadow-glow-accent);
     }
 
     .back-btn:hover i {
-        transform: translateX(-4px);
+        transform: translateX(-3px);
     }
 
     .service-card:hover {
+        transform: translateY(var(--lift-micro));
         box-shadow: var(--shadow-glow-accent);
     }
 }
