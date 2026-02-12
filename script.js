@@ -39,9 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Stat counter
     initStatCounter();
 
-    // Hero fade on scroll
-    initHeroFade();
-
     // Contact form
     initContactForm();
 });
@@ -408,28 +405,4 @@ function initStatCounter() {
     stats.forEach(function (el) { observer.observe(el); });
 }
 
-// Hero Fade — reduce opacity and shift hero as user scrolls past
-function initHeroFade() {
-    var hero = document.querySelector('.hero');
-    if (!hero) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    var ticking = false;
-    window.addEventListener('scroll', function () {
-        if (ticking) return;
-        ticking = true;
-        requestAnimationFrame(function () {
-            var scrollY = window.pageYOffset;
-            var heroHeight = hero.offsetHeight;
-            if (scrollY < heroHeight) {
-                var progress = scrollY / heroHeight;
-                var opacity = 1 - progress * 0.6;
-                var translateY = progress * 30;
-                hero.style.opacity = opacity;
-                hero.style.transform = 'translateY(' + translateY + 'px)';
-            }
-            ticking = false;
-        });
-    }, { passive: true });
-}
 

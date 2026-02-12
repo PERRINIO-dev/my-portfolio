@@ -116,6 +116,10 @@ a {
     opacity: 0.6;
 }
 
+[data-theme="light"] .ambient-bg::after {
+    background: radial-gradient(circle, rgba(122, 86, 54, 0.05) 0%, transparent 70%);
+}
+
 /* ====== NAVIGATION ====== */
 .project-nav {
     position: fixed;

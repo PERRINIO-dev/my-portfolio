@@ -1638,8 +1638,8 @@ a {
 
 @media (max-width: 768px) {
     :root {
-        --space-2xl: 3rem;
-        --space-3xl: 5rem;
+        --space-2xl: 2.5rem;
+        --space-3xl: 3.5rem;
     }
 
     .about-grid {
@@ -1744,11 +1744,11 @@ a {
 }
 
 [data-theme="light"] .orb-1 {
-    background: radial-gradient(circle, rgba(139, 101, 66, 0.08) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(122, 86, 54, 0.08) 0%, transparent 70%);
 }
 
 [data-theme="light"] .orb-2 {
-    background: radial-gradient(circle, rgba(139, 101, 66, 0.05) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(122, 86, 54, 0.05) 0%, transparent 70%);
 }
 
 [data-theme="light"] .orb-3 {
@@ -1770,7 +1770,7 @@ a {
 }
 
 [data-theme="light"] .title-gradient {
-    background: linear-gradient(135deg, var(--accent) 0%, #b08660 50%, var(--accent) 100%);
+    background: linear-gradient(135deg, var(--accent) 0%, #946f4c 50%, var(--accent) 100%);
     -webkit-background-clip: text;
     background-clip: text;
 }
