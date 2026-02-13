@@ -16,7 +16,13 @@ document.addEventListener('DOMContentLoaded', function() {
     var currentIndex = 0;
     var previouslyFocused = null;
     var mainContent = document.querySelector('main');
-    var focusableElements = [closeBtn, prevBtn, nextBtn];
+
+    // Live-filter to only visible elements (prev/next are display:none on mobile)
+    function getVisibleFocusable() {
+        return [closeBtn, prevBtn, nextBtn].filter(function(el) {
+            return el && el.offsetParent !== null;
+        });
+    }
 
     // Collect all lightbox triggers
     var triggers = document.querySelectorAll('[data-lightbox]');
@@ -106,23 +112,20 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.key === 'ArrowLeft') showPrev();
         if (e.key === 'ArrowRight') showNext();
 
-        // Focus trap: cycle Tab between close, prev, next buttons
+        // Focus trap: cycle Tab between visible lightbox buttons
         if (e.key === 'Tab') {
+            var visible = getVisibleFocusable();
+            if (!visible.length) return;
+
             var currentFocus = document.activeElement;
-            var idx = focusableElements.indexOf(currentFocus);
+            var idx = visible.indexOf(currentFocus);
 
             if (e.shiftKey) {
-                // Shift+Tab: go backward
-                if (idx <= 0) {
-                    e.preventDefault();
-                    focusableElements[focusableElements.length - 1].focus();
-                }
+                e.preventDefault();
+                visible[idx <= 0 ? visible.length - 1 : idx - 1].focus();
             } else {
-                // Tab: go forward
-                if (idx === focusableElements.length - 1 || idx === -1) {
-                    e.preventDefault();
-                    focusableElements[0].focus();
-                }
+                e.preventDefault();
+                visible[idx === visible.length - 1 || idx === -1 ? 0 : idx + 1].focus();
             }
         }
     });

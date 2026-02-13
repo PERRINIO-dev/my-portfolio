@@ -396,9 +396,14 @@ a {
 .eyebrow-text {
     font-family: var(--font-mono);
     font-size: 0.8rem;
+    font-weight: 500;
     color: var(--accent);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
+    padding: 0.35rem 0.9rem;
+    border: 1px solid rgba(196, 144, 112, 0.25);
+    border-radius: var(--radius-xl);
+    background: var(--accent-subtle);
 }
 
 .hero-title {
@@ -426,25 +431,7 @@ a {
     margin-bottom: var(--space-xl);
 }
 
-/* Buttons */
-.btn {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-sm);
-    padding: 1rem 1.75rem;
-    font-family: var(--font-body);
-    font-size: 0.9375rem;
-    font-weight: 600;
-    border-radius: var(--radius-md);
-    border: none;
-    cursor: pointer;
-    transition: transform var(--duration-standard) var(--ease-smooth),
-                background var(--duration-standard) var(--ease-smooth),
-                color var(--duration-standard) var(--ease-smooth),
-                border-color var(--duration-standard) var(--ease-smooth),
-                box-shadow var(--duration-standard) var(--ease-smooth);
-}
-
+/* Buttons (.btn base is in variables.css) */
 .btn-primary {
     background: var(--accent);
     color: var(--bg-deep);
@@ -1550,10 +1537,7 @@ a {
 }
 
 /* ====== TAP FEEDBACK ====== */
-.btn:active {
-    transform: scale(0.97);
-    transition-duration: 0.1s;
-}
+/* .btn:active base is in variables.css */
 
 .btn-primary:active {
     transform: scale(0.97);
@@ -1873,13 +1857,14 @@ a {
     background-clip: text;
 }
 
-[data-theme="light"] .btn-primary {
-    background: var(--accent);
-    color: #ffffff;
-}
+/* [data-theme="light"] .btn-primary color is in variables.css */
 
 [data-theme="light"] .btn-primary:hover {
     background: var(--accent-dim);
+}
+
+[data-theme="light"] .eyebrow-text {
+    border-color: rgba(122, 86, 54, 0.25);
 }
 
 [data-theme="light"] .portrait-img {

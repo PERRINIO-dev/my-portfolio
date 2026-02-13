@@ -467,23 +467,7 @@ a {
     flex-wrap: wrap;
 }
 
-.btn {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-sm);
-    padding: 1rem 1.75rem;
-    font-family: var(--font-body);
-    font-size: 0.9375rem;
-    font-weight: 600;
-    border-radius: var(--radius-md);
-    border: none;
-    cursor: pointer;
-    transition: transform var(--duration-standard) var(--ease-smooth),
-                background var(--duration-standard) var(--ease-smooth),
-                color var(--duration-standard) var(--ease-smooth),
-                border-color var(--duration-standard) var(--ease-smooth),
-                box-shadow var(--duration-standard) var(--ease-smooth);
-}
+/* .btn base is in variables.css */
 
 .btn-primary {
     background: var(--accent);
@@ -494,9 +478,7 @@ a {
     background: var(--accent-dim);
 }
 
-[data-theme="light"] .btn-primary {
-    color: #ffffff;
-}
+/* [data-theme="light"] .btn-primary is in variables.css */
 
 [data-theme="light"] .tech-tag {
     background: var(--bg-primary);
@@ -1259,10 +1241,7 @@ a {
     transition-duration: 0.1s;
 }
 
-.btn:active {
-    transform: scale(0.97);
-    transition-duration: 0.1s;
-}
+/* .btn:active is in variables.css */
 
 .feature-card:active {
     transform: scale(0.98);
